@@ -1,0 +1,77 @@
+﻿using Sirenix.OdinInspector;
+using UnityEngine;
+using UnityEngine.UI;
+using Object = UnityEngine.Object;
+
+namespace Vortex.UI.Components.UIComponents
+{
+    public class UIComponentGraphic : UIComponentPart
+    {
+        [SerializeField, OnValueChanged("ChangeGraphic")]
+        private Object graphic;
+
+#if UNITY_EDITOR
+        [OnInspectorInit]
+        private void Search()
+        {
+            if (graphic != null)
+                return;
+            graphic = GetComponent<Graphic>();
+            ChangeGraphic();
+        }
+
+        private void ChangeGraphic()
+        {
+            if (graphic == null)
+                return;
+            switch (graphic)
+            {
+                case SpriteRenderer sprRend:
+                case Image img:
+                    return;
+                    break;
+            }
+
+            graphic = null;
+        }
+#endif
+        public void PutData(Sprite sprite)
+        {
+            switch (graphic)
+            {
+                case SpriteRenderer sprRend:
+                    sprRend.sprite = sprite;
+                    break;
+                case Image img:
+                    img.sprite = sprite;
+                    break;
+            }
+        }
+
+        private void OnDestroy()
+        {
+            switch (graphic)
+            {
+                case SpriteRenderer sprRend:
+                    sprRend.sprite = null;
+                    break;
+                case Image img:
+                    img.sprite = null;
+                    break;
+            }
+        }
+
+        public Sprite GetValue()
+        {
+            switch (graphic)
+            {
+                case SpriteRenderer sprRend:
+                    return sprRend.sprite;
+                case Image img:
+                    return img.sprite;
+            }
+
+            return null;
+        }
+    }
+}

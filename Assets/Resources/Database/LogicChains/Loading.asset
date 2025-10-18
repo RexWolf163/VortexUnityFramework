@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff40b88c94f4482c82f00c4879460e7f, type: 3}
+  m_Name: Loading
+  m_EditorClassIdentifier: 
+  guid: 56fde8c4050425fe3e55f17700970e09c314cde6f278a9acc90167efdc27cba6
+  nameRecord: Loading
+  description: "\u043F\u0440\u043E\u0446\u0435\u0434\u0443\u0440\u0430 \u0437\u0430\u043F\u0443\u0441\u043A\u0430
+    \u043F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u044F"
+  stages:
+  - rid: 2547342312516091955
+  - rid: 2547342312516091956
+  - rid: 2547342312516091958
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 2547342312516091955
+      type: {class: LoadScene, ns: Vortex.Chains.Model.Stage, asm: ru.vortex.unity.chains}
+      data:
+        _condition:
+          rid: 2547342343080247348
+        additiveMode: 0
+        sceneName: preloader
+    - rid: 2547342312516091956
+      type: {class: LoadScene, ns: Vortex.Chains.Model.Stage, asm: ru.vortex.unity.chains}
+      data:
+        _condition:
+          rid: 2547342312516091957
+        additiveMode: 0
+        sceneName: map
+    - rid: 2547342312516091957
+      type: {class: WaitingAppState, ns: Vortex.Chains.Model, asm: ru.vortex.unity.chains}
+      data:
+        _state: 4
+    - rid: 2547342312516091958
+      type: {class: LoadScene, ns: Vortex.Chains.Model.Stage, asm: ru.vortex.unity.chains}
+      data:
+        _condition:
+          rid: -2
+        additiveMode: 1
+        sceneName: ui
+    - rid: 2547342343080247348
+      type: {class: WaitingTime, ns: Vortex.Chains.Model, asm: ru.vortex.unity.chains}
+      data:
+        milliseconds: 1000

@@ -1,0 +1,19 @@
+{
+    "name": "ru.vortex.unity.database",
+    "rootNamespace": "",
+    "references": [
+        "GUID:f3e27e2402bbacb4eb9c8f5c8cbdd91b",
+        "GUID:7c6d3de99517c0549ae82af52cb16906",
+        "GUID:eff4b9098a6ac9e4cbc64d8fdc43841a",
+        "GUID:a000d82bd3b5f184d85d60edcf4c277f"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

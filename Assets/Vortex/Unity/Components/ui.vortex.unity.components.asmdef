@@ -1,0 +1,18 @@
+{
+    "name": "ui.vortex.unity.components",
+    "rootNamespace": "",
+    "references": [
+        "GUID:a000d82bd3b5f184d85d60edcf4c277f",
+        "GUID:f1e680f843d477b4982469a7325c2f44",
+        "GUID:b4a36a28d80aa944cb3ba9d58984b2f0"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
