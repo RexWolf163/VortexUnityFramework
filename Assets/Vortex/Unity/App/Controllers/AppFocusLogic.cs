@@ -23,8 +23,8 @@ namespace Vortex.Core.App
 
         private void Awake()
         {
-            _oldState = AppController.Data.GetState();
-            AppController.Data.OnStateChanged += OnStateChanged;
+            _oldState = Bus.App.Data.GetState();
+            Bus.App.Data.OnStateChanged += OnStateChanged;
         }
 
         private void OnApplicationFocus(bool hasFocus)
@@ -41,7 +41,7 @@ namespace Vortex.Core.App
 
         private void SetPauseState()
         {
-            AppController.Data.SetState(_pauseState ? AppStates.Unfocused : _oldState);
+            Bus.App.Data.SetState(_pauseState ? AppStates.Unfocused : _oldState);
         }
 
         private void OnStateChanged(AppStates newState)
@@ -62,8 +62,8 @@ namespace Vortex.Core.App
                 return;
             StopAllCoroutines();
 #endif
-            AppController.Exit();
-            AppController.Data.OnStateChanged -= OnStateChanged;
+            Bus.App.Exit();
+            Bus.App.Data.OnStateChanged -= OnStateChanged;
         }
 
 #if UNITY_EDITOR

@@ -1,3 +1,4 @@
 {
-	"name": "ru.vortex.settings"
+	"name": "ru.vortex.settings",
+	"references":[ "GUID:a000d82bd3b5f184d85d60edcf4c277f" ]
 }

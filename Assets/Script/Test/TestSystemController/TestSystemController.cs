@@ -2,28 +2,32 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
-using Vortex.Core.Loading;
-using Vortex.Core.Loading.Controllers;
-using Vortex.Core.Loading.SystemController;
+using Vortex.Core.AppLoading.Base;
+using Vortex.Core.AppLoading.Base.SystemController;
 
 /// <summary>
 /// Тестовый контроллер для проверки системы загрузки и индикации ее процесса 
 /// </summary>
-public class TestSystemController : ISystemController
+public class TestSystemController : SystemController<TestSystemController>
 {
     [RuntimeInitializeOnLoadMethod]
-    private static void Run() => AppLoader.Register<TestSystemController>();
+    private static void Run() => Register();
 
-    private LoadingData _loadingData = new()
+    public Type[] WaitingFor() => null;
+
+    public override LoadingData GetAgentLoadingData()
     {
-        Name = "TestSystem",
-        Progress = 0,
-        Size = 100
-    };
+        return _loadingData ??= new LoadingData
+        {
+            Name = "TestSystem",
+            Progress = 0,
+            Size = 100
+        };
+    }
 
-    public LoadingData GetLoadingData() => _loadingData;
+    public override Type[] GetAgentWaitingFor() => null;
 
-    public async Task LoadAsync(CancellationToken cancellationToken)
+    public override async Task AgentLoadAsync(CancellationToken cancellationToken)
     {
         for (var i = 1; i <= _loadingData.Size; i++)
         {
@@ -40,6 +44,4 @@ public class TestSystemController : ISystemController
 
         await Task.CompletedTask;
     }
-
-    public Type[] WaitingFor() => null;
 }

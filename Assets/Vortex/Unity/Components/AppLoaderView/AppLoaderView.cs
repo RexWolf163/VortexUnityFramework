@@ -2,9 +2,10 @@ using System.Collections;
 using System.Linq;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using Vortex.Core.App;
+using Vortex.Core.App.Bus;
+using Vortex.Core.App.Model;
+using Vortex.Core.AppLoading.Bus;
 using Vortex.Core.Enums;
-using Vortex.Core.Loading.Controllers;
 using Vortex.UI.Components.UIComponents;
 
 public class AppLoaderView : MonoBehaviour
@@ -23,7 +24,7 @@ public class AppLoaderView : MonoBehaviour
 
     private void Awake()
     {
-        _data = AppController.Data;
+        _data = App.Data;
         _data.OnStateChanged += OnStateChange;
         OnStateChange(_data.GetState());
     }

@@ -1,9 +1,7 @@
 using System;
-using System.Collections.Generic;
-using Vortex.Core.Loading.SystemController;
 using Vortex.Core.Enums;
 
-namespace Vortex.Core.App
+namespace Vortex.Core.App.Model
 {
     /// <summary>
     /// Модель данных приложения
@@ -18,12 +16,7 @@ namespace Vortex.Core.App
         /// <summary>
         /// отметка времени начала работы приложения
         /// </summary>
-        private DateTime _startTime;
-
-        /// <summary>
-        /// Реестр системных контроллеров, которые загружаются асинхронно
-        /// </summary>
-        internal Dictionary<Type, ISystemController> controllers = new();
+        private readonly DateTime _startTime;
 
         internal AppModel()
         {

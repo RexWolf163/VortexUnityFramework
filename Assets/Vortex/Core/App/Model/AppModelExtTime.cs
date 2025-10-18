@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Vortex.Core.App
+namespace Vortex.Core.App.Model
 {
     public partial class AppModel
     {

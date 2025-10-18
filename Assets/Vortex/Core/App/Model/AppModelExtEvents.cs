@@ -2,7 +2,7 @@
 using UnityEngine;
 using Vortex.Core.Enums;
 
-namespace Vortex.Core.App
+namespace Vortex.Core.App.Model
 {
     public partial class AppModel
     {

@@ -177,7 +177,6 @@ GameObject:
   - component: {fileID: 573281735}
   - component: {fileID: 573281734}
   - component: {fileID: 573281736}
-  - component: {fileID: 573281737}
   m_Layer: 0
   m_Name: StartHandler
   m_TagString: Untagged
@@ -201,7 +200,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 573281736}
-        m_TargetAssemblyTypeName: Vortex.Chains.ChainHandler, ru.vortex.unity.chains
+        m_TargetAssemblyTypeName: Vortex.Unity.UI.Components.LoadSceneHandler, ui.vortex.unity.components
         m_MethodName: Run
         m_Mode: 1
         m_Arguments:
@@ -245,25 +244,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 573281732}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bd205e78c7a51642a86be0cda0e950f, type: 3}
+  m_Script: {fileID: 11500000, guid: d77d40928b575b7458b1c4b8f1de8bae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chainData: 
-  data: {fileID: 11400000, guid: 80c7e13b06313de41836885b28be9d22, type: 2}
-  selfDestroyOnComplete: 1
---- !u!114 &573281737
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 573281732}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7e43eaa72c5590499a387f28b692f67, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  key: start handler
+  sceneName: preloader
+  additiveMode: 0
 --- !u!1 &815332543
 GameObject:
   m_ObjectHideFlags: 0

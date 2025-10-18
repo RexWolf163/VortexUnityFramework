@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using Vortex.Core.Loading.Controllers;
-using Vortex.Unity.Settings.Controllers;
+using Vortex.Core.AppLoading.Bus;
 
 namespace Vortex.Unity.Loading.Handlers
 {
@@ -17,7 +16,7 @@ namespace Vortex.Unity.Loading.Handlers
         [RuntimeInitializeOnLoadMethod]
         private static void Run()
         {
-            var settings = SettingsController.Data();
+            var settings = Settings.Bus.Settings.Data();
             if (settings == null)
             {
                 Debug.LogError(
