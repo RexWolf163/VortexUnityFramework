@@ -6,6 +6,6 @@
     public struct SaveData
     {
         public string Id;
-        public string Json;
+        public string Data;
     }
 }

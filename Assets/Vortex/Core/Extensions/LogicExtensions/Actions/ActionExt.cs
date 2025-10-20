@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace Vortex.Core.Extensions.LogicExtensions.Actions
 {
@@ -226,10 +227,17 @@ namespace Vortex.Core.Extensions.LogicExtensions.Actions
         {
             var result = new List<T>();
             var list = func?.GetInvocationList() ?? Array.Empty<Delegate>();
-            foreach (var @delegate in list)
+            try
             {
-                var outData = @delegate.DynamicInvoke();
-                result.Add((T)outData);
+                foreach (var @delegate in list)
+                {
+                    var outData = @delegate.DynamicInvoke();
+                    result.Add((T)outData);
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.LogException(ex);
             }
 
             return result.ToArray();

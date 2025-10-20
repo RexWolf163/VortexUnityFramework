@@ -1,6 +1,9 @@
-﻿using Vortex.Core.DatabaseSystem.Model;
+﻿using System;
+using UnityEngine;
+using Vortex.Core.DatabaseSystem.Model;
 
+[Serializable]
 public class TestItem : Record
 {
-    public string Chain { get; protected set; }
+    [field: SerializeField] public string Chain { get; protected set; }
 }

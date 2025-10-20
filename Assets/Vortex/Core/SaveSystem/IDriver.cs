@@ -11,21 +11,25 @@ namespace Vortex.Core.SaveSystem
         /// Сохранить строки в сейв 
         /// </summary>
         /// <param name="guid"></param>
-        /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public Task Save(string guid, CancellationToken cancellationToken);
+        public void Save(string guid);
 
         /// <summary>
         /// Загрузить сейв
         /// </summary>
         /// <param name="guid"></param>
-        /// <param name="cancellationToken"></param>
         /// <returns></returns>
-        public Task Load(string guid, CancellationToken cancellationToken);
+        public void Load(string guid);
 
         /// <summary>
         /// Передать линк на индекс
         /// </summary>
         public void SetIndexLink(Dictionary<string, string> index);
+
+        /// <summary>
+        /// Возвращает все существующие сейвы
+        /// </summary>
+        /// <returns></returns>
+        public HashSet<string> GetIndex();
     }
 }

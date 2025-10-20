@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 using Sirenix.Utilities;
 using UnityEngine;
 using Vortex.Core.Extensions.LogicExtensions;
 using Vortex.Core.SaveSystem;
+using Vortex.Core.SaveSystem.Abstraction;
 using Vortex.Unity.SaveSystem.Storage;
 
 namespace Vortex.Unity.SaveSystem
@@ -34,50 +33,46 @@ namespace Vortex.Unity.SaveSystem
         {
         }
 
-        public async Task Save(string guid, CancellationToken cancellationToken)
+        public void Save(string guid)
         {
             var count = _saveDataIndex.Count;
-            var save = new SaveStorage[count];
+            var save = new SaveStorage
+            {
+                data = new List<SaveData>()
+            };
             var list = _saveDataIndex.Keys.ToArray();
             for (var i = 0; i < count; i++)
             {
                 var data = _saveDataIndex[list[i]];
-                save[i] = new SaveStorage()
-                {
-                    Id = list[i],
-                    Data = data
-                };
+                save.data.Add(new SaveData { Id = list[i], Data = data });
             }
 
-            var xmls = new XmlSerializer(typeof(SaveStorage[]));
+            var xmls = new XmlSerializer(typeof(SaveStorage));
             var sw = new StringWriter();
             xmls.Serialize(sw, save);
             var saveData = sw.ToString();
 
-            PlayerPrefs.SetString(GetSaveName(guid), saveData);
+            PlayerPrefs.SetString(GetSaveName(guid), saveData.Compress(guid));
 
-            await Task.CompletedTask;
+            _saves.Add(guid);
         }
 
-        public async Task Load(string guid, CancellationToken cancellationToken)
+        public void Load(string guid)
         {
             _saveDataIndex.Clear();
             var saveData = PlayerPrefs.GetString(GetSaveName(guid));
             saveData = saveData.Decompress(guid);
 
-            var xmls = new XmlSerializer(typeof(SaveStorage[]));
-            var save = xmls.Deserialize(new StringReader(saveData)) as SaveStorage[];
+            var xmls = new XmlSerializer(typeof(SaveStorage));
+            var save = xmls.Deserialize(new StringReader(saveData)) as SaveStorage;
             if (save == null)
             {
                 Debug.LogError($"[SaveSystemDriver] Error while loading save data from {guid}.]");
-                await Task.CompletedTask;
                 return;
             }
 
-            foreach (var item in save)
+            foreach (var item in save.data)
                 _saveDataIndex.AddNew(item.Id, item.Data);
-
-            await Task.CompletedTask;
         }
 
         public void SetIndexLink(Dictionary<string, string> index) => _saveDataIndex = index;
@@ -88,5 +83,11 @@ namespace Vortex.Unity.SaveSystem
         /// <param name="guid"></param>
         /// <returns></returns>
         private static string GetSaveName(string guid) => $"{SavePrefix}{guid}";
+
+        /// <summary>
+        /// Возвращает все существующие сейвы
+        /// </summary>
+        /// <returns></returns>
+        public HashSet<string> GetIndex() => _saves;
     }
 }

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using Vortex.Core.Extensions.LogicExtensions;
 using Vortex.Core.Extensions.LogicExtensions.Actions;
 using Vortex.Core.LoggerSystem.Bus;
@@ -35,15 +33,21 @@ namespace Vortex.Core.SaveSystem.Bus
         /// </summary>
         public static event Action OnLoad;
 
-        protected override void OnDriverConnect() => Driver.SetIndexLink(_saveDataIndex);
+        protected override void OnDriverConnect()
+        {
+            OnSave = null;
+            OnLoadStart = null;
+            OnSaveStart = null;
+            OnLoad = null;
+            Driver.SetIndexLink(_saveDataIndex);
+        }
 
         /// <summary>
         /// Запуск процедуры сохранения данных
         /// Если GUID не указан - сохранится под новым GUID
         /// </summary>
-        /// <param name="cancellationToken"></param>
         /// <param name="guid"></param>
-        public static async Task Save(CancellationToken cancellationToken, string guid = null)
+        public static void Save(string guid = null)
         {
             OnSaveStart?.Invoke();
             var list = OnSave?.Accumulate();
@@ -51,24 +55,21 @@ namespace Vortex.Core.SaveSystem.Bus
                 return;
             _saveDataIndex.Clear();
             foreach (var item in list)
-                _saveDataIndex.AddNew(item.Id, item.Json);
+                _saveDataIndex.AddNew(item.Id, item.Data);
 
             guid ??= Crypto.GetNewGuid();
-            await Task.Run(() => Driver.Save(guid, cancellationToken), cancellationToken);
-            await Task.CompletedTask;
+            Driver.Save(guid);
         }
 
         /// <summary>
         /// Загрузить сейв
         /// </summary>
         /// <param name="guid">guid сейва</param>
-        /// <param name="cancellationToken"></param>
-        public static async void Load(string guid, CancellationToken cancellationToken)
+        public static void Load(string guid)
         {
             OnLoadStart?.Invoke();
-            await Task.Run(() => Driver.Load(guid, cancellationToken), cancellationToken);
+            Driver.Load(guid);
             OnLoad?.Invoke();
-            await Task.CompletedTask;
         }
 
         /// <summary>
@@ -83,5 +84,7 @@ namespace Vortex.Core.SaveSystem.Bus
             Log.Print(new LogData(LogLevel.Error, $"Save data not found for id: {id}", Instance));
             return "";
         }
+
+        public static HashSet<string> GetIndex() => Driver.GetIndex();
     }
 }

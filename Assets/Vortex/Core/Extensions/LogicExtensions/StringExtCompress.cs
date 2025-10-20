@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Text;
@@ -22,12 +23,12 @@ namespace Vortex.Core.Extensions.LogicExtensions
             }
 
             var bytes = memoryStream.ToArray();
-            return Encoding.UTF8.GetString(bytes);
+            return Convert.ToBase64String(bytes);
         }
 
         public static string Decompress(this string data, string key)
         {
-            var bytes = Encoding.UTF8.GetBytes(data);
+            var bytes = Convert.FromBase64String(data);
             using MemoryStream ms = new MemoryStream(bytes);
 
             // Открываем архив из массива байтов
