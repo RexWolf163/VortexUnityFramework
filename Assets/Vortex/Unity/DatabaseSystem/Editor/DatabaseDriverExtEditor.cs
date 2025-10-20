@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿using Sirenix.OdinInspector;
+using UnityEditor;
 using UnityEngine;
 using Vortex.Core.DatabaseSystem.Bus;
 using Vortex.Unity.DatabaseSystem.Storage;
@@ -16,8 +17,6 @@ namespace Vortex.Unity.DatabaseSystem
             Instance.LoadDb();
         }
 
-        public static void RefreshDb() => Instance.LoadDb();
-
         private void LoadDb()
         {
             _recordsLink.Clear();
@@ -28,6 +27,26 @@ namespace Vortex.Unity.DatabaseSystem
                     continue;
                 AddRecord(data.GetData(), data.Guid, data.Name);
             }
+        }
+
+        internal ValueDropdownList<string> GetDropdownList()
+        {
+            var result = new ValueDropdownList<string>();
+            Instance.LoadDb();
+
+            foreach (var record in _resources)
+            {
+                if (record is not IRecordStorage item)
+                    continue;
+                var path = AssetDatabase.GetAssetPath(record.GetInstanceID());
+                var tempAr = path.Split(Path + "/");
+                if (tempAr.Length == 0)
+                    continue;
+                path = tempAr[1];
+                result.Add(path, item.Guid);
+            }
+
+            return result;
         }
     }
 }
