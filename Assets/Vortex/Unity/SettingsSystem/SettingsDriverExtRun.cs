@@ -5,7 +5,7 @@ namespace Vortex.Unity.SettingsSystem
 {
     public partial class SettingsDriver
     {
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         private static void Run() => Settings.SetDriver(Instance);
     }
 }

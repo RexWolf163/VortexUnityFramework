@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Vortex.Core.UI.Interfaces.Components
+namespace Vortex.Unity.Components.Misc
 {
     /// <summary>
     /// Контейнер для хранения невыгружаемых объектов

@@ -1,6 +1,6 @@
 using UnityEngine.SceneManagement;
 
-namespace Vortex.Unity.UI.Components
+namespace Vortex.Unity.Components.SceneControllers
 {
     public class UnloadSceneHandler : SceneHandler
     {

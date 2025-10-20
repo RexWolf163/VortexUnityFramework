@@ -174,7 +174,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 573281735}
-  - component: {fileID: 573281736}
+  - component: {fileID: 573281737}
+  - component: {fileID: 573281738}
+  - component: {fileID: 573281739}
   m_Layer: 0
   m_Name: StartHandler
   m_TagString: Untagged
@@ -197,7 +199,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &573281736
+--- !u!114 &573281737
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -206,10 +208,60 @@ MonoBehaviour:
   m_GameObject: {fileID: 573281732}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8bd76829f6d3a345802d18bf10eb1d5, type: 3}
+  m_Script: {fileID: 11500000, guid: d77d40928b575b7458b1c4b8f1de8bae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  db: e70b8f702615ca2f8d47b6b44b825ac24cd8dada960e20f1e3446de4e0bc669e
+  sceneName: preloader
+  additiveMode: 0
+--- !u!114 &573281738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 573281732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c117cf2c5815474d9db98a24207065e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onAwake:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 573281737}
+        m_TargetAssemblyTypeName: Vortex.Unity.Components.SceneControllers.LoadSceneHandler,
+          ui.vortex.unity.components
+        m_MethodName: Run
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onDestroy:
+    m_PersistentCalls:
+      m_Calls: []
+  onEnable:
+    m_PersistentCalls:
+      m_Calls: []
+  onDisable:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &573281739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 573281732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbf78b5138924634a4a596b9137d0516, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &881643557
 GameObject:
   m_ObjectHideFlags: 0

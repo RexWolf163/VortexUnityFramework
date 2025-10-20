@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
+using Vortex.Core.DatabaseSystem.Bus;
 using Vortex.Core.LoaderSystem.Bus;
 using Vortex.Core.LoaderSystem.Loadable;
 using Vortex.Unity.DatabaseSystem.Storage;
@@ -25,6 +26,7 @@ namespace Vortex.Unity.DatabaseSystem
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSplashScreen)]
         private static void Register()
         {
+            Database.SetDriver(Instance);
             Loader.Register<DatabaseDriver>();
             _resources = Resources.LoadAll(Path);
         }

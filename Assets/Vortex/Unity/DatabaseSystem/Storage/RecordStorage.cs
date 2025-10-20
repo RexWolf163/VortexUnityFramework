@@ -1,12 +1,11 @@
-﻿using System;
-using Sirenix.OdinInspector;
-using UnityEditor;
+﻿using Sirenix.OdinInspector;
 using UnityEngine;
 using Vortex.Core.DatabaseSystem.Model;
 using Vortex.Core.Extensions.LogicExtensions;
 using Vortex.Core.System.Abstractions.SystemControllers;
 using Vortex.Unity.Extensions.Abstractions;
 #if UNITY_EDITOR
+using UnityEditor;
 using System.IO;
 #endif
 
@@ -63,6 +62,8 @@ namespace Vortex.Unity.DatabaseSystem.Storage
 
         private void OnNameChanged()
         {
+            return;
+            /*
             var number = 0;
             var name = nameRecord;
             if (name == string.Empty) name = DefaultName;
@@ -84,6 +85,7 @@ namespace Vortex.Unity.DatabaseSystem.Storage
 
             if (number > 0 && nameRecord != string.Empty)
                 Debug.LogError($"[DbRecord] Name {name} for records already exists!");
+        */
         }
 #endif
     }

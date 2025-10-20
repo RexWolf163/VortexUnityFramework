@@ -25,6 +25,8 @@ namespace Vortex.Core.LoaderSystem.Bus
     /// </summary>
     public static class Loader
     {
+        #region Params
+
         /// <summary>
         /// Прогресс загрузки
         /// </summary>
@@ -50,7 +52,19 @@ namespace Vortex.Core.LoaderSystem.Bus
         /// </summary>
         private static CancellationToken Token => CancelTokenSource.Token;
 
-        private static Dictionary<Type, ILoadable> _queue = new();
+        /// <summary>
+        /// Очередь загрузки
+        /// </summary>
+        private static readonly Dictionary<Type, ILoadable> Queue = new();
+
+        /// <summary>
+        /// Защита от мультивызова
+        /// </summary>
+        private static bool _isRunning = false;
+
+        #endregion
+
+        #region Public
 
         /// <summary>
         /// Регистрация в очереди на загрузку
@@ -59,8 +73,8 @@ namespace Vortex.Core.LoaderSystem.Bus
         public static void Register<T>() where T : ILoadable, new()
         {
             var type = typeof(T);
-            _queue.AddNew(type, new T());
-            _size = _queue.Count;
+            Queue.AddNew(type, new T());
+            _size = Queue.Count;
         }
 
         /// <summary>
@@ -68,16 +82,38 @@ namespace Vortex.Core.LoaderSystem.Bus
         /// </summary>
         public static async void Run()
         {
+            if (_isRunning)
+                return;
+            _isRunning = true;
             App.OnExit += Destroy;
             await Task.Run(() => Loading(Token));
             App.SetState(AppStates.Running);
         }
 
+        /// <summary>
+        /// Прогресс загрузки
+        /// </summary>
+        /// <returns></returns>
+        public static int GetProgress() => _progress;
+
+        /// <summary>
+        /// Общее кол-во шагов загрузки
+        /// </summary>
+        public static int GetSize() => _size;
+
+        /// <summary>
+        /// Данные загрузки текущего загружаемого модуля
+        /// </summary>
+        public static LoadingData GetCurrentLoadingData() => _currentLoadingSystem;
+
+        #endregion
+
+        #region Private
+
         private static void Destroy()
         {
             App.OnExit -= Destroy;
             CancelTokenSource.Cancel();
-            CancelTokenSource.Dispose();
         }
 
         /// <summary>
@@ -87,7 +123,7 @@ namespace Vortex.Core.LoaderSystem.Bus
         {
             App.SetState(AppStates.Starting);
             //Ждем все подписки
-            var queue = _queue.Values.ToList();
+            var queue = Queue.Values.ToList();
             var loaded = new HashSet<Type>();
             while (queue.Count > 0)
             {
@@ -106,7 +142,7 @@ namespace Vortex.Core.LoaderSystem.Bus
                     var waitFor = controller.WaitingFor() ?? Array.Empty<Type>();
                     foreach (var type in waitFor)
                     {
-                        if (!_queue.ContainsKey(type))
+                        if (!Queue.ContainsKey(type))
                         {
                             Log.Print(new LogData(LogLevel.Error,
                                 $"The expected сontroller {type} not found",
@@ -173,20 +209,6 @@ namespace Vortex.Core.LoaderSystem.Bus
                 "AppLoader"));
         }
 
-        /// <summary>
-        /// Прогресс загрузки
-        /// </summary>
-        /// <returns></returns>
-        public static int GetProgress() => _progress;
-
-        /// <summary>
-        /// Общее кол-во шагов загрузки
-        /// </summary>
-        public static int GetSize() => _size;
-
-        /// <summary>
-        /// Данные загрузки текущего загружаемого модуля
-        /// </summary>
-        public static LoadingData GetCurrentLoadingData() => _currentLoadingSystem;
+        #endregion
     }
 }

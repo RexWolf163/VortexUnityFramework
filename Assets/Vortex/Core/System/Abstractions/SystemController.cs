@@ -14,7 +14,7 @@
         /// запускаются процессы отключения старого драйвера и инициализации нового</returns>
         public static bool SetDriver(TD driver)
         {
-            if (Driver != null && Driver.Equals(driver))
+            if (Driver != null && !Driver.Equals(driver))
             {
                 Driver.Destroy();
                 Driver = driver;

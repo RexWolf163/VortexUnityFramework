@@ -3,14 +3,19 @@ using UnityEngine;
 using Vortex.Core.DatabaseSystem;
 using Vortex.Core.DatabaseSystem.Model;
 using Vortex.Core.Extensions.LogicExtensions;
+using Vortex.Core.SettingsSystem.Bus;
 using Vortex.Core.System.Abstractions;
 
 namespace Vortex.Unity.DatabaseSystem
 {
     public partial class DatabaseDriver : Singleton<DatabaseDriver>, IDriver
     {
-        private SortedDictionary<string, Record> _recordsLink;
+        private static SortedDictionary<string, Record> _recordsLink;
 
+        /// <summary>
+        /// Инициализация
+        /// Запускается автоматически после назначения драйвера системе
+        /// </summary>
         public void Init()
         {
         }
@@ -23,7 +28,8 @@ namespace Vortex.Unity.DatabaseSystem
 
         public void Destroy()
         {
-            Debug.LogError("DatabaseDriver is destroyed");
+            if (Settings.Data().DebugMode)
+                Debug.LogError("DatabaseDriver is destroyed");
         }
 
         /// <summary>

@@ -1,7 +1,7 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Vortex.Unity.UI.Components
+namespace Vortex.Unity.Components.SceneControllers
 {
     public abstract class SceneHandler : MonoBehaviour
     {

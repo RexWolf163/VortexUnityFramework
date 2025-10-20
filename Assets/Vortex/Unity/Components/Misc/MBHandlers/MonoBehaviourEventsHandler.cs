@@ -1,18 +1,21 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class MonoBehaviourEventsHandler : MonoBehaviour
+namespace Vortex.Unity.Components.Misc.MBHandlers
 {
-    [SerializeField] private UnityEvent onAwake = new();
-    [SerializeField] private UnityEvent onDestroy = new();
-    [SerializeField] private UnityEvent onEnable = new();
-    [SerializeField] private UnityEvent onDisable = new();
+    public class MonoBehaviourEventsHandler : MonoBehaviour
+    {
+        [SerializeField] private UnityEvent onAwake = new();
+        [SerializeField] private UnityEvent onDestroy = new();
+        [SerializeField] private UnityEvent onEnable = new();
+        [SerializeField] private UnityEvent onDisable = new();
 
-    private void Awake() => onAwake?.Invoke();
+        private void Awake() => onAwake?.Invoke();
 
-    private void OnDestroy() => onDestroy?.Invoke();
+        private void OnDestroy() => onDestroy?.Invoke();
 
-    private void OnEnable() => onEnable?.Invoke();
+        private void OnEnable() => onEnable?.Invoke();
 
-    private void OnDisable() => onDisable?.Invoke();
+        private void OnDisable() => onDisable?.Invoke();
+    }
 }
