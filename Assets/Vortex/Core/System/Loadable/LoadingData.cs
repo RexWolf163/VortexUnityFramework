@@ -1,4 +1,4 @@
-﻿namespace Vortex.Core.LoaderSystem.Loadable
+﻿namespace Vortex.Core.System.Loadable
 {
     public class LoadingData
     {

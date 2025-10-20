@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using Vortex.Core.LoaderSystem.Bus;
 using Vortex.Core.LoaderSystem.Loadable;
+using Vortex.Core.System.Loadable;
 
 /// <summary>
 /// Тестовый контроллер для проверки системы загрузки и индикации ее процесса 

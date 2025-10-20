@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Security.Cryptography;
 using System.Text;
-using NotImplementedException = System.NotImplementedException;
 
 namespace Vortex.Core.Extensions.LogicExtensions
 {
     public static class Crypto
     {
-        private static long lastTime;
+        private static long _lastTime;
 
-        private static int counter;
+        private static int _counter;
+
+        private static Random _random;
+        private static Random Random => _random ??= new Random();
+
 
         public static string GetHashSha256(string text)
         {
@@ -25,15 +28,15 @@ namespace Vortex.Core.Extensions.LogicExtensions
         public static string GetNewGuid()
         {
             var temp = DateTime.UtcNow.ToFileTimeUtc();
-            if (temp == lastTime)
-                counter++;
+            if (temp == _lastTime)
+                _counter++;
             else
             {
-                lastTime = temp;
-                counter = 0;
+                _lastTime = temp;
+                _counter = 0;
             }
 
-            return GetHashSha256($"{temp}-{counter}");
+            return GetHashSha256($"{temp}-{_counter}-{Random.NextDouble()}-{Random.NextDouble()}");
         }
     }
 }

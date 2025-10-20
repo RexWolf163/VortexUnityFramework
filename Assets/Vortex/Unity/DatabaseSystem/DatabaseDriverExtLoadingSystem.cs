@@ -5,6 +5,7 @@ using UnityEngine;
 using Vortex.Core.DatabaseSystem.Bus;
 using Vortex.Core.LoaderSystem.Bus;
 using Vortex.Core.LoaderSystem.Loadable;
+using Vortex.Core.System.Loadable;
 using Vortex.Unity.DatabaseSystem.Storage;
 using Object = UnityEngine.Object;
 

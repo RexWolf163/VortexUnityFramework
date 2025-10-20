@@ -10,6 +10,7 @@ using Vortex.Core.LoaderSystem.Loadable;
 using Vortex.Core.LoggerSystem.Bus;
 using Vortex.Core.LoggerSystem.Model;
 using Vortex.Core.System.Enums;
+using Vortex.Core.System.Loadable;
 
 namespace Vortex.Core.LoaderSystem.Bus
 {
