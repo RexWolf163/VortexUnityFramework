@@ -1,0 +1,4 @@
+{
+	"name": "ru.vortex.settings",
+	"references":[ "ru.vortex.system" ]
+}

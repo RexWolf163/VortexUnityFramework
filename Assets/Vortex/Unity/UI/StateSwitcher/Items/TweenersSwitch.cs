@@ -1,7 +1,7 @@
-using Vortex.UI.Components.Tweeners;
 using UnityEngine;
+using Vortex.Unity.UI.Tweeners;
 
-namespace Vortex.UI.Components.StateSwitcher.Items
+namespace Vortex.Unity.UI.StateSwitcher.Items
 {
     public class TweenersSwitch : StateItem
     {

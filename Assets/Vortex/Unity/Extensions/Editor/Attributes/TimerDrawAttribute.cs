@@ -1,11 +1,9 @@
 using System;
-using UnityEngine;
-#if UNITY_EDITOR
 using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities.Editor;
-#endif
+using UnityEngine;
 
-namespace Vortex.Core.Editor
+namespace Vortex.Unity.Extensions.Editor.Attributes
 {
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
     public class TimerDrawAttribute : Attribute

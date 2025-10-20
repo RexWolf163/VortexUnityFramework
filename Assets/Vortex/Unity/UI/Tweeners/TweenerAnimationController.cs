@@ -3,7 +3,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Vortex.UI.Components.Tweeners
+namespace Vortex.Unity.UI.Tweeners
 {
     [RequireComponent(typeof(Animator))]
     public class TweenerAnimationController : TweenerBase

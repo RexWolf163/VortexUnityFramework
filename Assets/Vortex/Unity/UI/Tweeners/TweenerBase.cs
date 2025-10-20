@@ -1,7 +1,7 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Vortex.UI.Components.Tweeners
+namespace Vortex.Unity.UI.Tweeners
 {
     public abstract class TweenerBase : MonoBehaviour
     {

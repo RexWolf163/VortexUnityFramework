@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
 
-namespace Vortex.UI.Components.UIComponents
+namespace Vortex.Unity.UI.UIComponents
 {
     /// <summary>
     /// Структура данных для UI компонента

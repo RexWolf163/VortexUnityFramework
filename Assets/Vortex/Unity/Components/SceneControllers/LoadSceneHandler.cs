@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Vortex.Unity.UI.Components;
 
-namespace Vortex.Unity.UI.Components
+namespace Vortex.Unity.Components.SceneControllers
 {
     public class LoadSceneHandler : SceneHandler
     {

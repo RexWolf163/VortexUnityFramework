@@ -5,7 +5,7 @@ using DG.Tweening.Plugins.Options;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Vortex.UI.Components.Tweeners
+namespace Vortex.Unity.UI.Tweeners
 {
     public class TweenPositionController : TweenerBase
     {

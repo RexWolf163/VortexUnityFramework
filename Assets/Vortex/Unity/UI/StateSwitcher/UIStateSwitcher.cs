@@ -1,16 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
-#if UNITY_EDITOR
 using System.Reflection;
-using Vortex.Core.Editor;
-#endif
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
+#if UNITY_EDITOR
+using Vortex.Unity.Extensions.Editor.Attributes;
+#endif
 
-namespace Vortex.UI.Components.StateSwitcher
+namespace Vortex.Unity.UI.StateSwitcher
 {
     /// <summary>
     /// Контроллер переключения состояний UI 
@@ -59,9 +58,8 @@ namespace Vortex.UI.Components.StateSwitcher
 
             public string Name => _name;
             public StateItem[] StateItems => _stateItems;
+
 #if UNITY_EDITOR
-
-
             internal void AddStateItem(StateItem stateItem)
             {
                 var list = _stateItems.ToList();

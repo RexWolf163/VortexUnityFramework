@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-namespace Vortex.UI.Components.UIComponents
+namespace Vortex.Unity.UI.UIComponents.Parts
 {
     public class UIComponentButton : UIComponentPart
     {

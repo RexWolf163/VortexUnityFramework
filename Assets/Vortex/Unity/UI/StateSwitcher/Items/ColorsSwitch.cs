@@ -4,7 +4,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Vortex.UI.Components.StateSwitcher.Items
+namespace Vortex.Unity.UI.StateSwitcher.Items
 {
     public class ColorsSwitch : StateItem
     {

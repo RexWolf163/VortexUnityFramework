@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7e43eaa72c5590499a387f28b692f67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  key: Init
+  key: init
 --- !u!4 &290554493
 Transform:
   m_ObjectHideFlags: 0
@@ -161,7 +161,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 815332544}
   - {fileID: 2120210100}
   - {fileID: 881643558}
   m_Father: {fileID: 0}
@@ -175,9 +174,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 573281735}
-  - component: {fileID: 573281734}
   - component: {fileID: 573281736}
-  - component: {fileID: 573281737}
   m_Layer: 0
   m_Name: StartHandler
   m_TagString: Untagged
@@ -185,42 +182,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &573281734
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 573281732}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c117cf2c5815474d9db98a24207065e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onAwake:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 573281736}
-        m_TargetAssemblyTypeName: Vortex.Chains.ChainHandler, ru.vortex.unity.chains
-        m_MethodName: Run
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onDestroy:
-    m_PersistentCalls:
-      m_Calls: []
-  onEnable:
-    m_PersistentCalls:
-      m_Calls: []
-  onDisable:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!4 &573281735
 Transform:
   m_ObjectHideFlags: 0
@@ -245,69 +206,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 573281732}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bd205e78c7a51642a86be0cda0e950f, type: 3}
+  m_Script: {fileID: 11500000, guid: c8bd76829f6d3a345802d18bf10eb1d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chainData: 
-  data: {fileID: 11400000, guid: 80c7e13b06313de41836885b28be9d22, type: 2}
-  selfDestroyOnComplete: 1
---- !u!114 &573281737
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 573281732}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f7e43eaa72c5590499a387f28b692f67, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  key: start handler
---- !u!1 &815332543
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 815332544}
-  - component: {fileID: 815332545}
-  m_Layer: 0
-  m_Name: AppLoader
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &815332544
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 815332543}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 290554493}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &815332545
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 815332543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d6570230a6ee4efb8404b1edd216e98e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  db: e70b8f702615ca2f8d47b6b44b825ac24cd8dada960e20f1e3446de4e0bc669e
 --- !u!1 &881643557
 GameObject:
   m_ObjectHideFlags: 0
@@ -319,7 +221,7 @@ GameObject:
   - component: {fileID: 881643558}
   - component: {fileID: 881643559}
   m_Layer: 0
-  m_Name: FocusLogic
+  m_Name: AppStateHandler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

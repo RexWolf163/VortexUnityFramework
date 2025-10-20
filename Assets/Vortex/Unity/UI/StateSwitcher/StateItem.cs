@@ -1,10 +1,9 @@
 using System;
-
 #if UNITY_EDITOR
-using Vortex.Core.Editor;
+using Vortex.Unity.Extensions.Editor.Attributes;
 #endif
 
-namespace Vortex.UI.Components.StateSwitcher
+namespace Vortex.Unity.UI.StateSwitcher
 {
     /// <summary>
     /// Класс элемента состояния.

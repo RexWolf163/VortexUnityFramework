@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Vortex.UI.Components.StateSwitcher.Items
+namespace Vortex.Unity.UI.StateSwitcher.Items
 {
     /// <summary>
     /// Запуск функции при включении стейта

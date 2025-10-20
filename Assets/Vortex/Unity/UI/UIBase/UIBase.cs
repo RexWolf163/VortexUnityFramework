@@ -1,9 +1,9 @@
 ﻿using System;
 using UnityEngine;
-using Vortex.Core.TimeControl;
-using Vortex.UI.Components.Tweeners;
+using Vortex.Unity.AppSystem.System;
+using Vortex.Unity.UI.Tweeners;
 
-namespace Vortex.UI
+namespace Vortex.Core.UI.Interfaces
 {
     /// <summary>
     /// Реализация основы UI
@@ -44,14 +44,14 @@ namespace Vortex.UI
 
         private void OnEnable()
         {
-            UIController.Register(this);
+            Core.UI.Controllers.UIController.Register(this);
             foreach (var tweener in tweeners)
                 tweener.Back(true);
         }
 
         private void OnDisable()
         {
-            UIController.Unregister(this);
+            Core.UI.Controllers.UIController.Unregister(this);
             foreach (var tweener in tweeners)
                 tweener.Back(true);
         }

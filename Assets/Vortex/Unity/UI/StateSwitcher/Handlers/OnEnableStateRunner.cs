@@ -1,7 +1,7 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Vortex.UI.Components.StateSwitcher.Handlers
+namespace Vortex.Unity.UI.StateSwitcher.Handlers
 {
     /// <summary>
     /// При активации выставляет StateSwitcher в указанное состояние

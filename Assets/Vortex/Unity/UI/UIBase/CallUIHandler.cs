@@ -1,9 +1,9 @@
 ﻿using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using Vortex.UI.Components.UIComponents;
+using Vortex.Unity.UI.UIComponents;
 
-namespace Vortex.UI.Components
+namespace Vortex.Core.UI.Interfaces.Components
 {
     public class CallUIHandler : MonoBehaviour
     {
@@ -35,12 +35,12 @@ namespace Vortex.UI.Components
 
         private void CloseUI()
         {
-            UIController.CloseUI(type);
+            Core.UI.Controllers.UIController.CloseUI(type);
         }
 
         private void OpenUI()
         {
-            UIController.OpenUI(type);
+            Core.UI.Controllers.UIController.OpenUI(type);
         }
 
 #if UNITY_EDITOR

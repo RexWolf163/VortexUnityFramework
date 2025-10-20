@@ -1,10 +1,10 @@
-using System.Collections;
+/*using System.Collections;
 using System.Linq;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using Vortex.Core.App;
-using Vortex.Core.Enums;
-using Vortex.Core.Loading.Controllers;
+using Vortex.Core.AppSystem.Bus;
+using Vortex.Core.LoaderSystem.Bus;
+using Vortex.Core.System.Enums;
 using Vortex.UI.Components.UIComponents;
 
 public class AppLoaderView : MonoBehaviour
@@ -19,28 +19,27 @@ public class AppLoaderView : MonoBehaviour
 
     [SerializeField] private UIComponent uiComponent;
 
-    private AppModel _data;
+    private AppStates _state;
 
     private void Awake()
     {
-        _data = AppController.Data;
-        _data.OnStateChanged += OnStateChange;
-        OnStateChange(_data.GetState());
+        App.OnStateChanged += OnStateChange;
+        OnStateChange(App.GetState());
     }
 
     private void OnDestroy()
     {
-        _data.OnStateChanged -= OnStateChange;
+        App.OnStateChanged -= OnStateChange;
         StopAllCoroutines();
     }
 
     private IEnumerator View()
     {
-        while (_data.GetState() == AppStates.Starting)
+        while (_state == AppStates.Starting)
         {
-            var loadingData = AppLoader.GetCurrentLoadingData();
-            var step = AppLoader.GetProgress();
-            var size = AppLoader.GetSize();
+            var loadingData = Loader.GetCurrentLoadingData();
+            var step = Loader.GetProgress();
+            var size = Loader.GetSize();
             if (loadingData != null)
             {
                 var progress = loadingData.Size == 0 ? 0 : Mathf.Floor(100f * loadingData.Progress / loadingData.Size);
@@ -53,6 +52,7 @@ public class AppLoaderView : MonoBehaviour
 
     private void OnStateChange(AppStates state)
     {
+        _state = state;
         switch (state)
         {
             case AppStates.Starting:
@@ -63,7 +63,7 @@ public class AppLoaderView : MonoBehaviour
             case AppStates.Running:
                 StopAllCoroutines();
                 _animator.SetTrigger(_completeTrigger);
-                _data.OnStateChanged -= OnStateChange;
+                App.OnStateChanged -= OnStateChange;
                 return;
         }
     }
@@ -83,4 +83,4 @@ public class AppLoaderView : MonoBehaviour
         return triggers;
     }
 #endif
-}
+}*/
