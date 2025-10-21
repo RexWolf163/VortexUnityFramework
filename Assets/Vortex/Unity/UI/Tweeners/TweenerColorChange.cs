@@ -3,7 +3,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Vortex.UI.Components.Tweeners
+namespace Vortex.Unity.UI.Tweeners
 {
     /// <summary>
     /// Твинер изменения цвета

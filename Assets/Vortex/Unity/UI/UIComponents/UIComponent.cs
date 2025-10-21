@@ -2,8 +2,9 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Events;
+using Vortex.Unity.UI.UIComponents.Parts;
 
-namespace Vortex.UI.Components.UIComponents
+namespace Vortex.Unity.UI.UIComponents
 {
     public class UIComponent : MonoBehaviour
     {

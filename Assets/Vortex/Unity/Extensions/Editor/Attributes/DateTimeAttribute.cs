@@ -1,13 +1,11 @@
 using System;
-using Sirenix.Utilities;
-using UnityEngine;
-#if UNITY_EDITOR
 using Sirenix.OdinInspector.Editor;
+using Sirenix.Utilities;
 using Sirenix.Utilities.Editor;
 using UnityEditor;
-#endif
+using UnityEngine;
 
-namespace Vortex.Core.Editor
+namespace Vortex.Unity.Extensions.Editor.Attributes
 {
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
     public class DateTimeDrawAttribute : Attribute

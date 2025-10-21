@@ -3,7 +3,7 @@ using DG.Tweening.Core;
 using DG.Tweening.Plugins.Options;
 using UnityEngine;
 
-namespace Vortex.UI.Components.Tweeners
+namespace Vortex.Unity.UI.Tweeners
 {
     /// <summary>
     /// Анимация смещения по точке якоря (полезно для скрытия частей UI)

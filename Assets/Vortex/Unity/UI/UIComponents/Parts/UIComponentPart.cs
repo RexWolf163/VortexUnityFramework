@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Vortex.UI.Components.UIComponents
+namespace Vortex.Unity.UI.UIComponents.Parts
 {
     public abstract class UIComponentPart : MonoBehaviour
     {

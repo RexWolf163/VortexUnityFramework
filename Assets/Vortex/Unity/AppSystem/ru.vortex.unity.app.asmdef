@@ -1,0 +1,17 @@
+{
+    "name": "ru.vortex.unity.app",
+    "rootNamespace": "",
+    "references": [
+        "GUID:9b629820a0db1ee4ebf4641e8cabb0c8",
+        "GUID:a00fea34cd87e874eb05688c1583b814"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

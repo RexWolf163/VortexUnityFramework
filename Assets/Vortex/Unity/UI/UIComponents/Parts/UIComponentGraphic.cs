@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
-namespace Vortex.UI.Components.UIComponents
+namespace Vortex.Unity.UI.UIComponents.Parts
 {
     public class UIComponentGraphic : UIComponentPart
     {

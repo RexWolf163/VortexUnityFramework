@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Vortex.Unity.UI.Components
+namespace Vortex.Unity.Extensions.Editor.Misc
 {
     public static class SceneController
     {

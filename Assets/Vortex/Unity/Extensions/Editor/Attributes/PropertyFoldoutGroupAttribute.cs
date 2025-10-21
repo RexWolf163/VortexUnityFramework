@@ -1,14 +1,11 @@
 using System;
 using Sirenix.OdinInspector;
-using UnityEngine;
-
-#if UNITY_EDITOR
-using UnityEditor;
 using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities.Editor;
-#endif
+using UnityEditor;
+using UnityEngine;
 
-namespace Vortex.Core.Editor
+namespace Vortex.Unity.Extensions.Editor.Attributes
 {
     [AttributeUsage(AttributeTargets.All, AllowMultiple = true, Inherited = true)]
     public class PropertyFoldoutGroupAttribute : Sirenix.OdinInspector.FoldoutGroupAttribute

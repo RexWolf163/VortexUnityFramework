@@ -4,7 +4,7 @@ using DG.Tweening;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Vortex.UI.Components.StateSwitcher.Items
+namespace Vortex.Unity.UI.StateSwitcher.Items
 {
     public class ScaleSwitch : StateItem
     {

@@ -2,12 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 using Sirenix.OdinInspector;
-
-#if UNITY_EDITOR
 using Sirenix.OdinInspector.Editor;
-#endif
 
-namespace Vortex.Core.Editor
+namespace Vortex.Unity.Extensions.Editor.Attributes
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Field | AttributeTargets.Property)]
     public class FoldoutClassAttribute : Attribute

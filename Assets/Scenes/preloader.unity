@@ -219,6 +219,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: map
+  additiveMode: 0
 --- !u!114 &97456216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,7 +232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fde788eda310a72439ca17833721bb7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: map
+  sceneName: preloader
 --- !u!1 &183200229
 GameObject:
   m_ObjectHideFlags: 0
