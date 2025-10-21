@@ -4,7 +4,8 @@
     "references": [
         "GUID:51467fb2383481041817716e8215bc1d",
         "GUID:f3e27e2402bbacb4eb9c8f5c8cbdd91b",
-        "GUID:b4a36a28d80aa944cb3ba9d58984b2f0"
+        "GUID:b4a36a28d80aa944cb3ba9d58984b2f0",
+        "ru.vortex.unity.extensions"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
