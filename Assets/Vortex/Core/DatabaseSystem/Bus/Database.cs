@@ -41,5 +41,13 @@ namespace Vortex.Core.DatabaseSystem.Bus
         /// Обработка подключения нового драйвера
         /// </summary>
         protected override void OnDriverConnect() => Driver.SetIndex(_records);
+
+        /// <summary>
+        /// Обработка отключения нового драйвера
+        /// </summary>
+        protected override void OnDriverDisonnect()
+        {
+            //Ignore
+        }
     }
 }

@@ -40,5 +40,10 @@ namespace Vortex.Core.AppSystem.Bus
         {
             //Ignore
         }
+
+        protected override void OnDriverDisonnect()
+        {
+            //Ignore
+        }
     }
 }

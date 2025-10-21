@@ -6,7 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Vortex.Core.AppSystem.Bus;
 using Vortex.Core.Extensions.LogicExtensions;
-using Vortex.Core.LoaderSystem.Loadable;
+using Vortex.Core.System.ProcessInfo;
 using Vortex.Core.LoggerSystem.Bus;
 using Vortex.Core.LoggerSystem.Model;
 using Vortex.Core.System.Enums;
@@ -56,7 +56,7 @@ namespace Vortex.Core.LoaderSystem.Bus
         /// <summary>
         /// Очередь загрузки
         /// </summary>
-        private static readonly Dictionary<Type, ILoadable> Queue = new();
+        private static readonly Dictionary<Type, IProcess> Queue = new();
 
         /// <summary>
         /// Защита от мультивызова
@@ -71,7 +71,7 @@ namespace Vortex.Core.LoaderSystem.Bus
         /// Регистрация в очереди на загрузку
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        public static void Register<T>() where T : ILoadable, new()
+        public static void Register<T>() where T : IProcess, new()
         {
             var type = typeof(T);
             Queue.AddNew(type, new T());
@@ -134,7 +134,7 @@ namespace Vortex.Core.LoaderSystem.Bus
                     return;
                 }
 
-                ILoadable controller = null;
+                IProcess controller = null;
                 var count = queue.Count;
                 for (var i = 0; i < count; i++)
                 {
@@ -188,7 +188,7 @@ namespace Vortex.Core.LoaderSystem.Bus
                         return;
                 }
 
-                _currentLoadingSystem = controller.GetLoadingData() ?? new LoadingData
+                _currentLoadingSystem = controller.GetProcessInfo() ?? new LoadingData
                 {
                     Name = "Loading system",
                     Progress = 1,
@@ -198,7 +198,7 @@ namespace Vortex.Core.LoaderSystem.Bus
                 Log.Print(new LogData(LogLevel.Common,
                     $"{controller.GetType().Name}: loading...",
                     "AppLoader"));
-                await Task.Run(() => controller.LoadAsync(Token));
+                await Task.Run(() => controller.RunAsync(Token));
                 loaded.Add(controller.GetType());
                 Log.Print(new LogData(LogLevel.Common,
                     $"{controller.GetType().Name}: loaded",

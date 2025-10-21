@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Vortex.Core.LoaderSystem.Loadable;
+using Vortex.Core.System.ProcessInfo;
 using Vortex.Core.System.Abstractions;
 
 namespace Vortex.Core.LoaderSystem
@@ -14,7 +14,7 @@ namespace Vortex.Core.LoaderSystem
         /// <param name="systemController"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public bool AddNew<T>(Type type, T systemController) where T : ILoadable;
+        public bool AddNew<T>(Type type, T systemController) where T : IProcess;
 
         /// <summary>
         /// Кол-во зарегистрированных на загрузку систем
@@ -26,6 +26,6 @@ namespace Vortex.Core.LoaderSystem
         /// Список систем в очереди на загрузку
         /// </summary>
         /// <returns></returns>
-        Dictionary<Type, ILoadable> GetQueue();
+        Dictionary<Type, IProcess> GetQueue();
     }
 }

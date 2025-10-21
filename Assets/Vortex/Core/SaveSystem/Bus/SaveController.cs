@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using Vortex.Core.Extensions.LogicExtensions;
-using Vortex.Core.Extensions.LogicExtensions.Actions;
 using Vortex.Core.LoggerSystem.Bus;
 using Vortex.Core.LoggerSystem.Model;
-using Vortex.Core.SaveSystem.Abstraction;
 using Vortex.Core.System.Abstractions;
 
 namespace Vortex.Core.SaveSystem.Bus
 {
     public class SaveController : SystemController<SaveController, IDriver>
     {
-        private static readonly Dictionary<string, string> _saveDataIndex = new();
+        private static readonly Dictionary<string, string> SaveDataIndex = new();
+
+        private static readonly HashSet<ISaveable> Saveables = new();
 
         /// <summary>
         /// Событие начала сохранения
@@ -24,22 +24,23 @@ namespace Vortex.Core.SaveSystem.Bus
         public static event Action OnSaveStart;
 
         /// <summary>
-        /// Событие запроса данных для сохранения
-        /// </summary>
-        public static event Func<SaveData> OnSave;
-
-        /// <summary>
         /// Событие завершения загрузки
         /// </summary>
-        public static event Action OnLoad;
+        public static event Action OnLoadComplete;
+
+        /// <summary>
+        /// Событие завершения сохранения
+        /// </summary>
+        public static event Action OnSaveComplete;
 
         protected override void OnDriverConnect()
         {
-            OnSave = null;
-            OnLoadStart = null;
-            OnSaveStart = null;
-            OnLoad = null;
-            Driver.SetIndexLink(_saveDataIndex);
+            Driver.SetIndexLink(SaveDataIndex);
+        }
+
+        protected override void OnDriverDisonnect()
+        {
+            //Ignore
         }
 
         /// <summary>
@@ -50,15 +51,14 @@ namespace Vortex.Core.SaveSystem.Bus
         public static void Save(string guid = null)
         {
             OnSaveStart?.Invoke();
-            var list = OnSave?.Accumulate();
-            if (list == null)
-                return;
-            _saveDataIndex.Clear();
-            foreach (var item in list)
-                _saveDataIndex.AddNew(item.Id, item.Data);
+
+            SaveDataIndex.Clear();
+            foreach (var saveable in Saveables)
+                SaveDataIndex.AddNew(saveable.GetSaveId(), saveable.GetSaveData());
 
             guid ??= Crypto.GetNewGuid();
             Driver.Save(guid);
+            OnSaveComplete?.Invoke();
         }
 
         /// <summary>
@@ -69,7 +69,9 @@ namespace Vortex.Core.SaveSystem.Bus
         {
             OnLoadStart?.Invoke();
             Driver.Load(guid);
-            OnLoad?.Invoke();
+            foreach (var saveable in Saveables)
+                saveable.OnLoad();
+            OnLoadComplete?.Invoke();
         }
 
         /// <summary>
@@ -79,12 +81,16 @@ namespace Vortex.Core.SaveSystem.Bus
         /// <returns></returns>
         public static string GetData(string id)
         {
-            if (_saveDataIndex.TryGetValue(id, out var data))
+            if (SaveDataIndex.TryGetValue(id, out var data))
                 return data;
             Log.Print(new LogData(LogLevel.Error, $"Save data not found for id: {id}", Instance));
             return "";
         }
 
         public static HashSet<string> GetIndex() => Driver.GetIndex();
+
+        public static void Register(ISaveable controller) => Saveables.Add(controller);
+
+        public static void UnRegister(ISaveable controller) => Saveables.Remove(controller);
     }
 }

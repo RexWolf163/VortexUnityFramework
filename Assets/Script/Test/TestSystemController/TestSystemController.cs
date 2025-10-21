@@ -3,13 +3,13 @@ using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using Vortex.Core.LoaderSystem.Bus;
-using Vortex.Core.LoaderSystem.Loadable;
+using Vortex.Core.System.ProcessInfo;
 using Vortex.Core.System.Loadable;
 
 /// <summary>
 /// Тестовый контроллер для проверки системы загрузки и индикации ее процесса 
 /// </summary>
-public class TestSystemController : ILoadable
+public class TestSystemController : IProcess
 {
     [RuntimeInitializeOnLoadMethod]
     private static void Run() => Loader.Register<TestSystemController>();
@@ -21,9 +21,9 @@ public class TestSystemController : ILoadable
         Size = 100
     };
 
-    public LoadingData GetLoadingData() => _loadingData;
+    public LoadingData GetProcessInfo() => _loadingData;
 
-    public async Task LoadAsync(CancellationToken cancellationToken)
+    public async Task RunAsync(CancellationToken cancellationToken)
     {
         for (var i = 1; i <= _loadingData.Size; i++)
         {

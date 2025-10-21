@@ -1,5 +1,6 @@
 ﻿using Vortex.Core.LoggerSystem.Model;
 using Vortex.Core.System.Abstractions;
+using NotImplementedException = System.NotImplementedException;
 
 namespace Vortex.Core.LoggerSystem.Bus
 {
@@ -11,6 +12,11 @@ namespace Vortex.Core.LoggerSystem.Bus
         }
 
         protected override void OnDriverConnect()
+        {
+            //Ignore
+        }
+
+        protected override void OnDriverDisonnect()
         {
             //Ignore
         }

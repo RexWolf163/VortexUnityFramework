@@ -55,11 +55,18 @@ namespace Vortex.Unity.SaveSystem
             PlayerPrefs.SetString(GetSaveName(guid), saveData.Compress(guid));
 
             _saves.Add(guid);
+            PlayerPrefs.SetString(SaveKey, string.Join(";", _saves));
         }
 
         public void Load(string guid)
         {
             _saveDataIndex.Clear();
+            if (!PlayerPrefs.HasKey(GetSaveName(guid)))
+            {
+                Debug.LogError($"[SaveSystemDriver] save data #{guid} not found.");
+                return;
+            }
+
             var saveData = PlayerPrefs.GetString(GetSaveName(guid));
             saveData = saveData.Decompress(guid);
 

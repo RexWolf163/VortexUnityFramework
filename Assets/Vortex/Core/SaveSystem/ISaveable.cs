@@ -1,12 +1,12 @@
-﻿using Vortex.Core.SaveSystem.Abstraction;
-using Vortex.Core.System.Loadable;
+﻿using Vortex.Core.System.ProcessInfo;
 
-namespace Vortex.Core.System.Abstractions
+namespace Vortex.Core.SaveSystem
 {
-    public interface ISaveable
+    public interface ISaveable : IProcess
     {
-        public LoadingData GetLoadingData();
-        public SaveData GetSaveData();
+        public string GetSaveId();
+
+        public string GetSaveData();
 
         /// <summary>
         /// Обработка события завершения загрузки

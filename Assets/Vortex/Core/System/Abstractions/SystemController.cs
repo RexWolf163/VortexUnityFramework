@@ -16,6 +16,7 @@
         {
             if (Driver != null && !Driver.Equals(driver))
             {
+                Instance.OnDriverDisonnect();
                 Driver.Destroy();
                 Driver = driver;
                 Instance.OnDriverConnect();
@@ -39,5 +40,10 @@
         /// Обработка подключения нового драйвера
         /// </summary>
         protected abstract void OnDriverConnect();
+
+        /// <summary>
+        /// Обработка отключения нового драйвера
+        /// </summary>
+        protected abstract void OnDriverDisonnect();
     }
 }

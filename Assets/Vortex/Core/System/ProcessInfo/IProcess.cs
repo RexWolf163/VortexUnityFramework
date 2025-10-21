@@ -3,26 +3,26 @@ using System.Threading;
 using System.Threading.Tasks;
 using Vortex.Core.System.Loadable;
 
-namespace Vortex.Core.LoaderSystem.Loadable
+namespace Vortex.Core.System.ProcessInfo
 {
     /// <summary>
     /// Интерфейс систем приложения
     /// Эти системы загружаются асинхронно и автоматически выстраивают свой порядок
     /// если их ответ на WaitingFor запрос корректен 
     /// </summary>
-    public interface ILoadable
+    public interface IProcess
     {
         /// <summary>
-        /// Указатель на данные загрузки 
+        /// Указатель на данные процесса 
         /// </summary>
         /// <returns></returns>
-        public LoadingData GetLoadingData();
+        public LoadingData GetProcessInfo();
 
         /// <summary>
-        /// Запуск процедуры загрузки
+        /// Запуск процесса
         /// </summary>
         /// <returns></returns>
-        public Task LoadAsync(CancellationToken cancellationToken);
+        public Task RunAsync(CancellationToken cancellationToken);
 
         /// <summary>
         /// Перечень контроллеров "пропускаемых" вперед себя

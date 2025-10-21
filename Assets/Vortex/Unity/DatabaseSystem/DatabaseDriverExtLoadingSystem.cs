@@ -4,14 +4,14 @@ using System.Threading.Tasks;
 using UnityEngine;
 using Vortex.Core.DatabaseSystem.Bus;
 using Vortex.Core.LoaderSystem.Bus;
-using Vortex.Core.LoaderSystem.Loadable;
+using Vortex.Core.System.ProcessInfo;
 using Vortex.Core.System.Loadable;
 using Vortex.Unity.DatabaseSystem.Storage;
 using Object = UnityEngine.Object;
 
 namespace Vortex.Unity.DatabaseSystem
 {
-    public partial class DatabaseDriver : ILoadable
+    public partial class DatabaseDriver : IProcess
     {
         private const string Path = "Database";
 
@@ -32,9 +32,9 @@ namespace Vortex.Unity.DatabaseSystem
             _resources = Resources.LoadAll(Path);
         }
 
-        public LoadingData GetLoadingData() => _loadingData;
+        public LoadingData GetProcessInfo() => _loadingData;
 
-        public async Task LoadAsync(CancellationToken cancellationToken)
+        public async Task RunAsync(CancellationToken cancellationToken)
         {
             _recordsLink.Clear();
             _loadingData.Size = _resources.Length;
