@@ -12,7 +12,7 @@ namespace Vortex.Unity.UIProviderSystem.BehaviorLogics
         /// <summary>
         /// Перечень необходимых панелей, которые должны отображаться вместе с этим UI
         /// </summary>
-        [SerializeReference, ValueDropdown("@DropDawnHandler.GetTypesNamesList<UserInterface>()")]
+        [SerializeReference, ValueDropdown("@DropDawnHandler.GetTypesNameList<UserInterface>()")]
         private string[] _needPanels = new string[0];
 
         private List<Type> NeedPanels;
