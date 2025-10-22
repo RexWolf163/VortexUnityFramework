@@ -6,7 +6,7 @@ using Vortex.Core.System.Enums;
 
 namespace Vortex.Core.AppSystem.Bus
 {
-    public partial class App
+    public static partial class App
     {
         /// <summary>
         /// Событие изменения состояния приложения
@@ -45,7 +45,7 @@ namespace Vortex.Core.AppSystem.Bus
                 return false;
 
             if (Settings.Data().DebugMode)
-                Log.Print(new LogData(LogLevel.Common, $"AppState: {state}", Instance));
+                Log.Print(new LogData(LogLevel.Common, $"AppState: {state}", "App"));
 
             var old = Data._state;
             Data._state = state;
