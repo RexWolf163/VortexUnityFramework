@@ -1,13 +1,13 @@
 using System;
 using System.Linq;
 using Sirenix.OdinInspector;
-using UnityEngine;
-using Vortex.Unity.UI.StateSwitcher;
 using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities.Editor;
 using UnityEditor;
+using UnityEngine;
+using Vortex.Unity.UI.StateSwitcher;
 
-namespace Vortex.Unity.UI.Attributes
+namespace Vortex.Unity.UI.Editor.Attributes
 {
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = true)]
     public class StateSwitcherAttribute : Attribute

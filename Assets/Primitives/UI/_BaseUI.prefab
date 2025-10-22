@@ -341,7 +341,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2316127984188665687}
-  - component: {fileID: 8622512993051746535}
+  - component: {fileID: 8779098684028963922}
   - component: {fileID: -247468368337766000}
   m_Layer: 0
   m_Name: _BaseUI
@@ -370,7 +370,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &8622512993051746535
+--- !u!114 &8779098684028963922
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -382,10 +382,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8bd76829f6d3a345802d18bf10eb1d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  behaviorLogic:
+    rid: 2547342449758437605
   tweeners: []
-  behaviorLogic: Vortex.Unity.UIProviderSystem.BehaviorLogics.SimpleInterfaceBehavior,
-    ru.vortex.unity.uiprovider, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  db: e70b8f702615ca2f8d47b6b44b825ac24cd8dada960e20f1e3446de4e0bc669e
+  db: 
+  references:
+    version: 2
+    RefIds:
+    - rid: 2547342449758437605
+      type: {class: SimpleInterfaceBehavior, ns: Vortex.Unity.UIProviderSystem.BehaviorLogics, asm: ru.vortex.unity.uiprovider}
+      data:
+        test: ddwada
 --- !u!114 &-247468368337766000
 MonoBehaviour:
   m_ObjectHideFlags: 0

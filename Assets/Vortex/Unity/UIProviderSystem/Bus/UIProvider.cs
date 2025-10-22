@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Vortex.Core.Extensions.LogicExtensions;
 using Vortex.Unity.UIProviderSystem.Model;
@@ -29,6 +30,7 @@ namespace Vortex.Unity.UIProviderSystem.Bus
         public static void OpenUI<T>() where T : UserInterface
         {
             var wnd = GetUI<T>();
+            OnOpen?.Invoke(wnd);
             wnd?.Open();
         }
 
@@ -38,6 +40,7 @@ namespace Vortex.Unity.UIProviderSystem.Bus
         public static void OpenUI(Type type)
         {
             var wnd = GetUI(type);
+            OnOpen?.Invoke(wnd);
             wnd?.Open();
         }
 
@@ -48,6 +51,7 @@ namespace Vortex.Unity.UIProviderSystem.Bus
         public static void CloseUI<T>() where T : UserInterface
         {
             var wnd = GetUI<T>();
+            OnClose?.Invoke(wnd);
             wnd?.Close();
         }
 
@@ -57,19 +61,16 @@ namespace Vortex.Unity.UIProviderSystem.Bus
         public static void CloseUI(Type type)
         {
             var wnd = GetUI(type);
+            OnClose?.Invoke(wnd);
             wnd?.Close();
         }
-
-        #endregion
-
-        #region Private
 
         /// <summary>
         /// Вернуть интерфейс указанного типа
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        private static UserInterface GetUI<T>() where T : UserInterface
+        public static UserInterface GetUI<T>() where T : UserInterface
         {
             var wnd = _uis.Get(typeof(T));
             if (wnd == null)
@@ -84,9 +85,9 @@ namespace Vortex.Unity.UIProviderSystem.Bus
         /// <summary>
         /// Вернуть интерфейс указанного типа
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <param name="type"></param>
         /// <returns></returns>
-        private static UserInterface GetUI(Type type)
+        public static UserInterface GetUI(Type type)
         {
             var wnd = _uis.Get(type);
             if (wnd == null)

@@ -5,9 +5,9 @@
     /// </summary>
     public enum UserInterfaceStates
     {
-        Hide,
         Showing,
         Show,
         Hiding,
+        Hide,
     }
 }

@@ -3,12 +3,14 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using Vortex.Unity.AppSystem.System;
 using Vortex.Unity.UI.Tweeners;
+using Vortex.Unity.UIProviderSystem.BehaviorLogics;
 
 namespace Vortex.Unity.UIProviderSystem.Model
 {
     /// <summary>
     /// Реализация основы UI
     /// </summary>
+    [Serializable]
     public abstract class UserInterface : MonoBehaviour
     {
         #region Events
@@ -23,48 +25,62 @@ namespace Vortex.Unity.UIProviderSystem.Model
         #region Params
 
         /// <summary>
+        /// Скрипт поведения
+        /// </summary>
+        [SerializeReference, HideLabel,
+         TabGroup("Behavior"),
+         InfoBox("Укажите тип интерфейса!", InfoMessageType.Warning, VisibleIf = "ShowWarning"),
+         GUIColor("GetBehaviorColor")]
+        private UserInterfaceBehavior behaviorLogic;
+
+        /// <summary>
         /// Твиннеры открытия/закрытия
         /// </summary>
         [SerializeField] private TweenerBase[] tweeners;
 
-        [SerializeField, ValueDropdown("@DropDawnHandler.GetTypeList<IUserInterfaceBehavior>()")]
-        private string behaviorLogic;
+        /// <summary>
+        /// Состояние окна
+        /// </summary>
+        private static UserInterfaceStates _state;
 
         /// <summary>
         /// Состояние окна
         /// </summary>
-        private UserInterfaceStates _state;
+        public UserInterfaceStates State => _state;
 
         #endregion
 
         #region Private
 
-        private void OnEnable()
+        private void Awake()
+        {
+            behaviorLogic.Init(this);
+        }
+
+        private void OnDestroy()
+        {
+            behaviorLogic.DeInit();
+        }
+
+        protected void OnEnable()
         {
             Bus.UIProvider.Register(this);
             foreach (var tweener in tweeners)
                 tweener.Back(true);
         }
 
-        private void OnDisable()
+        protected void OnDisable()
         {
             Bus.UIProvider.Unregister(this);
             foreach (var tweener in tweeners)
                 tweener.Back(true);
         }
 
-        #endregion
-
-        #region Public
-
-        /// <summary>
-        /// Текущее состояние UI
-        /// </summary>
-        /// <returns></returns>
-        public UserInterfaceStates GetState() => _state;
-
-        public void Open()
+        internal void Open()
         {
+            if (!behaviorLogic.CheckOpenRule())
+                return;
+
             foreach (var tweener in tweeners)
             {
                 tweener.Back(true);
@@ -76,7 +92,7 @@ namespace Vortex.Unity.UIProviderSystem.Model
                 this); //TODO заменить Костыль
         }
 
-        public void Close()
+        internal void Close()
         {
             foreach (var tweener in tweeners)
                 tweener.Back();
@@ -86,6 +102,32 @@ namespace Vortex.Unity.UIProviderSystem.Model
                 this); //TODO заменить Костыль
         }
 
+        /// <summary>
+        /// Возвращает тип поведения UI
+        /// </summary>
+        /// <returns></returns>
+        internal Type GetBehaviorType() => behaviorLogic.GetType();
+
         #endregion
+
+        #region Public
+
+        /// <summary>
+        /// Текущее состояние UI
+        /// </summary>
+        /// <returns></returns>
+        public static UserInterfaceStates GetState() => _state;
+
+        #endregion
+
+#if UNITY_EDITOR
+        private string GetBehaviorName() => behaviorLogic?.GetType().Name;
+
+        private bool ShowWarning() => behaviorLogic == null;
+
+        private Color GetBehaviorColor() => behaviorLogic != null ? Color.yellow : Color.red;
+
+        private ValueDropdownList<string> GetUIPanels() => new ValueDropdownList<string>();
+#endif
     }
 }

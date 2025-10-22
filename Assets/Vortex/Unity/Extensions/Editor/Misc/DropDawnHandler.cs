@@ -11,7 +11,7 @@ namespace Vortex.Unity.Extensions.Editor.Misc
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static ValueDropdownList<string> GetTypeList<T>()
+        public static ValueDropdownList<string> GetTypesNameList<T>()
         {
             var result = new ValueDropdownList<string>();
             var currentDomain = AppDomain.CurrentDomain;
@@ -35,6 +35,42 @@ namespace Vortex.Unity.Extensions.Editor.Misc
                         foreach (var type in types)
                             if ((type.IsSubclassOf(typeof(T)) || (type == typeof(T))) && !type.IsAbstract)
                                 result.Add(new ValueDropdownItem<string>(type.Name, type.AssemblyQualifiedName));
+                        break;
+                }
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        /// Вывод списка реализующих тип или интерфейс
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static ValueDropdownList<Type> GetTypesList<T>()
+        {
+            var result = new ValueDropdownList<Type>();
+            var currentDomain = AppDomain.CurrentDomain;
+            var assems = currentDomain.GetAssemblies();
+            foreach (var assembly in assems)
+            {
+                var types = assembly.GetTypes();
+
+                switch (typeof(T).IsInterface)
+                {
+                    case true:
+                        foreach (var type in types)
+                        {
+                            var interfaces = type.GetInterfaces();
+                            if (interfaces.Contains(typeof(T)))
+                                result.Add(new ValueDropdownItem<Type>(type.Name, type));
+                        }
+
+                        break;
+                    default:
+                        foreach (var type in types)
+                            if ((type.IsSubclassOf(typeof(T)) || (type == typeof(T))) && !type.IsAbstract)
+                                result.Add(new ValueDropdownItem<Type>(type.Name, type));
                         break;
                 }
             }

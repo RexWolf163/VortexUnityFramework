@@ -6,7 +6,7 @@ namespace Vortex.Unity.UIProviderSystem.Bus
 {
     /// <summary>
     /// Контроллер-шина для работы с интерфейсами
-    /// Функционал загрузки и регистрации
+    /// Функционал регистрации
     /// </summary>
     public static partial class UIProvider
     {
@@ -14,7 +14,7 @@ namespace Vortex.Unity.UIProviderSystem.Bus
         /// Регистрация нового интерфейса в индексе
         /// </summary>
         /// <param name="ui"></param>
-        public static void Register(UserInterface ui)
+        internal static void Register(UserInterface ui)
         {
             _uis.AddNew(ui.GetType(), ui);
         }
@@ -23,7 +23,7 @@ namespace Vortex.Unity.UIProviderSystem.Bus
         /// Снятие с регистрации интерфейса
         /// </summary>
         /// <param name="ui"></param>
-        public static void Unregister(UserInterface ui)
+        internal static void Unregister(UserInterface ui)
         {
             var type = ui.GetType();
             if (!_uis.ContainsKey(type))
