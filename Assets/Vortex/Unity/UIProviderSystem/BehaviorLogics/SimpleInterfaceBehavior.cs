@@ -17,8 +17,6 @@ namespace Vortex.Unity.UIProviderSystem.BehaviorLogics
 
         private List<Type> NeedPanels;
 
-        [SerializeField] private string test;
-
         public override void Init(UserInterface userInterface)
         {
             UI = userInterface;
