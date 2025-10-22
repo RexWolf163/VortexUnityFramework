@@ -5,7 +5,7 @@ namespace Vortex.Core.Extensions.LogicExtensions
     public static class DateTimeExtConvert
     {
         /// <summary>
-        /// преобразование DateTime в число
+        /// Преобразование DateTime в число
         /// </summary>
         /// <param name="date"></param>
         /// <returns></returns>

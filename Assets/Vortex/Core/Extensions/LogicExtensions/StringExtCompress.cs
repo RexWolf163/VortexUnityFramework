@@ -11,7 +11,13 @@ namespace Vortex.Core.Extensions.LogicExtensions
     /// </summary>
     public static class StringExtCompress
     {
-        public static string Compress(this string data, string key)
+        /// <summary>
+        /// Сжатие строки
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static string Compress(this string data, string key = "data")
         {
             using MemoryStream memoryStream = new MemoryStream();
             // Создаем новый архив в потоке памяти
@@ -26,7 +32,13 @@ namespace Vortex.Core.Extensions.LogicExtensions
             return Convert.ToBase64String(bytes);
         }
 
-        public static string Decompress(this string data, string key)
+        /// <summary>
+        /// Восстановление сжатой строки
+        /// </summary>
+        /// <param name="data"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static string Decompress(this string data, string key = "data")
         {
             var bytes = Convert.FromBase64String(data);
             using MemoryStream ms = new MemoryStream(bytes);
