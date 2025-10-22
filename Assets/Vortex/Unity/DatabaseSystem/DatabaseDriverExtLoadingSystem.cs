@@ -5,7 +5,6 @@ using UnityEngine;
 using Vortex.Core.DatabaseSystem.Bus;
 using Vortex.Core.LoaderSystem.Bus;
 using Vortex.Core.System.ProcessInfo;
-using Vortex.Core.System.Loadable;
 using Vortex.Unity.DatabaseSystem.Storage;
 using Object = UnityEngine.Object;
 
@@ -17,7 +16,7 @@ namespace Vortex.Unity.DatabaseSystem
 
         private static Object[] _resources;
 
-        private LoadingData _loadingData = new()
+        private ProcessData _processData = new()
         {
             Name = "Database",
             Progress = 0,
@@ -32,12 +31,12 @@ namespace Vortex.Unity.DatabaseSystem
             _resources = Resources.LoadAll(Path);
         }
 
-        public LoadingData GetProcessInfo() => _loadingData;
+        public ProcessData GetProcessInfo() => _processData;
 
         public async Task RunAsync(CancellationToken cancellationToken)
         {
             _recordsLink.Clear();
-            _loadingData.Size = _resources.Length;
+            _processData.Size = _resources.Length;
             foreach (var resource in _resources)
             {
                 if (cancellationToken.IsCancellationRequested)
@@ -46,7 +45,7 @@ namespace Vortex.Unity.DatabaseSystem
                     return;
                 }
 
-                _loadingData.Progress++;
+                _processData.Progress++;
                 if (resource is not IRecordStorage data)
                     continue;
                 var record = data.GetData();

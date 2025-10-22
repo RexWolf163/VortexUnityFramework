@@ -6,7 +6,7 @@ namespace Vortex.Unity.SettingsSystem.Storage
     [CreateAssetMenu(fileName = "StartSettings", menuName = "Settings/StartSettings")]
     public partial class StartSettings : SettingsStorage
     {
-        [ValueDropdown("@SceneController.GetScenes()")] [SerializeField]
+        [ValueDropdown("@DropDawnHandler.GetScenes()")] [SerializeField]
         private string startScene;
 
         public string StartScene => startScene;

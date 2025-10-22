@@ -1,13 +1,12 @@
-//using Vortex.UI;
-
 using System.Threading;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Vortex.Core.DatabaseSystem.Bus;
+using Vortex.Unity.UIProviderSystem.Model;
 
 namespace App.UI
 {
-    public class TestUI : MonoBehaviour // : UIBase
+    public class TestUI : UserInterface
     {
         [SerializeField, ValueDropdown("@DatabaseHandler.GetRecords()")]
         private string db;

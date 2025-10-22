@@ -5,7 +5,7 @@ namespace Vortex.Unity.Components.SceneControllers
 {
     public abstract class SceneHandler : MonoBehaviour
     {
-        [SerializeField, ValueDropdown("@SceneController.GetScenes()")]
+        [SerializeField, ValueDropdown("@DropDawnHandler.GetScenes()")]
         protected string sceneName;
 
         [Button]

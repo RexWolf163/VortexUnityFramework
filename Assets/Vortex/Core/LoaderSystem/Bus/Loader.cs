@@ -10,7 +10,6 @@ using Vortex.Core.System.ProcessInfo;
 using Vortex.Core.LoggerSystem.Bus;
 using Vortex.Core.LoggerSystem.Model;
 using Vortex.Core.System.Enums;
-using Vortex.Core.System.Loadable;
 
 namespace Vortex.Core.LoaderSystem.Bus
 {
@@ -41,7 +40,7 @@ namespace Vortex.Core.LoaderSystem.Bus
         /// <summary>
         /// Данные загрузки текущего загружаемого модуля
         /// </summary>
-        private static LoadingData _currentLoadingSystem;
+        private static ProcessData _currentProcessSystem;
 
         /// <summary>
         /// токен-ресурс прерывания
@@ -105,7 +104,7 @@ namespace Vortex.Core.LoaderSystem.Bus
         /// <summary>
         /// Данные загрузки текущего загружаемого модуля
         /// </summary>
-        public static LoadingData GetCurrentLoadingData() => _currentLoadingSystem;
+        public static ProcessData GetCurrentLoadingData() => _currentProcessSystem;
 
         #endregion
 
@@ -188,7 +187,7 @@ namespace Vortex.Core.LoaderSystem.Bus
                         return;
                 }
 
-                _currentLoadingSystem = controller.GetProcessInfo() ?? new LoadingData
+                _currentProcessSystem = controller.GetProcessInfo() ?? new ProcessData
                 {
                     Name = "Loading system",
                     Progress = 1,

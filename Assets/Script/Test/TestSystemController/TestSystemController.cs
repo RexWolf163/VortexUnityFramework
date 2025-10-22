@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using UnityEngine;
 using Vortex.Core.LoaderSystem.Bus;
 using Vortex.Core.System.ProcessInfo;
-using Vortex.Core.System.Loadable;
 
 /// <summary>
 /// Тестовый контроллер для проверки системы загрузки и индикации ее процесса 
@@ -14,18 +13,18 @@ public class TestSystemController : IProcess
     [RuntimeInitializeOnLoadMethod]
     private static void Run() => Loader.Register<TestSystemController>();
 
-    private LoadingData _loadingData = new()
+    private ProcessData _processData = new()
     {
         Name = "TestSystem",
         Progress = 0,
         Size = 100
     };
 
-    public LoadingData GetProcessInfo() => _loadingData;
+    public ProcessData GetProcessInfo() => _processData;
 
     public async Task RunAsync(CancellationToken cancellationToken)
     {
-        for (var i = 1; i <= _loadingData.Size; i++)
+        for (var i = 1; i <= _processData.Size; i++)
         {
             if (cancellationToken.IsCancellationRequested)
             {
@@ -33,7 +32,7 @@ public class TestSystemController : IProcess
                 return;
             }
 
-            _loadingData.Progress++;
+            _processData.Progress++;
             await Task.Delay(50, cancellationToken);
             await Task.Yield();
         }

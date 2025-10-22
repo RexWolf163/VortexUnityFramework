@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Vortex.Core.System.Loadable;
 
 namespace Vortex.Core.System.ProcessInfo
 {
@@ -16,7 +15,7 @@ namespace Vortex.Core.System.ProcessInfo
         /// Указатель на данные процесса 
         /// </summary>
         /// <returns></returns>
-        public LoadingData GetProcessInfo();
+        public ProcessData GetProcessInfo();
 
         /// <summary>
         /// Запуск процесса

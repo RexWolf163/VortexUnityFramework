@@ -29,7 +29,6 @@ namespace Vortex.Unity.UI.UIComponents.Parts
                 case SpriteRenderer sprRend:
                 case Image img:
                     return;
-                    break;
             }
 
             graphic = null;
