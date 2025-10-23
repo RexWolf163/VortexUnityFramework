@@ -1,5 +1,5 @@
 {
-    "name": "ru.vortex.extensions.editor",
+    "name": "ru.vortex.unity.extensions.editor",
     "rootNamespace": "",
     "references": [],
     "includePlatforms": [

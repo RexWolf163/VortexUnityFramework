@@ -1237,6 +1237,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8779098684028963922, guid: 0cb240b228bcc86439c5dddb7d812443, type: 3}
+      propertyPath: managedReferences[2547342449758437605]._needPanels.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8779098684028963922, guid: 0cb240b228bcc86439c5dddb7d812443, type: 3}
+      propertyPath: 'managedReferences[2547342449758437605]._needPanels.Array.data[0]'
+      value: App.UI.TestUIPanel, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      objectReference: {fileID: 0}
     - target: {fileID: 9190718041114596685, guid: 0cb240b228bcc86439c5dddb7d812443, type: 3}
       propertyPath: m_Name
       value: TestUI
