@@ -50,7 +50,7 @@ namespace Vortex.Core.AppSystem.Bus
             var old = Data._state;
             Data._state = state;
             OnStateChanged?.Invoke(state);
-            if (old == AppStates.Starting && Data._state != AppStates.Running)
+            if (old == AppStates.Starting && Data._state == AppStates.Running)
                 OnStart?.Invoke();
 
             switch (Data._state)

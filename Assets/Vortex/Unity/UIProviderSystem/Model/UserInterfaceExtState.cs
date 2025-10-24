@@ -1,17 +1,11 @@
 ﻿using System;
-using Sirenix.OdinInspector;
-using UnityEngine;
-using Vortex.Unity.AppSystem.System.TimeSystem;
-using Vortex.Unity.UI.Tweeners;
-using Vortex.Unity.UIProviderSystem.BehaviorLogics;
-using Vortex.Unity.UIProviderSystem.Bus;
 
 namespace Vortex.Unity.UIProviderSystem.Model
 {
     /// <summary>
     /// Реализация основы UI
     /// </summary>
-    public abstract partial class UserInterface : MonoBehaviour
+    public abstract partial class UserInterface
     {
         #region Events
 

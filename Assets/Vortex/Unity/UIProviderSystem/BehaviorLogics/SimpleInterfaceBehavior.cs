@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Vortex.Unity.UIProviderSystem.Bus;
@@ -7,6 +6,10 @@ using Vortex.Unity.UIProviderSystem.Model;
 
 namespace Vortex.Unity.UIProviderSystem.BehaviorLogics
 {
+    /// <summary>
+    /// Обычный интерфейс.
+    /// Можно настроить те UI которые должны быть открыты вместе с ним
+    /// </summary>
     public class SimpleInterfaceBehavior : UserInterfaceBehavior
     {
         /// <summary>
@@ -15,25 +18,45 @@ namespace Vortex.Unity.UIProviderSystem.BehaviorLogics
         [SerializeReference, ValueDropdown("@DropDawnHandler.GetTypesNameList<UserInterface>()")]
         private string[] _needPanels = new string[0];
 
-        private List<Type> NeedPanels;
+        private Type[] _needPanelsCash;
 
         public override void Init(UserInterface userInterface)
         {
+            InitNeedPanelsCash();
             UI = userInterface;
-
             UI.OnStateChanged += OnStateChange;
         }
 
+        public override void DeInit()
+        {
+            if (UI != null)
+                UI.OnStateChanged -= OnStateChange;
+        }
+
+        /// <summary>
+        /// Обработка изменения состояния управляемого интерфейса
+        /// Если он открывается, то нужно запросить открытие связанных ui
+        /// </summary>
+        /// <param name="state"></param>
         private void OnStateChange(UserInterfaceStates state)
         {
             if (state != UserInterfaceStates.Showing)
                 return;
 
-            if (NeedPanels == null)
+            UIProvider.OpenUI(_needPanelsCash);
+        }
+
+        /// <summary>
+        /// Инициализация списка необходимых UI, которые должны открываться вместе с ним
+        /// </summary>
+        private void InitNeedPanelsCash()
+        {
+            if (_needPanelsCash == null)
             {
-                NeedPanels = new List<Type>();
-                foreach (var panelName in _needPanels)
+                _needPanelsCash = new Type[_needPanels.Length];
+                for (var i = _needPanels.Length - 1; i >= 0; i--)
                 {
+                    var panelName = _needPanels[i];
                     var type = Type.GetType(panelName);
                     if (type == null)
                     {
@@ -48,16 +71,9 @@ namespace Vortex.Unity.UIProviderSystem.BehaviorLogics
                         continue;
                     }
 
-                    NeedPanels.Add(type);
+                    _needPanelsCash[i] = type;
                 }
             }
-
-            foreach (var panel in NeedPanels)
-                UIProvider.OpenUI(panel);
-        }
-
-        public override void DeInit()
-        {
         }
     }
 }

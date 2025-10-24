@@ -17,12 +17,12 @@ namespace Vortex.Unity.UIProviderSystem.Bus
         /// <summary>
         /// Индекс зарегистрировавшихся UI
         /// </summary>
-        private static SortedDictionary<Type, UserInterface> _uis = new();
+        private static Dictionary<Type, UserInterface> _uis = new();
 
         /// <summary>
         /// Индекс по типам поведения
         /// </summary>
-        private static SortedDictionary<Type, SortedDictionary<Type, UserInterface>> _uisByBehaviour = new();
+        private static Dictionary<Type, Dictionary<Type, UserInterface>> _uisByBehaviour = new();
 
         #endregion
 
@@ -39,7 +39,7 @@ namespace Vortex.Unity.UIProviderSystem.Bus
 
             _uis.AddNew(type, ui);
             if (!_uisByBehaviour.ContainsKey(behType))
-                _uisByBehaviour.Add(behType, new SortedDictionary<Type, UserInterface>());
+                _uisByBehaviour.Add(behType, new Dictionary<Type, UserInterface>());
             _uisByBehaviour[behType].AddNew(type, ui);
         }
 

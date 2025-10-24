@@ -1,9 +1,7 @@
 ﻿using System;
-using Sirenix.OdinInspector;
 using UnityEngine;
 using Vortex.Unity.AppSystem.System.TimeSystem;
 using Vortex.Unity.UI.Tweeners;
-using Vortex.Unity.UIProviderSystem.BehaviorLogics;
 using Vortex.Unity.UIProviderSystem.Bus;
 
 namespace Vortex.Unity.UIProviderSystem.Model
@@ -37,6 +35,7 @@ namespace Vortex.Unity.UIProviderSystem.Model
 
         protected void OnEnable()
         {
+            _state = UserInterfaceStates.Hide;
             UIProvider.Register(this);
             foreach (var tweener in tweeners)
                 tweener.Back(true);
@@ -49,6 +48,9 @@ namespace Vortex.Unity.UIProviderSystem.Model
                 tweener.Back(true);
         }
 
+        /// <summary>
+        /// Открыть интерфейс
+        /// </summary>
         internal void Open()
         {
             foreach (var tweener in tweeners)
@@ -62,6 +64,9 @@ namespace Vortex.Unity.UIProviderSystem.Model
                 this); //TODO заменить Костыль
         }
 
+        /// <summary>
+        /// Закрыть интерфейс
+        /// </summary>
         internal void Close()
         {
             foreach (var tweener in tweeners)
@@ -73,5 +78,11 @@ namespace Vortex.Unity.UIProviderSystem.Model
         }
 
         #endregion
+
+        /// <summary>
+        /// Проверка открыт ли интерефейс
+        /// </summary>
+        /// <returns></returns>
+        public bool IsOpened() => _state is UserInterfaceStates.Show or UserInterfaceStates.Showing;
     }
 }

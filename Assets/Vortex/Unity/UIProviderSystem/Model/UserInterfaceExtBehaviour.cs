@@ -15,10 +15,9 @@ namespace Vortex.Unity.UIProviderSystem.Model
         /// <summary>
         /// Скрипт поведения
         /// </summary>
-        [SerializeReference, HideLabel,
-         TabGroup("Behavior"),
-         InfoBox("Укажите тип интерфейса!", InfoMessageType.Warning, VisibleIf = "ShowWarning"),
-         GUIColor("GetBehaviorColor")]
+        [SerializeReference, HideLabel, PropertyOrder(-100)]
+        [TabGroup("Behavior"), GUIColor("GetBehaviorColor")]
+        [InfoBox("Укажите тип интерфейса!", InfoMessageType.Warning, VisibleIf = "ShowWarning")]
         private UserInterfaceBehavior behaviorLogic;
 
         #endregion
