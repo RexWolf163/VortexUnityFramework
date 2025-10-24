@@ -4,7 +4,10 @@ namespace Vortex.Unity.DebugSystem
 {
     public partial class DebugSettings
     {
-        [SerializeField] [ToggleButtons(singleButton: true, trueColor: "@Color.red", falseColor: "@Color.green")]
+        [SerializeField]
+#if UNITY_EDITOR
+        [ToggleButtons(singleButton: true, trueColor: "@Color.red", falseColor: "@Color.green")]
+#endif
         private bool appStates;
 
         public bool AppStateDebugMode => appStates;

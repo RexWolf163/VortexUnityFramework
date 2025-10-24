@@ -1,19 +1,21 @@
 using System;
-using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities;
-using Sirenix.Utilities.Editor;
-using UnityEditor;
 using UnityEngine;
+#if UNITY_EDITOR
+using Sirenix.Utilities.Editor;
+using Sirenix.OdinInspector.Editor;
+using UnityEditor;
+#endif
 
-namespace Vortex.Unity.Extensions.Editor.Attributes
+namespace Vortex.Unity.Extensions.Attributes
 {
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
-    public class DateTimeDrawAttribute : Attribute
+    public class TimeDrawAttribute : Attribute
     {
     }
 
 #if UNITY_EDITOR
-    public sealed class DateTimeAttributeDrawer : OdinAttributeDrawer<DateTimeDrawAttribute, long>
+    public sealed class TimeAttributeDrawer : OdinAttributeDrawer<TimeDrawAttribute, long>
     {
         protected override void DrawPropertyLayout(GUIContent label)
         {
@@ -28,10 +30,12 @@ namespace Vortex.Unity.Extensions.Editor.Attributes
             GUIHelper.PopLabelWidth();
         }
 
-        private static string ConvertToTime(long timeSpan)
+        private string ConvertToTime(long timeSpan)
         {
             var time = TimeSpan.FromSeconds(timeSpan);
-            return time.ToString("dd.MM.yyyy HH:mm:ss");
+            if (time.Days > 0)
+                return $"{time:d\\d\\ hh\\:mm\\:ss}";
+            return $"{time:hh\\:mm\\:ss}";
         }
     }
 #endif

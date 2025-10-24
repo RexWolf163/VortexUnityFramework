@@ -9,6 +9,7 @@ using Vortex.Core.Extensions.LogicExtensions;
 using Vortex.Core.System.ProcessInfo;
 using Vortex.Core.LoggerSystem.Bus;
 using Vortex.Core.LoggerSystem.Model;
+using Vortex.Core.SettingsSystem.Bus;
 using Vortex.Core.System.Enums;
 
 namespace Vortex.Core.LoaderSystem.Bus
@@ -72,6 +73,8 @@ namespace Vortex.Core.LoaderSystem.Bus
         /// <typeparam name="T"></typeparam>
         public static void Register<T>() where T : IProcess, new()
         {
+            if (Settings.Data().DebugMode)
+                Log.Print(new LogData(LogLevel.Common, $"Register system: {typeof(T).Name}", "Loader"));
             var type = typeof(T);
             Queue.AddNew(type, new T());
             _size = Queue.Count;
@@ -86,6 +89,16 @@ namespace Vortex.Core.LoaderSystem.Bus
                 return;
             _isRunning = true;
             App.OnExit += Destroy;
+            if (Settings.Data().DebugMode)
+            {
+                var sb = new StringBuilder();
+                foreach (var entry in Queue)
+                    sb.Append(entry.Key.Name + "\n");
+                Log.Print(new LogData(LogLevel.Common,
+                    $"Loader running for {Queue.Count} systems\n<b>{sb}</b>",
+                    "Loader"));
+            }
+
             await Task.Run(() => Loading(Token));
             App.SetState(AppStates.Running);
         }

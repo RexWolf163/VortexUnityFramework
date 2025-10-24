@@ -10,7 +10,7 @@ using Vortex.Core.System.ProcessInfo;
 /// </summary>
 public class TestSystemController : IProcess
 {
-    [RuntimeInitializeOnLoadMethod]
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSplashScreen)]
     private static void Run() => Loader.Register<TestSystemController>();
 
     private ProcessData _processData = new()

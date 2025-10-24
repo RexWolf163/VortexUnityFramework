@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿#if UNITY_EDITOR
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using Vortex.Core.SettingsSystem.Bus;
 
@@ -13,3 +14,4 @@ namespace Vortex.Unity.SettingsSystem.Editor
         }
     }
 }
+#endif

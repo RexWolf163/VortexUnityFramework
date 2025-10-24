@@ -751,14 +751,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   behaviorLogic:
-    rid: 2547342449758437596
+    rid: -2
   tweeners: []
   references:
     version: 2
     RefIds:
-    - rid: 2547342449758437596
-      type: {class: PanelBehavior, ns: Vortex.Unity.UIProviderSystem.BehaviorLogics, asm: ru.vortex.unity.uiprovider}
-      data: 
+    - rid: -2
+      type: {class: , ns: , asm: }
 --- !u!1 &4787917040771202309
 GameObject:
   m_ObjectHideFlags: 0

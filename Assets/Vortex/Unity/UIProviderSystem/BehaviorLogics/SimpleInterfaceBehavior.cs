@@ -53,13 +53,8 @@ namespace Vortex.Unity.UIProviderSystem.BehaviorLogics
             }
 
             foreach (var panel in NeedPanels)
-            {
                 UIProvider.OpenUI(panel);
-            }
         }
-
-        public override bool CheckOpenRule() =>
-            UI.State != UserInterfaceStates.Show && UI.State != UserInterfaceStates.Showing;
 
         public override void DeInit()
         {

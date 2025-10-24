@@ -1,9 +1,11 @@
 using System;
 using Sirenix.OdinInspector;
+using UnityEngine;
+#if UNITY_EDITOR
 using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities.Editor;
 using UnityEditor;
-using UnityEngine;
+#endif
 
 namespace Vortex.Unity.Extensions.Editor.Attributes
 {

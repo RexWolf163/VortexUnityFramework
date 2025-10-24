@@ -9,7 +9,7 @@ namespace Vortex.Core.DatabaseSystem.Bus
     public class Database : SystemController<Database, IDriver>
     {
         /// <summary>
-        /// Индекс записей в БД 
+        /// Реестр записей в БД 
         /// </summary>
         private SortedDictionary<string, Record> _records = new();
 

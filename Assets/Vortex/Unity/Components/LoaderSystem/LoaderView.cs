@@ -38,17 +38,7 @@ namespace Vortex.Unity.Components.LoaderSystem
         {
             while (_state == AppStates.Starting)
             {
-                var loadingData = Core.LoaderSystem.Bus.Loader.GetCurrentLoadingData();
-                var step = Core.LoaderSystem.Bus.Loader.GetProgress();
-                var size = Core.LoaderSystem.Bus.Loader.GetSize();
-                if (loadingData != null)
-                {
-                    var progress = loadingData.Size == 0
-                        ? 0
-                        : Mathf.Floor(100f * loadingData.Progress / loadingData.Size);
-                    uiComponent.SetText($"{step} from {size}: {loadingData.Name}: {progress}%");
-                }
-
+                Refresh();
                 yield return new WaitForSeconds(.3f);
             }
         }
@@ -65,9 +55,24 @@ namespace Vortex.Unity.Components.LoaderSystem
                     return;
                 case AppStates.Running:
                     StopAllCoroutines();
+                    Refresh();
                     _animator.SetTrigger(_completeTrigger);
                     App.OnStateChanged -= OnStateChange;
                     return;
+            }
+        }
+
+        private void Refresh()
+        {
+            var loadingData = Core.LoaderSystem.Bus.Loader.GetCurrentLoadingData();
+            var step = Core.LoaderSystem.Bus.Loader.GetProgress();
+            var size = Core.LoaderSystem.Bus.Loader.GetSize();
+            if (loadingData != null)
+            {
+                var progress = loadingData.Size == 0
+                    ? 0
+                    : Mathf.Floor(100f * loadingData.Progress / loadingData.Size);
+                uiComponent.SetText($"{step} from {size}: {loadingData.Name}: {progress}%");
             }
         }
 

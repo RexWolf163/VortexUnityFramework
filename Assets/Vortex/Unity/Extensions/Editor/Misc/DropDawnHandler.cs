@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if UNITY_EDITOR
+using System;
 using System.Linq;
 using Sirenix.OdinInspector;
 
@@ -63,3 +64,4 @@ namespace Vortex.Unity.Extensions.Editor.Misc
         }
     }
 }
+#endif

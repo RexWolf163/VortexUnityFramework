@@ -1,7 +1,5 @@
 using System;
-#if UNITY_EDITOR
-using Vortex.Unity.Extensions.Editor.Attributes;
-#endif
+using Vortex.Unity.Extensions.Attributes;
 
 namespace Vortex.Unity.UI.StateSwitcher
 {
@@ -10,9 +8,7 @@ namespace Vortex.Unity.UI.StateSwitcher
     /// Можно при наследовании расширять функционал для добавления управляемых элементов
     /// </summary>
     [Serializable]
-#if UNITY_EDITOR
     [FoldoutClass("$DropDownItemName")]
-#endif
     public abstract class StateItem
     {
         public abstract void Set();

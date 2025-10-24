@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿#if UNITY_EDITOR
+using UnityEditor;
 using UnityEngine;
 using Vortex.Unity.FileSystem.Bus;
 
@@ -13,3 +14,4 @@ namespace Vortex.Unity.SettingsSystem
         }
     }
 }
+#endif

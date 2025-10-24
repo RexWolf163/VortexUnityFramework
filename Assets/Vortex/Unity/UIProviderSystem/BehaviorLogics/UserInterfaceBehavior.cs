@@ -9,8 +9,6 @@ namespace Vortex.Unity.UIProviderSystem.BehaviorLogics
         protected UserInterface UI;
 
         public abstract void Init(UserInterface userInterface);
-        public abstract bool CheckOpenRule();
-
         public abstract void DeInit();
     }
 }

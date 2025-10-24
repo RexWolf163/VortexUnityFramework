@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Vortex.Unity.AppSystem.System
+namespace Vortex.Unity.AppSystem.System.TimeSystem
 {
     /// <summary>
     /// Класс таймера.
@@ -11,45 +11,6 @@ namespace Vortex.Unity.AppSystem.System
     /// </summary>
     public class TimeController : MonoBehaviour
     {
-        #region InnerClasses
-
-        /// <summary>
-        /// Структура экшена в очереди
-        /// </summary>
-        private class QueuedAction
-        {
-            /// <summary>
-            /// Заказчик события
-            /// </summary>
-            [FoldoutGroup("$Timer")] public object owner;
-
-            /// <summary>
-            /// Отложенный экшен 
-            /// </summary>
-            [FoldoutGroup("$Timer")] public Action action;
-
-            /// <summary>
-            /// Отметка времени, в которую должен быть вызван
-            /// </summary>
-            [FoldoutGroup("$Timer")] public double timestamp;
-
-            public void Set(Action action, double timestamp)
-            {
-                this.action = action;
-                this.timestamp = timestamp;
-            }
-
-#if UNITY_EDITOR
-            private string Timer()
-            {
-                var span = new TimeSpan((long)((timestamp - Time) * TicksPerSecond));
-                return span.ToString(@"hh\:mm\:ss");
-            }
-#endif
-        }
-
-        #endregion
-
         #region Events
 
         /// <summary>
@@ -64,26 +25,32 @@ namespace Vortex.Unity.AppSystem.System
         /// <summary>
         /// Тиков в секунду
         /// </summary>
-        private const double TicksPerSecond = 10000000;
+        internal const double TicksPerSecond = 10000000;
 
         /// <summary>
         /// Шаг проверки очереди экшенов.
         /// Чтобы разгрузить проц от проверки на каждом кадре
         /// </summary>
-        private const float stepTime = 0.1f;
+        private const float StepTime = 0.1f;
 
         /// <summary>
         /// Отметка времени последней проверки очереди 
         /// </summary>
-        private static double lastCheckTime = -1;
+        private static double _lastCheckTime = -1;
 
         // Переиспользуемый буффер, избавляемся от пересоздания списков
-        private static readonly List<QueuedAction> readyQueue = new();
+        private static readonly List<Action> ReadyQueue = new();
+
+        /// <summary>
+        /// Очередь "следующей волны"
+        /// Используется для экшенов, которые откладываются через Accumulate
+        /// </summary>
+        private static readonly Dictionary<object, Action> NextWaveQueue = new();
 
         /// <summary>
         /// Очередь на срабатывание
         /// </summary>
-        [ShowInInspector, HideInEditorMode] private static List<QueuedAction> queue = new();
+        [ShowInInspector, HideInEditorMode] private static List<QueuedAction> _queue = new();
 
         #endregion
 
@@ -127,11 +94,8 @@ namespace Vortex.Unity.AppSystem.System
         /// </param>
         public static void Call(Action action, float stepSecs = 0, object owner = null)
         {
-            if (action == null)
-                return;
-
             if (stepSecs <= 0f)
-                lastCheckTime = Time - stepTime;
+                _lastCheckTime = Time - StepTime;
 
             var triggerTime = Time + stepSecs;
 
@@ -140,32 +104,72 @@ namespace Vortex.Unity.AppSystem.System
                 // удалено .Clone()
                 // делегаты в C# неизменяемы, Clone() создаёт лишние вызовы
 
-                queue.Add(new QueuedAction
+                _queue.Add(new QueuedAction
                 {
-                    owner = null,
-                    action = action,
-                    timestamp = triggerTime
+                    Owner = null,
+                    Action = action,
+                    Timestamp = triggerTime
                 });
                 return;
             }
 
-            foreach (var queuedAction in queue)
+            foreach (var queuedAction in _queue)
             {
-                if (queuedAction.owner != owner)
+                if (queuedAction.Owner != owner)
                     continue;
 
                 queuedAction.Set(action, triggerTime);
                 return;
             }
 
-            queue.Add(new QueuedAction
+            _queue.Add(new QueuedAction
             {
-                owner = owner,
-                action = action,
-                timestamp = triggerTime
+                Owner = owner,
+                Action = action,
+                Timestamp = triggerTime
             });
         }
 
+        /// <summary>
+        /// Аккумулировать однотипные вызовы на "следующую волну" 
+        /// </summary>
+        /// <param name="action"></param>
+        /// <param name="owner"></param>
+        public static void Accumulate(Action action, object owner)
+        {
+            if (NextWaveQueue.ContainsKey(owner))
+            {
+                NextWaveQueue[owner] = action;
+                return;
+            }
+
+            NextWaveQueue.Add(owner, action);
+        }
+
+        /// <summary>
+        /// Запуск экшенов "следующей волны", отложенных через Accumulate
+        /// </summary>
+        public static void RunNextWave()
+        {
+            if (NextWaveQueue.Count == 0)
+                return;
+
+            ReadyQueue.Clear();
+            ReadyQueue.AddRange(NextWaveQueue.Values);
+            NextWaveQueue.Clear();
+
+            foreach (var action in ReadyQueue)
+            {
+                try
+                {
+                    action?.Invoke();
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogError(ex);
+                }
+            }
+        }
 
         /// <summary>
         /// Удалить из очереди экшен указанного владельца
@@ -173,9 +177,9 @@ namespace Vortex.Unity.AppSystem.System
         /// <param name="owner">Владелец запроса</param>
         public static void RemoveCall(object owner)
         {
-            for (var i = 0; i < queue.Count; i++)
-                if (queue[i].owner == owner)
-                    queue.RemoveAt(i);
+            for (var i = 0; i < _queue.Count; i++)
+                if (_queue[i].Owner == owner)
+                    _queue.RemoveAt(i);
         }
 
         /// <summary>
@@ -225,44 +229,40 @@ namespace Vortex.Unity.AppSystem.System
             Time = Math.Round(now.Ticks / TicksPerSecond, 2);
         }
 
-        private void Awake()
-        {
-            DontDestroyOnLoad(this);
-            isInit = true;
-        }
+        private void Awake() => DontDestroyOnLoad(this);
 
         /// <summary>
         /// Проверка очереди запросов и активация тех, чье время пришло
         /// </summary>
         private void CheckQueue()
         {
-            if (queue.Count == 0) return;
+            if (_queue.Count == 0) return;
 
             // Удалены временные списки и пересоздание списков
             // Меньше нагрузка на GC
 
-            readyQueue.Clear();
+            ReadyQueue.Clear();
 
             // Идём с конца, удаляем сразу
-            for (int i = queue.Count - 1; i >= 0; i--)
+            for (int i = _queue.Count - 1; i >= 0; i--)
             {
                 //Запускаем актуальные, остальные набиваем в новый список 
-                var actionData = queue[i];
-                if (actionData.timestamp <= Time)
+                var actionData = _queue[i];
+                if (actionData.Timestamp <= Time)
                 {
-                    readyQueue.Add(actionData);
-                    queue.RemoveAt(i);
+                    ReadyQueue.Add(actionData.Action);
+                    _queue.RemoveAt(i);
                 }
             }
 
             // восстанавливаем оригинальный порядок
-            readyQueue.Reverse();
+            ReadyQueue.Reverse();
 
-            foreach (var actionData in readyQueue)
+            foreach (var action in ReadyQueue)
             {
                 try
                 {
-                    actionData.action?.Invoke();
+                    action?.Invoke();
                 }
                 catch (Exception ex)
                 {
@@ -283,19 +283,15 @@ namespace Vortex.Unity.AppSystem.System
         private void LateUpdate()
         {
             SetTimeValue();
-            if (Time - lastCheckTime < stepTime)
+            //Запуск отложенной волны, если корректный ее запуск пропущен
+            if (NextWaveQueue.Count > 0)
+                RunNextWave();
+            if (Time - _lastCheckTime < StepTime)
                 return;
-            lastCheckTime = Time;
+            _lastCheckTime = Time;
             CheckQueue();
         }
 
         #endregion
-
-        private static bool isInit;
-
-        public static bool IsInit()
-        {
-            return isInit;
-        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using UnityEditor;
+﻿#if UNITY_EDITOR
+using UnityEditor;
 using Vortex.Core.LoggerSystem.Bus;
 using Vortex.Core.LoggerSystem.Model;
 
@@ -14,3 +15,4 @@ namespace Vortex.Unity.LoggerSystem
         }
     }
 }
+#endif

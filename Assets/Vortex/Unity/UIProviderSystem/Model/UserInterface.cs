@@ -1,9 +1,10 @@
 ﻿using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
-using Vortex.Unity.AppSystem.System;
+using Vortex.Unity.AppSystem.System.TimeSystem;
 using Vortex.Unity.UI.Tweeners;
 using Vortex.Unity.UIProviderSystem.BehaviorLogics;
+using Vortex.Unity.UIProviderSystem.Bus;
 
 namespace Vortex.Unity.UIProviderSystem.Model
 {
@@ -64,23 +65,20 @@ namespace Vortex.Unity.UIProviderSystem.Model
 
         protected void OnEnable()
         {
-            Bus.UIProvider.Register(this);
+            UIProvider.Register(this);
             foreach (var tweener in tweeners)
                 tweener.Back(true);
         }
 
         protected void OnDisable()
         {
-            Bus.UIProvider.Unregister(this);
+            UIProvider.Unregister(this);
             foreach (var tweener in tweeners)
                 tweener.Back(true);
         }
 
         internal void Open()
         {
-            if (!behaviorLogic.CheckOpenRule())
-                return;
-
             foreach (var tweener in tweeners)
             {
                 tweener.Back(true);

@@ -1,9 +1,11 @@
 using System;
 using System.Linq;
 using Sirenix.OdinInspector;
+#if UNITY_EDITOR
 using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities.Editor;
 using UnityEditor;
+#endif
 using UnityEngine;
 using Vortex.Unity.UI.StateSwitcher;
 
@@ -87,6 +89,7 @@ namespace Vortex.Unity.UI.Editor.Attributes
         }
     }
 
+#if UNITY_EDITOR
     public class ModeSwitcherDrawer : OdinValueDrawer<UIStateSwitcher>
     {
         private HintInfo[] hints;
@@ -156,4 +159,5 @@ namespace Vortex.Unity.UI.Editor.Attributes
             SirenixEditorGUI.EndBox();
         }
     }
+#endif
 }

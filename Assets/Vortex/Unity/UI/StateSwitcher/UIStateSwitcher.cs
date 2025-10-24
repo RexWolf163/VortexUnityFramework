@@ -5,6 +5,7 @@ using System.Reflection;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Vortex.Unity.Extensions.Attributes;
 #if UNITY_EDITOR
 using Vortex.Unity.Extensions.Editor.Attributes;
 #endif
