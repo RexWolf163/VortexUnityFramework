@@ -10,6 +10,6 @@ namespace Vortex.Unity.DebugSystem
 #endif
         private bool appStates;
 
-        public bool AppStateDebugMode => appStates;
+        public bool AppStateDebugMode => DebugMode && appStates;
     }
 }

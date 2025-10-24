@@ -44,7 +44,7 @@ namespace Vortex.Core.AppSystem.Bus
             if (Data._state == state)
                 return false;
 
-            if (Settings.Data().DebugMode)
+            if (Settings.Data().AppStateDebugMode)
                 Log.Print(new LogData(LogLevel.Common, $"AppState: {state}", "App"));
 
             var old = Data._state;
