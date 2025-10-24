@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 using Vortex.Core.Extensions.LogicExtensions;
 using Vortex.Unity.UIProviderSystem.Model;
 
@@ -10,13 +12,35 @@ namespace Vortex.Unity.UIProviderSystem.Bus
     /// </summary>
     public static partial class UIProvider
     {
+        #region Params
+
+        /// <summary>
+        /// Индекс зарегистрировавшихся UI
+        /// </summary>
+        private static SortedDictionary<Type, UserInterface> _uis = new();
+
+        /// <summary>
+        /// Индекс по типам поведения
+        /// </summary>
+        private static SortedDictionary<Type, SortedDictionary<Type, UserInterface>> _uisByBehaviour = new();
+
+        #endregion
+
+        #region Public
+
         /// <summary>
         /// Регистрация нового интерфейса в индексе
         /// </summary>
         /// <param name="ui"></param>
         internal static void Register(UserInterface ui)
         {
-            _uis.AddNew(ui.GetType(), ui);
+            var type = ui.GetType();
+            var behType = ui.GetBehaviorType();
+
+            _uis.AddNew(type, ui);
+            if (!_uisByBehaviour.ContainsKey(behType))
+                _uisByBehaviour.Add(behType, new SortedDictionary<Type, UserInterface>());
+            _uisByBehaviour[behType].AddNew(type, ui);
         }
 
         /// <summary>
@@ -32,7 +56,14 @@ namespace Vortex.Unity.UIProviderSystem.Bus
                 return;
             }
 
+            var behType = ui.GetBehaviorType();
+
             _uis.Remove(type);
+            _uisByBehaviour[behType].Remove(type);
+            if (_uisByBehaviour[behType].Count == 0)
+                _uisByBehaviour.Remove(behType);
         }
+
+        #endregion
     }
 }

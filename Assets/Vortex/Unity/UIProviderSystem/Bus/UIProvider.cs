@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
 using Vortex.Core.Extensions.LogicExtensions;
 using Vortex.Unity.UIProviderSystem.Model;
@@ -11,15 +10,6 @@ namespace Vortex.Unity.UIProviderSystem.Bus
     /// </summary>
     public static partial class UIProvider
     {
-        #region Params
-
-        /// <summary>
-        /// Индекс зарегистрировавшихся UI
-        /// </summary>
-        private static SortedDictionary<Type, UserInterface> _uis = new();
-
-        #endregion
-
         #region Public
 
         /// <summary>
@@ -62,40 +52,6 @@ namespace Vortex.Unity.UIProviderSystem.Bus
             var wnd = GetUI(type);
             OnClose?.Invoke(wnd);
             wnd?.Close();
-        }
-
-        /// <summary>
-        /// Вернуть интерфейс указанного типа
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        public static UserInterface GetUI<T>() where T : UserInterface
-        {
-            var wnd = _uis.Get(typeof(T));
-            if (wnd == null)
-            {
-                Debug.LogError($"[UIController] No UI found for type {typeof(T).Name}");
-                return null;
-            }
-
-            return wnd;
-        }
-
-        /// <summary>
-        /// Вернуть интерфейс указанного типа
-        /// </summary>
-        /// <param name="type"></param>
-        /// <returns></returns>
-        public static UserInterface GetUI(Type type)
-        {
-            var wnd = _uis.Get(type);
-            if (wnd == null)
-            {
-                Debug.LogError($"[UIController] No UI found for type {type.Name}");
-                return null;
-            }
-
-            return wnd;
         }
 
         #endregion
