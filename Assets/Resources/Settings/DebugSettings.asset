@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   appStates: 0
   debugMode: 1
-  uiLogs: 1
+  uiLogs: 0

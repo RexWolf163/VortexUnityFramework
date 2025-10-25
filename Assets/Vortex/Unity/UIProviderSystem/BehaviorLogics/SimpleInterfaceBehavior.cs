@@ -64,8 +64,7 @@ namespace Vortex.Unity.UIProviderSystem.BehaviorLogics
                         continue;
                     }
 
-                    var panel = Activator.CreateInstance(type) as UserInterface;
-                    if (panel == null)
+                    if (!type.IsSubclassOf(typeof(UserInterface)))
                     {
                         Debug.LogError($"{type.Name} is not a UserInterface");
                         continue;

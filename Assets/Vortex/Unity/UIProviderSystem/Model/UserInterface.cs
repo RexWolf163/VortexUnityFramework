@@ -25,28 +25,18 @@ namespace Vortex.Unity.UIProviderSystem.Model
 
         #region Private
 
-        private void Awake()
-        {
-            if (App.GetState() == AppStates.None)
-                return;
-            behaviorLogic.Init(this);
-        }
-
-        private void OnDestroy()
-        {
-            behaviorLogic.DeInit();
-        }
-
         protected void OnEnable()
         {
             State = UserInterfaceStates.Hide;
-            UIProvider.Register(this);
             foreach (var tweener in tweeners)
                 tweener.Back(true);
+            UIProvider.Register(this);
+            behaviorLogic.Init(this);
         }
 
         protected void OnDisable()
         {
+            behaviorLogic.DeInit();
             UIProvider.Unregister(this);
             foreach (var tweener in tweeners)
                 tweener.Back(true);
@@ -84,7 +74,7 @@ namespace Vortex.Unity.UIProviderSystem.Model
         #endregion
 
         /// <summary>
-        /// Проверка открыт ли интерефейс
+        /// Проверка открыт ли интерфейс
         /// </summary>
         /// <returns></returns>
         public bool IsOpened() => _state is UserInterfaceStates.Show or UserInterfaceStates.Showing;

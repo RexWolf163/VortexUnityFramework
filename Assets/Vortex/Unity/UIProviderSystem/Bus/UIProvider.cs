@@ -21,8 +21,8 @@ namespace Vortex.Unity.UIProviderSystem.Bus
             var wnd = GetUI<T>();
             if (wnd == null || wnd.IsOpened())
                 return;
-            OnOpen?.Invoke(wnd);
             wnd.Open();
+            OnOpen?.Invoke(wnd);
         }
 
         /// <summary>
@@ -33,8 +33,8 @@ namespace Vortex.Unity.UIProviderSystem.Bus
             var wnd = GetUI(type);
             if (wnd == null || wnd.IsOpened())
                 return;
-            OnOpen?.Invoke(wnd);
             wnd.Open();
+            OnOpen?.Invoke(wnd);
         }
 
         /// <summary>
@@ -46,8 +46,8 @@ namespace Vortex.Unity.UIProviderSystem.Bus
             var wnd = GetUI<T>();
             if (wnd == null || !wnd.IsOpened())
                 return;
-            OnClose?.Invoke(wnd);
             wnd.Close();
+            OnClose?.Invoke(wnd);
         }
 
         /// <summary>
@@ -58,8 +58,8 @@ namespace Vortex.Unity.UIProviderSystem.Bus
             var wnd = GetUI(type);
             if (wnd == null || !wnd.IsOpened())
                 return;
-            OnClose?.Invoke(wnd);
             wnd.Close();
+            OnClose?.Invoke(wnd);
         }
 
         /// <summary>
