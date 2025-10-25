@@ -129,9 +129,9 @@ GameObject:
   - component: {fileID: 97456210}
   - component: {fileID: 97456212}
   - component: {fileID: 97456214}
-  - component: {fileID: 97456213}
   - component: {fileID: 97456215}
-  - component: {fileID: 97456216}
+  - component: {fileID: 97456217}
+  - component: {fileID: 97456218}
   m_Layer: 5
   m_Name: preloadScreen
   m_TagString: Untagged
@@ -168,28 +168,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 97456209}
   m_CullTransparentMesh: 1
---- !u!95 &97456213
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 97456209}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 413298d530c613c42b3c78eb7787bfa5, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &97456214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,9 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f04416b468c807449b9d2597e0a6392a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 97456213}
-  _startTrigger: Start
-  _completeTrigger: Complete
+  _switcher: {fileID: 97456218}
   uiComponent: {fileID: 183200231}
 --- !u!114 &97456215
 MonoBehaviour:
@@ -220,7 +196,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneName: map
   additiveMode: 0
---- !u!114 &97456216
+--- !u!114 &97456217
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -229,10 +205,69 @@ MonoBehaviour:
   m_GameObject: {fileID: 97456209}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fde788eda310a72439ca17833721bb7a, type: 3}
+  m_Script: {fileID: 11500000, guid: d77d40928b575b7458b1c4b8f1de8bae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: preloader
+  sceneName: ui
+  additiveMode: 1
+--- !u!114 &97456218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 97456209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7e27547ad8e9b940a928d44b8ef63bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _setOnEnableState: 0
+  _stateOnEnable: 0
+  _duplicateOnCreate: 1
+  _states:
+  - _name: Waiting
+    _stateItems: []
+  - _name: Loading
+    _stateItems: []
+  - _name: Completed
+    _stateItems:
+    - rid: 2547342522040451260
+  references:
+    version: 2
+    RefIds:
+    - rid: 2547342522040451260
+      type: {class: EventFire, ns: Vortex.Unity.UI.StateSwitcher.Items, asm: ru.vortex.unity.ui.misc}
+      data:
+        events:
+          m_PersistentCalls:
+            m_Calls:
+            - m_Target: {fileID: 97456215}
+              m_TargetAssemblyTypeName: Vortex.Unity.Components.SceneControllers.LoadSceneHandler,
+                ui.vortex.unity.components
+              m_MethodName: Run
+              m_Mode: 1
+              m_Arguments:
+                m_ObjectArgument: {fileID: 0}
+                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: 
+                m_BoolArgument: 0
+              m_CallState: 2
+            - m_Target: {fileID: 97456217}
+              m_TargetAssemblyTypeName: Vortex.Unity.Components.SceneControllers.LoadSceneHandler,
+                ui.vortex.unity.components
+              m_MethodName: Run
+              m_Mode: 1
+              m_Arguments:
+                m_ObjectArgument: {fileID: 0}
+                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: 
+                m_BoolArgument: 0
+              m_CallState: 2
 --- !u!1 &183200229
 GameObject:
   m_ObjectHideFlags: 0

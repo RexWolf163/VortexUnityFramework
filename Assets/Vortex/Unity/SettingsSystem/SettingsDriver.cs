@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Vortex.Core.SettingsSystem;
 using Vortex.Core.SettingsSystem.Model;
 using Vortex.Core.System.Abstractions;
@@ -42,9 +43,11 @@ namespace Vortex.Unity.SettingsSystem
                 return false;
             }
 
+            OnInit?.Invoke();
             return true;
         }
 
+        public event Action OnInit;
         public void Init() => LoadData();
 
         public void Destroy()

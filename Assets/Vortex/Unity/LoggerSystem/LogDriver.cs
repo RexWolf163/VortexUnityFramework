@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Vortex.Core.LoggerSystem;
 using Vortex.Core.LoggerSystem.Bus;
 using Vortex.Core.LoggerSystem.Model;
@@ -10,6 +11,8 @@ namespace Vortex.Unity.LoggerSystem
     /// </summary>
     public partial class LogDriver : IDriver
     {
+        public event Action OnInit;
+
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
         private static void Run()
         {
@@ -39,7 +42,7 @@ namespace Vortex.Unity.LoggerSystem
 
         public void Init()
         {
-            //Ignore   
+            OnInit?.Invoke();
         }
 
         public void Destroy()

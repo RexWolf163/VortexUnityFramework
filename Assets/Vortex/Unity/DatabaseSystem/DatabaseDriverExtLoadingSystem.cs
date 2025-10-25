@@ -54,6 +54,7 @@ namespace Vortex.Unity.DatabaseSystem
                 await Task.Yield();
             }
 
+            OnInit?.Invoke();
             await Task.CompletedTask;
         }
 

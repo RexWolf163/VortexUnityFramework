@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Serialization;
@@ -20,6 +21,8 @@ namespace Vortex.Unity.SaveSystem
 
         private static Dictionary<string, string> _saveDataIndex;
 
+        public event Action OnInit;
+
         public void Init()
         {
             _saves.Clear();
@@ -27,6 +30,7 @@ namespace Vortex.Unity.SaveSystem
             var ar = saves.Split(';');
             if (ar.Length > 0)
                 _saves.AddRange(ar);
+            OnInit?.Invoke();
         }
 
         public void Destroy()

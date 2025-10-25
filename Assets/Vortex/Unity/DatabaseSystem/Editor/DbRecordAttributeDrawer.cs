@@ -1,7 +1,10 @@
 #if UNITY_EDITOR
 using Sirenix.OdinInspector.Editor;
+using Sirenix.Utilities;
+using UnityEditor;
 using UnityEngine;
-using Vortex.Unity.DatabaseSystem.Editor.Attributes;
+using Vortex.Core.DatabaseSystem.Bus;
+using Vortex.Unity.DatabaseSystem.Attributes;
 using Vortex.Unity.Extensions.Editor;
 
 namespace Vortex.Unity.DatabaseSystem.Editor
@@ -11,7 +14,27 @@ namespace Vortex.Unity.DatabaseSystem.Editor
         protected override void DrawPropertyLayout(GUIContent label)
         {
             var list = DatabaseDriver.Instance.GetDropdownList();
-            ValueEntry.SmartValue = OdinDropdownTool.DropdownSelector(label, ValueEntry.SmartValue, list);
+
+            EditorGUI.BeginChangeCheck();
+            var color = GUI.color;
+            var test = TestMethod();
+            if (!test)
+                GUI.color = Color.red;
+            ValueEntry.SmartValue =
+                OdinDropdownTool.DropdownSelector(label, ValueEntry.SmartValue, list);
+            if (EditorGUI.EndChangeCheck())
+                TestMethod();
+            if (!test)
+                GUI.color = color;
+        }
+
+        private bool TestMethod()
+        {
+            var type = Attribute.RecordType;
+            var item = ValueEntry.SmartValue.IsNullOrWhitespace()
+                ? null
+                : Database.GetRecord(ValueEntry.SmartValue).GetType();
+            return item == type;
         }
     }
 }

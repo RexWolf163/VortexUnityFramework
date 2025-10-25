@@ -1,5 +1,7 @@
 ﻿using System;
 using UnityEngine;
+using Vortex.Core.AppSystem.Bus;
+using Vortex.Core.System.Enums;
 using Vortex.Unity.AppSystem.System.TimeSystem;
 using Vortex.Unity.UI.Tweeners;
 using Vortex.Unity.UIProviderSystem.Bus;
@@ -25,6 +27,8 @@ namespace Vortex.Unity.UIProviderSystem.Model
 
         private void Awake()
         {
+            if (App.GetState() == AppStates.None)
+                return;
             behaviorLogic.Init(this);
         }
 
@@ -35,7 +39,7 @@ namespace Vortex.Unity.UIProviderSystem.Model
 
         protected void OnEnable()
         {
-            _state = UserInterfaceStates.Hide;
+            State = UserInterfaceStates.Hide;
             UIProvider.Register(this);
             foreach (var tweener in tweeners)
                 tweener.Back(true);

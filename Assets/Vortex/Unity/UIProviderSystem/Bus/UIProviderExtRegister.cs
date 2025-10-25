@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Vortex.Core.Extensions.LogicExtensions;
+using Vortex.Core.SettingsSystem.Bus;
 using Vortex.Unity.UIProviderSystem.Model;
 
 namespace Vortex.Unity.UIProviderSystem.Bus
@@ -37,6 +38,8 @@ namespace Vortex.Unity.UIProviderSystem.Bus
             var type = ui.GetType();
             var behType = ui.GetBehaviorType();
 
+            if (Settings.Data().AppStateDebugMode)
+                Debug.Log($"Registering UI : {type.Name}");
             _uis.AddNew(type, ui);
             if (!_uisByBehaviour.ContainsKey(behType))
                 _uisByBehaviour.Add(behType, new Dictionary<Type, UserInterface>());
@@ -50,6 +53,8 @@ namespace Vortex.Unity.UIProviderSystem.Bus
         internal static void Unregister(UserInterface ui)
         {
             var type = ui.GetType();
+            if (Settings.Data().AppStateDebugMode)
+                Debug.Log($"UnRegistering UI : {type.Name}");
             if (!_uis.ContainsKey(type))
             {
                 Debug.LogError($"[UIController] UI doesn't exist: {type}");

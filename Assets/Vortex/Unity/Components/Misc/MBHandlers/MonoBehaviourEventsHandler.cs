@@ -10,12 +10,28 @@ namespace Vortex.Unity.Components.Misc.MBHandlers
         [SerializeField] private UnityEvent onEnable = new();
         [SerializeField] private UnityEvent onDisable = new();
 
-        private void Awake() => onAwake?.Invoke();
+        private void Awake()
+        {
+            if (enabled)
+                onAwake?.Invoke();
+        }
 
-        private void OnDestroy() => onDestroy?.Invoke();
+        private void OnDestroy()
+        {
+            if (enabled)
+                onDestroy?.Invoke();
+        }
 
-        private void OnEnable() => onEnable?.Invoke();
+        private void OnEnable()
+        {
+            if (isActiveAndEnabled)
+                onEnable?.Invoke();
+        }
 
-        private void OnDisable() => onDisable?.Invoke();
+        private void OnDisable()
+        {
+            if (isActiveAndEnabled)
+                onDisable?.Invoke();
+        }
     }
 }

@@ -10,6 +10,8 @@ namespace Vortex.Unity.Extensions.Editor
 {
     /// <summary>
     /// Инструмент цельнотянут у коллеги (tg @RustyPhil)
+    ///
+    /// PS модифицирован
     /// </summary>
     public static class OdinDropdownTool
     {
@@ -21,29 +23,37 @@ namespace Vortex.Unity.Extensions.Editor
         {
             var dropItems = new ValueDropdownList<T>();
             dropItems.AddRange(_items.Select(item => new ValueDropdownItem<T>(GetLabelDefault(item), item)));
-            return DropdownSelector(_label, _value, dropItems);
+            return DropdownSelector(_label, _value, dropItems, out var rect);
         }
 
-        public static T DropdownSelector<T>(T _value, ValueDropdownList<T> _dropItems) =>
-            DropdownSelector(null, _value, _dropItems);
+        public static T DropdownSelector<T>(T _value, ValueDropdownList<T> _dropItems, out Rect rect) =>
+            DropdownSelector(null, _value, _dropItems, out rect);
 
-        public static T DropdownSelector<T>(GUIContent _label, T _value, ValueDropdownList<T> _dropItems)
+        public static T DropdownSelector<T>(GUIContent _label, T _value, ValueDropdownList<T> _dropItems,
+            int rightOffSet = 0) =>
+            DropdownSelector(_label, _value, _dropItems, out var rect, rightOffSet);
+
+        public static T DropdownSelector<T>(GUIContent _label, T _value, ValueDropdownList<T> _dropItems,
+            out Rect rect, int rightOffSet = 0)
         {
-            Rect rect = EditorGUILayout.GetControlRect(_label != null, EditorGUIUtility.singleLineHeight,
+            rect = EditorGUILayout.GetControlRect(_label != null, EditorGUIUtility.singleLineHeight,
                 EditorStyles.numberField);
-            return DropdownSelector(rect, _label, _value, _dropItems);
+            return DropdownSelector(rect, _label, _value, _dropItems, rightOffSet);
         }
 
-        private static T DropdownSelector<T>(Rect _rect, GUIContent _label, T _value, ValueDropdownList<T> _dropItems)
+        private static T DropdownSelector<T>(Rect _rect, GUIContent _label, T _value, ValueDropdownList<T> _dropItems,
+            int rightOffSet = 0)
         {
             if (_label != null)
                 _rect = EditorGUI.PrefixLabel(_rect, _label);
 
+            if (rightOffSet > 0)
+                _rect.xMax -= rightOffSet;
+
             var selected = _dropItems.Find(item => item.Value.Equals(_value));
 
-            OdinSelector<T> GetSelector(Rect _selectorRect) => ShowSelector(_selectorRect, default, _dropItems, _value);
-
-            var result = OdinSelector<T>.DrawSelectorDropdown(_rect, selected.Text, GetSelector);
+            var result = OdinSelector<T>.DrawSelectorDropdown(_rect, selected.Text,
+                (selectorRect) => ShowSelector(selectorRect, default, _dropItems, _value));
 
             if (result == null) return _value;
 

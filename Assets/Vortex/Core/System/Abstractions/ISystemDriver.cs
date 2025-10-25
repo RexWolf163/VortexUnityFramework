@@ -1,7 +1,11 @@
-﻿namespace Vortex.Core.System.Abstractions
+﻿using System;
+
+namespace Vortex.Core.System.Abstractions
 {
     public interface ISystemDriver
     {
+        public event Action OnInit;
+
         /// <summary>
         /// Инициализация
         /// Запускается автоматически после назначения драйвера системе

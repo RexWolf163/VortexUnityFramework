@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Vortex.Core.DatabaseSystem;
@@ -11,6 +12,8 @@ namespace Vortex.Unity.DatabaseSystem
     public partial class DatabaseDriver : Singleton<DatabaseDriver>, IDriver
     {
         private static SortedDictionary<string, Record> _recordsLink;
+
+        public event Action OnInit;
 
         /// <summary>
         /// Инициализация

@@ -1,4 +1,6 @@
 ﻿using System;
+using UnityEngine;
+using Vortex.Core.SettingsSystem.Bus;
 
 namespace Vortex.Unity.UIProviderSystem.Model
 {
@@ -21,12 +23,21 @@ namespace Vortex.Unity.UIProviderSystem.Model
         /// <summary>
         /// Состояние окна
         /// </summary>
-        private static UserInterfaceStates _state;
+        private UserInterfaceStates _state;
 
         /// <summary>
         /// Состояние окна
         /// </summary>
-        public UserInterfaceStates State => _state;
+        public UserInterfaceStates State
+        {
+            get => _state;
+            protected set
+            {
+                _state = value;
+                if (Settings.Data().UiDebugMode)
+                    Debug.Log($"{GetType().Name}: {State}");
+            }
+        }
 
         #endregion
 
@@ -34,19 +45,9 @@ namespace Vortex.Unity.UIProviderSystem.Model
 
         private void SetState(UserInterfaceStates state)
         {
-            _state = state;
+            State = state;
             OnStateChanged?.Invoke(_state);
         }
-
-        #endregion
-
-        #region Public
-
-        /// <summary>
-        /// Текущее состояние UI
-        /// </summary>
-        /// <returns></returns>
-        public static UserInterfaceStates GetState() => _state;
 
         #endregion
     }

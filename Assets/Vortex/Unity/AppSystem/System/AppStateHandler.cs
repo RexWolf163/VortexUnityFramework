@@ -32,8 +32,7 @@ namespace Vortex.Unity.AppSystem.System
 
         private void Awake()
         {
-            DontDestroyOnLoad(this);
-            _oldState = Core.AppSystem.Bus.App.GetState();
+            _oldState = App.GetState();
             App.OnStateChanged += OnStateChanged;
         }
 

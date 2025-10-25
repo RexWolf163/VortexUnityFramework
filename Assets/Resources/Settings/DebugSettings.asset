@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 780ae415a24ed024ebc4f17f226af712, type: 3}
   m_Name: DebugSettings
   m_EditorClassIdentifier: 
-  appStates: 1
+  appStates: 0
   debugMode: 1
+  uiLogs: 1

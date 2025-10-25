@@ -1,9 +1,31 @@
-﻿namespace Vortex.Core.System.Abstractions
+﻿using System;
+using System.Collections.Generic;
+
+namespace Vortex.Core.System.Abstractions
 {
     public abstract class SystemController<T, TD> : Singleton<T>
         where T : SystemController<T, TD>, new()
         where TD : ISystemDriver
     {
+        protected static bool isInit;
+
+        /// <summary>
+        /// очередь ожидающих инициализации БД
+        /// </summary>
+        private static List<Action> InitQueue = new();
+
+        public static event Action OnInit
+        {
+            add
+            {
+                if (isInit)
+                    value?.Invoke();
+                else
+                    InitQueue.Add(value);
+            }
+            remove => InitQueue.Remove(value);
+        }
+
         protected static TD Driver;
 
         /// <summary>
@@ -20,6 +42,7 @@
                 Driver.Destroy();
                 Driver = driver;
                 Instance.OnDriverConnect();
+                Driver.OnInit += CallOnInit;
                 Driver.Init();
                 return false;
             }
@@ -45,5 +68,16 @@
         /// Обработка отключения нового драйвера
         /// </summary>
         protected abstract void OnDriverDisonnect();
+
+        /// <summary>
+        /// Вызов всех "ожиданцев" после инициализации драйвера
+        /// </summary>
+        protected static void CallOnInit()
+        {
+            foreach (var action in InitQueue)
+                action?.Invoke();
+
+            InitQueue?.Clear();
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Vortex.Core.DatabaseSystem.Model;
 using Vortex.Core.LoggerSystem.Bus;
 using Vortex.Core.LoggerSystem.Model;
@@ -13,8 +14,21 @@ namespace Vortex.Core.DatabaseSystem.Bus
         /// </summary>
         private SortedDictionary<string, Record> _records = new();
 
+        /// <summary>
+        /// Возвращает запись из БД по GUID приведенная к указанному типа
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
         public static T GetRecord<T>(string guid) where T : Record, new()
         {
+            if (!Instance._records.ContainsKey(guid))
+            {
+                Log.Print(
+                    new LogData(LogLevel.Error, $"Record not found for GUID: {guid}", Instance));
+                return null;
+            }
+
             var record = Instance._records[guid] as T;
             if (record == null)
                 Log.Print(
@@ -22,6 +36,28 @@ namespace Vortex.Core.DatabaseSystem.Bus
             return record;
         }
 
+        /// <summary>
+        /// Возвращает запись из БД по GUID
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
+        public static Record GetRecord(string guid)
+        {
+            if (!Instance._records.ContainsKey(guid))
+            {
+                Log.Print(
+                    new LogData(LogLevel.Error, $"Record not found for GUID: {guid}", Instance));
+                return null;
+            }
+
+            var record = Instance._records[guid];
+            return record;
+        }
+
+        /// <summary>
+        /// Возвращает все имеющиеся в реестре записи указанного типа
+        /// </summary>
+        /// <returns></returns>
         public static List<T> GetRecords<T>() where T : Record
         {
             var list = Instance._records.Values;
@@ -36,6 +72,12 @@ namespace Vortex.Core.DatabaseSystem.Bus
 
             return result;
         }
+
+        /// <summary>
+        /// Возвращает все имеющиеся в реестре записи
+        /// </summary>
+        /// <returns></returns>
+        public static Record[] GetRecords() => Instance._records.Values.ToArray();
 
         /// <summary>
         /// Обработка подключения нового драйвера
