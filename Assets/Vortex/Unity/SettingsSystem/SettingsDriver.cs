@@ -5,7 +5,7 @@ using Vortex.Core.SettingsSystem.Model;
 using Vortex.Core.System.Abstractions;
 using Vortex.Core.System.Abstractions.SystemControllers;
 using Vortex.Unity.FileSystem.Bus;
-using Vortex.Unity.SettingsSystem.Storage;
+using Vortex.Unity.SettingsSystem.Presets;
 
 namespace Vortex.Unity.SettingsSystem
 {
@@ -33,7 +33,7 @@ namespace Vortex.Unity.SettingsSystem
         private bool LoadData()
         {
             CheckPath();
-            var dataSets = Resources.LoadAll<SettingsStorage>(Path);
+            var dataSets = Resources.LoadAll<SettingsPreset>(Path);
             foreach (var data in dataSets)
             {
                 var result = Model.CopyFrom(data);

@@ -1,10 +1,10 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Vortex.Unity.SettingsSystem.Storage
+namespace Vortex.Unity.SettingsSystem.Presets
 {
     [CreateAssetMenu(fileName = "StartSettings", menuName = "Settings/StartSettings")]
-    public partial class StartSettings : SettingsStorage
+    public partial class StartSettings : SettingsPreset
     {
         [ValueDropdown("@DropDawnHandler.GetScenes()")] [SerializeField]
         private string startScene;

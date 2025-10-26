@@ -1,8 +1,8 @@
 ﻿using Vortex.Core.DatabaseSystem.Model;
 
-namespace Vortex.Unity.DatabaseSystem.Storage
+namespace Vortex.Unity.DatabaseSystem.Presets
 {
-    public interface IRecordStorage
+    public interface IRecordPreset
     {
         /// <summary>
         /// Глобально уникальный идентификатор 

@@ -8,7 +8,7 @@ using UnityEngine;
 using Vortex.Core.Extensions.LogicExtensions;
 using Vortex.Core.SaveSystem;
 using Vortex.Core.SaveSystem.Abstraction;
-using Vortex.Unity.SaveSystem.Storage;
+using Vortex.Unity.SaveSystem.Presets;
 
 namespace Vortex.Unity.SaveSystem
 {
@@ -40,7 +40,7 @@ namespace Vortex.Unity.SaveSystem
         public void Save(string guid)
         {
             var count = _saveDataIndex.Count;
-            var save = new SaveStorage
+            var save = new SavePreset
             {
                 data = new List<SaveData>()
             };
@@ -51,7 +51,7 @@ namespace Vortex.Unity.SaveSystem
                 save.data.Add(new SaveData { Id = list[i], Data = data });
             }
 
-            var xmls = new XmlSerializer(typeof(SaveStorage));
+            var xmls = new XmlSerializer(typeof(SavePreset));
             var sw = new StringWriter();
             xmls.Serialize(sw, save);
             var saveData = sw.ToString();
@@ -74,8 +74,8 @@ namespace Vortex.Unity.SaveSystem
             var saveData = PlayerPrefs.GetString(GetSaveName(guid));
             saveData = saveData.Decompress(guid);
 
-            var xmls = new XmlSerializer(typeof(SaveStorage));
-            var save = xmls.Deserialize(new StringReader(saveData)) as SaveStorage;
+            var xmls = new XmlSerializer(typeof(SavePreset));
+            var save = xmls.Deserialize(new StringReader(saveData)) as SavePreset;
             if (save == null)
             {
                 Debug.LogError($"[SaveSystemDriver] Error while loading save data from {guid}.]");

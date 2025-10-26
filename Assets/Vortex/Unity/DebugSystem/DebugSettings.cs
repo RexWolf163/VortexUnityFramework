@@ -1,11 +1,11 @@
 ﻿using Sirenix.OdinInspector;
 using UnityEngine;
-using Vortex.Unity.SettingsSystem.Storage;
+using Vortex.Unity.SettingsSystem.Presets;
 
 namespace Vortex.Unity.DebugSystem
 {
     [CreateAssetMenu(fileName = "DebugSettings", menuName = "Settings/DebugSettings")]
-    public partial class DebugSettings : SettingsStorage
+    public partial class DebugSettings : SettingsPreset
     {
         [PropertyOrder(-100)]
         [SerializeField]

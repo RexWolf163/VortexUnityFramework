@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
-using Vortex.Unity.DatabaseSystem.Storage;
+using Vortex.Unity.DatabaseSystem.Presets;
 
 namespace AppScripts.Test
 {
     [CreateAssetMenu(fileName = "TestItem", menuName = "Database/Test Item")]
-    public class TestItemStorage : RecordStorage<TestItem>
+    public class TestItemPreset : RecordPreset<TestItem>
     {
         [SerializeField] private string chain;
 

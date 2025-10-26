@@ -9,9 +9,9 @@ using UnityEditor;
 using System.IO;
 #endif
 
-namespace Vortex.Unity.DatabaseSystem.Storage
+namespace Vortex.Unity.DatabaseSystem.Presets
 {
-    public abstract class RecordStorage<T> : SoData, IRecordStorage where T : Record, new()
+    public abstract class RecordPreset<T> : SoData, IRecordPreset where T : Record, new()
     {
         private const string DefaultName = "DBItem";
 
@@ -55,7 +55,7 @@ namespace Vortex.Unity.DatabaseSystem.Storage
         }
 
 #if UNITY_EDITOR
-        public RecordStorage() => guid = Crypto.GetNewGuid();
+        public RecordPreset() => guid = Crypto.GetNewGuid();
 
         [Button]
         public void ResetGuid() => guid = Crypto.GetNewGuid();

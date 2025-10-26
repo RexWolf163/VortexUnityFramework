@@ -5,7 +5,7 @@ using UnityEngine;
 using Vortex.Core.DatabaseSystem.Bus;
 using Vortex.Core.LoaderSystem.Bus;
 using Vortex.Core.System.ProcessInfo;
-using Vortex.Unity.DatabaseSystem.Storage;
+using Vortex.Unity.DatabaseSystem.Presets;
 using Object = UnityEngine.Object;
 
 namespace Vortex.Unity.DatabaseSystem
@@ -46,7 +46,7 @@ namespace Vortex.Unity.DatabaseSystem
                 }
 
                 _processData.Progress++;
-                if (resource is not IRecordStorage data)
+                if (resource is not IRecordPreset data)
                     continue;
                 var record = data.GetData();
                 AddRecord(record, data.Guid, data.Name);
