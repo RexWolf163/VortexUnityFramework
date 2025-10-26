@@ -1,5 +1,4 @@
 ﻿using System;
-using Vortex.Unity.UIProviderSystem.Model;
 
 namespace Vortex.Unity.UIProviderSystem.Bus
 {
@@ -8,14 +7,25 @@ namespace Vortex.Unity.UIProviderSystem.Bus
     /// </summary>
     public static partial class UIProvider
     {
-        /// <summary>
-        /// Событие открытия интерфейса
-        /// </summary>
-        public static event Action<UserInterface> OnOpen;
+        #region Events
 
         /// <summary>
-        /// Событие закрытия интерфейса
+        /// Событие открытия окна
         /// </summary>
-        public static event Action<UserInterface> OnClose;
+        public static event Action OnOpen;
+
+        /// <summary>
+        /// Событие закрытия окна
+        /// </summary>
+        public static event Action OnClose;
+
+        #endregion
+
+        #region Public
+
+        internal static void CallOnOpen() => OnOpen?.Invoke();
+        internal static void CallOnClose() => OnClose?.Invoke();
+
+        #endregion
     }
 }

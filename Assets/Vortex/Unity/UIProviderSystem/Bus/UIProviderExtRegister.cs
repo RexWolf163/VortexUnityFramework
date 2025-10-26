@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
+using Vortex.Core.DatabaseSystem.Bus;
 using Vortex.Core.Extensions.LogicExtensions;
 using Vortex.Core.SettingsSystem.Bus;
-using Vortex.Unity.UIProviderSystem.Model;
+using Vortex.Unity.UIProviderSystem.Model.Conditions;
 
 namespace Vortex.Unity.UIProviderSystem.Bus
 {
@@ -16,14 +16,9 @@ namespace Vortex.Unity.UIProviderSystem.Bus
         #region Params
 
         /// <summary>
-        /// Индекс зарегистрировавшихся UI
+        /// Индекс зарегистрировавшихся UI по Id их пресета
         /// </summary>
-        private static Dictionary<Type, UserInterface> _uis = new();
-
-        /// <summary>
-        /// Индекс по типам поведения
-        /// </summary>
-        private static Dictionary<Type, Dictionary<Type, UserInterface>> _uisByBehaviour = new();
+        private static readonly SortedDictionary<string, UserInterfaceData> Uis = new();
 
         #endregion
 
@@ -32,41 +27,32 @@ namespace Vortex.Unity.UIProviderSystem.Bus
         /// <summary>
         /// Регистрация нового интерфейса в индексе
         /// </summary>
-        /// <param name="ui"></param>
-        internal static void Register(UserInterface ui)
+        /// <param name="id"></param>
+        internal static UserInterfaceData Register(string id)
         {
-            var type = ui.GetType();
-            var behType = ui.GetBehaviorType();
-
+            var ui = Database.GetRecord<UserInterfaceData>(id);
             if (Settings.Data().AppStateDebugMode)
-                Debug.Log($"Registering UI : {type.Name}");
-            _uis.AddNew(type, ui);
-            if (!_uisByBehaviour.ContainsKey(behType))
-                _uisByBehaviour.Add(behType, new Dictionary<Type, UserInterface>());
-            _uisByBehaviour[behType].AddNew(type, ui);
+                Debug.Log($"[UIProvider] Registering UI : {ui.Name}");
+            Uis.AddNew(id, ui);
+            return ui;
         }
 
         /// <summary>
         /// Снятие с регистрации интерфейса
         /// </summary>
-        /// <param name="ui"></param>
-        internal static void Unregister(UserInterface ui)
+        /// <param name="id"></param>
+        internal static void Unregister(string id)
         {
-            var type = ui.GetType();
-            if (Settings.Data().AppStateDebugMode)
-                Debug.Log($"UnRegistering UI : {type.Name}");
-            if (!_uis.ContainsKey(type))
+            if (!Uis.ContainsKey(id))
             {
-                Debug.LogError($"[UIController] UI doesn't exist: {type}");
+                Debug.LogError($"[UIProvider] UI doesn't exist: {id}");
                 return;
             }
 
-            var behType = ui.GetBehaviorType();
-
-            _uis.Remove(type);
-            _uisByBehaviour[behType].Remove(type);
-            if (_uisByBehaviour[behType].Count == 0)
-                _uisByBehaviour.Remove(behType);
+            var ui = Uis.Get(id);
+            if (Settings.Data().AppStateDebugMode)
+                Debug.Log($"[UIProvider] UnRegistering UI : {ui.Name}");
+            Uis.Remove(id);
         }
 
         #endregion

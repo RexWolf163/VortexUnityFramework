@@ -13,7 +13,7 @@ namespace Vortex.Unity.DatabaseSystem.Editor
     {
         protected override void DrawPropertyLayout(GUIContent label)
         {
-            var list = DatabaseDriver.Instance.GetDropdownList();
+            var list = DatabaseDriver.Instance.GetDropdownList(Attribute.RecordType);
 
             EditorGUI.BeginChangeCheck();
             var color = GUI.color;

@@ -1,13 +1,16 @@
 ﻿using System;
 using UnityEngine;
+using Vortex.Unity.DatabaseSystem.Attributes;
 using Vortex.Unity.UI.UIComponents;
-using Vortex.Unity.UIProviderSystem.Attributes;
+using Vortex.Unity.UIProviderSystem.Bus;
+using Vortex.Unity.UIProviderSystem.Model.Conditions;
 
 namespace Vortex.Unity.UIProviderSystem.Handlers
 {
     public class CallUIHandler : MonoBehaviour
     {
-        [SerializeField, UserInterface] protected string uiType;
+        [SerializeField, DbRecord(typeof(UserInterfaceData))]
+        protected string uiId;
 
         /// <summary>
         /// Закрывать вместо открытия
@@ -20,7 +23,7 @@ namespace Vortex.Unity.UIProviderSystem.Handlers
 
         private void Awake()
         {
-            type = Type.GetType(uiType);
+            type = Type.GetType(uiId);
             uiComponent?.SetAction(CallUI);
         }
 
@@ -34,12 +37,12 @@ namespace Vortex.Unity.UIProviderSystem.Handlers
 
         private void CloseUI()
         {
-            Bus.UIProvider.CloseUI(type);
+            UIProvider.Close(uiId);
         }
 
         private void OpenUI()
         {
-            Bus.UIProvider.OpenUI(type);
+            UIProvider.Open(uiId);
         }
     }
 }

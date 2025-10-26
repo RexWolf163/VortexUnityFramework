@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Vortex.Unity.DatabaseSystem.Presets;
 
 namespace Vortex.Unity.DatabaseSystem.Attributes
 {
@@ -11,6 +12,11 @@ namespace Vortex.Unity.DatabaseSystem.Attributes
         public DbRecordAttribute(Type type)
         {
             RecordType = type;
+        }
+
+        public DbRecordAttribute()
+        {
+            RecordType = typeof(IRecordPreset);
         }
     }
 }

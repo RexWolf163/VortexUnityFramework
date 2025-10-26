@@ -200,7 +200,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9137159661881360752, guid: eb17112945cac22429015b0741c9d913, type: 3}
       propertyPath: m_Name
-      value: Button Variant
+      value: Button Icon+Text
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9137159661881360525, guid: eb17112945cac22429015b0741c9d913, type: 3}

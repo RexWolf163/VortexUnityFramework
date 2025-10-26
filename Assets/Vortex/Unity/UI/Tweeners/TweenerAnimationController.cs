@@ -8,26 +8,31 @@ namespace Vortex.Unity.UI.Tweeners
     [RequireComponent(typeof(Animator))]
     public class TweenerAnimationController : TweenerBase
     {
-        [InfoBox("Для выбора ключа сделайте активным объект", InfoMessageType.Warning, "$IsNotActive")]
+        [InfoBox("Для выбора ключа сделайте активным объект. Используются только Bool поля", InfoMessageType.Warning,
+            "$IsNotActive")]
         [SerializeField]
         [ValueDropdown("$GetAnimatorKeys")]
-        private string _activeKey = "";
+        private string activeKey = "";
 
-        [SerializeField] private Animator _animator;
+        [SerializeField] [ValueDropdown("$GetAnimatorKeys")]
+        private string skipKey = "";
+
+        [SerializeField] private Animator animator;
 
         [SerializeField] private UnityEvent beforeTween;
 
         public override void Forward(bool skip = false)
         {
             beforeTween?.Invoke();
-            _animator.SetBool(_activeKey, true);
-            _animator.SetTrigger(_activeKey);
+            animator.SetBool(skipKey, skip);
+            animator.SetBool(activeKey, true);
         }
 
         public override void Back(bool skip = false)
         {
             beforeTween?.Invoke();
-            _animator.SetBool(_activeKey, false);
+            animator.SetBool(skipKey, skip);
+            animator.SetBool(activeKey, false);
         }
 
 #if UNITY_EDITOR
@@ -35,8 +40,8 @@ namespace Vortex.Unity.UI.Tweeners
 
         private void OnValidate()
         {
-            if (_animator == null)
-                _animator = transform.GetComponent<Animator>();
+            if (animator == null)
+                animator = transform.GetComponent<Animator>();
         }
 
         private List<string> GetAnimatorKeys()
@@ -44,9 +49,8 @@ namespace Vortex.Unity.UI.Tweeners
             var result = new List<string>();
             if (IsNotActive)
                 return result;
-            foreach (var param in _animator.parameters)
-                if (param.type == AnimatorControllerParameterType.Bool
-                    || param.type == AnimatorControllerParameterType.Trigger)
+            foreach (var param in animator.parameters)
+                if (param.type == AnimatorControllerParameterType.Bool)
                     result.Add(param.name);
             return result;
         }

@@ -188,7 +188,7 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 12, y: 12, z: 0, w: 0}
       customData: 
       outline: []
@@ -197,6 +197,28 @@ TextureImporter:
       bones: []
       spriteID: 935abc5ad3dc7aa4b9f048445e6362ef
       internalID: 533287394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: base_bg_light_r9_t
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 16
+        width: 32
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 12, y: 0, z: 12, w: 12}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8bdec40331c35d64c9dc3b360d6aa138
+      internalID: -383160089
       vertices: []
       indices: 
       edges: []
@@ -216,6 +238,7 @@ TextureImporter:
       base_bg_light_r9_0: -1796769334
       base_bg_light_r9_rb: 533287394
       base_bg_light_r9_rt: -1215854185
+      base_bg_light_r9_t: -383160089
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

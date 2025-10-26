@@ -83,40 +83,10 @@ PrefabInstance:
     - {fileID: 2497090930086842040, guid: 0cb240b228bcc86439c5dddb7d812443, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 9190718041114596685, guid: 0cb240b228bcc86439c5dddb7d812443, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5530628812102917545}
     - targetCorrespondingSourceObject: {fileID: 1367921681267409434, guid: 0cb240b228bcc86439c5dddb7d812443, type: 3}
       insertIndex: -1
       addedObject: {fileID: 9210549397462238909}
   m_SourcePrefab: {fileID: 100100000, guid: 0cb240b228bcc86439c5dddb7d812443, type: 3}
---- !u!1 &3260186062859026991 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9190718041114596685, guid: 0cb240b228bcc86439c5dddb7d812443, type: 3}
-  m_PrefabInstance: {fileID: 5959806770087761762}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &5530628812102917545
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3260186062859026991}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c388cfba6f9c457b82341704c7f4d4b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tweeners:
-  - {fileID: 9210549397462238909}
-  behaviorLogic:
-    rid: 2547342519086088321
-  references:
-    version: 2
-    RefIds:
-    - rid: 2547342519086088321
-      type: {class: PanelBehavior, ns: Vortex.Unity.UIProviderSystem.BehaviorLogics, asm: ru.vortex.unity.uiprovider}
-      data: 
 --- !u!1 &4633827072273503608 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1367921681267409434, guid: 0cb240b228bcc86439c5dddb7d812443, type: 3}

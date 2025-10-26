@@ -33,6 +33,7 @@ namespace Vortex.Unity.UI.UIComponents
 
         private void OnEnable()
         {
+            /*
             var count = uiComponentTexts?.Length ?? 0;
             for (var i = 0; i < count; i++)
                 SetText(String.Empty, i);
@@ -40,6 +41,7 @@ namespace Vortex.Unity.UI.UIComponents
             count = uiComponentGraphics?.Length ?? 0;
             for (var i = 0; i < count; i++)
                 SetSprite(null, i);
+        */
         }
 
         #endregion
