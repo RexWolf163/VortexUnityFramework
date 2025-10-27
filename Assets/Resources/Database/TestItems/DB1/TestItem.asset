@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 293d4a5c831044d2967be125d549ea2b, type: 3}
   m_Name: TestItem
   m_EditorClassIdentifier: 
+  type: 1
   guid: ae836eef0b55024228f1ae49d1e2316f4b2dcdf4bd11ef9d77f1a9e293bf0a1d
   nameRecord: test
   description: 

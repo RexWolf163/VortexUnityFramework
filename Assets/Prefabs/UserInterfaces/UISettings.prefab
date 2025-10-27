@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 560175292302244393, guid: 0cb240b228bcc86439c5dddb7d812443, type: 3}
       propertyPath: preset
-      value: 37dc472bfa974d8c9862f19f48dced4d241884b9bdf8812773b21d2194e6f119
+      value: 363a4c9f273d4ac5a709eb48221937b987837de4f2afe2d6df8292e04a5c4595
       objectReference: {fileID: 0}
     - target: {fileID: 1726353788539321306, guid: 0cb240b228bcc86439c5dddb7d812443, type: 3}
       propertyPath: uiId

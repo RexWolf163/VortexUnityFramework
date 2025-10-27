@@ -6,6 +6,8 @@ using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
 using Vortex.Core.DatabaseSystem.Bus;
+using Vortex.Core.Extensions.LogicExtensions;
+using Vortex.Unity.DatabaseSystem.Enums;
 using Vortex.Unity.DatabaseSystem.Presets;
 using Vortex.Unity.FileSystem.Bus;
 
@@ -24,12 +26,15 @@ namespace Vortex.Unity.DatabaseSystem
         private void LoadDb()
         {
             _recordsLink.Clear();
+            _uniqRecordsLink.Clear();
+            _resourcesIndex.Clear();
             _resources = Resources.LoadAll(Path);
             foreach (var resource in _resources)
             {
                 if (resource is not IRecordPreset data)
                     continue;
                 AddRecord(data.GetData(), data);
+                _resourcesIndex.AddNew(data.Guid, data);
             }
         }
 
@@ -53,7 +58,7 @@ namespace Vortex.Unity.DatabaseSystem
             return result;
         }
 
-        public ValueDropdownList<string> GetDropdownList(Type recordType)
+        public ValueDropdownList<string> GetDropdownList(Type recordClass, RecordTypes? recordType = null)
         {
             var result = new ValueDropdownList<string>();
             Instance.LoadDb();
@@ -62,13 +67,15 @@ namespace Vortex.Unity.DatabaseSystem
             {
                 if (resource is not IRecordPreset item)
                     continue;
-                var record = _recordsLink[item.Guid];
-                if (!recordType.IsInterface
-                    && record.GetType() != recordType
-                    && !record.GetType().IsSubclassOf(recordType))
+                var record = item.GetData();
+                if (!recordClass.IsInterface
+                    && record.GetType() != recordClass
+                    && !record.GetType().IsSubclassOf(recordClass))
                     continue;
-                if (recordType.IsInterface
-                    && !record.GetType().GetInterfaces().Contains(recordType))
+                if (recordClass.IsInterface
+                    && !record.GetType().GetInterfaces().Contains(recordClass))
+                    continue;
+                if (recordType != null && recordType != item.RecordType)
                     continue;
                 var path = AssetDatabase.GetAssetPath(resource.GetInstanceID());
                 var tempAr = path.Split(Path + "/");

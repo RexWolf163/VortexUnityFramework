@@ -118,7 +118,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &842413827
+--- !u!1001 &174709471
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -128,12 +128,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3260186062859026991, guid: eca0a2a3101373148ae12c11a59d92f0, type: 3}
       propertyPath: m_Name
-      value: TestUI
-      objectReference: {fileID: 0}
-    - target: {fileID: 4952197647615100260, guid: eca0a2a3101373148ae12c11a59d92f0, type: 3}
-      propertyPath: 'managedReferences[2547342519086088316]._needPanels.Array.data[0]'
-      value: AppScripts.Test.TestUI.TestUIPanel, Assembly-CSharp, Version=0.0.0.0,
-        Culture=neutral, PublicKeyToken=null
+      value: UISettings
       objectReference: {fileID: 0}
     - target: {fileID: 8255650686036129845, guid: eca0a2a3101373148ae12c11a59d92f0, type: 3}
       propertyPath: m_Pivot.x
@@ -220,10 +215,10 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eca0a2a3101373148ae12c11a59d92f0, type: 3}
---- !u!224 &842413828 stripped
+--- !u!224 &174709472 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8255650686036129845, guid: eca0a2a3101373148ae12c11a59d92f0, type: 3}
-  m_PrefabInstance: {fileID: 842413827}
+  m_PrefabInstance: {fileID: 174709471}
   m_PrefabAsset: {fileID: 0}
 --- !u!224 &1152391936 stripped
 RectTransform:
@@ -307,7 +302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7fc39107a104f738d6bbffedd3a1912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiId: 37dc472bfa974d8c9862f19f48dced4d241884b9bdf8812773b21d2194e6f119
+  uiId: 363a4c9f273d4ac5a709eb48221937b987837de4f2afe2d6df8292e04a5c4595
   closeUI: 0
   uiComponent: {fileID: 1294467787}
 --- !u!1001 &1387710992
@@ -443,7 +438,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 842413828}
+  - {fileID: 174709472}
   - {fileID: 1294467785}
   m_Father: {fileID: 1387710993}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

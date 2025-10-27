@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Vortex.Unity.DatabaseSystem.Enums;
 using Vortex.Unity.DatabaseSystem.Presets;
 
 namespace Vortex.Unity.DatabaseSystem.Attributes
@@ -7,16 +8,32 @@ namespace Vortex.Unity.DatabaseSystem.Attributes
     [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property, AllowMultiple = true)]
     public class DbRecordAttribute : PropertyAttribute
     {
-        public Type RecordType { get; private set; }
+        public Type RecordClass { get; private set; }
+        public RecordTypes? RecordType { get; private set; }
 
-        public DbRecordAttribute(Type type)
+
+        public DbRecordAttribute(Type @class)
         {
-            RecordType = type;
+            RecordClass = @class;
+            RecordType = null;
+        }
+
+        public DbRecordAttribute(RecordTypes recordType)
+        {
+            RecordClass = typeof(IRecordPreset);
+            RecordType = recordType;
+        }
+
+        public DbRecordAttribute(Type @class, RecordTypes recordType)
+        {
+            RecordClass = @class;
+            RecordType = recordType;
         }
 
         public DbRecordAttribute()
         {
-            RecordType = typeof(IRecordPreset);
+            RecordClass = typeof(IRecordPreset);
+            RecordType = null;
         }
     }
 }

@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 using Vortex.Core.DatabaseSystem.Bus;
+using Vortex.Core.Extensions.LogicExtensions;
 using Vortex.Core.LoaderSystem.Bus;
 using Vortex.Core.System.ProcessInfo;
 using Vortex.Unity.DatabaseSystem.Presets;
@@ -45,6 +46,8 @@ namespace Vortex.Unity.DatabaseSystem
         public async Task RunAsync(CancellationToken cancellationToken)
         {
             _recordsLink.Clear();
+            _uniqRecordsLink.Clear();
+            _resourcesIndex.Clear();
             _processData.Size = _resources.Length;
             foreach (var resource in _resources)
             {
@@ -58,6 +61,8 @@ namespace Vortex.Unity.DatabaseSystem
                 if (resource is not IRecordPreset data)
                     continue;
                 var record = data.GetData();
+
+                _resourcesIndex.AddNew(data.Guid, data);
                 AddRecord(record, data);
 
                 await Task.Yield();

@@ -13,7 +13,7 @@ namespace Vortex.Unity.DatabaseSystem.Editor
     {
         protected override void DrawPropertyLayout(GUIContent label)
         {
-            var list = DatabaseDriver.Instance.GetDropdownList(Attribute.RecordType);
+            var list = DatabaseDriver.Instance.GetDropdownList(Attribute.RecordClass, Attribute.RecordType);
 
             EditorGUI.BeginChangeCheck();
             var color = GUI.color;
@@ -30,10 +30,10 @@ namespace Vortex.Unity.DatabaseSystem.Editor
 
         private bool TestMethod()
         {
-            var type = Attribute.RecordType;
+            var type = Attribute.RecordClass;
             var item = ValueEntry.SmartValue.IsNullOrWhitespace()
                 ? null
-                : Database.TestRecord(ValueEntry.SmartValue).GetType();
+                : Database.TestRecord(ValueEntry.SmartValue)?.GetType();
             return item == type;
         }
     }

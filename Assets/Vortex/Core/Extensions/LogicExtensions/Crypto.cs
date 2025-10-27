@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 using System.Text;
+using Codice.Client.Common;
 
 namespace Vortex.Core.Extensions.LogicExtensions
 {
@@ -11,7 +12,7 @@ namespace Vortex.Core.Extensions.LogicExtensions
         private static int _counter;
 
         private static Random _random;
-        private static Random Random => _random ??= new Random();
+        private static Random Random => _random ??= new Random(DateTime.Now.Millisecond);
 
 
         public static string GetHashSha256(string text)
