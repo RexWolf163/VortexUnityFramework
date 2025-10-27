@@ -29,7 +29,7 @@ namespace Vortex.Unity.DatabaseSystem
             {
                 if (resource is not IRecordPreset data)
                     continue;
-                AddRecord(data.GetData(), data.Guid, data.Name);
+                AddRecord(data.GetData(), data);
             }
         }
 

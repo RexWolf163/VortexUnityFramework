@@ -10,9 +10,14 @@ namespace Vortex.Core.DatabaseSystem.Bus
     public class Database : SystemController<Database, IDriver>
     {
         /// <summary>
-        /// Реестр записей в БД 
+        /// Реестр синглтон-записей в БД 
         /// </summary>
-        private SortedDictionary<string, Record> _records = new();
+        private SortedDictionary<string, Record> _singletonRecords = new();
+
+        /// <summary>
+        /// Список ключей записей, выдаваемых в виде новых записей с заполнением из пресета 
+        /// </summary>
+        private HashSet<string> _uniqRecords = new();
 
         /// <summary>
         /// Возвращает запись из БД по GUID приведенная к указанному типа
@@ -22,14 +27,22 @@ namespace Vortex.Core.DatabaseSystem.Bus
         /// <returns></returns>
         public static T GetRecord<T>(string guid) where T : Record, new()
         {
-            if (!Instance._records.ContainsKey(guid))
+            if (!Instance._singletonRecords.ContainsKey(guid))
             {
+                if (Instance._uniqRecords.Contains(guid))
+                {
+                    Log.Print(
+                        new LogData(LogLevel.Error,
+                            $"MultiInstance Record cannot asked as Singleton Record. GUID: {guid}", Instance));
+                    return null;
+                }
+
                 Log.Print(
                     new LogData(LogLevel.Error, $"Record not found for GUID: {guid}", Instance));
                 return null;
             }
 
-            var record = Instance._records[guid] as T;
+            var record = Instance._singletonRecords[guid] as T;
             if (record == null)
                 Log.Print(
                     new LogData(LogLevel.Error, $"Record «{typeof(T).Name}» not found for GUID: {guid}", Instance));
@@ -37,21 +50,19 @@ namespace Vortex.Core.DatabaseSystem.Bus
         }
 
         /// <summary>
-        /// Возвращает запись из БД по GUID
+        /// Возвращает запись из БД по GUID приведенная к указанному типа
         /// </summary>
         /// <param name="guid"></param>
+        /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static Record GetRecord(string guid)
+        public static T GetNewRecord<T>(string guid) where T : Record, new()
         {
-            if (!Instance._records.ContainsKey(guid))
-            {
+            var result = Driver.GetNewRecord<T>(guid);
+            if (result == null && Instance._singletonRecords.ContainsKey(guid))
                 Log.Print(
-                    new LogData(LogLevel.Error, $"Record not found for GUID: {guid}", Instance));
-                return null;
-            }
-
-            var record = Instance._records[guid];
-            return record;
+                    new LogData(LogLevel.Error,
+                        $"Singleton Record cannot asked as MultiInstance Record. GUID: {guid}", Instance));
+            return result;
         }
 
         /// <summary>
@@ -60,7 +71,7 @@ namespace Vortex.Core.DatabaseSystem.Bus
         /// <returns></returns>
         public static List<T> GetRecords<T>() where T : Record
         {
-            var list = Instance._records.Values;
+            var list = Instance._singletonRecords.Values;
             var result = new List<T>();
             foreach (var record in list)
             {
@@ -77,12 +88,15 @@ namespace Vortex.Core.DatabaseSystem.Bus
         /// Возвращает все имеющиеся в реестре записи
         /// </summary>
         /// <returns></returns>
-        public static Record[] GetRecords() => Instance._records.Values.ToArray();
+        public static Record[] GetRecords() => Instance._singletonRecords.Values.ToArray();
 
         /// <summary>
         /// Обработка подключения нового драйвера
         /// </summary>
-        protected override void OnDriverConnect() => Driver.SetIndex(_records);
+        protected override void OnDriverConnect()
+        {
+            Driver.SetIndex(_singletonRecords, _uniqRecords);
+        }
 
         /// <summary>
         /// Обработка отключения нового драйвера
@@ -91,5 +105,26 @@ namespace Vortex.Core.DatabaseSystem.Bus
         {
             //Ignore
         }
+
+#if UNITY_EDITOR
+        /// <summary>
+        /// Возвращает запись из БД по GUID, с автовыбором типа записи
+        /// Используется для тестирование корректности линка 
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
+        public static Record TestRecord(string guid)
+        {
+            if (Instance._uniqRecords.Contains(guid))
+                return Instance._singletonRecords[guid];
+
+            if (Instance._singletonRecords.ContainsKey(guid))
+                return Instance._singletonRecords[guid];
+
+            Log.Print(
+                new LogData(LogLevel.Error, $"Record not found for GUID: {guid}", Instance));
+            return null;
+        }
+#endif
     }
 }

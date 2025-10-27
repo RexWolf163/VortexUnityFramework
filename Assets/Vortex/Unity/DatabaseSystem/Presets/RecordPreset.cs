@@ -3,6 +3,7 @@ using UnityEngine;
 using Vortex.Core.DatabaseSystem.Model;
 using Vortex.Core.Extensions.LogicExtensions;
 using Vortex.Core.System.Abstractions.SystemControllers;
+using Vortex.Unity.DatabaseSystem.Enums;
 using Vortex.Unity.Extensions.Abstractions;
 #if UNITY_EDITOR
 using UnityEditor;
@@ -15,6 +16,8 @@ namespace Vortex.Unity.DatabaseSystem.Presets
     {
         private const string DefaultName = "DBItem";
 
+        [SerializeField] private RecordTypes type;
+        
         [SerializeField, DisplayAsString] private string guid;
 
         [SerializeField, OnValueChanged("OnNameChanged"), LabelText("Name")]
@@ -22,6 +25,8 @@ namespace Vortex.Unity.DatabaseSystem.Presets
 
         [SerializeField] private string description;
         [PreviewField, SerializeField] private Sprite icon;
+
+        public RecordTypes RecordType => type;
 
         /// <summary>
         /// Глобально уникальный идентификатор 

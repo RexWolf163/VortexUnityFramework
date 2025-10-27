@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -14,7 +15,15 @@ namespace Vortex.Unity.DatabaseSystem
     {
         private const string Path = "Database";
 
+        /// <summary>
+        /// Кешированный список ресурсов. Очищается после заполнения индексов
+        /// </summary>
         private static Object[] _resources;
+
+        /// <summary>
+        /// Внутренний индекс пресетов
+        /// </summary>
+        private static SortedDictionary<string, IRecordPreset> _resourcesIndex = new();
 
         private ProcessData _processData = new()
         {
@@ -49,12 +58,13 @@ namespace Vortex.Unity.DatabaseSystem
                 if (resource is not IRecordPreset data)
                     continue;
                 var record = data.GetData();
-                AddRecord(record, data.Guid, data.Name);
+                AddRecord(record, data);
 
                 await Task.Yield();
             }
 
             OnInit?.Invoke();
+            _resources = null;
             await Task.CompletedTask;
         }
 

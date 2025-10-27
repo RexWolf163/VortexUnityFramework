@@ -33,7 +33,7 @@ namespace Vortex.Unity.DatabaseSystem.Editor
             var type = Attribute.RecordType;
             var item = ValueEntry.SmartValue.IsNullOrWhitespace()
                 ? null
-                : Database.GetRecord(ValueEntry.SmartValue).GetType();
+                : Database.TestRecord(ValueEntry.SmartValue).GetType();
             return item == type;
         }
     }
