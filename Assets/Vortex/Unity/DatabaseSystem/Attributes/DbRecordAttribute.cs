@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
+using Vortex.Core.DatabaseSystem.Model;
 using Vortex.Unity.DatabaseSystem.Enums;
-using Vortex.Unity.DatabaseSystem.Presets;
 
 namespace Vortex.Unity.DatabaseSystem.Attributes
 {
@@ -20,7 +20,7 @@ namespace Vortex.Unity.DatabaseSystem.Attributes
 
         public DbRecordAttribute(RecordTypes recordType)
         {
-            RecordClass = typeof(IRecordPreset);
+            RecordClass = typeof(Record);
             RecordType = recordType;
         }
 
@@ -32,7 +32,7 @@ namespace Vortex.Unity.DatabaseSystem.Attributes
 
         public DbRecordAttribute()
         {
-            RecordClass = typeof(IRecordPreset);
+            RecordClass = typeof(Record);
             RecordType = null;
         }
     }
