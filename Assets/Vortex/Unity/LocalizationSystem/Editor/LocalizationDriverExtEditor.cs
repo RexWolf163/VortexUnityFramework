@@ -24,6 +24,20 @@ namespace Vortex.Unity.LocalizationSystem
             Localization.SetDriver(Instance);
             Instance.LoadData();
         }
+
+        [MenuItem("Vortex/Update Localization data")]
+        private static void LoadLocalizationData()
+        {
+            var resources = Resources.LoadAll<LocalizationPreset>(Path);
+            if (resources == null || resources.Length == 0)
+            {
+                Debug.LogError("[Localization] Localization Preset not found]");
+                return;
+            }
+
+            var resource = resources[0];
+            resource.LoadData();
+        }
     }
 }
 #endif

@@ -5,6 +5,7 @@ using Vortex.Unity.UI.Tweeners;
 using Vortex.Unity.UI.UIComponents;
 using Vortex.Unity.UIProviderSystem.Bus;
 using Vortex.Unity.UIProviderSystem.Model.Conditions;
+using Vortex.Core.LocalizationSystem;
 
 namespace Vortex.Unity.UIProviderSystem.View
 {
@@ -15,6 +16,8 @@ namespace Vortex.Unity.UIProviderSystem.View
     public sealed class UserInterface : MonoBehaviour
     {
         #region Params
+
+        private const string TitlePostfix = "title";
 
         [SerializeField, DbRecord(typeof(UserInterfaceData))]
         private string preset;
@@ -45,7 +48,8 @@ namespace Vortex.Unity.UIProviderSystem.View
             data = UIProvider.Register(preset);
             data.OnOpen += Check;
             data.OnClose += Check;
-            title.SetText(data.Name);
+            var titleText = $"{data.Name}_{TitlePostfix}".ToUpper().Translate();
+            title.SetText(titleText);
             Check();
         }
 

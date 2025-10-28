@@ -2,10 +2,15 @@
 
 namespace Vortex.Unity.LocalizationSystem.Presets
 {
-    public class LocalizationPreset : ScriptableObject
+    public partial class LocalizationPreset : ScriptableObject
     {
-        [SerializeField] private string langs;
+        private const string UrlPattern = "https://docs.google.com/spreadsheets/d/{0}/export?format=tsv&gid={1}";
 
-        [SerializeField] private LocalePreset[] localeData;
+        [SerializeField] private string localeDoc;
+        [SerializeField] private string[] sheets;
+
+        [SerializeField, HideInInspector] private string[] langs;
+
+        [SerializeField, HideInInspector] internal LocalePreset[] localeData;
     }
 }
