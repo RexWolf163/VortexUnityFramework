@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
-using Vortex.Core.Extensions.LogicExtensions;
+using Vortex.Core.LoaderSystem.Bus;
 using Vortex.Core.LocalizationSystem;
-using Vortex.Core.LocalizationSystem.Bus;
 using Vortex.Core.System.Abstractions;
-using Vortex.Unity.LocalizationSystem.Presets;
 
 namespace Vortex.Unity.LocalizationSystem
 {
@@ -52,23 +49,10 @@ namespace Vortex.Unity.LocalizationSystem
         /// Установить язык для приложения
         /// </summary>
         /// <param name="language"></param>
-        public void SetLanguage(SystemLanguage language) => PlayerPrefs.SetString(SaveSlot, language.ToString());
-
-        private void LoadData()
+        public void SetLanguage(SystemLanguage language)
         {
-            var resources = Resources.LoadAll<LocalizationPreset>(Path);
-            if (resources == null || resources.Length == 0)
-            {
-                Debug.LogError("Localization Data asset not found");
-                return;
-            }
-
-            var res = resources[0];
-            foreach (var data in res.localeData)
-            {
-                var translateData = data.Texts.First(x => x.Language == Localization.GetCurrentLanguage().ToString());
-                _localeData.AddNew(data.Key, translateData.Text);
-            }
+            PlayerPrefs.SetString(SaveSlot, language.ToString());
+            Loader.RunAlone(this);
         }
     }
 }

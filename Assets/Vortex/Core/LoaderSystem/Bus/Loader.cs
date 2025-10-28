@@ -26,6 +26,20 @@ namespace Vortex.Core.LoaderSystem.Bus
     /// </summary>
     public static class Loader
     {
+        #region Events
+
+        /// <summary>
+        /// Событие начала загрузки
+        /// </summary>
+        public static event Action OnLoad;
+
+        /// <summary>
+        /// Событие завершения загрузки
+        /// </summary>
+        public static event Action OnComplete;
+
+        #endregion
+
         #region Params
 
         /// <summary>
@@ -87,6 +101,7 @@ namespace Vortex.Core.LoaderSystem.Bus
         {
             if (_isRunning)
                 return;
+            OnLoad?.Invoke();
             _isRunning = true;
             App.OnExit += Destroy;
             if (Settings.Data().DebugMode)
@@ -100,6 +115,8 @@ namespace Vortex.Core.LoaderSystem.Bus
             }
 
             await Task.Run(() => Loading(Token));
+            OnComplete?.Invoke();
+            App.OnExit -= Destroy;
             App.SetState(AppStates.Running);
         }
 
@@ -118,6 +135,33 @@ namespace Vortex.Core.LoaderSystem.Bus
         /// Данные загрузки текущего загружаемого модуля
         /// </summary>
         public static ProcessData GetCurrentLoadingData() => _currentProcessSystem;
+
+        /// <summary>
+        /// Запуск процесса одиночной загрузки отдельного модуля
+        /// </summary>
+        public static async void RunAlone(IProcess controller)
+        {
+            _progress = 1;
+            _size = 1;
+            OnLoad?.Invoke();
+            App.OnExit += Destroy;
+
+            _currentProcessSystem = controller.GetProcessInfo() ?? new ProcessData
+            {
+                Name = "Loading system",
+                Progress = 1,
+                Size = 1
+            };
+
+            Log.Print(new LogData(LogLevel.Common,
+                $"{controller.GetType().Name}: loading...",
+                "AppLoader"));
+            await Task.Run(() => controller.RunAsync(Token));
+
+            OnComplete?.Invoke();
+            App.OnExit -= Destroy;
+            App.SetState(AppStates.Running);
+        }
 
         #endregion
 

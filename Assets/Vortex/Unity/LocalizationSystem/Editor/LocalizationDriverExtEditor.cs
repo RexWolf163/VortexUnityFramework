@@ -1,6 +1,8 @@
 ﻿#if UNITY_EDITOR
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using Vortex.Core.Extensions.LogicExtensions;
 using Vortex.Core.LocalizationSystem.Bus;
 using Vortex.Unity.FileSystem.Bus;
 using Vortex.Unity.LocalizationSystem.Presets;
@@ -37,6 +39,23 @@ namespace Vortex.Unity.LocalizationSystem
 
             var resource = resources[0];
             resource.LoadData();
+        }
+
+        private void LoadData()
+        {
+            var resources = Resources.LoadAll<LocalizationPreset>(Path);
+            if (resources == null || resources.Length == 0)
+            {
+                Debug.LogError("Localization Data asset not found");
+                return;
+            }
+
+            var res = resources[0];
+            foreach (var data in res.localeData)
+            {
+                var translateData = data.Texts.First(x => x.Language == Localization.GetCurrentLanguage().ToString());
+                _localeData.AddNew(data.Key, translateData.Text);
+            }
         }
     }
 }

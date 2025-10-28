@@ -11,9 +11,8 @@ namespace Vortex.Unity.LocalizationSystem.Presets
 {
     public partial class LocalizationPreset
     {
-        [ShowInInspector] private string Languages => string.Join(";", langs);
-
         [ShowInInspector, ValueDropdown("GetLocaleData")]
+        [InfoBox("@ShowLangsList()")]
         [InfoBox("@ShowLocaleData()")]
         [PropertyOrder(100), HideLabel]
         [TitleGroup("Debug")]
@@ -105,6 +104,8 @@ namespace Vortex.Unity.LocalizationSystem.Presets
 
             return "Not Found data for this key";
         }
+
+        private string ShowLangsList() => $"<b>Зафиксированные языки:</b>\n{string.Join("\n", langs)}";
 
         [Button, PropertyOrder(110)]
         private void CheckLanguage() => Debug.Log("Current language: " + Application.systemLanguage);
