@@ -36,6 +36,7 @@ namespace Vortex.Unity.LocalizationSystem
 
         public async Task RunAsync(CancellationToken cancellationToken)
         {
+            _localeData.Clear();
             var size = _resource.localeData.Length;
             _processData = new ProcessData()
             {

@@ -5,8 +5,13 @@ using Vortex.Core.System.Abstractions;
 
 namespace Vortex.Core.LocalizationSystem.Bus
 {
-    public class Localization : SystemController<Localization, IDriver>
+    public partial class Localization : SystemController<Localization, IDriver>
     {
+        /// <summary>
+        /// Событие смены языка локали
+        /// </summary>
+        public static event Action OnLocalizationChanged;
+
         /// <summary>
         /// Значение текущей локали
         /// </summary>
@@ -26,10 +31,12 @@ namespace Vortex.Core.LocalizationSystem.Bus
         {
             _currentLanguage = Driver.GetDefaultLanguage();
             Driver.SetIndex(index);
+            Driver.OnLocalizationChanged += CallOnLocalization;
         }
 
         protected override void OnDriverDisonnect()
         {
+            Driver.OnLocalizationChanged -= CallOnLocalization;
         }
 
         /// <summary>
@@ -62,5 +69,7 @@ namespace Vortex.Core.LocalizationSystem.Bus
         /// <param name="key"></param>
         /// <returns></returns>
         public static string GetTranslate(string key) => index[key];
+
+        private static void CallOnLocalization() => OnLocalizationChanged?.Invoke();
     }
 }

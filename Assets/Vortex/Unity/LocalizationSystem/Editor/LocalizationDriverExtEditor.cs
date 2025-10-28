@@ -37,8 +37,8 @@ namespace Vortex.Unity.LocalizationSystem
                 return;
             }
 
-            var resource = resources[0];
-            resource.LoadData();
+            _resource = resources[0];
+            _resource.LoadData();
         }
 
         private void LoadData()
@@ -50,8 +50,8 @@ namespace Vortex.Unity.LocalizationSystem
                 return;
             }
 
-            var res = resources[0];
-            foreach (var data in res.localeData)
+            _resource = resources[0];
+            foreach (var data in _resource.localeData)
             {
                 var translateData = data.Texts.First(x => x.Language == Localization.GetCurrentLanguage().ToString());
                 _localeData.AddNew(data.Key, translateData.Text);

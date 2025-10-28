@@ -29,6 +29,13 @@ namespace Vortex.Unity.UI.UIComponents
          VerticalGroup("Link/Components")]
         private UIComponentGraphic[] uiComponentGraphics;
 
+        /// <summary>
+        /// Перечень графических элементов компонента
+        /// </summary>
+        [SerializeField, HideIf("EmptySwitchers"), HorizontalGroup("Link"),
+         VerticalGroup("Link/Components")]
+        private UIComponentSwitcher[] uiComponentSwitchers;
+
         #region Private
 
         private void OnEnable()
@@ -75,6 +82,15 @@ namespace Vortex.Unity.UI.UIComponents
                 if (data.sprites?.Length > i)
                     sprite = data.sprites[i];
                 SetSprite(sprite, i);
+            }
+
+            count = uiComponentSwitchers?.Length ?? 0;
+            for (var i = 0; i < count; i++)
+            {
+                if (!(data.enumValues?.Length > i))
+                    break;
+                var enumValue = data.enumValues[i];
+                SetSwitcher(enumValue, i);
             }
         }
 
@@ -126,6 +142,22 @@ namespace Vortex.Unity.UI.UIComponents
             uiComponentGraphics[position].PutData(sprite);
         }
 
+        /// <summary>
+        /// Упрощенное выставление свитчера
+        /// </summary>
+        /// <param name="enumValue">Значение для выставления свитчера</param>
+        /// <param name="position">Номер части компонента</param>
+        public void SetSwitcher(int enumValue, int position = 0)
+        {
+            if (uiComponentSwitchers == null || uiComponentSwitchers.Length <= position)
+            {
+                Debug.LogError($"[UIComponent: {transform.name}] No UI components for this content]");
+                return;
+            }
+
+            uiComponentSwitchers[position].PutData(enumValue);
+        }
+
         #endregion
 
 #if UNITY_EDITOR
@@ -133,6 +165,7 @@ namespace Vortex.Unity.UI.UIComponents
         private bool EmptyTexts() => uiComponentTexts?.Length == 0;
         private bool EmptyButtons() => uiComponentButtons?.Length == 0;
         private bool EmptyGraphics() => uiComponentGraphics?.Length == 0;
+        private bool EmptySwitchers() => uiComponentSwitchers?.Length == 0;
 
         [Button(ButtonHeight = 50), GUIColor("GetInitColor"), HorizontalGroup("Link", Width = 40f)]
         private void Init()
@@ -140,6 +173,7 @@ namespace Vortex.Unity.UI.UIComponents
             uiComponentTexts = GetComponentsInChildren<UIComponentText>(true);
             uiComponentButtons = GetComponentsInChildren<UIComponentButton>(true);
             uiComponentGraphics = GetComponentsInChildren<UIComponentGraphic>(true);
+            uiComponentSwitchers = GetComponentsInChildren<UIComponentSwitcher>(true);
 
             _testData.texts = new string[uiComponentTexts?.Length ?? 0];
             var count = uiComponentTexts?.Length ?? 0;
@@ -155,6 +189,14 @@ namespace Vortex.Unity.UI.UIComponents
             {
                 var uiComponentGraphic = uiComponentGraphics[i];
                 _testData.sprites[i] = uiComponentGraphic.GetValue();
+            }
+
+            _testData.enumValues = new int[uiComponentSwitchers?.Length ?? 0];
+            count = uiComponentSwitchers?.Length ?? 0;
+            for (var i = 0; i < count; i++)
+            {
+                var uiComponentSwitcher = uiComponentSwitchers[i];
+                _testData.enumValues[i] = uiComponentSwitcher.GetValue();
             }
         }
 
@@ -175,10 +217,15 @@ namespace Vortex.Unity.UI.UIComponents
                 foreach (var component in uiComponentGraphics)
                     if (component == null)
                         return red;
+            if (uiComponentSwitchers != null)
+                foreach (var component in uiComponentSwitchers)
+                    if (component == null)
+                        return red;
 
             return (uiComponentButtons == null || uiComponentButtons.Length == 0)
                    && (uiComponentTexts == null || uiComponentTexts.Length == 0)
                    && (uiComponentGraphics == null || uiComponentGraphics.Length == 0)
+                   && (uiComponentSwitchers == null || uiComponentSwitchers.Length == 0)
                 ? red
                 : TestNotReady()
                     ? Color.green

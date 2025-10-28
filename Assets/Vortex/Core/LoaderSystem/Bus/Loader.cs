@@ -95,9 +95,25 @@ namespace Vortex.Core.LoaderSystem.Bus
         }
 
         /// <summary>
+        /// Прогресс загрузки
+        /// </summary>
+        /// <returns></returns>
+        public static int GetProgress() => _progress;
+
+        /// <summary>
+        /// Общее кол-во шагов загрузки
+        /// </summary>
+        public static int GetSize() => _size;
+
+        /// <summary>
+        /// Данные загрузки текущего загружаемого модуля
+        /// </summary>
+        public static ProcessData GetCurrentLoadingData() => _currentProcessSystem;
+
+        /// <summary>
         /// Запуск процесса загрузки модулей
         /// </summary>
-        public static async void Run()
+        public static async Task Run()
         {
             if (_isRunning)
                 return;
@@ -121,25 +137,9 @@ namespace Vortex.Core.LoaderSystem.Bus
         }
 
         /// <summary>
-        /// Прогресс загрузки
-        /// </summary>
-        /// <returns></returns>
-        public static int GetProgress() => _progress;
-
-        /// <summary>
-        /// Общее кол-во шагов загрузки
-        /// </summary>
-        public static int GetSize() => _size;
-
-        /// <summary>
-        /// Данные загрузки текущего загружаемого модуля
-        /// </summary>
-        public static ProcessData GetCurrentLoadingData() => _currentProcessSystem;
-
-        /// <summary>
         /// Запуск процесса одиночной загрузки отдельного модуля
         /// </summary>
-        public static async void RunAlone(IProcess controller)
+        public static async Task RunAlone(IProcess controller)
         {
             _progress = 1;
             _size = 1;
@@ -157,6 +157,10 @@ namespace Vortex.Core.LoaderSystem.Bus
                 $"{controller.GetType().Name}: loading...",
                 "AppLoader"));
             await Task.Run(() => controller.RunAsync(Token));
+
+            Log.Print(new LogData(LogLevel.Common,
+                "Loading complete",
+                "AppLoader"));
 
             OnComplete?.Invoke();
             App.OnExit -= Destroy;

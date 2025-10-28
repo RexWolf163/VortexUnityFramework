@@ -11,5 +11,6 @@ namespace Vortex.Unity.UI.UIComponents
         public string[] texts;
         [HideInInspector] public UnityAction[] actions;
         public Sprite[] sprites;
+        public int[] enumValues;
     }
 }

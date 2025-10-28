@@ -6,6 +6,7 @@ using Vortex.Unity.UI.UIComponents;
 using Vortex.Unity.UIProviderSystem.Bus;
 using Vortex.Unity.UIProviderSystem.Model.Conditions;
 using Vortex.Core.LocalizationSystem;
+using Vortex.Core.LocalizationSystem.Bus;
 
 namespace Vortex.Unity.UIProviderSystem.View
 {
@@ -48,8 +49,8 @@ namespace Vortex.Unity.UIProviderSystem.View
             data = UIProvider.Register(preset);
             data.OnOpen += Check;
             data.OnClose += Check;
-            var titleText = $"{data.Name}_{TitlePostfix}".ToUpper().Translate();
-            title.SetText(titleText);
+            Localization.OnLocalizationChanged += Refresh;
+            Localization.OnInit += Refresh;
             Check();
         }
 
@@ -60,6 +61,7 @@ namespace Vortex.Unity.UIProviderSystem.View
             data.OnClose -= Check;
             data = null;
             isOpen = false;
+            Localization.OnLocalizationChanged -= Refresh;
             foreach (var tweener in tweeners)
                 tweener.Back(true);
         }
@@ -101,6 +103,12 @@ namespace Vortex.Unity.UIProviderSystem.View
             foreach (var tweener in tweeners)
                 tweener.Back();
             isOpen = false;
+        }
+
+        private void Refresh()
+        {
+            var titleText = $"{data.Name}_{TitlePostfix}".ToUpper().Translate();
+            title.SetText(titleText);
         }
 
         #endregion

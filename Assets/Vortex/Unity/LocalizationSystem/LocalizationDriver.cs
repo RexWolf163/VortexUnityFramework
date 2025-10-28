@@ -14,6 +14,13 @@ namespace Vortex.Unity.LocalizationSystem
 
         private static SortedDictionary<string, string> _localeData;
 
+        private SystemLanguage[] _cashedLangs;
+
+        /// <summary>
+        /// Событие смены языка локали
+        /// </summary>
+        public event Action OnLocalizationChanged;
+
         public event Action OnInit;
 
         public void Init()
@@ -49,10 +56,33 @@ namespace Vortex.Unity.LocalizationSystem
         /// Установить язык для приложения
         /// </summary>
         /// <param name="language"></param>
-        public void SetLanguage(SystemLanguage language)
+        public async void SetLanguage(SystemLanguage language)
         {
             PlayerPrefs.SetString(SaveSlot, language.ToString());
-            Loader.RunAlone(this);
+            await Loader.RunAlone(this);
+            OnLocalizationChanged?.Invoke();
+        }
+
+        /// <summary>
+        /// Получить перечень зафиксированных языков
+        /// </summary>
+        /// <returns></returns>
+        public SystemLanguage[] GetLanguages()
+        {
+            if (_cashedLangs != null)
+                return _cashedLangs;
+            var langs = _resource.langs;
+            var result = new List<SystemLanguage>();
+            foreach (var lang in langs)
+            {
+                Enum.TryParse(typeof(SystemLanguage), lang, true, out var temp);
+                if (temp == null)
+                    continue;
+                result.Add((SystemLanguage)temp);
+            }
+
+            _cashedLangs = result.ToArray();
+            return _cashedLangs;
         }
     }
 }

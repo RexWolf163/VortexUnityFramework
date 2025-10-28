@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Vortex.Core.System.Abstractions;
 
@@ -23,5 +24,13 @@ namespace Vortex.Core.LocalizationSystem
         /// </summary>
         /// <param name="index"></param>
         public void SetIndex(SortedDictionary<string, string> index);
+
+        /// <summary>
+        /// Событие смены языка локали
+        /// </summary>
+        public event Action OnLocalizationChanged;
+
+        
+        public SystemLanguage[] GetLanguages();
     }
 }

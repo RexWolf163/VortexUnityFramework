@@ -9,7 +9,7 @@ namespace Vortex.Unity.LocalizationSystem.Presets
         [SerializeField] private string localeDoc;
         [SerializeField] private string[] sheets;
 
-        [SerializeField, HideInInspector] private string[] langs;
+        [SerializeField, HideInInspector] internal string[] langs;
 
         [SerializeField, HideInInspector] internal LocalePreset[] localeData;
     }
