@@ -1,0 +1,19 @@
+{
+    "name": "ru.vortex.unity.localization",
+    "rootNamespace": "",
+    "references": [
+        "GUID:ec37981827cc88c419565420343ee58c",
+        "GUID:a00fea34cd87e874eb05688c1583b814",
+        "GUID:eff4b9098a6ac9e4cbc64d8fdc43841a",
+        "GUID:826a37b90dd7f8849a995e26104dd48e"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
