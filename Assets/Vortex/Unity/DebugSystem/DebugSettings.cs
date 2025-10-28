@@ -4,7 +4,6 @@ using Vortex.Unity.SettingsSystem.Presets;
 
 namespace Vortex.Unity.DebugSystem
 {
-    [CreateAssetMenu(fileName = "DebugSettings", menuName = "Settings/DebugSettings")]
     public partial class DebugSettings : SettingsPreset
     {
         [PropertyOrder(-100)]
