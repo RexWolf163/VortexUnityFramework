@@ -62,6 +62,7 @@ namespace Vortex.Unity.UIProviderSystem.View
             data = null;
             isOpen = false;
             Localization.OnLocalizationChanged -= Refresh;
+            Localization.OnInit -= Refresh;
             foreach (var tweener in tweeners)
                 tweener.Back(true);
         }

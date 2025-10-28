@@ -7,23 +7,23 @@ namespace Vortex.Core.System.Abstractions
         where T : SystemController<T, TD>, new()
         where TD : ISystemDriver
     {
-        protected bool isInit;
+        protected static bool IsInit;
 
         /// <summary>
         /// очередь ожидающих инициализации системы
         /// </summary>
-        private List<Action> InitQueue = new();
+        private static readonly List<Action> InitQueue = new();
 
         public static event Action OnInit
         {
             add
             {
-                if (Instance.isInit)
+                if (IsInit)
                     value?.Invoke();
                 else
-                    Instance.InitQueue.Add(value);
+                    InitQueue.Add(value);
             }
-            remove => Instance.InitQueue.Remove(value);
+            remove => InitQueue.Remove(value);
         }
 
         protected static TD Driver;
@@ -50,6 +50,7 @@ namespace Vortex.Core.System.Abstractions
 
             Driver = driver;
             Instance.OnDriverConnect();
+            Driver.OnInit += CallOnInit;
             Driver.Init();
             return true;
         }
@@ -75,12 +76,12 @@ namespace Vortex.Core.System.Abstractions
         /// </summary>
         protected static void CallOnInit()
         {
-            Instance.isInit = true;
+            IsInit = true;
             Driver.OnInit -= CallOnInit;
-            foreach (var action in Instance.InitQueue)
+            foreach (var action in InitQueue)
                 action?.Invoke();
 
-            Instance.InitQueue?.Clear();
+            InitQueue?.Clear();
         }
     }
 }

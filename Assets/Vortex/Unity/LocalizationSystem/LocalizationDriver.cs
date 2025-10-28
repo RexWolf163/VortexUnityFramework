@@ -60,8 +60,10 @@ namespace Vortex.Unity.LocalizationSystem
         {
             PlayerPrefs.SetString(SaveSlot, language.ToString());
             await Loader.RunAlone(this);
-            OnLocalizationChanged?.Invoke();
+            CallOnLocalizationChanged();
         }
+
+        private static void CallOnLocalizationChanged() => Instance.OnLocalizationChanged?.Invoke();
 
         /// <summary>
         /// Получить перечень зафиксированных языков

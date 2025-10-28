@@ -68,10 +68,12 @@ namespace Vortex.Unity.DatabaseSystem
                 await Task.Yield();
             }
 
-            OnInit?.Invoke();
+            CallOnInit();
             _resources = null;
             await Task.CompletedTask;
         }
+
+        private static void CallOnInit() => Instance.OnInit?.Invoke();
 
         public Type[] WaitingFor() => Type.EmptyTypes;
     }

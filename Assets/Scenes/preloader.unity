@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f04416b468c807449b9d2597e0a6392a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _switcher: {fileID: 97456218}
+  switcher: {fileID: 97456218}
   uiComponent: {fileID: 183200231}
 --- !u!114 &97456215
 MonoBehaviour:
@@ -321,6 +321,7 @@ MonoBehaviour:
   - {fileID: 402234445}
   uiComponentButtons: []
   uiComponentGraphics: []
+  uiComponentSwitchers: []
 --- !u!1001 &329977893
 PrefabInstance:
   m_ObjectHideFlags: 0

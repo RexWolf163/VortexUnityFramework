@@ -49,7 +49,11 @@ namespace Vortex.Core.LocalizationSystem.Bus
         /// Установить язык для приложения
         /// </summary>
         /// <param name="language"></param>
-        public static void SetCurrentLanguage(SystemLanguage language) => Driver.SetLanguage(language);
+        public static void SetCurrentLanguage(SystemLanguage language)
+        {
+            _currentLanguage = language;
+            Driver.SetLanguage(language);
+        }
 
         /// <summary>
         /// Установить язык для приложения

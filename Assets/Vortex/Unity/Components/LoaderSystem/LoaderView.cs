@@ -1,5 +1,4 @@
 using System.Collections;
-using Sirenix.OdinInspector;
 using UnityEngine;
 using Vortex.Core.AppSystem.Bus;
 using Vortex.Core.System.Enums;
@@ -19,7 +18,7 @@ namespace Vortex.Unity.Components.LoaderSystem
         }
 
         [SerializeField, StateSwitcher(typeof(States))]
-        private UIStateSwitcher _switcher;
+        private UIStateSwitcher switcher;
 
         [SerializeField] private UIComponent uiComponent;
 
@@ -53,16 +52,16 @@ namespace Vortex.Unity.Components.LoaderSystem
             {
                 case AppStates.Starting:
                     StartCoroutine(View());
-                    _switcher.Set(States.Loading);
+                    switcher.Set(States.Loading);
                     return;
                 case AppStates.Running:
                     StopAllCoroutines();
                     Refresh();
-                    _switcher.Set(States.Completed);
+                    switcher.Set(States.Completed);
                     App.OnStateChanged -= OnStateChange;
                     return;
                 default:
-                    _switcher.Set(States.Waiting);
+                    switcher.Set(States.Waiting);
                     break;
             }
         }

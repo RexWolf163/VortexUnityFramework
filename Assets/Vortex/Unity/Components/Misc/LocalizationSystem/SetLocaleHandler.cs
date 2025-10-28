@@ -1,9 +1,10 @@
 ﻿using UnityEngine;
+using Vortex.Core.LocalizationSystem;
 using Vortex.Core.LocalizationSystem.Bus;
 using Vortex.Unity.LocalizationSystem;
 using Vortex.Unity.UI.UIComponents;
 
-namespace AppScripts.LocalizationSystem
+namespace Vortex.Unity.Components.Misc.LocalizationSystem
 {
     public class SetLocaleHandler : MonoBehaviour
     {
@@ -17,6 +18,13 @@ namespace AppScripts.LocalizationSystem
         {
             uiComponent.SetAction(Run);
             Localization.OnInit += Refresh;
+            Localization.OnLocalizationChanged += Refresh;
+        }
+
+        private void OnDestroy()
+        {
+            Localization.OnInit -= Refresh;
+            Localization.OnLocalizationChanged -= Refresh;
         }
 
         public void Run()
@@ -24,12 +32,11 @@ namespace AppScripts.LocalizationSystem
             if (!isActiveAndEnabled)
                 return;
             Localization.SetCurrentLanguage(language);
-            Refresh();
         }
 
         private void Refresh()
         {
-            uiComponent.SetText(language.ToString());
+            uiComponent.SetText(language.ToString().ToUpper().Translate());
             if (!useSwitch)
                 return;
             uiComponent.SetSwitcher(Localization.GetCurrentLanguage() == language ? 0 : 1);
