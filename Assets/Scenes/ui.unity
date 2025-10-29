@@ -126,9 +126,49 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2115158464}
     m_Modifications:
+    - target: {fileID: 437420559781390174, guid: eca0a2a3101373148ae12c11a59d92f0, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 437420559781390174, guid: eca0a2a3101373148ae12c11a59d92f0, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 437420559781390174, guid: eca0a2a3101373148ae12c11a59d92f0, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 437420559781390174, guid: eca0a2a3101373148ae12c11a59d92f0, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 437420559781390174, guid: eca0a2a3101373148ae12c11a59d92f0, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3260186062859026991, guid: eca0a2a3101373148ae12c11a59d92f0, type: 3}
       propertyPath: m_Name
       value: UISettings
+      objectReference: {fileID: 0}
+    - target: {fileID: 5902856131797763856, guid: eca0a2a3101373148ae12c11a59d92f0, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5902856131797763856, guid: eca0a2a3101373148ae12c11a59d92f0, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5902856131797763856, guid: eca0a2a3101373148ae12c11a59d92f0, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5902856131797763856, guid: eca0a2a3101373148ae12c11a59d92f0, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5902856131797763856, guid: eca0a2a3101373148ae12c11a59d92f0, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8255650686036129845, guid: eca0a2a3101373148ae12c11a59d92f0, type: 3}
       propertyPath: m_Pivot.x
@@ -247,6 +287,7 @@ GameObject:
   - component: {fileID: 1294467785}
   - component: {fileID: 1294467787}
   - component: {fileID: 1294467788}
+  - component: {fileID: 1294467789}
   m_Layer: 0
   m_Name: button test
   m_TagString: Untagged
@@ -286,10 +327,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f467b64e087431a86ce3637990cb1b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiComponentTexts: []
+  uiComponentTexts:
+  - {fileID: 4916508114230080619}
+  useLocalization: 1
   uiComponentButtons:
   - {fileID: 1152391937}
   uiComponentGraphics: []
+  uiComponentSwitchers: []
 --- !u!114 &1294467788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -305,6 +349,22 @@ MonoBehaviour:
   uiId: 363a4c9f273d4ac5a709eb48221937b987837de4f2afe2d6df8292e04a5c4595
   closeUI: 0
   uiComponent: {fileID: 1294467787}
+--- !u!114 &1294467789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1294467784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d609abd3557fa4c43b278864ca149c2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: SETTINGS_TITLE
+  useLocalization: 1
+  uiComponent: {fileID: 1294467787}
+  position: 0
 --- !u!1001 &1387710992
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -589,11 +649,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5673774349482366806, guid: 8f2d8d8fbe985954c8cfb6fdefb47989, type: 3}
-    - {fileID: 2096619725417432303, guid: 8f2d8d8fbe985954c8cfb6fdefb47989, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f2d8d8fbe985954c8cfb6fdefb47989, type: 3}
+--- !u!114 &4916508114230080619 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2096619725417432303, guid: 8f2d8d8fbe985954c8cfb6fdefb47989, type: 3}
+  m_PrefabInstance: {fileID: 4916508114230080618}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcd9a17f0c96489081223a3268162a6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

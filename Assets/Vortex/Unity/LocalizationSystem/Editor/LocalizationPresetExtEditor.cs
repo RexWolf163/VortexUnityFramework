@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using UnityEngine;
@@ -18,8 +19,10 @@ namespace Vortex.Unity.LocalizationSystem.Presets
         [TitleGroup("Debug")]
         private string _locale;
 
-        [Button]
-        internal async void LoadData()
+        [Button("Load Data")]
+        private void RunLoadData() => _ = LoadData();
+
+        internal async Task LoadData()
         {
             Debug.Log("[Localization] Loading Started....");
 

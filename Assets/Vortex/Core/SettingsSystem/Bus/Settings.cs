@@ -8,13 +8,13 @@ namespace Vortex.Core.SettingsSystem.Bus
     /// </summary>
     public class Settings : SystemController<Settings, IDriver>
     {
-        public static SettingsModel Data() => Driver.GetData();
+        public static SettingsModel Data() => Driver?.GetData();
 
         protected override void OnDriverConnect()
         {
             //Ignore
         }
-        
+
         protected override void OnDriverDisonnect()
         {
             //Ignore

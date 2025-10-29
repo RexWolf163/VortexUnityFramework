@@ -33,6 +33,32 @@ MonoBehaviour:
       text: "\u0420\u0443\u0441\u0441\u043A\u0438\u0439"
     - language: English
       text: Russian
+  - key: LOREM_IPSUM
+    texts:
+    - language: Russian
+      text: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam id ultrices
+        risus, commodo dapibus purus. In sed fermentum lorem, sed lobortis urna.
+        Mauris placerat sapien sollicitudin leo laoreet auctor. Sed quis orci lorem.
+        Proin a consectetur lacus. Donec id erat at massa consequat tristique sit
+        amet eu lectus. Quisque pharetra quis justo a pulvinar. In hac habitasse
+        platea dictumst. In dignissim erat et gravida facilisis. Aenean a porta lorem.
+        Etiam massa augue, mollis quis nisl id, efficitur feugiat leo. Mauris condimentum
+        risus vitae nisi maximus feugiat. Vestibulum sit amet facilisis justo, at
+        pretium est. Cras pulvinar, felis non mollis congue, lorem ipsum commodo
+        ipsum, id rhoncus lacus justo sed libero. Duis aliquet fringilla arcu, id
+        hendrerit justo pharetra eget.
+    - language: English
+      text: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam id ultrices
+        risus, commodo dapibus purus. In sed fermentum lorem, sed lobortis urna.
+        Mauris placerat sapien sollicitudin leo laoreet auctor. Sed quis orci lorem.
+        Proin a consectetur lacus. Donec id erat at massa consequat tristique sit
+        amet eu lectus. Quisque pharetra quis justo a pulvinar. In hac habitasse
+        platea dictumst. In dignissim erat et gravida facilisis. Aenean a porta lorem.
+        Etiam massa augue, mollis quis nisl id, efficitur feugiat leo. Mauris condimentum
+        risus vitae nisi maximus feugiat. Vestibulum sit amet facilisis justo, at
+        pretium est. Cras pulvinar, felis non mollis congue, lorem ipsum commodo
+        ipsum, id rhoncus lacus justo sed libero. Duis aliquet fringilla arcu, id
+        hendrerit justo pharetra eget.
   - key: QUEST1_TITLE
     texts:
     - language: Russian

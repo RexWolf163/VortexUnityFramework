@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using Vortex.Core.AppSystem.Bus;
 using Vortex.Core.System.Enums;
-using Vortex.Unity.UI.Editor.Attributes;
+using Vortex.Unity.UI.Attributes;
 using Vortex.Unity.UI.StateSwitcher;
 using Vortex.Unity.UI.UIComponents;
 

@@ -164,7 +164,6 @@ namespace Vortex.Core.LoaderSystem.Bus
 
             OnComplete?.Invoke();
             App.OnExit -= Destroy;
-            App.SetState(AppStates.Running);
         }
 
         #endregion

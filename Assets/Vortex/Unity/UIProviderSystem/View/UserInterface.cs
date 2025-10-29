@@ -18,12 +18,8 @@ namespace Vortex.Unity.UIProviderSystem.View
     {
         #region Params
 
-        private const string TitlePostfix = "title";
-
         [SerializeField, DbRecord(typeof(UserInterfaceData))]
         private string preset;
-
-        [SerializeField] private UIComponent title;
 
         private UserInterfaceData data;
 
@@ -49,8 +45,6 @@ namespace Vortex.Unity.UIProviderSystem.View
             data = UIProvider.Register(preset);
             data.OnOpen += Check;
             data.OnClose += Check;
-            Localization.OnLocalizationChanged += Refresh;
-            Localization.OnInit += Refresh;
             Check();
         }
 
@@ -61,8 +55,6 @@ namespace Vortex.Unity.UIProviderSystem.View
             data.OnClose -= Check;
             data = null;
             isOpen = false;
-            Localization.OnLocalizationChanged -= Refresh;
-            Localization.OnInit -= Refresh;
             foreach (var tweener in tweeners)
                 tweener.Back(true);
         }
@@ -104,12 +96,6 @@ namespace Vortex.Unity.UIProviderSystem.View
             foreach (var tweener in tweeners)
                 tweener.Back();
             isOpen = false;
-        }
-
-        private void Refresh()
-        {
-            var titleText = $"{data.Name}_{TitlePostfix}".ToUpper().Translate();
-            title.SetText(titleText);
         }
 
         #endregion
