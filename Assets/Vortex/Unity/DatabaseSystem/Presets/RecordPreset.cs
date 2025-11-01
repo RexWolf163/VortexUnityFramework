@@ -15,7 +15,7 @@ namespace Vortex.Unity.DatabaseSystem.Presets
     {
         private const string DefaultName = "DBItem";
 
-        [SerializeField] private RecordTypes type;
+        [SerializeField] protected RecordTypes type;
 
         [SerializeField, DisplayAsString] private string guid = Crypto.GetNewGuid();
 

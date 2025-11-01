@@ -4,6 +4,7 @@ using Sirenix.Utilities;
 using UnityEngine;
 using Vortex.Core.LogicChainsSystem.Model;
 using Vortex.Core.System.Abstractions.SystemControllers;
+using Vortex.Unity.DatabaseSystem.Enums;
 using Vortex.Unity.DatabaseSystem.Presets;
 
 namespace Vortex.Unity.LogicChainsSystem.Presets
@@ -51,6 +52,7 @@ namespace Vortex.Unity.LogicChainsSystem.Presets
 
         private void OnValidate()
         {
+            type = RecordTypes.MultiInstance;
             foreach (var chainStep in chainSteps)
                 chainStep.EditorInit(this);
         }
