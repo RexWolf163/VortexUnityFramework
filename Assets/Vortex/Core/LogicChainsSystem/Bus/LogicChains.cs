@@ -96,7 +96,7 @@ namespace Vortex.Core.LogicChainsSystem.Bus
             }
         }
 
-        public static void CheckConditions(string chainGuid, Connector connector)
+        private static void CheckConditions(string chainGuid, Connector connector)
         {
             if (!Index.ContainsKey(chainGuid))
             {
