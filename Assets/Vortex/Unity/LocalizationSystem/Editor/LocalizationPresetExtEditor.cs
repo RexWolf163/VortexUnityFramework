@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -83,6 +84,7 @@ namespace Vortex.Unity.LocalizationSystem.Presets
                 if (!Enum.TryParse(typeof(SystemLanguage), lang, true, out _))
                     Debug.LogError($"[Localization] Language {lang} is not supported.");
 
+            EditorUtility.SetDirty(this);
             Debug.Log("[Localization] Loading Complete");
         }
 

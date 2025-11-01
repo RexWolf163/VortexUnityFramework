@@ -182,6 +182,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   switcher: {fileID: 97456218}
   uiComponent: {fileID: 183200231}
+  loadingTextPattern: LOADING_PROGRESS
 --- !u!114 &97456215
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,43 +232,10 @@ MonoBehaviour:
   - _name: Loading
     _stateItems: []
   - _name: Completed
-    _stateItems:
-    - rid: 2547342522040451260
+    _stateItems: []
   references:
     version: 2
-    RefIds:
-    - rid: 2547342522040451260
-      type: {class: EventFire, ns: Vortex.Unity.UI.StateSwitcher.Items, asm: ru.vortex.unity.ui.misc}
-      data:
-        events:
-          m_PersistentCalls:
-            m_Calls:
-            - m_Target: {fileID: 97456215}
-              m_TargetAssemblyTypeName: Vortex.Unity.Components.SceneControllers.LoadSceneHandler,
-                ui.vortex.unity.components
-              m_MethodName: Run
-              m_Mode: 1
-              m_Arguments:
-                m_ObjectArgument: {fileID: 0}
-                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-                m_IntArgument: 0
-                m_FloatArgument: 0
-                m_StringArgument: 
-                m_BoolArgument: 0
-              m_CallState: 2
-            - m_Target: {fileID: 97456217}
-              m_TargetAssemblyTypeName: Vortex.Unity.Components.SceneControllers.LoadSceneHandler,
-                ui.vortex.unity.components
-              m_MethodName: Run
-              m_Mode: 1
-              m_Arguments:
-                m_ObjectArgument: {fileID: 0}
-                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-                m_IntArgument: 0
-                m_FloatArgument: 0
-                m_StringArgument: 
-                m_BoolArgument: 0
-              m_CallState: 2
+    RefIds: []
 --- !u!1 &183200229
 GameObject:
   m_ObjectHideFlags: 0
@@ -319,6 +287,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiComponentTexts:
   - {fileID: 402234445}
+  useLocalization: 0
   uiComponentButtons: []
   uiComponentGraphics: []
   uiComponentSwitchers: []
@@ -585,6 +554,62 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8274215155320575706, guid: 89b1c75879c00e249acb15516e6da31b, type: 3}
   m_PrefabInstance: {fileID: 1260911754}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1381141686
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1381141687}
+  - component: {fileID: 1381141688}
+  m_Layer: 0
+  m_Name: StartLogic
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1381141687
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1381141686}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1381141688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1381141686}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5472aebcb2444ceb7fe01c6ef6f0c3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  logicChain: 630bf6df81658d190cb3779184ef8531d5af3a185d04e00b497b018804fc71f1
+--- !u!114 &1494802175 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5849131812230030258, guid: 89b1c75879c00e249acb15516e6da31b, type: 3}
+  m_PrefabInstance: {fileID: 1260911754}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcd9a17f0c96489081223a3268162a6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1584796258
 GameObject:
   m_ObjectHideFlags: 0
@@ -594,6 +619,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1584796259}
+  - component: {fileID: 1584796261}
+  - component: {fileID: 1584796260}
   m_Layer: 5
   m_Name: LoadingContainer
   m_TagString: Untagged
@@ -621,6 +648,40 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 600, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1584796260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1584796258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d609abd3557fa4c43b278864ca149c2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  key: LOADING_TITLE
+  useLocalization: 1
+  uiComponent: {fileID: 1584796261}
+  position: 0
+--- !u!114 &1584796261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1584796258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f467b64e087431a86ce3637990cb1b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiComponentTexts:
+  - {fileID: 1494802175}
+  useLocalization: 0
+  uiComponentButtons: []
+  uiComponentGraphics: []
+  uiComponentSwitchers: []
 --- !u!1 &2099604836
 GameObject:
   m_ObjectHideFlags: 0
@@ -701,3 +762,4 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 329977893}
+  - {fileID: 1381141687}

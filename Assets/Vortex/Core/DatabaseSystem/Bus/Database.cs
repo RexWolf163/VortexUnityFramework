@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Vortex.Core.DatabaseSystem.Model;
 using Vortex.Core.LoggerSystem.Bus;
@@ -108,22 +109,22 @@ namespace Vortex.Core.DatabaseSystem.Bus
 
 #if UNITY_EDITOR
         /// <summary>
-        /// Возвращает запись из БД по GUID, с автовыбором типа записи
+        /// Возвращает результат поиска записи в БД по GUID, с автовыбором типа записи
         /// Используется для тестирование корректности линка 
         /// </summary>
         /// <param name="guid"></param>
         /// <returns></returns>
-        public static Record TestRecord(string guid)
+        public static bool TestRecord(string guid)
         {
             if (Instance._uniqRecords.Contains(guid))
-                return Instance._singletonRecords[guid];
+                return true;
 
             if (Instance._singletonRecords.ContainsKey(guid))
-                return Instance._singletonRecords[guid];
+                return true;
 
             Log.Print(
                 new LogData(LogLevel.Error, $"Record not found for GUID: {guid}", Instance));
-            return null;
+            return false;
         }
 #endif
     }

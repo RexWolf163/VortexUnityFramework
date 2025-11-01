@@ -130,7 +130,17 @@ namespace Vortex.Core.LoaderSystem.Bus
                     "Loader"));
             }
 
-            await Task.Run(() => Loading(Token));
+            try
+            {
+                await Task.Run(() => Loading(Token));
+            }
+            catch (Exception ex)
+            {
+                Log.Print(new LogData(LogLevel.Error,
+                    ex.Message,
+                    "AppLoader"));
+            }
+
             OnComplete?.Invoke();
             App.OnExit -= Destroy;
             App.SetState(AppStates.Running);
@@ -156,6 +166,7 @@ namespace Vortex.Core.LoaderSystem.Bus
             Log.Print(new LogData(LogLevel.Common,
                 $"{controller.GetType().Name}: loading...",
                 "AppLoader"));
+
             await Task.Run(() => controller.RunAsync(Token));
 
             Log.Print(new LogData(LogLevel.Common,

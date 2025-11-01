@@ -126,49 +126,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2115158464}
     m_Modifications:
-    - target: {fileID: 437420559781390174, guid: eca0a2a3101373148ae12c11a59d92f0, type: 3}
+    - target: {fileID: 2582937186981311399, guid: eca0a2a3101373148ae12c11a59d92f0, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 437420559781390174, guid: eca0a2a3101373148ae12c11a59d92f0, type: 3}
+    - target: {fileID: 2582937186981311399, guid: eca0a2a3101373148ae12c11a59d92f0, type: 3}
       propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 437420559781390174, guid: eca0a2a3101373148ae12c11a59d92f0, type: 3}
+    - target: {fileID: 2582937186981311399, guid: eca0a2a3101373148ae12c11a59d92f0, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 437420559781390174, guid: eca0a2a3101373148ae12c11a59d92f0, type: 3}
+    - target: {fileID: 2582937186981311399, guid: eca0a2a3101373148ae12c11a59d92f0, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 437420559781390174, guid: eca0a2a3101373148ae12c11a59d92f0, type: 3}
+    - target: {fileID: 2582937186981311399, guid: eca0a2a3101373148ae12c11a59d92f0, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3260186062859026991, guid: eca0a2a3101373148ae12c11a59d92f0, type: 3}
       propertyPath: m_Name
       value: UISettings
-      objectReference: {fileID: 0}
-    - target: {fileID: 5902856131797763856, guid: eca0a2a3101373148ae12c11a59d92f0, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5902856131797763856, guid: eca0a2a3101373148ae12c11a59d92f0, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5902856131797763856, guid: eca0a2a3101373148ae12c11a59d92f0, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5902856131797763856, guid: eca0a2a3101373148ae12c11a59d92f0, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5902856131797763856, guid: eca0a2a3101373148ae12c11a59d92f0, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8255650686036129845, guid: eca0a2a3101373148ae12c11a59d92f0, type: 3}
       propertyPath: m_Pivot.x
@@ -248,6 +228,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8255650686036129845, guid: eca0a2a3101373148ae12c11a59d92f0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8461325468634931788, guid: eca0a2a3101373148ae12c11a59d92f0, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8461325468634931788, guid: eca0a2a3101373148ae12c11a59d92f0, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8461325468634931788, guid: eca0a2a3101373148ae12c11a59d92f0, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8461325468634931788, guid: eca0a2a3101373148ae12c11a59d92f0, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8461325468634931788, guid: eca0a2a3101373148ae12c11a59d92f0, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -362,7 +362,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   key: SETTINGS_TITLE
-  useLocalization: 1
+  useLocalization: 0
   uiComponent: {fileID: 1294467787}
   position: 0
 --- !u!1001 &1387710992

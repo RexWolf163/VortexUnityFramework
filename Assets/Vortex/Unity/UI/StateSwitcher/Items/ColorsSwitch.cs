@@ -73,6 +73,19 @@ namespace Vortex.Unity.UI.StateSwitcher.Items
                         img.color = color;
 
                     break;
+                case Outline outline:
+                    if (_smoothChange && Application.isPlaying)
+                    {
+                        var startColor = _useOwnStartColor ? outline.effectColor : _startColor;
+                        var valueToTween = 0f;
+                        DOTween.To(() => valueToTween, x => valueToTween = x, 1, _duration)
+                            .OnUpdate(() =>
+                                outline.effectColor = Color.Lerp(startColor, color, _curve.Evaluate(valueToTween)));
+                    }
+                    else
+                        outline.effectColor = color;
+
+                    break;
             }
         }
 
@@ -111,6 +124,9 @@ namespace Vortex.Unity.UI.StateSwitcher.Items
                 case Graphic img:
                     _color = img.color;
                     break;
+                case Outline outline:
+                    _color = outline.effectColor;
+                    break;
             }
         }
 
@@ -127,11 +143,12 @@ namespace Vortex.Unity.UI.StateSwitcher.Items
                     case Renderer sprRen:
                     case Text text:
                     case Image img:
+                    case Outline outline:
                         break;
                     default:
                         var go = (@object as GameObject)?.gameObject;
                         if (go == null)
-                            go = (@object as UnityEngine.Component)?.gameObject;
+                            go = (@object as Component)?.gameObject;
                         if (go == null)
                         {
                             _objects[i] = null;

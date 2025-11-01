@@ -89,3 +89,15 @@ MonoBehaviour:
       text: "\u041D\u0430\u0441\u0442\u0440\u043E\u0439\u043A\u0438"
     - language: English
       text: Settings
+  - key: LOADING_PROGRESS
+    texts:
+    - language: Russian
+      text: "{0} \u0438\u0437 {1}: {2}: {3}%"
+    - language: English
+      text: '{0} from {1}: {2}: {3}%'
+  - key: LOADING_TITLE
+    texts:
+    - language: Russian
+      text: "\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430..."
+    - language: English
+      text: Loading...

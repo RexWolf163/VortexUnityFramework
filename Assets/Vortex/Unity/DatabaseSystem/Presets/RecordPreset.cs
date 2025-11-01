@@ -7,7 +7,6 @@ using Vortex.Unity.DatabaseSystem.Enums;
 using Vortex.Unity.Extensions.Abstractions;
 #if UNITY_EDITOR
 using UnityEditor;
-using System.IO;
 #endif
 
 namespace Vortex.Unity.DatabaseSystem.Presets
@@ -17,11 +16,11 @@ namespace Vortex.Unity.DatabaseSystem.Presets
         private const string DefaultName = "DBItem";
 
         [SerializeField] private RecordTypes type;
-        
-        [SerializeField, DisplayAsString] private string guid;
+
+        [SerializeField, DisplayAsString] private string guid = Crypto.GetNewGuid();
 
         [SerializeField, OnValueChanged("OnNameChanged"), LabelText("Name")]
-        private string nameRecord;
+        private string nameRecord = typeof(T).Name;
 
         [SerializeField] private string description;
         [PreviewField, SerializeField] private Sprite icon;
@@ -60,15 +59,11 @@ namespace Vortex.Unity.DatabaseSystem.Presets
         }
 
 #if UNITY_EDITOR
-        public RecordPreset() => guid = Crypto.GetNewGuid();
-
         [Button]
         public void ResetGuid() => guid = Crypto.GetNewGuid();
 
         private void OnNameChanged()
         {
-            return;
-            /*
             var number = 0;
             var name = nameRecord;
             if (name == string.Empty) name = DefaultName;
@@ -90,7 +85,6 @@ namespace Vortex.Unity.DatabaseSystem.Presets
 
             if (number > 0 && nameRecord != string.Empty)
                 Debug.LogError($"[DbRecord] Name {name} for records already exists!");
-        */
         }
 #endif
     }

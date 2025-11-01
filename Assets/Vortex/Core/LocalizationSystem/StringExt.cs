@@ -11,5 +11,16 @@ namespace Vortex.Core.LocalizationSystem
         /// <param name="key"></param>
         /// <returns></returns>
         public static string Translate(this String key) => Localization.GetTranslate(key);
+
+        /// <summary>
+        /// Возвращает ассоциацию с ключом в текущей локали приложения
+        /// Если ассоциации нет, то ключ без изменений
+        /// Можно применять для специфических случаев. Например для индикации названия систем,
+        /// которые без перевода должны быть выведены как есть
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static string TryTranslate(this String key) =>
+            Localization.HasTranslate(key.ToUpper()) ? Localization.GetTranslate(key.ToUpper()) : key;
     }
 }

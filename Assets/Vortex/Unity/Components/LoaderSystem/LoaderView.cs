@@ -1,7 +1,10 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using Vortex.Core.AppSystem.Bus;
+using Vortex.Core.LocalizationSystem;
 using Vortex.Core.System.Enums;
+using Vortex.Unity.LocalizationSystem;
 using Vortex.Unity.UI.Attributes;
 using Vortex.Unity.UI.StateSwitcher;
 using Vortex.Unity.UI.UIComponents;
@@ -21,6 +24,8 @@ namespace Vortex.Unity.Components.LoaderSystem
         private UIStateSwitcher switcher;
 
         [SerializeField] private UIComponent uiComponent;
+
+        [SerializeField, LocalizationKey] private string loadingTextPattern;
 
         private AppStates _state;
 
@@ -76,7 +81,9 @@ namespace Vortex.Unity.Components.LoaderSystem
                 var progress = loadingData.Size == 0
                     ? 0
                     : Mathf.Floor(100f * loadingData.Progress / loadingData.Size);
-                uiComponent.SetText($"{step} from {size}: {loadingData.Name}: {progress}%");
+                uiComponent.SetText(String.Format(loadingTextPattern.Translate(), step, size,
+                    loadingData.Name.TryTranslate(),
+                    progress));
             }
         }
     }

@@ -1,6 +1,4 @@
-using System;
 using Sirenix.OdinInspector;
-using Sirenix.Utilities;
 using UnityEngine;
 using Vortex.Core.LocalizationSystem;
 using Vortex.Core.LocalizationSystem.Bus;
@@ -11,6 +9,7 @@ using Vortex.Unity.UI.UIComponents.Parts;
 
 namespace Vortex.Unity.Components.Misc.LocalizationSystem
 {
+    [RequireComponent(typeof(UIComponent))]
     public class SetTextComponent : MonoBehaviour
     {
         [SerializeField, LocalizationKey] private string key;
@@ -38,6 +37,16 @@ namespace Vortex.Unity.Components.Misc.LocalizationSystem
             Localization.OnLocalizationChanged -= RefreshData;
         }
 
+        [Button("Set Locale")]
         private void RefreshData() => uiComponent.SetText(useLocalization ? key.Translate() : key);
+
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            if (uiComponent != null)
+                return;
+            uiComponent = gameObject.GetComponent<UIComponent>();
+        }
+#endif
     }
 }

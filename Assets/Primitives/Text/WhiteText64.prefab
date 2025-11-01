@@ -8,6 +8,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5254781792924677792, guid: 5e6519e4c53090e49a329c3743b47309, type: 3}
+      propertyPath: m_EffectColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5254781792924677792, guid: 5e6519e4c53090e49a329c3743b47309, type: 3}
+      propertyPath: m_EffectColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5254781792924677792, guid: 5e6519e4c53090e49a329c3743b47309, type: 3}
+      propertyPath: m_EffectColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5254781792924677792, guid: 5e6519e4c53090e49a329c3743b47309, type: 3}
+      propertyPath: m_EffectColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5254781792924677792, guid: 5e6519e4c53090e49a329c3743b47309, type: 3}
+      propertyPath: m_EffectDistance.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5254781792924677792, guid: 5e6519e4c53090e49a329c3743b47309, type: 3}
+      propertyPath: m_EffectDistance.y
+      value: -2
+      objectReference: {fileID: 0}
     - target: {fileID: 5736159772625214486, guid: 5e6519e4c53090e49a329c3743b47309, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -90,7 +114,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7994156392450939451, guid: 5e6519e4c53090e49a329c3743b47309, type: 3}
       propertyPath: m_Name
-      value: BlackText32 Variant
+      value: WhiteText64
       objectReference: {fileID: 0}
     - target: {fileID: 8330785399497327079, guid: 5e6519e4c53090e49a329c3743b47309, type: 3}
       propertyPath: m_Text

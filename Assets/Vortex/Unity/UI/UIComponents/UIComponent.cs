@@ -2,6 +2,7 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Events;
+using Vortex.Core.LocalizationSystem;
 using Vortex.Unity.UI.UIComponents.Parts;
 
 namespace Vortex.Unity.UI.UIComponents
@@ -114,7 +115,7 @@ namespace Vortex.Unity.UI.UIComponents
                 return;
             }
 
-            uiComponentTexts[position].PutData(text);
+            uiComponentTexts[position].PutData(useLocalization ? text.Translate() : text);
         }
 
         /// <summary>
@@ -164,6 +165,13 @@ namespace Vortex.Unity.UI.UIComponents
 
             uiComponentSwitchers[position].PutData(enumValue);
         }
+
+        /// <summary>
+        /// Упрощенное выставление свитчера
+        /// </summary>
+        /// <param name="enumValue">Значение для выставления свитчера</param>
+        /// <param name="position">Номер части компонента</param>
+        public void SetSwitcher(Enum enumValue, int position = 0) => SetSwitcher(enumValue.GetHashCode(), position);
 
         #endregion
     }

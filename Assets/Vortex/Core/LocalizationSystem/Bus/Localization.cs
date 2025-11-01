@@ -74,6 +74,13 @@ namespace Vortex.Core.LocalizationSystem.Bus
         /// <returns></returns>
         public static string GetTranslate(string key) => index.ContainsKey(key) ? index[key] : $"##!{key}!##";
 
+        /// <summary>
+        /// Проверка есть ли такой ключ в реестре
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static bool HasTranslate(string key) => index.ContainsKey(key);
+
         private static void CallOnLocalization() => OnLocalizationChanged?.Invoke();
     }
 }

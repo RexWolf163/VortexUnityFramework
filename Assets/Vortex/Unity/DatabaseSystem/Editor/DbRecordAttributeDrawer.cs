@@ -28,14 +28,8 @@ namespace Vortex.Unity.DatabaseSystem.Editor
                 GUI.color = color;
         }
 
-        private bool TestMethod()
-        {
-            var type = Attribute.RecordClass;
-            var item = ValueEntry.SmartValue.IsNullOrWhitespace()
-                ? null
-                : Database.TestRecord(ValueEntry.SmartValue)?.GetType();
-            return item == type;
-        }
+        private bool TestMethod() =>
+            !ValueEntry.SmartValue.IsNullOrWhitespace() && Database.TestRecord(ValueEntry.SmartValue);
     }
 }
 #endif
