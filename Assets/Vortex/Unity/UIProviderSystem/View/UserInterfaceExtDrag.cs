@@ -17,8 +17,6 @@ namespace Vortex.Unity.UIProviderSystem.View
 
         private void CalcPosition(Vector2 newPosition)
         {
-            var camera = Camera.current;
-
             if (CanvasScaler == null)
                 return;
             var scale = CanvasScaler.transform.localScale;
