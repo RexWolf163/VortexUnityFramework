@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -18,13 +17,19 @@ namespace Vortex.Core.DatabaseSystem.Bus
 
         public string GetSaveId() => SaveKey;
 
-        public async Task<Dictionary<string, string>> GetSaveData()
+        public async Task<Dictionary<string, string>> GetSaveData(CancellationToken cancellationToken)
         {
             var list = _singletonRecords.Values.ToArray();
             var result = new Dictionary<string, string>();
             var counter = 0;
             foreach (var record in list)
             {
+                if (cancellationToken.IsCancellationRequested)
+                {
+                    await Task.CompletedTask;
+                    return new Dictionary<string, string>();
+                }
+
                 result.AddNew(record.Guid, record.GetDataForSave());
                 if (++counter != 20)
                     continue;
@@ -43,6 +48,12 @@ namespace Vortex.Core.DatabaseSystem.Bus
             var counter = 0;
             foreach (var key in data.Keys)
             {
+                if (cancellationToken.IsCancellationRequested)
+                {
+                    await Task.CompletedTask;
+                    return;
+                }
+
                 //Если образца нет в БД, значит игнорируем его
                 if (!_singletonRecords.ContainsKey(key))
                     continue;

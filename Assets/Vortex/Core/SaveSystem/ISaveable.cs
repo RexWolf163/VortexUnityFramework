@@ -9,7 +9,7 @@ namespace Vortex.Core.SaveSystem
     {
         public string GetSaveId();
 
-        public Task<Dictionary<string, string>> GetSaveData();
+        public Task<Dictionary<string, string>> GetSaveData(CancellationToken cancellationToken);
 
         /// <summary>
         /// Указатель на данные процесса 

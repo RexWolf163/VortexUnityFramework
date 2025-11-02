@@ -9,14 +9,15 @@ namespace Vortex.Unity.UIProviderSystem.View
     /// </summary>
     public partial class UserInterface
     {
-        [SerializeField, TitleGroup("DragSystem")]
-        private UIDragHandler dragZone;
+        [SerializeField] private UIDragHandler dragZone;
 
         private CanvasScaler _canvasScaler;
         private CanvasScaler CanvasScaler => _canvasScaler ??= gameObject.GetComponentInParent<CanvasScaler>();
 
         private void CalcPosition(Vector2 newPosition)
         {
+            if (wndContainer == null || dragZone == null)
+                return;
             if (CanvasScaler == null)
                 return;
             var scale = CanvasScaler.transform.localScale;

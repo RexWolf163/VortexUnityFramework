@@ -3,7 +3,7 @@ using UnityEngine;
 using Vortex.Unity.DatabaseSystem.Attributes;
 using Vortex.Unity.UI.Tweeners;
 using Vortex.Unity.UIProviderSystem.Bus;
-using Vortex.Unity.UIProviderSystem.Model.Conditions;
+using Vortex.Unity.UIProviderSystem.Model;
 
 namespace Vortex.Unity.UIProviderSystem.View
 {
@@ -47,14 +47,21 @@ namespace Vortex.Unity.UIProviderSystem.View
             data = UIProvider.Register(preset);
             data.OnOpen += Check;
             data.OnClose += Check;
-            dragZone.OnDrag += CalcPosition;
+            if (dragZone != null)
+                dragZone.OnDrag += CalcPosition;
+            data.Init();
             Check();
         }
 
         private void OnDisable()
         {
+            foreach (var condition in data.Conditions)
+                condition.DeInit();
+
             UIProvider.Unregister(preset);
-            dragZone.OnDrag -= CalcPosition;
+            data.DeInit();
+            if (dragZone != null)
+                dragZone.OnDrag -= CalcPosition;
             data.OnOpen -= Check;
             data.OnClose -= Check;
             data = null;

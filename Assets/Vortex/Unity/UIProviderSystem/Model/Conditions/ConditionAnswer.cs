@@ -1,6 +1,9 @@
 ﻿namespace Vortex.Unity.UIProviderSystem.Model.Conditions
 {
-    public class TestCondition : UserInterfaceCondition
+    public enum ConditionAnswer
     {
+        Idle,
+        Open,
+        Close
     }
 }

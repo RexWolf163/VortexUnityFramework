@@ -4,7 +4,9 @@ using System.Threading;
 using Vortex.Core.Extensions.LogicExtensions;
 using Vortex.Core.LoggerSystem.Bus;
 using Vortex.Core.LoggerSystem.Model;
+using Vortex.Core.SaveSystem.Model;
 using Vortex.Core.System.Abstractions;
+using Vortex.Core.System.ProcessInfo;
 
 namespace Vortex.Core.SaveSystem.Bus
 {
@@ -44,6 +46,21 @@ namespace Vortex.Core.SaveSystem.Bus
         /// </summary>
         public static event Action OnSaveComplete;
 
+        /// <summary>
+        /// Данные текущего частного процесса
+        /// </summary>
+        private static ProcessData _processData;
+
+        /// <summary>
+        /// Данные общего процесса
+        /// </summary>
+        private static readonly ProcessData FullProcessData = new();
+
+        /// <summary>
+        /// Текущее состояние контроллера, что загрузка идет
+        /// </summary>
+        public static SaveControllerStates State { get; private set; }
+
         protected override void OnDriverConnect()
         {
             Driver.SetIndexLink(SaveDataIndex);
@@ -61,13 +78,19 @@ namespace Vortex.Core.SaveSystem.Bus
         /// <param name="guid"></param>
         public static async void Save(string guid = null)
         {
+            State = SaveControllerStates.Saving;
             OnSaveStart?.Invoke();
             try
             {
                 SaveDataIndex.Clear();
+                FullProcessData.Name = State.ToString();
+                FullProcessData.Progress = 0;
+                FullProcessData.Size = Saveables.Count;
                 foreach (var saveable in Saveables)
                 {
-                    var data = await saveable.GetSaveData();
+                    FullProcessData.Progress++;
+                    _processData = saveable.GetProcessInfo();
+                    var data = await saveable.GetSaveData(Token);
                     SaveDataIndex.AddNew(saveable.GetSaveId(), data);
                 }
 
@@ -79,6 +102,7 @@ namespace Vortex.Core.SaveSystem.Bus
                 Log.Print(new LogData(LogLevel.Error, $"Error while saving data\n{e.Message}", "SaveController"));
             }
 
+            State = SaveControllerStates.Idle;
             OnSaveComplete?.Invoke();
         }
 
@@ -88,18 +112,27 @@ namespace Vortex.Core.SaveSystem.Bus
         /// <param name="guid">guid сейва</param>
         public static async void Load(string guid)
         {
+            State = SaveControllerStates.Loading;
             OnLoadStart?.Invoke();
             try
             {
                 Driver.Load(guid);
+                FullProcessData.Name = State.ToString();
+                FullProcessData.Progress = 0;
+                FullProcessData.Size = Saveables.Count;
                 foreach (var saveable in Saveables)
+                {
+                    FullProcessData.Progress++;
+                    _processData = saveable.GetProcessInfo();
                     await saveable.OnLoad(Token);
+                }
             }
             catch (Exception e)
             {
                 Log.Print(new LogData(LogLevel.Error, $"Error while loading data\n{e.Message}", "SaveController"));
             }
 
+            State = SaveControllerStates.Idle;
             OnLoadComplete?.Invoke();
         }
 
@@ -121,5 +154,7 @@ namespace Vortex.Core.SaveSystem.Bus
         public static void Register(ISaveable controller) => Saveables.Add(controller);
 
         public static void UnRegister(ISaveable controller) => Saveables.Remove(controller);
+
+        public static Tuple<ProcessData, ProcessData> GetProcessData() => new(FullProcessData, _processData);
     }
 }

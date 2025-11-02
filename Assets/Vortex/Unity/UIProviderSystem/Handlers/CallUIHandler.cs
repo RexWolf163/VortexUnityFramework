@@ -3,6 +3,7 @@ using UnityEngine;
 using Vortex.Unity.DatabaseSystem.Attributes;
 using Vortex.Unity.UI.UIComponents;
 using Vortex.Unity.UIProviderSystem.Bus;
+using Vortex.Unity.UIProviderSystem.Model;
 using Vortex.Unity.UIProviderSystem.Model.Conditions;
 
 namespace Vortex.Unity.UIProviderSystem.Handlers

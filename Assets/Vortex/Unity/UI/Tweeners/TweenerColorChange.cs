@@ -13,47 +13,93 @@ namespace Vortex.Unity.UI.Tweeners
         /// <summary>
         /// Конечный цвет
         /// </summary>
-        [ColorPalette]
-        public Color _startColor;
-        
+        [SerializeField] [HorizontalGroup("h1")]
+        private Color startColor;
+
         /// <summary>
         /// Начальный цвет
         /// </summary>
-        [ColorPalette]
-        public Color _endColor;
-        
+        [SerializeField] [HorizontalGroup("h2")]
+        private Color endColor;
+
         /// <summary>
         /// Целевое изображение
         /// </summary>
-        [SerializeField] private Image _image;
-        
+        [SerializeField] private Image image;
+
         /// <summary>
         /// длительность перехода
         /// </summary>
         [SerializeField, Range(0.1f, 2f)] private float duration = 0.2f;
-        
-        private void Awake() => DOTween.Init();
-        
+
+        [SerializeField] private bool disableOnStart = true;
+        [SerializeField] private bool disableOnEnd;
+
+        private Tween tween;
+
+        private void Awake()
+        {
+            DOTween.Init(image);
+        }
+
+        private void OnDestroy()
+        {
+            tween.Kill();
+        }
+
         public override void Forward(bool skip = false)
         {
             if (skip)
             {
-                _image.color = _endColor;
+                image.color = endColor;
+                if (disableOnEnd)
+                    image.gameObject.SetActive(false);
                 return;
             }
-            
-            DOTween.To(() => _image.color, color => _image.color = color, _endColor, duration);
+
+            image.gameObject.SetActive(true);
+            tween.Kill();
+            tween = DOTween.To(() => image.color, color => image.color = color, endColor, duration)
+                .OnComplete(() =>
+                {
+                    if (disableOnEnd)
+                        image.gameObject.SetActive(false);
+                });
         }
 
         public override void Back(bool skip = false)
         {
             if (skip)
             {
-                _image.color = _startColor;
+                image.color = startColor;
+                if (disableOnStart)
+                    image.gameObject.SetActive(false);
                 return;
             }
-            
-            DOTween.To(() => _image.color, color => _image.color = color, _startColor, duration);
+
+            image.gameObject.SetActive(true);
+            tween.Kill();
+            tween = DOTween.To(() => image.color, color => image.color = color, startColor, duration)
+                .OnComplete(() =>
+                {
+                    if (disableOnStart)
+                        image.gameObject.SetActive(false);
+                });
         }
+
+#if UNITY_EDITOR
+        [ShowIf("@image != null")]
+        [Button("Get from...")]
+        [GUIColor("@Color.green")]
+        [HorizontalGroup("h1")]
+        private void SetCurrentStart() => startColor = image.color;
+
+        [ShowIf("@image != null")]
+        [Button("Get from...")]
+        [GUIColor("@Color.green")]
+        [HorizontalGroup("h2")]
+        private void SetCurrentEnd() => endColor = image.color;
+
+#endif
     }
 }
