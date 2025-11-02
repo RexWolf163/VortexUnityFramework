@@ -1,4 +1,7 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+using Vortex.Core.System.ProcessInfo;
 
 namespace Vortex.Core.SaveSystem
 {
@@ -6,11 +9,17 @@ namespace Vortex.Core.SaveSystem
     {
         public string GetSaveId();
 
-        public Dictionary<string, string> GetSaveData();
+        public Task<Dictionary<string, string>> GetSaveData();
+
+        /// <summary>
+        /// Указатель на данные процесса 
+        /// </summary>
+        /// <returns></returns>
+        public ProcessData GetProcessInfo();
 
         /// <summary>
         /// Обработка события завершения загрузки
         /// </summary>
-        public void OnLoad();
+        public Task OnLoad(CancellationToken cancellationToken);
     }
 }

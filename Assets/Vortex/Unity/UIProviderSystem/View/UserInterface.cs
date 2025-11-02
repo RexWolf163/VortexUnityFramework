@@ -11,7 +11,7 @@ namespace Vortex.Unity.UIProviderSystem.View
     /// Реализация основы UI
     /// </summary>
     [Serializable]
-    public sealed class UserInterface : MonoBehaviour
+    public sealed partial class UserInterface : MonoBehaviour
     {
         #region Params
 
@@ -23,7 +23,7 @@ namespace Vortex.Unity.UIProviderSystem.View
         /// <summary>
         /// Окно-Контейнер
         /// </summary>
-        [SerializeField] private Transform wndContainer;
+        [SerializeField] private RectTransform wndContainer;
 
         /// <summary>
         /// Твиннеры открытия/закрытия
@@ -47,13 +47,14 @@ namespace Vortex.Unity.UIProviderSystem.View
             data = UIProvider.Register(preset);
             data.OnOpen += Check;
             data.OnClose += Check;
-            wndContainer.SetLocalPositionAndRotation(data.Offset, wndContainer.localRotation);
+            dragZone.OnDrag += CalcPosition;
             Check();
         }
 
         private void OnDisable()
         {
             UIProvider.Unregister(preset);
+            dragZone.OnDrag -= CalcPosition;
             data.OnOpen -= Check;
             data.OnClose -= Check;
             data = null;
@@ -80,6 +81,7 @@ namespace Vortex.Unity.UIProviderSystem.View
         {
             if (isOpen)
                 return;
+            CalcPosition(data.Offset);
             foreach (var tweener in tweeners)
             {
                 tweener.Back(true);

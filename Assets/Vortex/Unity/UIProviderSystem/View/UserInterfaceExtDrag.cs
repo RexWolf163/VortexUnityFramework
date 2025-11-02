@@ -1,0 +1,44 @@
+﻿using Sirenix.OdinInspector;
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace Vortex.Unity.UIProviderSystem.View
+{
+    /// <summary>
+    /// Реализация основы UI
+    /// </summary>
+    public partial class UserInterface
+    {
+        [SerializeField, TitleGroup("DragSystem")]
+        private UIDragHandler dragZone;
+
+        private CanvasScaler _canvasScaler;
+        private CanvasScaler CanvasScaler => _canvasScaler ??= gameObject.GetComponentInParent<CanvasScaler>();
+
+        private void CalcPosition(Vector2 newPosition)
+        {
+            var camera = Camera.current;
+
+            if (CanvasScaler == null)
+                return;
+            var scale = CanvasScaler.transform.localScale;
+            var h = Screen.height / (scale.y * 2f);
+            var w = Screen.width / (scale.x * 2f);
+            var min = wndContainer.rect.min;
+            var max = wndContainer.rect.max;
+            var position = data.Offset + new Vector2(newPosition.x / scale.x, newPosition.y / scale.y);
+            if (position.x + min.x <= -w)
+                position.x = -w - min.x;
+            if (position.y + min.y <= -h)
+                position.y = -h - min.y;
+            if (position.x + max.x >= w)
+                position.x = w - max.x;
+            if (position.y + max.y >= h)
+                position.y = h - max.y;
+            position.x = Mathf.Floor(position.x);
+            position.y = Mathf.Floor(position.y);
+            data.Offset = position;
+            wndContainer.SetLocalPositionAndRotation(data.Offset, wndContainer.localRotation);
+        }
+    }
+}

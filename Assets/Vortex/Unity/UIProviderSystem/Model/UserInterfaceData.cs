@@ -37,7 +37,7 @@ namespace Vortex.Unity.UIProviderSystem.Model.Conditions
 
         public override string GetDataForSave()
         {
-            return $"{Offset.x}-{Offset.y}";
+            return $"{(int)Offset.x}-{(int)Offset.y}";
         }
 
         public override void LoadFromSaveData(string data)

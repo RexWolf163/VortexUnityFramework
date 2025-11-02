@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using Vortex.Core.Extensions.LogicExtensions;
 using Vortex.Core.LoggerSystem.Bus;
 using Vortex.Core.LoggerSystem.Model;
@@ -12,6 +13,16 @@ namespace Vortex.Core.SaveSystem.Bus
         private static readonly Dictionary<string, Dictionary<string, string>> SaveDataIndex = new();
 
         private static readonly HashSet<ISaveable> Saveables = new();
+
+        /// <summary>
+        /// токен-ресурс прерывания
+        /// </summary>
+        private static readonly CancellationTokenSource CancelTokenSource = new();
+
+        /// <summary>
+        /// Токен прерывания
+        /// </summary>
+        private static CancellationToken Token => CancelTokenSource.Token;
 
         /// <summary>
         /// Событие начала сохранения
@@ -51,13 +62,23 @@ namespace Vortex.Core.SaveSystem.Bus
         public static async void Save(string guid = null)
         {
             OnSaveStart?.Invoke();
+            try
+            {
+                SaveDataIndex.Clear();
+                foreach (var saveable in Saveables)
+                {
+                    var data = await saveable.GetSaveData();
+                    SaveDataIndex.AddNew(saveable.GetSaveId(), data);
+                }
 
-            SaveDataIndex.Clear();
-            foreach (var saveable in Saveables)
-                SaveDataIndex.AddNew(saveable.GetSaveId(), saveable.GetSaveData());
+                guid ??= Crypto.GetNewGuid();
+                Driver.Save(guid);
+            }
+            catch (Exception e)
+            {
+                Log.Print(new LogData(LogLevel.Error, $"Error while saving data\n{e.Message}", "SaveController"));
+            }
 
-            guid ??= Crypto.GetNewGuid();
-            Driver.Save(guid);
             OnSaveComplete?.Invoke();
         }
 
@@ -65,12 +86,20 @@ namespace Vortex.Core.SaveSystem.Bus
         /// Загрузить сейв
         /// </summary>
         /// <param name="guid">guid сейва</param>
-        public static void Load(string guid)
+        public static async void Load(string guid)
         {
             OnLoadStart?.Invoke();
-            Driver.Load(guid);
-            foreach (var saveable in Saveables)
-                saveable.OnLoad();
+            try
+            {
+                Driver.Load(guid);
+                foreach (var saveable in Saveables)
+                    await saveable.OnLoad(Token);
+            }
+            catch (Exception e)
+            {
+                Log.Print(new LogData(LogLevel.Error, $"Error while loading data\n{e.Message}", "SaveController"));
+            }
+
             OnLoadComplete?.Invoke();
         }
 

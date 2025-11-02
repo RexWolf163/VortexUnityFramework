@@ -1,8 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using Vortex.Core.Extensions.LogicExtensions;
 using Vortex.Core.SaveSystem;
 using Vortex.Core.SaveSystem.Bus;
+using Vortex.Core.System.ProcessInfo;
 
 namespace Vortex.Core.DatabaseSystem.Bus
 {
@@ -10,20 +14,33 @@ namespace Vortex.Core.DatabaseSystem.Bus
     {
         private const string SaveKey = "Database";
 
+        private static ProcessData _processData = new(name: SaveKey);
+
         public string GetSaveId() => SaveKey;
 
-        public Dictionary<string, string> GetSaveData()
+        public async Task<Dictionary<string, string>> GetSaveData()
         {
             var list = _singletonRecords.Values.ToArray();
             var result = new Dictionary<string, string>();
+            var counter = 0;
             foreach (var record in list)
+            {
                 result.AddNew(record.Guid, record.GetDataForSave());
+                if (++counter != 20)
+                    continue;
+                counter = 0;
+                await Task.Yield();
+            }
+
             return result;
         }
 
-        public void OnLoad()
+        public ProcessData GetProcessInfo() => _processData;
+
+        public async Task OnLoad(CancellationToken cancellationToken)
         {
             var data = SaveController.GetData(SaveKey);
+            var counter = 0;
             foreach (var key in data.Keys)
             {
                 //Если образца нет в БД, значит игнорируем его
@@ -31,7 +48,12 @@ namespace Vortex.Core.DatabaseSystem.Bus
                     continue;
 
                 _singletonRecords[key].LoadFromSaveData(data[key]);
+                if (++counter != 20)
+                    continue;
+                counter = 0;
             }
+
+            await Task.CompletedTask;
         }
     }
 }
