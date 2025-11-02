@@ -1,14 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Vortex.Core.DatabaseSystem.Model;
 using Vortex.Core.LoggerSystem.Bus;
 using Vortex.Core.LoggerSystem.Model;
+using Vortex.Core.SaveSystem.Bus;
 using Vortex.Core.System.Abstractions;
 
 namespace Vortex.Core.DatabaseSystem.Bus
 {
-    public class Database : SystemController<Database, IDriver>
+    public partial class Database : SystemController<Database, IDriver>
     {
         /// <summary>
         /// Реестр синглтон-записей в БД 
@@ -97,6 +97,7 @@ namespace Vortex.Core.DatabaseSystem.Bus
         protected override void OnDriverConnect()
         {
             Driver.SetIndex(_singletonRecords, _uniqRecords);
+            SaveController.Register(this);
         }
 
         /// <summary>
@@ -104,7 +105,7 @@ namespace Vortex.Core.DatabaseSystem.Bus
         /// </summary>
         protected override void OnDriverDisonnect()
         {
-            //Ignore
+            SaveController.UnRegister(this);
         }
 
         /// <summary>

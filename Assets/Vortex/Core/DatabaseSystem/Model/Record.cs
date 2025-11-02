@@ -18,5 +18,17 @@ namespace Vortex.Core.DatabaseSystem.Model
         /// Описание элемента БД
         /// </summary>
         public string Description { get; protected set; }
+
+        /// <summary>
+        /// Получить данные под сохранение
+        /// </summary>
+        /// <returns></returns>
+        public abstract string GetDataForSave();
+
+        /// <summary>
+        /// Восстановить из сохраненных данных
+        /// </summary>
+        /// <param name="data"></param>
+        public abstract void LoadFromSaveData(string data);
     }
 }

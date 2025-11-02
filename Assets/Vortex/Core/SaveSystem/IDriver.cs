@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
 using Vortex.Core.System.Abstractions;
 
 namespace Vortex.Core.SaveSystem
@@ -24,7 +22,7 @@ namespace Vortex.Core.SaveSystem
         /// <summary>
         /// Передать линк на индекс
         /// </summary>
-        public void SetIndexLink(Dictionary<string, string> index);
+        public void SetIndexLink(Dictionary<string, Dictionary<string, string>> index);
 
         /// <summary>
         /// Возвращает все существующие сейвы

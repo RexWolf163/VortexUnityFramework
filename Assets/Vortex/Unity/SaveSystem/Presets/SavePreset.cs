@@ -7,6 +7,6 @@ namespace Vortex.Unity.SaveSystem.Presets
     [XmlRoot]
     public class SavePreset
     {
-        [XmlElement] public List<SaveData> data { get; set; }
+        [XmlElement] public List<SaveFolder> Data { get; set; }
     }
 }

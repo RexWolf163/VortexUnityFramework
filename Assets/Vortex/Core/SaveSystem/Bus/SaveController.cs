@@ -9,7 +9,7 @@ namespace Vortex.Core.SaveSystem.Bus
 {
     public class SaveController : SystemController<SaveController, IDriver>
     {
-        private static readonly Dictionary<string, string> SaveDataIndex = new();
+        private static readonly Dictionary<string, Dictionary<string, string>> SaveDataIndex = new();
 
         private static readonly HashSet<ISaveable> Saveables = new();
 
@@ -48,7 +48,7 @@ namespace Vortex.Core.SaveSystem.Bus
         /// Если GUID не указан - сохранится под новым GUID
         /// </summary>
         /// <param name="guid"></param>
-        public static void Save(string guid = null)
+        public static async void Save(string guid = null)
         {
             OnSaveStart?.Invoke();
 
@@ -79,12 +79,12 @@ namespace Vortex.Core.SaveSystem.Bus
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public static string GetData(string id)
+        public static Dictionary<string, string> GetData(string id)
         {
             if (SaveDataIndex.TryGetValue(id, out var data))
                 return data;
             Log.Print(new LogData(LogLevel.Error, $"Save data not found for id: {id}", Instance));
-            return "";
+            return new Dictionary<string, string>();
         }
 
         public static HashSet<string> GetIndex() => Driver.GetIndex();

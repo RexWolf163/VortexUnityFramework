@@ -71,7 +71,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiComponent: {fileID: 5694671129040015448}
-  language: 10
+  language: English
   useSwitch: 1
 --- !u!1 &7285292736620778994
 GameObject:
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uiComponent: {fileID: 8248394673745942712}
-  language: 30
+  language: Russian
   useSwitch: 1
 --- !u!1 &8058154755324934480
 GameObject:

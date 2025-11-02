@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 using Vortex.Core.DatabaseSystem.Model;
 using Vortex.Core.Extensions.LogicExtensions;
+using NotImplementedException = System.NotImplementedException;
 
 namespace Vortex.Core.LogicChainsSystem.Model
 {
@@ -20,5 +22,9 @@ namespace Vortex.Core.LogicChainsSystem.Model
         /// GUID текущего этапа
         /// </summary>
         public string CurrentStep { get; protected internal set; }
+
+        public override string GetDataForSave() => CurrentStep;
+
+        public override void LoadFromSaveData(string data) => CurrentStep = data;
     }
 }

@@ -14,7 +14,7 @@ namespace Vortex.Unity.UIProviderSystem.Model.Conditions
         /// <summary>
         /// точка якоря контейнера
         /// </summary>
-        internal Vector2? Offset = null;
+        internal Vector2 Offset = Vector2.zero;
 
         internal bool IsOpen = false;
 
@@ -33,6 +33,17 @@ namespace Vortex.Unity.UIProviderSystem.Model.Conditions
             IsOpen = false;
             OnClose?.Invoke();
             UIProvider.CallOnClose();
+        }
+
+        public override string GetDataForSave()
+        {
+            return $"{Offset.x}-{Offset.y}";
+        }
+
+        public override void LoadFromSaveData(string data)
+        {
+            var ar = data.Split('-');
+            Offset = new Vector2(float.Parse(ar[0]), float.Parse(ar[1]));
         }
     }
 }

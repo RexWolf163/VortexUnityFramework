@@ -2,11 +2,8 @@
 using UnityEngine;
 using Vortex.Unity.DatabaseSystem.Attributes;
 using Vortex.Unity.UI.Tweeners;
-using Vortex.Unity.UI.UIComponents;
 using Vortex.Unity.UIProviderSystem.Bus;
 using Vortex.Unity.UIProviderSystem.Model.Conditions;
-using Vortex.Core.LocalizationSystem;
-using Vortex.Core.LocalizationSystem.Bus;
 
 namespace Vortex.Unity.UIProviderSystem.View
 {
@@ -22,6 +19,11 @@ namespace Vortex.Unity.UIProviderSystem.View
         private string preset;
 
         private UserInterfaceData data;
+
+        /// <summary>
+        /// Окно-Контейнер
+        /// </summary>
+        [SerializeField] private Transform wndContainer;
 
         /// <summary>
         /// Твиннеры открытия/закрытия
@@ -45,6 +47,7 @@ namespace Vortex.Unity.UIProviderSystem.View
             data = UIProvider.Register(preset);
             data.OnOpen += Check;
             data.OnClose += Check;
+            wndContainer.SetLocalPositionAndRotation(data.Offset, wndContainer.localRotation);
             Check();
         }
 

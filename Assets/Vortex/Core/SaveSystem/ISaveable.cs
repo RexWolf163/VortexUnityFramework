@@ -1,12 +1,12 @@
-﻿using Vortex.Core.System.ProcessInfo;
+﻿using System.Collections.Generic;
 
 namespace Vortex.Core.SaveSystem
 {
-    public interface ISaveable : IProcess
+    public interface ISaveable
     {
         public string GetSaveId();
 
-        public string GetSaveData();
+        public Dictionary<string, string> GetSaveData();
 
         /// <summary>
         /// Обработка события завершения загрузки

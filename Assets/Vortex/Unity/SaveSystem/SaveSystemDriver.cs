@@ -19,7 +19,7 @@ namespace Vortex.Unity.SaveSystem
 
         private static HashSet<string> _saves = new();
 
-        private static Dictionary<string, string> _saveDataIndex;
+        private static Dictionary<string, Dictionary<string, string>> _saveDataIndex;
 
         public event Action OnInit;
 
@@ -27,9 +27,13 @@ namespace Vortex.Unity.SaveSystem
         {
             _saves.Clear();
             var saves = PlayerPrefs.GetString(SaveKey);
-            var ar = saves.Split(';');
-            if (ar.Length > 0)
-                _saves.AddRange(ar);
+            if (!saves.IsNullOrWhitespace())
+            {
+                var ar = saves.Split(';');
+                if (ar.Length > 0)
+                    _saves.AddRange(ar);
+            }
+
             OnInit?.Invoke();
         }
 
@@ -42,13 +46,24 @@ namespace Vortex.Unity.SaveSystem
             var count = _saveDataIndex.Count;
             var save = new SavePreset
             {
-                data = new List<SaveData>()
+                Data = new List<SaveFolder>()
             };
             var list = _saveDataIndex.Keys.ToArray();
             for (var i = 0; i < count; i++)
             {
                 var data = _saveDataIndex[list[i]];
-                save.data.Add(new SaveData { Id = list[i], Data = data });
+                var xmlStruct = new SaveFolder { Id = list[i], DataSet = new SaveData[data.Count] };
+                var j = 0;
+                foreach (var key in data.Keys)
+                {
+                    xmlStruct.DataSet[j++] = new SaveData
+                    {
+                        Id = key,
+                        Data = data[key]
+                    };
+                }
+
+                save.Data.Add(xmlStruct);
             }
 
             var xmls = new XmlSerializer(typeof(SavePreset));
@@ -82,11 +97,17 @@ namespace Vortex.Unity.SaveSystem
                 return;
             }
 
-            foreach (var item in save.data)
-                _saveDataIndex.AddNew(item.Id, item.Data);
+            foreach (var item in save.Data)
+            {
+                var list = new Dictionary<string, string>();
+                foreach (var data in item.DataSet)
+                    list.Add(data.Id, data.Data);
+
+                _saveDataIndex.AddNew(item.Id, list);
+            }
         }
 
-        public void SetIndexLink(Dictionary<string, string> index) => _saveDataIndex = index;
+        public void SetIndexLink(Dictionary<string, Dictionary<string, string>> index) => _saveDataIndex = index;
 
         /// <summary>
         /// Формирование названия сейва по guid

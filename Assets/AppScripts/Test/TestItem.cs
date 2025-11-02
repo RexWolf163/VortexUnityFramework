@@ -7,6 +7,13 @@ namespace AppScripts.Test
     [Serializable]
     public class TestItem : Record
     {
-        [field: SerializeField] public string Chain { get; protected set; }
+        public override string GetDataForSave()
+        {
+            return "";
+        }
+
+        public override void LoadFromSaveData(string data)
+        {
+        }
     }
 }
