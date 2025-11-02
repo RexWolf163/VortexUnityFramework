@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
+using Vortex.Core.LoggerSystem.Bus;
+using Vortex.Core.LoggerSystem.Model;
 
 namespace Vortex.Core.Extensions.LogicExtensions.Actions
 {
@@ -237,7 +238,7 @@ namespace Vortex.Core.Extensions.LogicExtensions.Actions
             }
             catch (Exception ex)
             {
-                Debug.LogException(ex);
+                Log.Print(new LogData(LogLevel.Error, ex.Message, func?.Method.Name ?? "ActionExt"));
             }
 
             return result.ToArray();

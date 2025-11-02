@@ -12,7 +12,7 @@ namespace Vortex.Unity.Components.Misc.LocalizationSystem
     {
         [SerializeField] private UIComponent uiComponent;
 
-        [SerializeField, Language] private SystemLanguage language;
+        [SerializeField, Language] private string language;
 
         [SerializeField] private bool useSwitch;
 
@@ -39,7 +39,7 @@ namespace Vortex.Unity.Components.Misc.LocalizationSystem
         [Button("Set Locale")]
         private void Refresh()
         {
-            uiComponent.SetText(language.ToString().ToUpper().Translate());
+            uiComponent.SetText(language.ToUpper().Translate());
             if (!useSwitch)
                 return;
             uiComponent.SetSwitcher(

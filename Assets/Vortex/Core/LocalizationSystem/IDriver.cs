@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEngine;
 using Vortex.Core.System.Abstractions;
 
 namespace Vortex.Core.LocalizationSystem
@@ -11,13 +10,13 @@ namespace Vortex.Core.LocalizationSystem
         /// Получить дефолтный язык для приложения (при инициации)
         /// </summary>
         /// <returns></returns>
-        public SystemLanguage GetDefaultLanguage();
+        public string GetDefaultLanguage();
 
         /// <summary>
         /// Установить язык для приложения
         /// </summary>
         /// <param name="language"></param>
-        public void SetLanguage(SystemLanguage language);
+        public void SetLanguage(string language);
 
         /// <summary>
         /// Связь индекса с данными драйвера
@@ -31,6 +30,6 @@ namespace Vortex.Core.LocalizationSystem
         public event Action OnLocalizationChanged;
 
         
-        public SystemLanguage[] GetLanguages();
+        public string[] GetLanguages();
     }
 }

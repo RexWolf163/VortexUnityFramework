@@ -12,7 +12,7 @@ namespace Vortex.Core.LocalizationSystem.Bus
         [MenuItem("Vortex/Localization/Set Default Locale")]
         public static void SetDefaultLocale()
         {
-            SetCurrentLanguage(Application.systemLanguage);
+            SetCurrentLanguage(Application.systemLanguage.ToString());
         }
 
         [MenuItem("Vortex/Localization/Set Next Locale")]
@@ -27,9 +27,9 @@ namespace Vortex.Core.LocalizationSystem.Bus
             SetCurrentLanguage(langs[index]);
         }
 
-        public static ValueDropdownList<SystemLanguage> GetLanguages()
+        public static ValueDropdownList<string> GetLanguages()
         {
-            var res = new ValueDropdownList<SystemLanguage>();
+            var res = new ValueDropdownList<string>();
             var langs = Driver.GetLanguages();
             foreach (var lang in langs)
                 res.Add(lang);

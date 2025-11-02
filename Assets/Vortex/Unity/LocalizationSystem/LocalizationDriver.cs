@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Sirenix.Utilities;
 using UnityEngine;
 using Vortex.Core.LoaderSystem.Bus;
 using Vortex.Core.LocalizationSystem;
@@ -14,7 +15,7 @@ namespace Vortex.Unity.LocalizationSystem
 
         private static SortedDictionary<string, string> _localeData;
 
-        private SystemLanguage[] _cashedLangs;
+        private string[] _cashedLangs;
 
         /// <summary>
         /// Событие смены языка локали
@@ -41,24 +42,24 @@ namespace Vortex.Unity.LocalizationSystem
         /// Получить дефолтный язык для приложения (при инициации)
         /// </summary>
         /// <returns></returns>
-        public SystemLanguage GetDefaultLanguage()
+        public string GetDefaultLanguage()
         {
             if (PlayerPrefs.HasKey(SaveSlot))
             {
-                Enum.TryParse(typeof(SystemLanguage), PlayerPrefs.GetString(SaveSlot), true, out var result);
-                return result == null ? Application.systemLanguage : (SystemLanguage)result;
+                var result = PlayerPrefs.GetString(SaveSlot);
+                return result.IsNullOrWhitespace() ? Application.systemLanguage.ToString() : result;
             }
 
-            return Application.systemLanguage;
+            return Application.systemLanguage.ToString();
         }
 
         /// <summary>
         /// Установить язык для приложения
         /// </summary>
         /// <param name="language"></param>
-        public async void SetLanguage(SystemLanguage language)
+        public async void SetLanguage(string language)
         {
-            PlayerPrefs.SetString(SaveSlot, language.ToString());
+            PlayerPrefs.SetString(SaveSlot, language);
             await Loader.RunAlone(this);
             CallOnLocalizationChanged();
         }
@@ -69,18 +70,21 @@ namespace Vortex.Unity.LocalizationSystem
         /// Получить перечень зафиксированных языков
         /// </summary>
         /// <returns></returns>
-        public SystemLanguage[] GetLanguages()
+        public string[] GetLanguages()
         {
             if (_cashedLangs != null)
                 return _cashedLangs;
             var langs = _resource.langs;
-            var result = new List<SystemLanguage>();
+            var result = new List<string>();
+
+            //Проверяем наличие ассоциаций для языка в системных
             foreach (var lang in langs)
             {
-                Enum.TryParse(typeof(SystemLanguage), lang, true, out var temp);
+                if (!Enum.TryParse(typeof(SystemLanguage), lang, true, out var temp))
+                    Debug.LogError($"Language {lang} is not supported");
                 if (temp == null)
                     continue;
-                result.Add((SystemLanguage)temp);
+                result.Add(((SystemLanguage)temp).ToString());
             }
 
             _cashedLangs = result.ToArray();

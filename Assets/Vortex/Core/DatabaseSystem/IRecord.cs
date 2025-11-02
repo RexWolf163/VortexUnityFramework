@@ -1,4 +1,4 @@
-﻿namespace Vortex.Unity.DatabaseSystem.Presets
+﻿namespace Vortex.Core.DatabaseSystem
 {
     public interface IRecord
     {

@@ -107,10 +107,9 @@ namespace Vortex.Core.DatabaseSystem.Bus
             //Ignore
         }
 
-#if UNITY_EDITOR
         /// <summary>
         /// Возвращает результат поиска записи в БД по GUID, с автовыбором типа записи
-        /// Используется для тестирование корректности линка 
+        /// Используется для тестирования корректности линка 
         /// </summary>
         /// <param name="guid"></param>
         /// <returns></returns>
@@ -126,6 +125,5 @@ namespace Vortex.Core.DatabaseSystem.Bus
                 new LogData(LogLevel.Error, $"Record not found for GUID: {guid}", Instance));
             return false;
         }
-#endif
     }
 }

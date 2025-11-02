@@ -5,7 +5,7 @@ using Vortex.Unity.Extensions.Editor;
 
 namespace Vortex.Unity.LocalizationSystem.Editor
 {
-    public class LanguageAttributeDrawer : OdinAttributeDrawer<LanguageAttribute, SystemLanguage>
+    public class LanguageAttributeDrawer : OdinAttributeDrawer<LanguageAttribute, string>
     {
         protected override void DrawPropertyLayout(GUIContent label)
         {
