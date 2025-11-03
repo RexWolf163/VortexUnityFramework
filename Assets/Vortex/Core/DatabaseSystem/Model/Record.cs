@@ -7,7 +7,7 @@ namespace Vortex.Core.DatabaseSystem.Model
         /// <summary>
         /// Глобально уникальный идентификатор 
         /// </summary>
-        public string Guid { get; protected set; }
+        public string GuidPreset { get; protected set; }
 
         /// <summary>
         /// Наименование элемента БД

@@ -33,7 +33,7 @@ namespace Vortex.Unity.DatabaseSystem
                 if (resource is not IRecordPreset data)
                     continue;
                 AddRecord(data.GetData(), data);
-                _resourcesIndex.AddNew(data.Guid, data);
+                _resourcesIndex.AddNew(data.GuidPreset, data);
             }
         }
 
@@ -51,7 +51,7 @@ namespace Vortex.Unity.DatabaseSystem
                 if (tempAr.Length == 0)
                     continue;
                 path = tempAr[1];
-                result.Add(path, item.Guid);
+                result.Add(path, item.GuidPreset);
             }
 
             return result;
@@ -81,7 +81,7 @@ namespace Vortex.Unity.DatabaseSystem
                 if (tempAr.Length == 0)
                     continue;
                 path = tempAr[1];
-                result.Add(path, item.Guid);
+                result.Add(path, item.GuidPreset);
             }
 
             return result;

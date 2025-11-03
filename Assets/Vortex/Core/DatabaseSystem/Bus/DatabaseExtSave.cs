@@ -30,7 +30,7 @@ namespace Vortex.Core.DatabaseSystem.Bus
                     return new Dictionary<string, string>();
                 }
 
-                result.AddNew(record.Guid, record.GetDataForSave());
+                result.AddNew(record.GuidPreset, record.GetDataForSave());
                 if (++counter != 20)
                     continue;
                 counter = 0;

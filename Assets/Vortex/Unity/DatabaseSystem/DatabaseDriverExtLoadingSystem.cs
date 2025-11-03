@@ -62,7 +62,7 @@ namespace Vortex.Unity.DatabaseSystem
                     continue;
                 var record = data.GetData();
 
-                _resourcesIndex.AddNew(data.Guid, data);
+                _resourcesIndex.AddNew(data.GuidPreset, data);
                 AddRecord(record, data);
 
                 await Task.Yield();

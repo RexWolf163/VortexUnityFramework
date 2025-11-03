@@ -72,18 +72,18 @@ namespace Vortex.Unity.DatabaseSystem
         private static void AddRecord(Record record, IRecordPreset data)
         {
             if (record is null)
-                Debug.LogError($"[DatabaseDriver] Can't load record: {data.Name} #{data.Guid}");
+                Debug.LogError($"[DatabaseDriver] Can't load record: {data.Name} #{data.GuidPreset}");
             else
             {
                 switch (data.RecordType)
                 {
                     case RecordTypes.Singleton:
-                        _recordsLink.AddNew(record.Guid, record);
+                        _recordsLink.AddNew(data.GuidPreset, record);
                         break;
                     case RecordTypes.MultiInstance:
                     default:
-                        if (!_uniqRecordsLink.Add(record.Guid))
-                            Debug.LogError($"Record with GUID \"{record.Guid}\" already exists.");
+                        if (!_uniqRecordsLink.Add(data.GuidPreset))
+                            Debug.LogError($"Record with GUID \"{data.GuidPreset}\" already exists.");
 
                         break;
                 }

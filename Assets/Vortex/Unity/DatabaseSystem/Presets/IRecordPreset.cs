@@ -14,7 +14,7 @@ namespace Vortex.Unity.DatabaseSystem.Presets
         /// <summary>
         /// Глобально уникальный идентификатор 
         /// </summary>
-        public string Guid { get; }
+        public string GuidPreset { get; }
 
         /// <summary>
         /// Наименование элемента БД
