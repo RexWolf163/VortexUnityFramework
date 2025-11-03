@@ -22,10 +22,16 @@ namespace Vortex.Unity.LocalizationSystem
         /// </summary>
         public event Action OnLocalizationChanged;
 
+        /// <summary>
+        /// Событие вызывается после завершения асинхронной загрузки данных
+        /// </summary>
         public event Action OnInit;
+
+        private static void CallOnInit() => Instance.OnInit?.Invoke();
 
         public void Init()
         {
+            //OnInit вызывается после завершения асинхронной загрузки данных
         }
 
         public void Destroy()

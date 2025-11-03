@@ -3,6 +3,12 @@ using System.Collections.Generic;
 
 namespace Vortex.Core.System.Abstractions
 {
+    /// <summary>
+    /// Абстрактная основа для системного контроллера, работающего по принципу подключения драйвера
+    /// соответствующего текущему движку. 
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="TD"></typeparam>
     public abstract class SystemController<T, TD> : Singleton<T>
         where T : SystemController<T, TD>, new()
         where TD : ISystemDriver

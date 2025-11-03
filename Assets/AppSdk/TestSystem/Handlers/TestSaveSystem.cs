@@ -3,9 +3,8 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using Vortex.Core.SaveSystem.Abstraction;
 using Vortex.Core.SaveSystem.Bus;
-using Vortex.Unity.SaveSystem;
 
-namespace AppScripts.Test.TestSystemController
+namespace AppSdk.TestSystem.Handlers
 {
     public class TestSaveSystem : MonoBehaviour
     {

@@ -37,8 +37,8 @@ namespace Vortex.Unity.DatabaseSystem
         private static void Register()
         {
             Database.SetDriver(Instance);
-            Loader.Register<DatabaseDriver>();
             _resources = Resources.LoadAll(Path);
+            Loader.Register<DatabaseDriver>();
         }
 
         public ProcessData GetProcessInfo() => _processData;
@@ -72,8 +72,6 @@ namespace Vortex.Unity.DatabaseSystem
             _resources = null;
             await Task.CompletedTask;
         }
-
-        private static void CallOnInit() => Instance.OnInit?.Invoke();
 
         public Type[] WaitingFor() => Type.EmptyTypes;
     }

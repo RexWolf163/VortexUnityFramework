@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace AppScripts.Test
+namespace AppSdk.TestSystem.Handlers
 {
     public class NotDestroyableEditorContainer : MonoBehaviour
     {

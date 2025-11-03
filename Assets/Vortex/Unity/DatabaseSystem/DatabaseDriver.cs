@@ -19,12 +19,15 @@ namespace Vortex.Unity.DatabaseSystem
 
         public event Action OnInit;
 
+        private static void CallOnInit() => Instance.OnInit?.Invoke();
+
         /// <summary>
         /// Инициализация
         /// Запускается автоматически после назначения драйвера системе
         /// </summary>
         public void Init()
         {
+            //OnInit вызывается после завершения асинхронной загрузки данных
         }
 
         /// <summary>

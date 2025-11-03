@@ -8,7 +8,7 @@ using Vortex.Core.SaveSystem;
 using Vortex.Core.SaveSystem.Bus;
 using Vortex.Core.System.ProcessInfo;
 
-namespace AppScripts.Test.TestSystemController
+namespace AppSdk.TestSystem.TestSystemController
 {
     /// <summary>
     /// Тестовый контроллер для проверки системы загрузки и индикации ее процесса 

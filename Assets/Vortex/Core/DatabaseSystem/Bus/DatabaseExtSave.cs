@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Sirenix.Utilities;
 using Vortex.Core.Extensions.LogicExtensions;
 using Vortex.Core.SaveSystem;
 using Vortex.Core.SaveSystem.Bus;
@@ -30,7 +31,10 @@ namespace Vortex.Core.DatabaseSystem.Bus
                     return new Dictionary<string, string>();
                 }
 
-                result.AddNew(record.GuidPreset, record.GetDataForSave());
+                var data = record.GetDataForSave();
+                if (data.IsNullOrWhitespace())
+                    continue;
+                result.AddNew(record.GuidPreset, data);
                 if (++counter != 20)
                     continue;
                 counter = 0;

@@ -67,8 +67,6 @@ namespace Vortex.Unity.LocalizationSystem
             await Task.CompletedTask;
         }
 
-        private static void CallOnInit() => Instance.OnInit?.Invoke();
-
         public Type[] WaitingFor() => null;
     }
 }

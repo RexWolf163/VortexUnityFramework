@@ -13,7 +13,16 @@ namespace Vortex.Unity.SettingsSystem
     {
         private const string Path = "Settings";
 
+        public event Action OnInit;
+
         private SettingsModel _model;
+
+        public void Init() => LoadData();
+
+        public void Destroy()
+        {
+            //Ignore
+        }
 
         private SettingsModel Model
         {
@@ -45,14 +54,6 @@ namespace Vortex.Unity.SettingsSystem
 
             OnInit?.Invoke();
             return true;
-        }
-
-        public event Action OnInit;
-        public void Init() => LoadData();
-
-        public void Destroy()
-        {
-            //Ignore
         }
 
         public SettingsModel GetData() => Model;
