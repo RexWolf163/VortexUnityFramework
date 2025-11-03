@@ -84,7 +84,8 @@ namespace Vortex.Core.System.Abstractions
         {
             IsInit = true;
             Driver.OnInit -= CallOnInit;
-            foreach (var action in InitQueue)
+            var queue = InitQueue.ToArray();
+            foreach (var action in queue)
                 action?.Invoke();
 
             InitQueue?.Clear();

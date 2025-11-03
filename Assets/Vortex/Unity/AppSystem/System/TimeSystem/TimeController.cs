@@ -177,9 +177,10 @@ namespace Vortex.Unity.AppSystem.System.TimeSystem
         /// <param name="owner">Владелец запроса</param>
         public static void RemoveCall(object owner)
         {
-            for (var i = 0; i < _queue.Count; i++)
+            for (var i = _queue.Count - 1; i >= 0; i--)
                 if (_queue[i].Owner == owner)
                     _queue.RemoveAt(i);
+            NextWaveQueue.Remove(owner);
         }
 
         /// <summary>
