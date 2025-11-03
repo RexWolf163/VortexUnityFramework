@@ -8,7 +8,7 @@ using Vortex.Unity.UIProviderSystem.Model;
 namespace Vortex.Unity.UIProviderSystem.View
 {
     /// <summary>
-    /// Реализация основы UI
+    /// Класс представление-контроллер интерфейса
     /// </summary>
     [Serializable]
     public sealed partial class UserInterface : MonoBehaviour
@@ -18,7 +18,7 @@ namespace Vortex.Unity.UIProviderSystem.View
         [SerializeField, DbRecord(typeof(UserInterfaceData))]
         private string preset;
 
-        private UserInterfaceData data;
+        private UserInterfaceData _data;
 
         /// <summary>
         /// Окно-Контейнер
@@ -33,7 +33,7 @@ namespace Vortex.Unity.UIProviderSystem.View
         /// <summary>
         /// Флаг состояния представления
         /// </summary>
-        private bool isOpen;
+        private bool _isOpen;
 
         #endregion
 
@@ -41,31 +41,31 @@ namespace Vortex.Unity.UIProviderSystem.View
 
         private void OnEnable()
         {
-            isOpen = false;
+            _isOpen = false;
             foreach (var tweener in tweeners)
                 tweener.Back(true);
-            data = UIProvider.Register(preset);
-            data.OnOpen += Check;
-            data.OnClose += Check;
+            _data = UIProvider.Register(preset);
+            _data.OnOpen += Check;
+            _data.OnClose += Check;
             if (dragZone != null)
                 dragZone.OnDrag += CalcPosition;
-            data.Init();
+            _data.Init();
             Check();
         }
 
         private void OnDisable()
         {
-            foreach (var condition in data.Conditions)
+            foreach (var condition in _data.Conditions)
                 condition.DeInit();
 
             UIProvider.Unregister(preset);
-            data.DeInit();
+            _data.DeInit();
             if (dragZone != null)
                 dragZone.OnDrag -= CalcPosition;
-            data.OnOpen -= Check;
-            data.OnClose -= Check;
-            data = null;
-            isOpen = false;
+            _data.OnOpen -= Check;
+            _data.OnClose -= Check;
+            _data = null;
+            _isOpen = false;
             foreach (var tweener in tweeners)
                 tweener.Back(true);
         }
@@ -75,7 +75,7 @@ namespace Vortex.Unity.UIProviderSystem.View
         /// </summary>
         private void Check()
         {
-            if (data.IsOpen)
+            if (_data.IsOpen)
                 Open();
             else
                 Close();
@@ -86,16 +86,16 @@ namespace Vortex.Unity.UIProviderSystem.View
         /// </summary>
         private void Open()
         {
-            if (isOpen)
+            if (_isOpen)
                 return;
-            CalcPosition(data.Offset);
+            CalcPosition(_data.Offset);
             foreach (var tweener in tweeners)
             {
                 tweener.Back(true);
                 tweener.Forward();
             }
 
-            isOpen = true;
+            _isOpen = true;
         }
 
         /// <summary>
@@ -103,11 +103,11 @@ namespace Vortex.Unity.UIProviderSystem.View
         /// </summary>
         private void Close()
         {
-            if (!isOpen)
+            if (!_isOpen)
                 return;
             foreach (var tweener in tweeners)
                 tweener.Back();
-            isOpen = false;
+            _isOpen = false;
         }
 
         #endregion

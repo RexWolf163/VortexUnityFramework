@@ -25,7 +25,7 @@ namespace Vortex.Unity.UIProviderSystem.View
             var w = Screen.width / (scale.x * 2f);
             var min = wndContainer.rect.min;
             var max = wndContainer.rect.max;
-            var position = data.Offset + new Vector2(newPosition.x / scale.x, newPosition.y / scale.y);
+            var position = _data.Offset + new Vector2(newPosition.x / scale.x, newPosition.y / scale.y);
             if (position.x + min.x <= -w)
                 position.x = -w - min.x;
             if (position.y + min.y <= -h)
@@ -36,8 +36,8 @@ namespace Vortex.Unity.UIProviderSystem.View
                 position.y = h - max.y;
             position.x = Mathf.Floor(position.x);
             position.y = Mathf.Floor(position.y);
-            data.Offset = position;
-            wndContainer.SetLocalPositionAndRotation(data.Offset, wndContainer.localRotation);
+            _data.Offset = position;
+            wndContainer.SetLocalPositionAndRotation(_data.Offset, wndContainer.localRotation);
         }
     }
 }

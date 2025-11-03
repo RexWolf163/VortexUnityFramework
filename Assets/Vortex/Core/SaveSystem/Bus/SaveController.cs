@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using Sirenix.Utilities;
 using Vortex.Core.Extensions.LogicExtensions;
 using Vortex.Core.LoggerSystem.Bus;
 using Vortex.Core.LoggerSystem.Model;
+using Vortex.Core.SaveSystem.Abstraction;
 using Vortex.Core.SaveSystem.Model;
 using Vortex.Core.System.Abstractions;
 using Vortex.Core.System.ProcessInfo;
@@ -75,8 +77,9 @@ namespace Vortex.Core.SaveSystem.Bus
         /// Запуск процедуры сохранения данных
         /// Если GUID не указан - сохранится под новым GUID
         /// </summary>
+        /// <param name="name">Название для сейва</param>
         /// <param name="guid"></param>
-        public static async void Save(string guid = null)
+        public static async void Save(string name, string guid = null)
         {
             State = SaveControllerStates.Saving;
             OnSaveStart?.Invoke();
@@ -95,7 +98,7 @@ namespace Vortex.Core.SaveSystem.Bus
                 }
 
                 guid ??= Crypto.GetNewGuid();
-                Driver.Save(guid);
+                Driver.Save(name, guid);
             }
             catch (Exception e)
             {
@@ -149,7 +152,7 @@ namespace Vortex.Core.SaveSystem.Bus
             return new Dictionary<string, string>();
         }
 
-        public static HashSet<string> GetIndex() => Driver.GetIndex();
+        public static Dictionary<string, SaveSummary> GetIndex() => Driver.GetIndex();
 
         public static void Register(ISaveable controller) => Saveables.Add(controller);
 

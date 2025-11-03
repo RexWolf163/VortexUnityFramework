@@ -16,8 +16,9 @@ namespace Vortex.Unity.SaveSystem
     {
         private const string SaveKey = "SavesData";
         private const string SavePrefix = "Save-";
+        private const string SaveSummaryPrefix = "SaveSummary-";
 
-        private static HashSet<string> _saves = new();
+        private static readonly Dictionary<string, SaveSummary> Saves = new();
 
         private static Dictionary<string, Dictionary<string, string>> _saveDataIndex;
 
@@ -25,13 +26,14 @@ namespace Vortex.Unity.SaveSystem
 
         public void Init()
         {
-            _saves.Clear();
+            Saves.Clear();
             var saves = PlayerPrefs.GetString(SaveKey);
             if (!saves.IsNullOrWhitespace())
             {
                 var ar = saves.Split(';');
                 if (ar.Length > 0)
-                    _saves.AddRange(ar);
+                    foreach (var guid in ar)
+                        Saves.Add(guid, GetSaveSummary(guid));
             }
 
             OnInit?.Invoke();
@@ -41,7 +43,12 @@ namespace Vortex.Unity.SaveSystem
         {
         }
 
-        public void Save(string guid)
+        /// <summary>
+        /// Сохранить сейв по guid
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="guid"></param>
+        public void Save(string name, string guid)
         {
             var count = _saveDataIndex.Count;
             var save = new SavePreset
@@ -70,13 +77,23 @@ namespace Vortex.Unity.SaveSystem
             var sw = new StringWriter();
             xmls.Serialize(sw, save);
             var saveData = sw.ToString();
-
             PlayerPrefs.SetString(GetSaveName(guid), saveData.Compress(guid));
 
-            _saves.Add(guid);
-            PlayerPrefs.SetString(SaveKey, string.Join(";", _saves));
+            var summary = new SaveSummary(name, DateTime.UtcNow.ToFileTimeUtc());
+            xmls = new XmlSerializer(typeof(SaveSummary));
+            sw = new StringWriter();
+            xmls.Serialize(sw, summary);
+            saveData = sw.ToString();
+            PlayerPrefs.SetString(GetSaveSummaryName(guid), saveData);
+
+            Saves.Add(guid, summary);
+            PlayerPrefs.SetString(SaveKey, string.Join(";", Saves.Keys));
         }
 
+        /// <summary>
+        /// Загрузить сейв по guid
+        /// </summary>
+        /// <param name="guid"></param>
         public void Load(string guid)
         {
             _saveDataIndex.Clear();
@@ -107,6 +124,28 @@ namespace Vortex.Unity.SaveSystem
             }
         }
 
+        /// <summary>
+        /// Получить описание сейва по guid
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
+        private SaveSummary GetSaveSummary(string guid)
+        {
+            if (!PlayerPrefs.HasKey(GetSaveName(guid)))
+            {
+                Debug.LogError($"[SaveSystemDriver] save summary #{guid} not found.");
+                return default;
+            }
+
+            var saveData = PlayerPrefs.GetString(GetSaveSummaryName(guid));
+            var xmls = new XmlSerializer(typeof(SaveSummary));
+            var obj = xmls.Deserialize(new StringReader(saveData));
+            if (obj is SaveSummary summary)
+                return summary;
+            Debug.LogError($"[SaveSystemDriver] Error while loading save summary from {guid}.]");
+            return default;
+        }
+
         public void SetIndexLink(Dictionary<string, Dictionary<string, string>> index) => _saveDataIndex = index;
 
         /// <summary>
@@ -117,9 +156,16 @@ namespace Vortex.Unity.SaveSystem
         private static string GetSaveName(string guid) => $"{SavePrefix}{guid}";
 
         /// <summary>
+        /// Формирование названия сейва по guid
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <returns></returns>
+        private static string GetSaveSummaryName(string guid) => $"{SaveSummaryPrefix}{guid}";
+
+        /// <summary>
         /// Возвращает все существующие сейвы
         /// </summary>
         /// <returns></returns>
-        public HashSet<string> GetIndex() => _saves;
+        public Dictionary<string, SaveSummary> GetIndex() => Saves;
     }
 }

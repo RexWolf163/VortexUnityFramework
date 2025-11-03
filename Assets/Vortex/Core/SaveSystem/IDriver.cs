@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Vortex.Core.SaveSystem.Abstraction;
 using Vortex.Core.System.Abstractions;
 
 namespace Vortex.Core.SaveSystem
@@ -8,9 +9,10 @@ namespace Vortex.Core.SaveSystem
         /// <summary>
         /// Сохранить строки в сейв 
         /// </summary>
+        /// <param name="name">Название для сейва</param>
         /// <param name="guid"></param>
         /// <returns></returns>
-        public void Save(string guid);
+        public void Save(string name, string guid);
 
         /// <summary>
         /// Загрузить сейв
@@ -28,6 +30,6 @@ namespace Vortex.Core.SaveSystem
         /// Возвращает все существующие сейвы
         /// </summary>
         /// <returns></returns>
-        public HashSet<string> GetIndex();
+        public Dictionary<string, SaveSummary> GetIndex();
     }
 }
