@@ -13,8 +13,10 @@ MonoBehaviour:
   m_Name: MusicSample
   m_EditorClassIdentifier: 
   type: 1
-  guid: 0d7783b933a16be7d3020f3fbb567dddb8d181771b06cf5f3116b04cf014e194
-  nameRecord: MusicSample
+  guid: 934969ef76476d2af74737f673747ef76fb6c9f7ca8ef388b7a2e8d3c23f78cc
+  nameRecord: Music
   description: 
   icon: {fileID: 0}
   audioClip: {fileID: 8300000, guid: b1cdba14d1e15c148b260abf2c05c6ae, type: 3}
+  pitchRange: 0.78
+  valueRange: 1

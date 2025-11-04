@@ -2,7 +2,7 @@
 
 namespace Vortex.Core.AudioSystem.Model
 {
-    public abstract class AudioSample : Record
+    public abstract class AudioSample<T> : Record, IAudioSample where T : class
     {
         public override string GetDataForSave() => null;
 
@@ -10,6 +10,15 @@ namespace Vortex.Core.AudioSystem.Model
         {
         }
 
-        public object Sample { get; protected set; }
+        /// <summary>
+        /// Длительность
+        /// </summary>
+        public float Duration { get; protected set; }
+
+        /// <summary>
+        /// Образец для воспроизведения
+        /// Требуется типизация под движок
+        /// </summary>
+        public T Sample { get; protected set; }
     }
 }

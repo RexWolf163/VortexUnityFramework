@@ -7,7 +7,7 @@ using Vortex.Core.DatabaseSystem.Bus;
 using Vortex.Core.Extensions.LogicExtensions;
 using Vortex.Core.System.Abstractions;
 using Vortex.Unity.AudioSystem.Handlers;
-using AudioSettings = Vortex.Core.AudioSystem.Model.AudioSettings;
+using Vortex.Unity.AudioSystem.Model;
 
 namespace Vortex.Unity.AudioSystem
 {
@@ -16,8 +16,8 @@ namespace Vortex.Unity.AudioSystem
         private const string SaveKey = "AudioSettings";
         public event Action OnInit;
 
-        private static SortedDictionary<string, SoundSample> _indexSound;
-        private static SortedDictionary<string, MusicSample> _indexMusic;
+        private static SortedDictionary<string, IAudioSample> _indexSound;
+        private static SortedDictionary<string, IAudioSample> _indexMusic;
         private static AudioSettings _settings;
 
         private static AudioHandler _audioHandler;
@@ -46,37 +46,26 @@ namespace Vortex.Unity.AudioSystem
         private void OnDatabaseInit()
         {
             Database.OnInit -= OnDatabaseInit;
-            var list = Database.GetRecords<SoundSample>();
+
             _indexSound.Clear();
-            foreach (var soundSample in list)
-                _indexSound.AddNew(soundSample.GuidPreset, soundSample);
-            var list2 = Database.GetRecords<MusicSample>();
+            var list = Database.GetRecords<Sound>();
+            foreach (var record in list)
+                _indexSound.AddNew(record.GuidPreset, record);
+
             _indexMusic.Clear();
-            foreach (var soundSample in list2)
-                _indexMusic.AddNew(soundSample.GuidPreset, soundSample);
+            var list2 = Database.GetRecords<Music>();
+            foreach (var record in list2)
+                _indexMusic.AddNew(record.GuidPreset, record);
+
             OnInit?.Invoke();
         }
 
-        public void SetLinks(SortedDictionary<string, SoundSample> indexSound,
-            SortedDictionary<string, MusicSample> indexMusic, AudioSettings settings)
+        public void SetLinks(SortedDictionary<string, IAudioSample> indexSound,
+            SortedDictionary<string, IAudioSample> indexMusic, AudioSettings settings)
         {
             _indexSound = indexSound;
             _indexMusic = indexMusic;
             _settings = settings;
-        }
-
-        public void PlaySound(SoundSample sample)
-        {
-        }
-
-        public void PlayMusic(MusicSample sample)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void StopMusic()
-        {
-            throw new NotImplementedException();
         }
 
         private static void SaveSettings()

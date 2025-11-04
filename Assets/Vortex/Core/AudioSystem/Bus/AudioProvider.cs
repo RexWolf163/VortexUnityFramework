@@ -11,9 +11,9 @@ namespace Vortex.Core.AudioSystem.Bus
     {
         #region Params
 
-        private static readonly SortedDictionary<string, SoundSample> IndexSound = new();
+        private static readonly SortedDictionary<string, IAudioSample> IndexSound = new();
 
-        private static readonly SortedDictionary<string, MusicSample> IndexMusic = new();
+        private static readonly SortedDictionary<string, IAudioSample> IndexMusic = new();
 
         public static AudioSettings Settings { get; } = new();
 
@@ -35,7 +35,6 @@ namespace Vortex.Core.AudioSystem.Bus
 
         protected override void OnDriverDisonnect()
         {
-            Driver.StopMusic();
         }
 
         /// <summary>
@@ -82,7 +81,7 @@ namespace Vortex.Core.AudioSystem.Bus
         /// Получить сэмпл звука
         /// </summary>
         /// <returns></returns>
-        public static AudioSample GetSample(string guid)
+        public static IAudioSample GetSample(string guid)
         {
             if (IndexSound.TryGetValue(guid, out var soundSample))
                 return soundSample;

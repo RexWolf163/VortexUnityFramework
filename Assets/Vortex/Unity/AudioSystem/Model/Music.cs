@@ -2,7 +2,7 @@
 
 namespace Vortex.Unity.AudioSystem.Model
 {
-    public class Sound : SoundSample<SoundClip>
+    public class Music : MusicSample<SoundClip>
     {
     }
 }

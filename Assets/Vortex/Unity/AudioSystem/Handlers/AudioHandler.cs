@@ -15,7 +15,7 @@ namespace Vortex.Unity.AudioSystem.Handlers
 
         private bool isMusic = false;
 
-        [SerializeField, DbRecord(typeof(AudioSample))]
+        [SerializeField, DbRecord(typeof(IAudioSample))]
         private string audioSample;
 
         private SoundClip _sound;
@@ -47,10 +47,10 @@ namespace Vortex.Unity.AudioSystem.Handlers
             {
                 case Sound snd:
                     isMusic = false;
-                    _sound = snd.GetData();
+                    _sound = snd.Sample;
                     break;
-                case MusicSample music:
-                    audioSource.clip = music.Sample as AudioClip;
+                case Music music:
+                    _sound = music.Sample;
                     isMusic = true;
                     if (isActiveAndEnabled)
                         Play();
@@ -96,11 +96,14 @@ namespace Vortex.Unity.AudioSystem.Handlers
         [HorizontalGroup("h1"), Button]
         public void Play()
         {
-            _currentPitch = isMusic ? 1f : _sound.GetPitch();
-            _currentVolume = isMusic ? 1f : _sound.GetVolume();
+            _currentPitch = _sound.GetPitch();
+            _currentVolume = _sound.GetVolume();
             CheckSettings();
             if (isMusic)
+            {
+                audioSource.clip = _sound.AudioClip;
                 audioSource.Play();
+            }
             else
                 audioSource.PlayOneShot(_sound.AudioClip);
         }

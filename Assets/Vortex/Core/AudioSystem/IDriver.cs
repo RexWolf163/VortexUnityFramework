@@ -12,24 +12,7 @@ namespace Vortex.Core.AudioSystem
         /// <param name="indexSound">Ссылка на реестр сэмплов звуков</param>
         /// <param name="indexMusic">Ссылка на реестр сэмплов музыки</param>
         /// <param name="settings">Ссылка на базовые настройки воспроизведения</param>
-        public void SetLinks(SortedDictionary<string, SoundSample> indexSound,
-            SortedDictionary<string, MusicSample> indexMusic, AudioSettings settings);
-
-        /// <summary>
-        /// Проиграть указанный звук
-        /// </summary>
-        /// <param name="sample"></param>
-        public void PlaySound(SoundSample sample);
-
-        /// <summary>
-        /// Запустить указанную музыку
-        /// </summary>
-        /// <param name="sample"></param>
-        public void PlayMusic(MusicSample sample);
-
-        /// <summary>
-        /// Остановить воспроизведение музыки
-        /// </summary>
-        public void StopMusic();
+        public void SetLinks(SortedDictionary<string, IAudioSample> indexSound,
+            SortedDictionary<string, IAudioSample> indexMusic, AudioSettings settings);
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Vortex.Core.AudioSystem.Model
 {
-    public class SoundSample : AudioSample
+    public class SoundSample<T> : AudioSample<T> where T : class
     {
     }
 }
