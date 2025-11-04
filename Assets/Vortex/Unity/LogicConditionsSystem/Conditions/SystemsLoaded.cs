@@ -1,6 +1,5 @@
 ﻿using Sirenix.OdinInspector;
 using Vortex.Core.AppSystem.Bus;
-using Vortex.Core.LoaderSystem.Bus;
 using Vortex.Core.System.Enums;
 
 namespace Vortex.Unity.LogicConditionsSystem.Conditions

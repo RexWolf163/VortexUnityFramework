@@ -2,7 +2,7 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Vortex.Core.LogicChainsSystem.Bus;
-using Vortex.Core.LogicConditionsSystem.Model;
+using Vortex.Core.LogicChainsSystem.Model;
 using Vortex.Unity.Extensions.Attributes;
 
 namespace Vortex.Unity.LogicChainsSystem.Presets

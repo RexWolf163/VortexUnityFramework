@@ -1,6 +1,6 @@
 using System;
 
-namespace Vortex.Core.LogicConditionsSystem.Model
+namespace Vortex.Core.LogicChainsSystem.Model
 {
     /// <summary>
     /// Абстракция класса условия

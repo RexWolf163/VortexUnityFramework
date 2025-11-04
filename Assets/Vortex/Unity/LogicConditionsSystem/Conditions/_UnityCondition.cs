@@ -1,4 +1,4 @@
-﻿using Vortex.Core.LogicConditionsSystem.Model;
+﻿using Vortex.Core.LogicChainsSystem.Model;
 using Vortex.Unity.Extensions.Attributes;
 
 namespace Vortex.Unity.LogicConditionsSystem.Conditions

@@ -1,5 +1,4 @@
-﻿using Vortex.Core.LogicConditionsSystem.Model;
-using Vortex.Core.System.Abstractions.SystemControllers;
+﻿using Vortex.Core.System.Abstractions.SystemControllers;
 
 namespace Vortex.Core.LogicChainsSystem.Model
 {
