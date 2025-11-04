@@ -11,7 +11,7 @@ namespace Vortex.Unity.LogicConditionsSystem.Conditions
         {
             if (Check())
             {
-                Complete();
+                RunCallback();
                 return;
             }
 
@@ -27,7 +27,7 @@ namespace Vortex.Unity.LogicConditionsSystem.Conditions
         {
             if (!Check())
                 return;
-            Complete();
+            RunCallback();
         }
 
         public override bool Check() => App.GetState() == AppStates.Running;

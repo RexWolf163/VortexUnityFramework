@@ -3,12 +3,13 @@ using System;
 namespace Vortex.Core.LogicConditionsSystem.Model
 {
     /// <summary>
-    /// Абстракция класса условия 
+    /// Абстракция класса условия
+    /// Реализация через наследников типа монолит
     /// </summary>
     [Serializable]
     public abstract class Condition
     {
-        private Action _onComplete;
+        private Action _callback;
 
         /// <summary>
         /// Инициализация процесса контроля условия
@@ -17,11 +18,11 @@ namespace Vortex.Core.LogicConditionsSystem.Model
         /// <param name="callback">Метод запуска проверки прочих условий (если их более одного)</param>
         public void Init(Action callback)
         {
-            _onComplete = callback;
+            _callback = callback;
             Start();
         }
 
-        protected void Complete() => _onComplete?.Invoke();
+        protected void RunCallback() => _callback?.Invoke();
 
         protected abstract void Start();
 

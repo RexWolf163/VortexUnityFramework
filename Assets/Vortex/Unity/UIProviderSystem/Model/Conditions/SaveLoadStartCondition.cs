@@ -8,28 +8,26 @@ namespace Vortex.Unity.UIProviderSystem.Model.Conditions
     /// Условие: Показывать пока идет процесс загрузки или сохранения
     /// (источник событий SaveController)
     /// </summary>
-    public class SaveLoadStartCondition : UnityUserInterfaceCondition
+    public sealed class SaveLoadStartCondition : UnityUserInterfaceCondition
     {
         protected override void Run()
         {
-            SaveController.OnLoadStart += Call;
-            SaveController.OnLoadComplete += Call;
-            SaveController.OnSaveStart += Call;
-            SaveController.OnSaveComplete += Call;
+            SaveController.OnLoadStart += RunCallback;
+            SaveController.OnLoadComplete += RunCallback;
+            SaveController.OnSaveStart += RunCallback;
+            SaveController.OnSaveComplete += RunCallback;
         }
 
         public override void DeInit()
         {
-            SaveController.OnLoadStart -= Call;
-            SaveController.OnLoadComplete -= Call;
-            SaveController.OnSaveStart -= Call;
-            SaveController.OnSaveComplete -= Call;
+            SaveController.OnLoadStart -= RunCallback;
+            SaveController.OnLoadComplete -= RunCallback;
+            SaveController.OnSaveStart -= RunCallback;
+            SaveController.OnSaveComplete -= RunCallback;
         }
 
         public override ConditionAnswer Check() => SaveController.State != SaveControllerStates.Idle
             ? ConditionAnswer.Open
             : ConditionAnswer.Close;
-
-        private void Call() => Callback?.Invoke();
     }
 }

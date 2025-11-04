@@ -16,7 +16,7 @@ namespace Vortex.Unity.LogicConditionsSystem.Conditions
             if (SceneManager.GetActiveScene().name == SceneName)
             {
                 _completed = true;
-                Complete();
+                RunCallback();
                 return;
             }
 
@@ -30,7 +30,7 @@ namespace Vortex.Unity.LogicConditionsSystem.Conditions
 
             SceneManager.sceneLoaded -= OnSceneLoaded;
             _completed = true;
-            Complete();
+            RunCallback();
         }
 
         public override void DeInit() => SceneManager.sceneLoaded -= OnSceneLoaded;

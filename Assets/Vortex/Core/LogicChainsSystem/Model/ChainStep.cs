@@ -1,5 +1,4 @@
 ﻿using Vortex.Core.System.Abstractions.SystemControllers;
-using NotImplementedException = System.NotImplementedException;
 
 namespace Vortex.Core.LogicChainsSystem.Model
 {
@@ -10,6 +9,5 @@ namespace Vortex.Core.LogicChainsSystem.Model
         public string Description { get; protected set; }
         public LogicAction[] Actions { get; protected set; }
         public Connector[] Connectors { get; protected set; }
-
     }
 }

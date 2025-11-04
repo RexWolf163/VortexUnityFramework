@@ -6,6 +6,7 @@ namespace Vortex.Core.UIProviderSystem.Model
     /// Абстракция условия для интерфейса
     /// После инициализации начинает мониторить заданные параметры, вызывая при их изменении колбэк
     /// по которому должна происходить проверка всех условий UI
+    /// Реализация через наследников типа монолит
     /// </summary>
     public abstract class UserInterfaceCondition
     {
@@ -17,14 +18,16 @@ namespace Vortex.Core.UIProviderSystem.Model
         /// <summary>
         /// Колбэк для активации при изменении состояния проверяемых параметров
         /// </summary>
-        protected Action Callback;
+        private Action _callback;
 
         public void Init(UserInterfaceData data, Action callback)
         {
             Data = data;
-            Callback = callback;
+            _callback = callback;
             Run();
         }
+
+        protected void RunCallback() => _callback?.Invoke();
 
         /// <summary>
         /// Запуск логики

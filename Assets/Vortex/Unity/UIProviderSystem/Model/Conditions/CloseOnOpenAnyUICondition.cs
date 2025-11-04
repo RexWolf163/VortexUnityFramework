@@ -6,16 +6,16 @@ namespace Vortex.Unity.UIProviderSystem.Model.Conditions
     /// <summary>
     /// Условие: Закрывать если открывается любой Common интерфейс
     /// </summary>
-    public class CloseOnOpenAnyUICondition : UnityUserInterfaceCondition
+    public sealed class CloseOnOpenAnyUICondition : UnityUserInterfaceCondition
     {
         protected override void Run()
         {
-            UIProvider.OnOpen += Callback;
+            UIProvider.OnOpen += RunCallback;
         }
 
         public override void DeInit()
         {
-            UIProvider.OnOpen -= Callback;
+            UIProvider.OnOpen -= RunCallback;
         }
 
         public override ConditionAnswer Check()
