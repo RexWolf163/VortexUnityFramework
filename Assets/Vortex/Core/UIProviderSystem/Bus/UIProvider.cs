@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
-using Vortex.Unity.UIProviderSystem.Enums;
-using Vortex.Unity.UIProviderSystem.Model;
+using Vortex.Core.LoggerSystem.Bus;
+using Vortex.Core.LoggerSystem.Model;
+using Vortex.Core.UIProviderSystem.Enums;
+using Vortex.Core.UIProviderSystem.Model;
 
-namespace Vortex.Unity.UIProviderSystem.Bus
+namespace Vortex.Core.UIProviderSystem.Bus
 {
     /// <summary>
     /// Контроллер-шина для работы с интерфейсами
@@ -16,7 +17,7 @@ namespace Vortex.Unity.UIProviderSystem.Bus
         {
             if (!Uis.TryGetValue(uiId, out var ui))
             {
-                Debug.LogError($"[UIProvider] UI doesn't exist: {uiId}");
+                Log.Print(LogLevel.Error, $"[UIProvider] UI doesn't exist: {uiId}", "UIProvider");
                 return;
             }
 
@@ -27,7 +28,7 @@ namespace Vortex.Unity.UIProviderSystem.Bus
         {
             if (!Uis.TryGetValue(uiId, out var ui))
             {
-                Debug.LogError($"[UIProvider] UI doesn't exist: {uiId}");
+                Log.Print(LogLevel.Error, $"[UIProvider] UI doesn't exist: {uiId}", "UIProvider");
                 return;
             }
 

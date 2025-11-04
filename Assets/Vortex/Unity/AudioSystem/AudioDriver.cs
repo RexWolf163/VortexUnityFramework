@@ -25,7 +25,7 @@ namespace Vortex.Unity.AudioSystem
         public void Init()
         {
             Database.OnInit += OnDatabaseInit;
-            Audio.OnSettingsChanged += SaveSettings;
+            AudioProvider.OnSettingsChanged += SaveSettings;
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace Vortex.Unity.AudioSystem
         public void Destroy()
         {
             Database.OnInit -= OnDatabaseInit;
-            Audio.OnSettingsChanged -= SaveSettings;
+            AudioProvider.OnSettingsChanged -= SaveSettings;
         }
 
         /// <summary>

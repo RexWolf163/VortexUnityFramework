@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Vortex.Unity.UIProviderSystem.Bus
+namespace Vortex.Core.UIProviderSystem.Bus
 {
     /// <summary>
     /// Контроллер-шина для работы с интерфейсами
@@ -21,7 +21,7 @@ namespace Vortex.Unity.UIProviderSystem.Bus
 
         #endregion
 
-        #region Public
+        #region Internal
 
         internal static void CallOnOpen() => OnOpen?.Invoke();
         internal static void CallOnClose() => OnClose?.Invoke();

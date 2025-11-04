@@ -1,9 +1,14 @@
 ﻿using Vortex.Core.SaveSystem.Bus;
 using Vortex.Core.SaveSystem.Model;
+using Vortex.Core.UIProviderSystem.Model;
 
 namespace Vortex.Unity.UIProviderSystem.Model.Conditions
 {
-    public class SaveLoadStartCondition : UserInterfaceCondition
+    /// <summary>
+    /// Условие: Показывать пока идет процесс загрузки или сохранения
+    /// (источник событий SaveController)
+    /// </summary>
+    public class SaveLoadStartCondition : UnityUserInterfaceCondition
     {
         protected override void Run()
         {

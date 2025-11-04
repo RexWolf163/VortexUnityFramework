@@ -8,7 +8,7 @@ namespace Vortex.Unity.AudioSystem
         [RuntimeInitializeOnLoadMethod]
         private static void Run()
         {
-            Audio.SetDriver(Instance);
+            AudioProvider.SetDriver(Instance);
         }
     }
 }

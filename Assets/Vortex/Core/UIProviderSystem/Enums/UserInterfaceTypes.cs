@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Vortex.Unity.UIProviderSystem.Enums
+namespace Vortex.Core.UIProviderSystem.Enums
 {
     [Serializable]
     public enum UserInterfaceTypes

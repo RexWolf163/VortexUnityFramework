@@ -1,8 +1,12 @@
-﻿using Vortex.Unity.UIProviderSystem.Bus;
+﻿using Vortex.Core.UIProviderSystem.Model;
+using UIProvider = Vortex.Core.UIProviderSystem.Bus.UIProvider;
 
 namespace Vortex.Unity.UIProviderSystem.Model.Conditions
 {
-    public class CloseOnOpenAnyUICondition : UserInterfaceCondition
+    /// <summary>
+    /// Условие: Закрывать если открывается любой Common интерфейс
+    /// </summary>
+    public class CloseOnOpenAnyUICondition : UnityUserInterfaceCondition
     {
         protected override void Run()
         {

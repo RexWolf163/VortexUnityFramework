@@ -1,23 +1,66 @@
 ﻿using System;
-using UnityEngine;
 using Vortex.Core.DatabaseSystem.Model;
-using Vortex.Unity.UIProviderSystem.Bus;
-using Vortex.Unity.UIProviderSystem.Enums;
-using Vortex.Unity.UIProviderSystem.Model.Conditions;
+using Vortex.Core.UIProviderSystem.Bus;
+using Vortex.Core.UIProviderSystem.Enums;
 
-namespace Vortex.Unity.UIProviderSystem.Model
+namespace Vortex.Core.UIProviderSystem.Model
 {
+    /// <summary>
+    /// Модель данных для интерфейса.
+    /// Располагается в шине UIProvider.
+    ///
+    /// Содержит данные для реализации перетаскивания окна.
+    ///
+    /// Содержит события открытия/закрытия с вызовом при подписке в активный момент.
+    /// </summary>
     public class UserInterfaceData : Record
     {
-        public event Action OnOpen;
-        public event Action OnClose;
+        /// <summary>
+        /// Событие открытия окна
+        /// </summary>
+        private event Action OnOpenPrv;
+
+        /// <summary>
+        /// Событие открытия окна
+        /// </summary>
+        private event Action OnClosePrv;
+
+        /// <summary>
+        /// Событие открытия окна
+        /// </summary>
+        public event Action OnOpen
+        {
+            add
+            {
+                OnOpenPrv += value;
+                if (IsOpen)
+                    value.Invoke();
+            }
+
+            remove => OnOpenPrv -= value;
+        }
+
+        /// <summary>
+        /// Событие открытия окна
+        /// </summary>
+        public event Action OnClose
+        {
+            add
+            {
+                OnClosePrv += value;
+                if (!IsOpen)
+                    value.Invoke();
+            }
+
+            remove => OnClosePrv -= value;
+        }
 
         /// <summary>
         /// точка якоря контейнера
         /// </summary>
-        internal Vector2 Offset = Vector2.zero;
+        public (int x, int y) Offset = (0, 0);
 
-        internal bool IsOpen = false;
+        public bool IsOpen { get; internal set; } = false;
 
         public UserInterfaceCondition[] Conditions { get; protected set; }
         public UserInterfaceTypes UIType { get; set; }
@@ -69,7 +112,7 @@ namespace Vortex.Unity.UIProviderSystem.Model
             if (IsOpen)
                 return;
             IsOpen = true;
-            OnOpen?.Invoke();
+            OnOpenPrv?.Invoke();
             UIProvider.CallOnOpen();
         }
 
@@ -78,19 +121,20 @@ namespace Vortex.Unity.UIProviderSystem.Model
             if (!IsOpen)
                 return;
             IsOpen = false;
-            OnClose?.Invoke();
+            OnClosePrv?.Invoke();
             UIProvider.CallOnClose();
         }
 
         public override string GetDataForSave()
         {
-            return $"{(int)Offset.x};{(int)Offset.y}";
+            return $"{Offset.x};{Offset.y}";
         }
 
         public override void LoadFromSaveData(string data)
         {
             var ar = data.Split(';');
-            Offset = new Vector2(float.Parse(ar[0]), float.Parse(ar[1]));
+            Offset.x = Int32.Parse(ar[0]);
+            Offset.y = Int32.Parse(ar[1]);
         }
     }
 }

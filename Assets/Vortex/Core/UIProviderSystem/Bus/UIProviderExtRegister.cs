@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 using Vortex.Core.DatabaseSystem.Bus;
 using Vortex.Core.Extensions.LogicExtensions;
+using Vortex.Core.LoggerSystem.Bus;
+using Vortex.Core.LoggerSystem.Model;
 using Vortex.Core.SettingsSystem.Bus;
-using Vortex.Unity.UIProviderSystem.Model;
-using Vortex.Unity.UIProviderSystem.Model.Conditions;
+using Vortex.Core.UIProviderSystem.Model;
 
-namespace Vortex.Unity.UIProviderSystem.Bus
+namespace Vortex.Core.UIProviderSystem.Bus
 {
     /// <summary>
     /// Контроллер-шина для работы с интерфейсами
@@ -29,11 +29,11 @@ namespace Vortex.Unity.UIProviderSystem.Bus
         /// Регистрация нового интерфейса в индексе
         /// </summary>
         /// <param name="id"></param>
-        internal static UserInterfaceData Register(string id)
+        public static UserInterfaceData Register(string id)
         {
             var ui = Database.GetRecord<UserInterfaceData>(id);
             if (Settings.Data().AppStateDebugMode)
-                Debug.Log($"[UIProvider] Registering UI : {ui.Name}");
+                Log.Print(LogLevel.Common, $"[UIProvider] Registering UI : {ui.Name}", "UIProvider");
             Uis.AddNew(id, ui);
             return ui;
         }
@@ -42,17 +42,17 @@ namespace Vortex.Unity.UIProviderSystem.Bus
         /// Снятие с регистрации интерфейса
         /// </summary>
         /// <param name="id"></param>
-        internal static void Unregister(string id)
+        public static void Unregister(string id)
         {
             if (!Uis.ContainsKey(id))
             {
-                Debug.LogError($"[UIProvider] UI doesn't exist: {id}");
+                Log.Print(LogLevel.Error, $"[UIProvider] UI doesn't exist: {id}", "UIProvider");
                 return;
             }
 
             var ui = Uis.Get(id);
             if (Settings.Data().AppStateDebugMode)
-                Debug.Log($"[UIProvider] UnRegistering UI : {ui.Name}");
+                Log.Print(LogLevel.Common, $"[UIProvider] UnRegistering UI : {ui.Name}", "UIProvider");
             Uis.Remove(id);
         }
 

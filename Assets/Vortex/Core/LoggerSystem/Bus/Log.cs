@@ -1,6 +1,6 @@
-﻿using Vortex.Core.LoggerSystem.Model;
+﻿using System;
+using Vortex.Core.LoggerSystem.Model;
 using Vortex.Core.System.Abstractions;
-using NotImplementedException = System.NotImplementedException;
 
 namespace Vortex.Core.LoggerSystem.Bus
 {
@@ -9,6 +9,11 @@ namespace Vortex.Core.LoggerSystem.Bus
         public static void Print(LogData log)
         {
             Driver.Print(log);
+        }
+
+        public static void Print(LogLevel level, string message, Object source)
+        {
+            Driver.Print(new LogData(level, message, source));
         }
 
         protected override void OnDriverConnect()

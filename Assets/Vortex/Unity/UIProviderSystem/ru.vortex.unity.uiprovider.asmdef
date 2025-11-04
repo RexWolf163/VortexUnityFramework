@@ -12,7 +12,8 @@
         "GUID:7c6d3de99517c0549ae82af52cb16906",
         "GUID:61328ee0671b5b5429f7ef2e1137c0b5",
         "GUID:ec37981827cc88c419565420343ee58c",
-        "GUID:e3ec030c80e9423408d9ae1a925ae80d"
+        "GUID:e3ec030c80e9423408d9ae1a925ae80d",
+        "ru.vortex.uiprovider"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

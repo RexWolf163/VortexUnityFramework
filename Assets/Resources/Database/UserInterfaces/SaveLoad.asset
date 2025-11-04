@@ -18,11 +18,3 @@ MonoBehaviour:
   description: 
   icon: {fileID: 0}
   uiType: 0
-  conditions:
-  - rid: 8163021776115990588
-  references:
-    version: 2
-    RefIds:
-    - rid: 8163021776115990588
-      type: {class: SaveLoadStartCondition, ns: Vortex.Unity.UIProviderSystem.Model.Conditions, asm: ru.vortex.unity.uiprovider}
-      data: 

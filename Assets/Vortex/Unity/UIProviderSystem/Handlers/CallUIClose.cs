@@ -1,7 +1,7 @@
 using UnityEngine;
 using Vortex.Unity.UI.UIComponents;
-using Vortex.Unity.UIProviderSystem.Bus;
 using Vortex.Unity.UIProviderSystem.View;
+using UIProvider = Vortex.Core.UIProviderSystem.Bus.UIProvider;
 
 namespace Vortex.Unity.UIProviderSystem.Handlers
 {

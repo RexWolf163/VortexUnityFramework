@@ -1,9 +1,9 @@
 ﻿using System;
 using UnityEngine;
+using Vortex.Core.UIProviderSystem.Model;
 using Vortex.Unity.DatabaseSystem.Attributes;
 using Vortex.Unity.UI.Tweeners;
-using Vortex.Unity.UIProviderSystem.Bus;
-using Vortex.Unity.UIProviderSystem.Model;
+using UIProvider = Vortex.Core.UIProviderSystem.Bus.UIProvider;
 
 namespace Vortex.Unity.UIProviderSystem.View
 {
@@ -34,6 +34,12 @@ namespace Vortex.Unity.UIProviderSystem.View
         /// Флаг состояния представления
         /// </summary>
         private bool _isOpen;
+
+        private Vector2 Offset
+        {
+            get => new(_data.Offset.x, _data.Offset.y);
+            set => _data.Offset = ((int)value.x, (int)value.y);
+        }
 
         #endregion
 
@@ -88,7 +94,7 @@ namespace Vortex.Unity.UIProviderSystem.View
         {
             if (_isOpen)
                 return;
-            CalcPosition(_data.Offset);
+            CalcPosition(Offset);
             foreach (var tweener in tweeners)
             {
                 tweener.Back(true);

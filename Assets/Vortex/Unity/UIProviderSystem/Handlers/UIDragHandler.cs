@@ -4,8 +4,13 @@ using UnityEngine.EventSystems;
 using Vortex.Unity.UI.Attributes;
 using Vortex.Unity.UI.StateSwitcher;
 
-namespace Vortex.Unity.UIProviderSystem.View
+namespace Vortex.Unity.UIProviderSystem.Handlers
 {
+    /// <summary>
+    /// Хэндлер перетаскивания UI.
+    /// Линкуется снаружи, из управляемого элемента.
+    /// Генерирует событие с вектором смещения
+    /// </summary>
     public class UIDragHandler : MonoBehaviour, IDragHandler, IPointerDownHandler, IPointerUpHandler
     {
         private enum DragState

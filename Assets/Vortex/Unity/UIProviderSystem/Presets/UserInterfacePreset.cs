@@ -1,10 +1,9 @@
 ﻿using System.Linq;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Vortex.Core.UIProviderSystem.Enums;
+using Vortex.Core.UIProviderSystem.Model;
 using Vortex.Unity.DatabaseSystem.Presets;
-using Vortex.Unity.UIProviderSystem.Enums;
-using Vortex.Unity.UIProviderSystem.Model;
-using Vortex.Unity.UIProviderSystem.Model.Conditions;
 
 namespace Vortex.Unity.UIProviderSystem.Presets
 {

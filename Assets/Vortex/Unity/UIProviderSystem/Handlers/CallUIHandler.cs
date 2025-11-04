@@ -1,10 +1,11 @@
 ﻿using System;
 using UnityEngine;
+using Vortex.Core.UIProviderSystem.Model;
 using Vortex.Unity.DatabaseSystem.Attributes;
 using Vortex.Unity.UI.UIComponents;
-using Vortex.Unity.UIProviderSystem.Bus;
 using Vortex.Unity.UIProviderSystem.Model;
 using Vortex.Unity.UIProviderSystem.Model.Conditions;
+using UIProvider = Vortex.Core.UIProviderSystem.Bus.UIProvider;
 
 namespace Vortex.Unity.UIProviderSystem.Handlers
 {

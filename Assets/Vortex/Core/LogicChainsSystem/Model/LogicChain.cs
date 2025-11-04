@@ -1,8 +1,5 @@
 ﻿using System.Collections.Generic;
-using UnityEngine;
 using Vortex.Core.DatabaseSystem.Model;
-using Vortex.Core.Extensions.LogicExtensions;
-using NotImplementedException = System.NotImplementedException;
 
 namespace Vortex.Core.LogicChainsSystem.Model
 {

@@ -25,12 +25,12 @@ namespace Vortex.Unity.AudioSystem.Handlers
 
         private void Awake()
         {
-            Audio.OnInit += OnInit;
+            AudioProvider.OnInit += OnInit;
         }
 
         private void OnDestroy()
         {
-            Audio.OnInit -= OnInit;
+            AudioProvider.OnInit -= OnInit;
             TimeController.RemoveCall(this);
         }
 
@@ -42,7 +42,7 @@ namespace Vortex.Unity.AudioSystem.Handlers
 
         private void Init()
         {
-            var sample = Audio.GetSample(audioSample);
+            var sample = AudioProvider.GetSample(audioSample);
             switch (sample)
             {
                 case Sound snd:
@@ -63,7 +63,7 @@ namespace Vortex.Unity.AudioSystem.Handlers
 
         private void OnEnable()
         {
-            Audio.OnSettingsChanged += CheckSettings;
+            AudioProvider.OnSettingsChanged += CheckSettings;
             if (audioSource.clip == null)
                 return;
             CheckSettings();
@@ -73,7 +73,7 @@ namespace Vortex.Unity.AudioSystem.Handlers
 
         private void OnDisable()
         {
-            Audio.OnSettingsChanged -= CheckSettings;
+            AudioProvider.OnSettingsChanged -= CheckSettings;
             Stop();
         }
 
@@ -81,14 +81,14 @@ namespace Vortex.Unity.AudioSystem.Handlers
         {
             if (isMusic)
             {
-                audioSource.mute = !Audio.Settings.MusicOn;
-                audioSource.volume = Audio.Settings.MusicVolume * _currentVolume;
+                audioSource.mute = !AudioProvider.Settings.MusicOn;
+                audioSource.volume = AudioProvider.Settings.MusicVolume * _currentVolume;
                 audioSource.pitch = _currentPitch;
             }
             else
             {
-                audioSource.mute = !Audio.Settings.SoundOn;
-                audioSource.volume = Audio.Settings.SoundVolume * _currentVolume;
+                audioSource.mute = !AudioProvider.Settings.SoundOn;
+                audioSource.volume = AudioProvider.Settings.SoundVolume * _currentVolume;
                 audioSource.pitch = _currentPitch;
             }
         }

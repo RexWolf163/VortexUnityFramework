@@ -7,17 +7,26 @@ using Vortex.Core.System.Abstractions;
 
 namespace Vortex.Core.AudioSystem.Bus
 {
-    public class Audio : SystemController<Audio, IDriver>
+    public class AudioProvider : SystemController<AudioProvider, IDriver>
     {
+        #region Params
+
         private static readonly SortedDictionary<string, SoundSample> IndexSound = new();
+
         private static readonly SortedDictionary<string, MusicSample> IndexMusic = new();
 
         public static AudioSettings Settings { get; } = new();
+
+        #endregion
+
+        #region Events
 
         /// <summary>
         /// Были изменены настройки звука
         /// </summary>
         public static event Action OnSettingsChanged;
+
+        #endregion
 
         protected override void OnDriverConnect()
         {
