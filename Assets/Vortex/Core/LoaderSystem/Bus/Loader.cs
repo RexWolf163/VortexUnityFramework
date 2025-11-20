@@ -137,7 +137,7 @@ namespace Vortex.Core.LoaderSystem.Bus
             catch (Exception ex)
             {
                 Log.Print(new LogData(LogLevel.Error,
-                    ex.Message,
+                    ex.Message + "\n" + ex.StackTrace,
                     "AppLoader"));
             }
 

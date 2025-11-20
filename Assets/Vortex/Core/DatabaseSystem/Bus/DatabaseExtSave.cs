@@ -63,9 +63,10 @@ namespace Vortex.Core.DatabaseSystem.Bus
                     continue;
 
                 _singletonRecords[key].LoadFromSaveData(data[key]);
-                if (++counter != 20)
+                if (++counter != 1)
                     continue;
                 counter = 0;
+                await Task.Yield();
             }
 
             await Task.CompletedTask;

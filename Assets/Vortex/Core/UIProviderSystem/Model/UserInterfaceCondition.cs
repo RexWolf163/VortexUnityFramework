@@ -8,6 +8,7 @@ namespace Vortex.Core.UIProviderSystem.Model
     /// по которому должна происходить проверка всех условий UI
     /// Реализация через наследников типа монолит
     /// </summary>
+    [Serializable]
     public abstract class UserInterfaceCondition
     {
         /// <summary>

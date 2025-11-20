@@ -124,6 +124,21 @@ namespace Vortex.Unity.SaveSystem
             }
         }
 
+        public void Remove(string guid)
+        {
+            if (!PlayerPrefs.HasKey(GetSaveName(guid)))
+            {
+                Debug.LogError($"[SaveSystemDriver] save summary #{guid} not found.");
+                return;
+            }
+
+            Saves.Remove(guid);
+            PlayerPrefs.SetString(SaveKey, string.Join(";", Saves.Keys));
+            PlayerPrefs.DeleteKey(GetSaveName(guid));
+            PlayerPrefs.DeleteKey(GetSaveSummaryName(guid));
+            PlayerPrefs.Save();
+        }
+
         /// <summary>
         /// Получить описание сейва по guid
         /// </summary>

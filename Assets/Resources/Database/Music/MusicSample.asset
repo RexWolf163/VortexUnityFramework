@@ -20,3 +20,4 @@ MonoBehaviour:
   audioClip: {fileID: 8300000, guid: b1cdba14d1e15c148b260abf2c05c6ae, type: 3}
   pitchRange: 0.78
   valueRange: 1
+  duration: 77.63056

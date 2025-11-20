@@ -10,18 +10,25 @@ namespace Vortex.Unity.AudioSystem.Presets
     [CreateAssetMenu(fileName = "MusicSample", menuName = "Database/MusicSample")]
     public class MusicSamplePreset : RecordPreset<Music>
     {
-        [SerializeField] private AudioClip audioClip;
+        [SerializeField, OnValueChanged("CalcDuration")]
+        private AudioClip audioClip;
 
-        [SerializeField, Range(-3f, 3f)] private float pitchRange = 1f;
+        [SerializeField, Range(-3f, 3f), OnValueChanged("CalcDuration")]
+        private float pitchRange = 1f;
 
         [SerializeField, Range(0f, 1f)] private float valueRange = 1f;
+
+        [SerializeField, DisplayAsString] private float duration;
 
         public SoundClip Sample =>
             new(audioClip, new Vector2(pitchRange, pitchRange), new Vector2(valueRange, valueRange));
 
-        public float Duration => pitchRange == 0 ? float.MaxValue : audioClip.length / Mathf.Abs(pitchRange);
+        public float Duration => duration;
 
 #if UNITY_EDITOR
+        private void CalcDuration() =>
+            duration = pitchRange == 0 ? float.MaxValue : audioClip.length / Mathf.Abs(pitchRange);
+
         private GameObject _testObject;
 
         private bool IsPlay() => _testObject != null;

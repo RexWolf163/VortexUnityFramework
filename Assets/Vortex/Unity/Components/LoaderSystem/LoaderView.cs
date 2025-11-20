@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using Vortex.Core.AppSystem.Bus;
+using Vortex.Core.LoaderSystem.Bus;
 using Vortex.Core.LocalizationSystem;
 using Vortex.Core.System.Enums;
 using Vortex.Unity.LocalizationSystem;
@@ -73,9 +74,9 @@ namespace Vortex.Unity.Components.LoaderSystem
 
         private void Refresh()
         {
-            var loadingData = Core.LoaderSystem.Bus.Loader.GetCurrentLoadingData();
-            var step = Core.LoaderSystem.Bus.Loader.GetProgress();
-            var size = Core.LoaderSystem.Bus.Loader.GetSize();
+            var loadingData = Loader.GetCurrentLoadingData();
+            var step = Loader.GetProgress();
+            var size = Loader.GetSize();
             if (loadingData != null)
             {
                 var progress = loadingData.Size == 0

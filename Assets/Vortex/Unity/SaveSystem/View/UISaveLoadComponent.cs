@@ -15,8 +15,8 @@ namespace Vortex.Unity.SaveSystem.View
     {
         [SerializeField] private UserInterface userInterface;
 
-        private ProcessData _processData;
-        private ProcessData _fullProcessData;
+        private static ProcessData _processData;
+        private static ProcessData _fullProcessData;
 
         [SerializeField] private UIComponent title;
 
@@ -42,13 +42,16 @@ namespace Vortex.Unity.SaveSystem.View
 
         private IEnumerator Run()
         {
-            (_fullProcessData, _processData) = SaveController.GetProcessData();
+            _fullProcessData = SaveController.GetFullProcessData();
             _process = true;
             title.SetText(SaveController.State == SaveControllerStates.Loading ? loadingText : savingText);
             yield return null;
             while (_process)
             {
-                var progressValue = Math.Floor(100f * _processData.Progress / _processData.Size);
+                _processData = SaveController.GetProcessData();
+                var progressValue = _processData.Size == 0
+                    ? 100f
+                    : Math.Floor(100f * _processData.Progress / _processData.Size);
                 progress.SetText(string.Format(progressTextPattern.Translate(),
                     _fullProcessData.Progress,
                     _fullProcessData.Size,

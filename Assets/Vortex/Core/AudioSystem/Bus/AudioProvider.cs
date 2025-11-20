@@ -58,7 +58,7 @@ namespace Vortex.Core.AudioSystem.Bus
         }
 
         /// <summary>
-        /// Включить/выключить звуки
+        /// Изменить громкость звуков
         /// </summary>
         /// <param name="value">значение от 0 до 1</param>
         public static void SetSoundVolume(float value)
@@ -68,7 +68,7 @@ namespace Vortex.Core.AudioSystem.Bus
         }
 
         /// <summary>
-        /// Включить/выключить музыку
+        /// Изменить громкость музыки
         /// </summary>
         /// <param name="value">значение от 0 до 1</param>
         public static void SetMusicVolume(float value)

@@ -81,9 +81,12 @@ namespace Vortex.Unity.AudioSystem.Handlers
         {
             if (isMusic)
             {
+                var b = audioSource.mute != !AudioProvider.Settings.MusicOn && AudioProvider.Settings.MusicOn;
                 audioSource.mute = !AudioProvider.Settings.MusicOn;
                 audioSource.volume = AudioProvider.Settings.MusicVolume * _currentVolume;
                 audioSource.pitch = _currentPitch;
+                if (b)
+                    audioSource.Play();
             }
             else
             {

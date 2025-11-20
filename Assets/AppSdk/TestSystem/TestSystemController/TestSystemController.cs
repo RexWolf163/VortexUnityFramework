@@ -58,17 +58,24 @@ namespace AppSdk.TestSystem.TestSystemController
         public async Task OnLoad(CancellationToken cancellationToken)
         {
             _processData.Progress = 0;
-            for (var i = _processData.Size - 1; i >= 0; i--)
+            try
             {
-                if (cancellationToken.IsCancellationRequested)
+                for (var i = _processData.Size - 1; i >= 0; i--)
                 {
-                    await Task.CompletedTask;
-                    return;
-                }
+                    if (cancellationToken.IsCancellationRequested)
+                    {
+                        await Task.CompletedTask;
+                        return;
+                    }
 
-                _processData.Progress++;
-                await Task.Delay(50, cancellationToken);
-                await Task.Yield();
+                    _processData.Progress++;
+                    await Task.Delay(50, cancellationToken);
+                    await Task.Yield();
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
             }
 
             await Task.CompletedTask;

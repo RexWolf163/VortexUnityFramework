@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -29,9 +30,16 @@ namespace AppSdk.TestSystem.Handlers
                 _guid = guid;
             }
 
-            [HorizontalGroup("h1", 60f), HideIf("Test")]
+            [HorizontalGroup("h1", 60f), VerticalGroup("h1/v2"), HideIf("Test")]
             [Button]
             public void Load() => SaveController.Load(_guid);
+
+            [HorizontalGroup("h1", 60f), VerticalGroup("h1/v2"), HideIf("Test")]
+            [Button]
+            public void Remove()
+            {
+                SaveController.Remove(_guid);
+            }
 
             private bool Test() => !Application.isPlaying;
         }
@@ -54,5 +62,19 @@ namespace AppSdk.TestSystem.Handlers
         }
 
         private bool Test() => !Application.isPlaying;
+
+
+        private void OnEnable()
+        {
+            GetIndex();
+            SaveController.OnSaveComplete += GetIndex;
+            SaveController.OnRemove += GetIndex;
+        }
+
+        private void OnDisable()
+        {
+            SaveController.OnSaveComplete -= GetIndex;
+            SaveController.OnRemove += GetIndex;
+        }
     }
 }

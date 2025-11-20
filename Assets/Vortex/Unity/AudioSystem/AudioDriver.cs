@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using Sirenix.Utilities;
+using UnityEngine;
 using Vortex.Core.AudioSystem;
 using Vortex.Core.AudioSystem.Bus;
 using Vortex.Core.AudioSystem.Model;
 using Vortex.Core.DatabaseSystem.Bus;
 using Vortex.Core.Extensions.LogicExtensions;
 using Vortex.Core.System.Abstractions;
+using Vortex.Unity.AppSystem.System.TimeSystem;
 using Vortex.Unity.AudioSystem.Handlers;
 using Vortex.Unity.AudioSystem.Model;
+using AudioSettings = Vortex.Core.AudioSystem.Model.AudioSettings;
 
 namespace Vortex.Unity.AudioSystem
 {
@@ -38,6 +42,7 @@ namespace Vortex.Unity.AudioSystem
         {
             Database.OnInit -= OnDatabaseInit;
             AudioProvider.OnSettingsChanged -= SaveSettings;
+            TimeController.RemoveCall(this);
         }
 
         /// <summary>
@@ -66,14 +71,34 @@ namespace Vortex.Unity.AudioSystem
             _indexSound = indexSound;
             _indexMusic = indexMusic;
             _settings = settings;
+            LoadSettings();
         }
 
         private static void SaveSettings()
         {
+            var save =
+                $"{(_settings.MusicOn ? "Y" : "N")};{_settings.MusicVolume};{(_settings.SoundOn ? "Y" : "N")};{_settings.SoundVolume}";
+            PlayerPrefs.SetString(SaveKey, save);
+            PlayerPrefs.Save();
         }
 
         private static void LoadSettings()
         {
+            var save = PlayerPrefs.GetString(SaveKey);
+            if (save.IsNullOrWhitespace())
+                return;
+            var ar = save.Split(';');
+            try
+            {
+                AudioProvider.SetMusicState(ar[0] == "Y");
+                AudioProvider.SetMusicVolume(float.Parse(ar[1]));
+                AudioProvider.SetSoundState(ar[2] == "Y");
+                AudioProvider.SetSoundVolume(float.Parse(ar[3]));
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+            }
         }
     }
 }

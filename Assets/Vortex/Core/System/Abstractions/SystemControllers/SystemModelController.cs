@@ -32,7 +32,7 @@ namespace Vortex.Core.System.Abstractions.SystemControllers
             }
             catch (Exception e)
             {
-                return false;
+                throw e;
             }
         }
 

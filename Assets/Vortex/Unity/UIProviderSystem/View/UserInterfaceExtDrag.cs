@@ -14,6 +14,15 @@ namespace Vortex.Unity.UIProviderSystem.View
         private CanvasScaler _canvasScaler;
         private CanvasScaler CanvasScaler => _canvasScaler ??= gameObject.GetComponentInParent<CanvasScaler>();
 
+        private void SetPosition()
+        {
+            if (wndContainer == null || dragZone == null)
+                return;
+            if (CanvasScaler == null)
+                return;
+            wndContainer?.SetLocalPositionAndRotation(Offset, wndContainer.localRotation);
+        }
+
         private void CalcPosition(Vector2 newPosition)
         {
             if (wndContainer == null || dragZone == null)

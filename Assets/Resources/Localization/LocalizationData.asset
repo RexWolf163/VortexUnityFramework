@@ -59,6 +59,18 @@ MonoBehaviour:
         pretium est. Cras pulvinar, felis non mollis congue, lorem ipsum commodo
         ipsum, id rhoncus lacus justo sed libero. Duis aliquet fringilla arcu, id
         hendrerit justo pharetra eget.
+  - key: MUSIC
+    texts:
+    - language: Russian
+      text: "\u041C\u0443\u0437\u044B\u043A\u0430"
+    - language: English
+      text: Music
+  - key: SOUND
+    texts:
+    - language: Russian
+      text: "\u0417\u0432\u0443\u043A\u0438"
+    - language: English
+      text: Sounds
   - key: QUEST1_TITLE
     texts:
     - language: Russian

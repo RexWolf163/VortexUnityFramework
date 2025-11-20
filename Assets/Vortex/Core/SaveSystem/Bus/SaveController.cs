@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using System.Threading.Tasks;
 using Sirenix.Utilities;
 using Vortex.Core.Extensions.LogicExtensions;
 using Vortex.Core.LoggerSystem.Bus;
@@ -47,6 +48,11 @@ namespace Vortex.Core.SaveSystem.Bus
         /// Событие завершения сохранения
         /// </summary>
         public static event Action OnSaveComplete;
+
+        /// <summary>
+        /// Событие удаления сохранения
+        /// </summary>
+        public static event Action OnRemove;
 
         /// <summary>
         /// Данные текущего частного процесса
@@ -140,6 +146,22 @@ namespace Vortex.Core.SaveSystem.Bus
         }
 
         /// <summary>
+        /// Удалить сейв по ID
+        /// </summary>
+        public static void Remove(string guid)
+        {
+            try
+            {
+                Driver.Remove(guid);
+                OnRemove?.Invoke();
+            }
+            catch (Exception e)
+            {
+                Log.Print(new LogData(LogLevel.Error, $"Error while loading data\n{e.Message}", "SaveController"));
+            }
+        }
+
+        /// <summary>
         /// Получить JSON данные по ключу
         /// </summary>
         /// <param name="id"></param>
@@ -158,6 +180,7 @@ namespace Vortex.Core.SaveSystem.Bus
 
         public static void UnRegister(ISaveable controller) => Saveables.Remove(controller);
 
-        public static Tuple<ProcessData, ProcessData> GetProcessData() => new(FullProcessData, _processData);
+        public static ProcessData GetFullProcessData() => FullProcessData;
+        public static ProcessData GetProcessData() => _processData;
     }
 }

@@ -94,7 +94,7 @@ namespace Vortex.Unity.UIProviderSystem.View
         {
             if (_isOpen)
                 return;
-            CalcPosition(Offset);
+            SetPosition();
             foreach (var tweener in tweeners)
             {
                 tweener.Back(true);

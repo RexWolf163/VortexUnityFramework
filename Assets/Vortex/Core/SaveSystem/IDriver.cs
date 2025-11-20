@@ -22,6 +22,12 @@ namespace Vortex.Core.SaveSystem
         public void Load(string guid);
 
         /// <summary>
+        /// Удалить сейв по ID
+        /// </summary>
+        /// <param name="guid"></param>
+        public void Remove(string guid);
+
+        /// <summary>
         /// Передать линк на индекс
         /// </summary>
         public void SetIndexLink(Dictionary<string, Dictionary<string, string>> index);
