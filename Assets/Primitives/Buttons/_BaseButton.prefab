@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 9137159661881360527}
   - component: {fileID: 9137159661881360524}
   - component: {fileID: 264134155186627939}
+  - component: {fileID: 3489729220531362988}
   m_Layer: 0
   m_Name: _BaseButton
   m_TagString: Untagged
@@ -82,7 +83,20 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 9137159662382396002}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3489729220531362988}
+        m_TargetAssemblyTypeName: Vortex.Unity.AudioSystem.Handlers.AudioHandler,
+          ru.vortex.unity.audio
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &264134155186627939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -96,6 +110,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   btn: {fileID: 9137159661881360524}
+--- !u!114 &3489729220531362988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9137159661881360752}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bb14c8c40fa4c77a1a844d506b8589f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
+  audioSample: 7b0dbf8c9fde1159063d41d55726d3c2ecc3dfac0d353ca19e2fca46e7fe39dc
 --- !u!1 &9137159662124463986
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,6 +9,8 @@ namespace Vortex.Unity.UI.UIComponents.Parts
     {
         [SerializeField] private Button btn;
 
+        private UnityAction _currentAction;
+
 #if UNITY_EDITOR
         [OnInspectorInit]
         private void Search()
@@ -20,14 +22,16 @@ namespace Vortex.Unity.UI.UIComponents.Parts
 #endif
         public void PutData(UnityAction action)
         {
-            btn.onClick.RemoveAllListeners();
+            if (_currentAction != null)
+                btn.onClick.RemoveListener(_currentAction);
             if (action != null)
                 btn.onClick.AddListener(action);
         }
 
         private void OnDestroy()
         {
-            btn.onClick.RemoveAllListeners();
+            if (_currentAction != null)
+                btn.onClick.RemoveListener(_currentAction);
         }
     }
 }

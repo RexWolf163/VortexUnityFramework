@@ -2,16 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Vortex.Core.Extensions.LogicExtensions;
-using Object = UnityEngine.Object;
 
 namespace Vortex.Unity.UI.PoolSystem
 {
     [Serializable]
     public class Pool : MonoBehaviour
     {
+        /// <summary>
+        /// Образец контейнера
+        /// </summary>
         [SerializeField] private PoolItem preset;
 
-        private readonly Dictionary<PoolItem, Object> _index = new();
+        /// <summary>
+        /// Реестр активных контейнеров
+        /// </summary>
+        private readonly Dictionary<object, PoolItem> _index = new();
+
+        /// <summary>
+        /// Перечень-очередь обнуленных контейнеров
+        /// </summary>
+        private readonly Queue<PoolItem> _freeItems = new();
 
         private void Awake()
         {
@@ -26,43 +36,67 @@ namespace Vortex.Unity.UI.PoolSystem
 
         private void OnDestroy()
         {
+            var keys = _index.Keys;
+            foreach (var key in keys)
+                RemoveItem(key);
         }
 
-        private void OnEnable()
+        /// <summary>
+        /// Добавить элемент пула для данных
+        /// </summary>
+        /// <param name="data"></param>
+        public void AddItem(object data)
         {
-            CheckState();
-        }
-
-        public void AddItem(Object data)
-        {
+            if (_index.ContainsKey(data))
+                return;
             var item = CreateItem();
-            _index.AddNew(item, data);
+            _index.AddNew(data, item);
             item.MakeLink(data);
         }
 
-        private PoolItem CreateItem()
+        /// <summary>
+        /// Добавить элемент пула для данных.
+        /// Вернуть компонент указанного типа из контейнера
+        /// </summary>
+        /// <param name="data"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public T AddItem<T>(object data) where T : MonoBehaviour
         {
-            var keys = _index.Keys;
-            PoolItem item = null;
-            foreach (var poolItem in keys)
-            {
-                if (_index[poolItem] == null)
-                {
-                    item = poolItem;
-                    break;
-                }
-            }
-
-            if (item == null)
-                item = Instantiate(preset);
-
-            return item;
+            if (_index.ContainsKey(data))
+                return GetItem<T>(data);
+            AddItem(data);
+            return GetItem<T>(data);
         }
 
-        private void CheckState()
+        /// <summary>
+        /// Вернуть компонент указанного типа из контейнера связанного с данными
+        /// </summary>
+        /// <param name="data"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public T GetItem<T>(object data) where T : MonoBehaviour =>
+            _index.TryGetValue(data, out var item) ? item.GetComponentInChildren<T>() : null;
+
+        /// <summary>
+        /// Создать новый контейнер в пуле
+        /// </summary>
+        /// <returns></returns>
+        private PoolItem CreateItem() => _freeItems.Count > 0
+            ? _freeItems.Dequeue()
+            : Instantiate(preset, Vector3.zero, new Quaternion(0, 0, 0, 0), transform);
+
+        /// <summary>
+        /// Удалить контейнер
+        /// </summary>
+        /// <param name="data"></param>
+        public void RemoveItem(object data)
         {
-            foreach (var item in _index)
-                item.Key.MakeLink(item.Value);
+            if (!_index.TryGetValue(data, out var value))
+                return;
+            value.Remove();
+            _freeItems.Enqueue(value);
+            _index.Remove(data);
         }
     }
 }

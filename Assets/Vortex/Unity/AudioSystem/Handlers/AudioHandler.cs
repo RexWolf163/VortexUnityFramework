@@ -8,7 +8,10 @@ using Vortex.Unity.DatabaseSystem.Attributes;
 
 namespace Vortex.Unity.AudioSystem.Handlers
 {
-    [RequireComponent(typeof(AudioSource))]
+    /// <summary>
+    /// Компонент вызова звука.
+    /// Может работать либо с личным AudioSource, либо ретранслировать запрос на AudioPlayer, при отсутствии AudioSource
+    /// </summary>
     public class AudioHandler : MonoBehaviour
     {
         [SerializeField] private AudioSource audioSource;
@@ -18,6 +21,7 @@ namespace Vortex.Unity.AudioSystem.Handlers
         [SerializeField, DbRecord(typeof(IAudioSample))]
         private string audioSample;
 
+        private Sound _soundSample;
         private SoundClip _sound;
         private float _currentVolume;
         private float _currentPitch;
@@ -34,10 +38,7 @@ namespace Vortex.Unity.AudioSystem.Handlers
             TimeController.RemoveCall(this);
         }
 
-        private void OnInit()
-        {
-            TimeController.Accumulate(Init, this);
-        }
+        private void OnInit() => TimeController.Accumulate(Init, this);
 
 
         private void Init()
@@ -48,6 +49,8 @@ namespace Vortex.Unity.AudioSystem.Handlers
                 case Sound snd:
                     isMusic = false;
                     _sound = snd.Sample;
+                    if (audioSource == null)
+                        _soundSample = snd;
                     break;
                 case Music music:
                     _sound = music.Sample;
@@ -64,7 +67,7 @@ namespace Vortex.Unity.AudioSystem.Handlers
         private void OnEnable()
         {
             AudioProvider.OnSettingsChanged += CheckSettings;
-            if (audioSource.clip == null)
+            if (audioSource == null || audioSource.clip == null)
                 return;
             CheckSettings();
             if (isMusic)
@@ -96,23 +99,36 @@ namespace Vortex.Unity.AudioSystem.Handlers
             }
         }
 
-        [HorizontalGroup("h1"), Button]
+        [HorizontalGroup("h1"), Button, ShowIf("ShowBtns")]
         public void Play()
         {
             _currentPitch = _sound.GetPitch();
             _currentVolume = _sound.GetVolume();
-            CheckSettings();
+            if (audioSource != null)
+                CheckSettings();
             if (isMusic)
             {
+                if (audioSource == null)
+                    return;
                 audioSource.clip = _sound.AudioClip;
                 audioSource.Play();
             }
             else
-                audioSource.PlayOneShot(_sound.AudioClip);
+            {
+                if (audioSource == null)
+                    AudioPlayer.Play(_soundSample);
+                else
+                    audioSource.PlayOneShot(_sound.AudioClip);
+            }
         }
 
-        [HorizontalGroup("h1"), Button]
-        public void Stop() => audioSource.Stop();
+        [HorizontalGroup("h1"), Button, ShowIf("ShowBtns")]
+        public void Stop()
+        {
+            if (audioSource == null)
+                return;
+            audioSource.Stop();
+        }
 
 #if UNITY_EDITOR
         private void OnValidate()
@@ -120,6 +136,8 @@ namespace Vortex.Unity.AudioSystem.Handlers
             if (audioSource == null)
                 audioSource = GetComponent<AudioSource>();
         }
+
+        private bool ShowBtns() => Application.isPlaying;
 #endif
     }
 }

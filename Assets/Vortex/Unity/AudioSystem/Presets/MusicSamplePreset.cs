@@ -1,6 +1,7 @@
 ﻿using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Vortex.Unity.AudioSystem.Model;
 using Vortex.Unity.DatabaseSystem.Enums;
 using Vortex.Unity.DatabaseSystem.Presets;
@@ -14,20 +15,20 @@ namespace Vortex.Unity.AudioSystem.Presets
         private AudioClip audioClip;
 
         [SerializeField, Range(-3f, 3f), OnValueChanged("CalcDuration")]
-        private float pitchRange = 1f;
+        private float pitch = 1f;
 
-        [SerializeField, Range(0f, 1f)] private float valueRange = 1f;
+        [SerializeField, Range(0f, 1f)] private float value = 1f;
 
         [SerializeField, DisplayAsString] private float duration;
 
         public SoundClip Sample =>
-            new(audioClip, new Vector2(pitchRange, pitchRange), new Vector2(valueRange, valueRange));
+            new(audioClip, new Vector2(pitch, pitch), new Vector2(value, value));
 
         public float Duration => duration;
 
 #if UNITY_EDITOR
         private void CalcDuration() =>
-            duration = pitchRange == 0 ? float.MaxValue : audioClip.length / Mathf.Abs(pitchRange);
+            duration = pitch == 0 ? float.MaxValue : audioClip.length / Mathf.Abs(pitch);
 
         private GameObject _testObject;
 
@@ -38,8 +39,8 @@ namespace Vortex.Unity.AudioSystem.Presets
         [Button, HideIf("IsPlay")]
         private void TestSound()
         {
-            var pitch = pitchRange == 0 ? 0.1f : Mathf.Abs(pitchRange);
-            var volume = valueRange;
+            var pitch = this.pitch == 0 ? 0.1f : Mathf.Abs(this.pitch);
+            var volume = value;
             _testObject = new GameObject();
             var audio = _testObject.AddComponent<AudioSource>();
             audio.pitch = pitch;

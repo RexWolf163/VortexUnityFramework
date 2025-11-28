@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 using Vortex.Core.AudioSystem.Bus;
 using Vortex.Core.System.Abstractions;
@@ -25,10 +26,13 @@ namespace Vortex.Unity.AudioSystem.Handlers
             audioSource.pitch = _currentPitch;
         }
 
+        private void Awake() => _dataStorage = dataStorageObject.GetComponent<IDataStorage>();
+
         private void OnEnable() => Play();
 
         private void OnDisable() => Stop();
 
+        [HorizontalGroup("h1"), Button, ShowIf("ShowBtns")]
         private void Play()
         {
             _sound = _dataStorage.GetData<SoundClip>();
@@ -40,6 +44,7 @@ namespace Vortex.Unity.AudioSystem.Handlers
             audioSource.PlayOneShot(_sound.AudioClip);
         }
 
+        [HorizontalGroup("h1"), Button, ShowIf("ShowBtns")]
         private void Stop() => audioSource.Stop();
 
 #if UNITY_EDITOR
@@ -54,6 +59,9 @@ namespace Vortex.Unity.AudioSystem.Handlers
             if (_dataStorage == null)
                 dataStorageObject = null;
         }
+
+        private bool ShowBtns() => Application.isPlaying;
+
 #endif
     }
 }
