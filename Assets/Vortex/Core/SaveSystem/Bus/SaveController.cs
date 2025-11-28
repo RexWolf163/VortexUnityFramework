@@ -55,14 +55,9 @@ namespace Vortex.Core.SaveSystem.Bus
         public static event Action OnRemove;
 
         /// <summary>
-        /// Данные текущего частного процесса
-        /// </summary>
-        private static ProcessData _processData;
-
-        /// <summary>
         /// Данные общего процесса
         /// </summary>
-        private static readonly ProcessData FullProcessData = new();
+        private static readonly SaveProcessData ProcessData = new(new ProcessData());
 
         /// <summary>
         /// Текущее состояние контроллера, что загрузка идет
@@ -92,13 +87,13 @@ namespace Vortex.Core.SaveSystem.Bus
             try
             {
                 SaveDataIndex.Clear();
-                FullProcessData.Name = State.ToString();
-                FullProcessData.Progress = 0;
-                FullProcessData.Size = Saveables.Count;
+                ProcessData.Global.Name = State.ToString();
+                ProcessData.Global.Progress = 0;
+                ProcessData.Global.Size = Saveables.Count;
                 foreach (var saveable in Saveables)
                 {
-                    FullProcessData.Progress++;
-                    _processData = saveable.GetProcessInfo();
+                    ProcessData.Global.Progress++;
+                    ProcessData.Module = saveable.GetProcessInfo();
                     var data = await saveable.GetSaveData(Token);
                     SaveDataIndex.AddNew(saveable.GetSaveId(), data);
                 }
@@ -126,13 +121,13 @@ namespace Vortex.Core.SaveSystem.Bus
             try
             {
                 Driver.Load(guid);
-                FullProcessData.Name = State.ToString();
-                FullProcessData.Progress = 0;
-                FullProcessData.Size = Saveables.Count;
+                ProcessData.Global.Name = State.ToString();
+                ProcessData.Global.Progress = 0;
+                ProcessData.Global.Size = Saveables.Count;
                 foreach (var saveable in Saveables)
                 {
-                    FullProcessData.Progress++;
-                    _processData = saveable.GetProcessInfo();
+                    ProcessData.Global.Progress++;
+                    ProcessData.Module = saveable.GetProcessInfo();
                     await saveable.OnLoad(Token);
                 }
             }
@@ -180,7 +175,6 @@ namespace Vortex.Core.SaveSystem.Bus
 
         public static void UnRegister(ISaveable controller) => Saveables.Remove(controller);
 
-        public static ProcessData GetFullProcessData() => FullProcessData;
-        public static ProcessData GetProcessData() => _processData;
+        public static SaveProcessData GetProcessData() => ProcessData;
     }
 }

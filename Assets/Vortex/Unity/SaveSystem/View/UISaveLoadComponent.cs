@@ -4,19 +4,17 @@ using UnityEngine;
 using Vortex.Core.LocalizationSystem;
 using Vortex.Core.SaveSystem.Bus;
 using Vortex.Core.SaveSystem.Model;
-using Vortex.Core.System.ProcessInfo;
 using Vortex.Unity.LocalizationSystem;
 using Vortex.Unity.UI.UIComponents;
-using Vortex.Unity.UIProviderSystem.View;
 
 namespace Vortex.Unity.SaveSystem.View
 {
+    /// <summary>
+    /// Компонент индикации процесса загрузки-сохранения
+    /// </summary>
     public class UISaveLoadComponent : MonoBehaviour
     {
-        [SerializeField] private UserInterface userInterface;
-
-        private static ProcessData _processData;
-        private static ProcessData _fullProcessData;
+        private static SaveProcessData _processData;
 
         [SerializeField] private UIComponent title;
 
@@ -42,20 +40,19 @@ namespace Vortex.Unity.SaveSystem.View
 
         private IEnumerator Run()
         {
-            _fullProcessData = SaveController.GetFullProcessData();
+            _processData = SaveController.GetProcessData();
             _process = true;
             title.SetText(SaveController.State == SaveControllerStates.Loading ? loadingText : savingText);
             yield return null;
             while (_process)
             {
-                _processData = SaveController.GetProcessData();
-                var progressValue = _processData.Size == 0
+                var progressValue = _processData.Global.Size == 0
                     ? 100f
-                    : Math.Floor(100f * _processData.Progress / _processData.Size);
+                    : Math.Floor(100f * _processData.Module.Progress / _processData.Module.Size);
                 progress.SetText(string.Format(progressTextPattern.Translate(),
-                    _fullProcessData.Progress,
-                    _fullProcessData.Size,
-                    _processData.Name,
+                    _processData.Global.Progress,
+                    _processData.Global.Size,
+                    _processData.Module.Name,
                     progressValue));
                 yield return null;
             }

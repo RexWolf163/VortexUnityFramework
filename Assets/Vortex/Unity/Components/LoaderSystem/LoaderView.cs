@@ -12,6 +12,11 @@ using Vortex.Unity.UI.UIComponents;
 
 namespace Vortex.Unity.Components.LoaderSystem
 {
+    /// <summary>
+    /// Компонент индикации процесса загрузки системы
+    /// Отображает текущий загружаемый модуль, процент выполнения для его процесса, номер модуля
+    /// в общем списке загружаемого и размер этого списка 
+    /// </summary>
     public class LoaderView : MonoBehaviour
     {
         private enum States
