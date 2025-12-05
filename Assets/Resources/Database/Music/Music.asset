@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: be67a0c087a64064b3ffa3f0a788dd77, type: 3}
-  m_Name: MusicSample
+  m_Name: Music
   m_EditorClassIdentifier: 
   type: 1
   guid: 934969ef76476d2af74737f673747ef76fb6c9f7ca8ef388b7a2e8d3c23f78cc
@@ -18,6 +18,6 @@ MonoBehaviour:
   description: 
   icon: {fileID: 0}
   audioClip: {fileID: 8300000, guid: b1cdba14d1e15c148b260abf2c05c6ae, type: 3}
-  pitchRange: 0.78
-  valueRange: 1
+  pitch: 1
+  value: 1
   duration: 77.63056

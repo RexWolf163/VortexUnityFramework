@@ -13,10 +13,19 @@ namespace Vortex.Unity.LogicChainsSystem.Actions
 
         [SerializeField] private bool _additiveMode;
 
+        [SerializeField] private bool _async = true;
+
         public override void Invoke()
         {
             TimeController.Call(() =>
-                SceneManager.LoadSceneAsync(SceneName, _additiveMode ? LoadSceneMode.Additive : LoadSceneMode.Single));
+            {
+                if (_async)
+                    SceneManager.LoadSceneAsync(SceneName,
+                        _additiveMode ? LoadSceneMode.Additive : LoadSceneMode.Single);
+                else
+                    SceneManager.LoadScene(SceneName,
+                        _additiveMode ? LoadSceneMode.Additive : LoadSceneMode.Single);
+            });
         }
 
         protected override string NameAction =>

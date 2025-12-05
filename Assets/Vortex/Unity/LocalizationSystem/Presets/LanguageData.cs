@@ -9,7 +9,7 @@ namespace Vortex.Unity.LocalizationSystem.Presets
         public LanguageData(string language, string text)
         {
             this.language = language;
-            this.text = text;
+            this.text = text.Replace("\\n", "\n").Replace("\\t", "\t");
         }
 
         [SerializeField] private string language;
@@ -18,6 +18,6 @@ namespace Vortex.Unity.LocalizationSystem.Presets
         public string Language => language;
         public string Text => text;
 
-        public override string ToString() => $"<b>{language}</b>:\t{text}";
+        public override string ToString() => $"<b>{language}</b>:\t\"{text}\"";
     }
 }

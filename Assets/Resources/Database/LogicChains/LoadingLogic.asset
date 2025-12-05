@@ -61,11 +61,13 @@ MonoBehaviour:
       data:
         SceneName: map
         _additiveMode: 0
+        _async: 0
     - rid: 2547342655539904704
       type: {class: LoadScene, ns: Vortex.Unity.LogicChainsSystem.Actions, asm: ru.vortex.unity.logicchains}
       data:
         SceneName: ui
         _additiveMode: 1
+        _async: 0
     - rid: 2547342655539904705
       type: {class: ConnectorPreset, ns: Vortex.Unity.LogicChainsSystem.Presets, asm: ru.vortex.unity.logicchains}
       data:

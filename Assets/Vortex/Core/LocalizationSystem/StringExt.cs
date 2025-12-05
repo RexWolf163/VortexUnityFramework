@@ -1,4 +1,5 @@
 ﻿using System;
+using Sirenix.Utilities;
 using Vortex.Core.LocalizationSystem.Bus;
 
 namespace Vortex.Core.LocalizationSystem
@@ -10,7 +11,8 @@ namespace Vortex.Core.LocalizationSystem
         /// </summary>
         /// <param name="key"></param>
         /// <returns></returns>
-        public static string Translate(this String key) => Localization.GetTranslate(key);
+        public static string Translate(this String key) =>
+            key.IsNullOrWhitespace() ? "" : Localization.GetTranslate(key);
 
         /// <summary>
         /// Возвращает ассоциацию с ключом в текущей локали приложения

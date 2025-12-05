@@ -27,7 +27,7 @@ namespace Vortex.Unity.LocalizationSystem
             Instance.LoadData();
         }
 
-        [MenuItem("Vortex/Localization/Update data")]
+        [MenuItem("Vortex/Localization/Load data")]
         private static async void LoadLocalizationData()
         {
             var resources = Resources.LoadAll<LocalizationPreset>(Path);
@@ -61,7 +61,7 @@ namespace Vortex.Unity.LocalizationSystem
             _localeData.Clear();
             foreach (var data in _resource.localeData)
             {
-                var translateData = data.Texts.First(x => x.Language == Localization.GetCurrentLanguage().ToString());
+                var translateData = data.Texts.First(x => x.Language == Localization.GetCurrentLanguage());
                 _localeData.AddNew(data.Key, translateData.Text);
             }
         }

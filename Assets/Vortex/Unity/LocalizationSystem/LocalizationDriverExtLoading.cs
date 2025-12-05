@@ -7,6 +7,7 @@ using Vortex.Core.Extensions.LogicExtensions;
 using Vortex.Core.LoaderSystem.Bus;
 using Vortex.Core.LocalizationSystem.Bus;
 using Vortex.Core.System.ProcessInfo;
+using Vortex.Unity.AppSystem.System.TimeSystem;
 using Vortex.Unity.LocalizationSystem.Presets;
 
 namespace Vortex.Unity.LocalizationSystem
@@ -63,7 +64,7 @@ namespace Vortex.Unity.LocalizationSystem
                     await Task.Yield();
             }
 
-            CallOnInit();
+            TimeController.Accumulate(CallOnInit, this);
             await Task.CompletedTask;
         }
 

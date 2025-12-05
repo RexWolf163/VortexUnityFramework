@@ -36,7 +36,6 @@ namespace Vortex.Core.LocalizationSystem.Bus
             return res;
         }
 
-        [MenuItem("Tools/My Tool/Do Something")]
         public static ValueDropdownList<string> GetLocalizationKeys()
         {
             var res = new ValueDropdownList<string>();
