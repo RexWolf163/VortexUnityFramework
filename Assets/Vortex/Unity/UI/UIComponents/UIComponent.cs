@@ -103,7 +103,7 @@ namespace Vortex.Unity.UI.UIComponents
         }
 
         /// <summary>
-        /// Упрощенное добавление экшена на кнопку
+        /// Упрощенное добавление текста в компонент
         /// </summary>
         /// <param name="text">Текст для внедрения в компонент</param>
         /// <param name="position">Номер части компонента</param>
@@ -116,6 +116,17 @@ namespace Vortex.Unity.UI.UIComponents
             }
 
             uiComponentTexts[position].PutData(useLocalization ? text.Translate() : text);
+        }
+
+        /// <summary>
+        /// Упрощенное добавление текста в компонент во все точки разом
+        /// </summary>
+        /// <param name="text">Текст для внедрения в компонент</param>
+        public void SetTextAll(string text)
+        {
+            text = useLocalization ? text.Translate() : text;
+            foreach (var uiComponentText in uiComponentTexts)
+                uiComponentText.PutData(text);
         }
 
         /// <summary>

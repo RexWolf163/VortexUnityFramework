@@ -5,6 +5,9 @@ using Vortex.Core.System.ProcessInfo;
 
 namespace Vortex.Core.SaveSystem
 {
+    /// <summary>
+    /// Интерфейс контроллеров, чьи данные подлежат сохранению и загрузке
+    /// </summary>
     public interface ISaveable
     {
         public string GetSaveId();
