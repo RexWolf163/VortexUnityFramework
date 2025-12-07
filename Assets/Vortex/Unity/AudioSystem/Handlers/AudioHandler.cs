@@ -66,9 +66,9 @@ namespace Vortex.Unity.AudioSystem.Handlers
 
         private void OnEnable()
         {
-            AudioProvider.OnSettingsChanged += CheckSettings;
             if (audioSource == null || audioSource.clip == null)
                 return;
+            AudioProvider.OnSettingsChanged += CheckSettings;
             CheckSettings();
             if (isMusic)
                 Play();
@@ -76,6 +76,8 @@ namespace Vortex.Unity.AudioSystem.Handlers
 
         private void OnDisable()
         {
+            if (audioSource == null || audioSource.clip == null)
+                return;
             AudioProvider.OnSettingsChanged -= CheckSettings;
             Stop();
         }
