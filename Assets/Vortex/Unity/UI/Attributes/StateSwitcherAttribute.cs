@@ -142,8 +142,8 @@ namespace Vortex.Unity.UI.Attributes
                 EditorGUILayout.BeginHorizontal();
                 GUI.color = !gotValue || modeInfo != null ? Color.white : new Color(1f, 0.6f, 0.56f);
                 var data = (modeInfo == null
-                    ? $"{hint.IndexLabel}: \t{hint.Description}:\tNone"
-                    : $"{hint.IndexLabel}: \t{hint.Description}:\t{'"' + modeInfo.Name + '"'}");
+                    ? $"{hint.IndexLabel}: \t{hint.Description}:\t\tNone"
+                    : $"{hint.IndexLabel}: \t{hint.Description}:\t\t{'"' + modeInfo.Name + '"'}");
                 EditorGUILayout.LabelField(data, SirenixGUIStyles.MultiLineLabel);
                 GUI.color = Color.white;
                 EditorGUILayout.EndHorizontal();
