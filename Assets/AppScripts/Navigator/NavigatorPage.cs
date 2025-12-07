@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 using Vortex.Core.Extensions.LogicExtensions;
 
 namespace AppScripts.Navigator
@@ -8,25 +7,27 @@ namespace AppScripts.Navigator
     public class NavigatorPage
     {
         public NavigatorPage(string key, string name, string backPage, byte[][] photos,
-            byte[] sсheme)
+            byte[] sсheme, int photoWidth = 920)
         {
             Key = key;
             Name = name;
             BackPage = backPage;
-            _photosRaw = photos;
+            Photos = photos;
             Content = Array.Empty<string>();
-            _schemeRaw = sсheme;
+            Scheme = sсheme;
+            PhotoWidth = photoWidth;
         }
 
         public NavigatorPage(string key, string name, string backPage, byte[][] photos,
-            string[] content)
+            string[] content, int photoWidth = 920)
         {
             Key = key;
             Name = name;
             BackPage = backPage;
-            _photosRaw = photos;
+            Photos = photos;
             Content = content;
-            _schemeRaw = null;
+            PhotoWidth = photoWidth;
+            Scheme = null;
         }
 
         /// <summary>
@@ -47,30 +48,7 @@ namespace AppScripts.Navigator
         /// <summary>
         /// Фотографии
         /// </summary>
-        public Texture2D[] Photos
-        {
-            get
-            {
-                if (_photos != null)
-                    return _photos;
-                var c = _photosRaw.Length;
-                _photos = new Texture2D[c];
-                for (int i = 0; i < c; i++)
-                {
-                    _photos[i] = new Texture2D(1, 1);
-                    if (!_photos[i].LoadImage(_photosRaw[i]))
-                        Debug.LogError($"Broken image {i} for {Name}");
-                    else
-                        _photos[i].Apply(); //на всякий случай
-                }
-
-                return _photos;
-            }
-        }
-
-        private Texture2D[] _photos;
-
-        private readonly byte[][] _photosRaw;
+        public byte[][] Photos { get; }
 
         /// <summary>
         /// Переходы на другие страницы с этой
@@ -85,25 +63,9 @@ namespace AppScripts.Navigator
         /// <summary>
         /// Картинка-контент
         /// </summary>
-        public Texture2D Sсheme
-        {
-            get
-            {
-                if (_schemeRaw == null)
-                    return null;
-                if (_scheme != null)
-                    return _scheme;
-                _scheme = new Texture2D(1, 1);
-                if (!_scheme.LoadImage(_schemeRaw))
-                    Debug.LogError($"Broken scheme for {Name}");
-                else
-                    _scheme.Apply(); //на всякий случай
-                return _scheme;
-            }
-        }
+        public byte[] Scheme { get; }
 
-        private Texture2D _scheme;
-        private readonly byte[] _schemeRaw;
+        public int PhotoWidth { get; }
 
         public void SetLink(string link) => Links.AddOnce(link);
     }

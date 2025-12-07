@@ -705,7 +705,6 @@ GameObject:
   - component: {fileID: 1381141688}
   - component: {fileID: 1381141691}
   - component: {fileID: 1381141690}
-  - component: {fileID: 1381141689}
   m_Layer: 0
   m_Name: StartLogic
   m_TagString: Untagged
@@ -741,24 +740,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   logicChain: 630bf6df81658d190cb3779184ef8531d5af3a185d04e00b497b018804fc71f1
---- !u!114 &1381141689
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1381141686}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93b40bd2415f77f4086ae93c6b5718e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startColor: {r: 1, g: 1, b: 1, a: 1}
-  endColor: {r: 1, g: 1, b: 1, a: 0}
-  image: {fileID: 488482958}
-  duration: 2
-  disableOnStart: 0
-  disableOnEnd: 1
 --- !u!114 &1381141690
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -793,7 +774,6 @@ MonoBehaviour:
   preloaderSceneName: preloader
   tweeners:
   - {fileID: 1381141690}
-  - {fileID: 1381141689}
   delay: 2
 --- !u!1001 &1416095489
 PrefabInstance:

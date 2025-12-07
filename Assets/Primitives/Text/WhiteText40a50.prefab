@@ -109,8 +109,16 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8330785399497327079, guid: 5e6519e4c53090e49a329c3743b47309, type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 23f120a2b34bd6647bf289d5302d14a9, type: 3}
+    - target: {fileID: 8330785399497327079, guid: 5e6519e4c53090e49a329c3743b47309, type: 3}
       propertyPath: m_FontData.m_FontSize
       value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 8330785399497327079, guid: 5e6519e4c53090e49a329c3743b47309, type: 3}
+      propertyPath: m_FontData.m_Alignment
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

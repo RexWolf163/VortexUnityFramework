@@ -27,7 +27,7 @@ namespace AppScripts.Navigator
         /// <summary>
         /// Текущая страничка
         /// </summary>
-        private static string currentPage;
+        private static string currentPage = string.Empty;
 
         /// <summary>
         /// Название стартовой страницы.
@@ -79,6 +79,8 @@ namespace AppScripts.Navigator
         /// <returns></returns>
         public static NavigatorPage GetPageData(string pageKey)
         {
+            if (pageKey.IsNullOrWhitespace())
+                return _pages[homePage];
             if (!_pages.TryGetValue(pageKey, out var page) && App.GetState() == AppStates.Running)
                 Debug.LogError($"There is no page with name {pageKey}");
 
