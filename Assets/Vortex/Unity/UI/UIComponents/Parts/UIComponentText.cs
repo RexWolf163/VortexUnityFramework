@@ -1,12 +1,12 @@
 ﻿using Sirenix.OdinInspector;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Vortex.Unity.UI.UIComponents.Parts
 {
     public class UIComponentText : UIComponentPart
     {
-        [SerializeField] private Text textField;
+        [SerializeField] private TextMeshProUGUI textField;
 
 #if UNITY_EDITOR
         [OnInspectorInit]
@@ -14,7 +14,7 @@ namespace Vortex.Unity.UI.UIComponents.Parts
         {
             if (textField != null)
                 return;
-            textField = GetComponent<Text>();
+            textField = GetComponent<TextMeshProUGUI>();
         }
 #endif
         public void PutData(string text) => textField.text = text;

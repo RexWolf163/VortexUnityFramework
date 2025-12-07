@@ -311,6 +311,10 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 1187283747623776641, guid: a5889f2ea7faf704fb9db0975fca52c5, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 1441960640351012873, guid: a5889f2ea7faf704fb9db0975fca52c5, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -874,12 +878,12 @@ PrefabInstance:
   m_SourcePrefab: {fileID: 100100000, guid: 89b1c75879c00e249acb15516e6da31b, type: 3}
 --- !u!224 &1416095490 stripped
 RectTransform:
-  m_CorrespondingSourceObject: {fileID: 8274215155320575706, guid: 89b1c75879c00e249acb15516e6da31b, type: 3}
+  m_CorrespondingSourceObject: {fileID: 6251835971121138896, guid: 89b1c75879c00e249acb15516e6da31b, type: 3}
   m_PrefabInstance: {fileID: 1416095489}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &1416095491 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5849131812230030258, guid: 89b1c75879c00e249acb15516e6da31b, type: 3}
+  m_CorrespondingSourceObject: {fileID: 8448008591114140088, guid: 89b1c75879c00e249acb15516e6da31b, type: 3}
   m_PrefabInstance: {fileID: 1416095489}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -924,7 +928,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 300, y: 60}
+  m_SizeDelta: {x: 400, y: 60}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1584796260
 MonoBehaviour:
