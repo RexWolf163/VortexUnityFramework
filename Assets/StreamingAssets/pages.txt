@@ -1,0 +1,31 @@
+ID (уникальный)	Название страницы	Страница-родитель	"Контент
+
+<plates> спиcок кнопок-плашек
+<buttons> список кнопок
+<br> разбиение на кадры"	<end>
+home	Главная			<end>
+project_info	О проекте	home	"Корпорация Encore представляет уникальный проект в сфере гостиничного бизнеса и недвижимости на берегу Волги, который объединяет лучшие архитектурные решения, богатую инфраструктуру и атмосферу приватности для роскошной жизни и отдыха в часовой доступности от Москвы.
+
+
+•     300 Га общая территория комплекса
+•     3 км береговая линия
+•     86 Га заповедная территория природного парка"	<end>
+hotel	Отель	home	<plates>	<end>
+main_hotel_building	Главный гостиничный корпус	project_info		<end>
+rooms	Номера	project_info		<end>
+villas	Виллы	project_info		<end>
+infrastructure	Инфраструктура	home	<buttons>	<end>
+spa	SPA, фитнес и детокс	infrastructure		<end>
+sauna	Банный комплекс	infrastructure		<end>
+natural_park	Природный парк	infrastructure		<end>
+restaurant	Ресторанный комплекс	infrastructure		<end>
+cigar_wine	Сигарный клуб и винотека	infrastructure		<end>
+conference	Банкетный и конференц-зал	infrastructure		<end>
+marina	Яхт-клуб и марина	infrastructure		<end>
+beach	Пляжный клуб	infrastructure		<end>
+sport	Спортивный комплекс	infrastructure		<end>
+kids_club	Детский клуб	infrastructure		<end>
+embankment	Набережная	infrastructure		<end>
+boutiques	Бутики	infrastructure		<end>
+hunting_grounds	Охотугодья	infrastructure		<end>
+private_residences	Частные резиденции	home		<end>
