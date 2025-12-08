@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Vortex.Core.Extensions.LogicExtensions;
 
@@ -26,20 +27,15 @@ namespace Vortex.Unity.UI.PoolSystem
         private void Awake()
         {
             _index.Clear();
+            /*
+             //TODO решить: нужно ли трогать образец?
             var list = GetComponentsInChildren<PoolItem>();
             foreach (var item in list)
-            {
-                _index.Add(item, null);
-                item.MakeLink(null);
-            }
+                _freeItems.Enqueue(item);
+            */
         }
 
-        private void OnDestroy()
-        {
-            var keys = _index.Keys;
-            foreach (var key in keys)
-                RemoveItem(key);
-        }
+        private void OnDestroy() => Clear();
 
         /// <summary>
         /// Добавить элемент пула для данных
@@ -50,6 +46,7 @@ namespace Vortex.Unity.UI.PoolSystem
             if (_index.ContainsKey(data))
                 return;
             var item = CreateItem();
+            item.transform.SetAsLastSibling();
             _index.AddNew(data, item);
             item.MakeLink(data);
         }
@@ -97,6 +94,16 @@ namespace Vortex.Unity.UI.PoolSystem
             value.Remove();
             _freeItems.Enqueue(value);
             _index.Remove(data);
+        }
+
+        /// <summary>
+        /// очистка контейнера
+        /// </summary>
+        public void Clear()
+        {
+            var list = _index.Keys.ToArray();
+            foreach (var data in list)
+                RemoveItem(data);
         }
     }
 }

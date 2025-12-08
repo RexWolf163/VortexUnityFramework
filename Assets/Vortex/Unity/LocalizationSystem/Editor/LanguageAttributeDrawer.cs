@@ -1,7 +1,8 @@
-﻿using Sirenix.OdinInspector.Editor;
+﻿#if UNITY_EDITOR
+using Sirenix.OdinInspector.Editor;
+using Vortex.Unity.Extensions.Editor;
 using UnityEngine;
 using Vortex.Core.LocalizationSystem.Bus;
-using Vortex.Unity.Extensions.Editor;
 
 namespace Vortex.Unity.LocalizationSystem.Editor
 {
@@ -15,3 +16,4 @@ namespace Vortex.Unity.LocalizationSystem.Editor
         }
     }
 }
+#endif

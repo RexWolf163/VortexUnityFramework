@@ -7,8 +7,8 @@ namespace Vortex.Core.System.Abstractions
     /// Абстрактная основа для системного контроллера, работающего по принципу подключения драйвера
     /// соответствующего текущему движку. 
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <typeparam name="TD"></typeparam>
+    /// <typeparam name="T">Сам системный контроллер (рефлекс-линк)</typeparam>
+    /// <typeparam name="TD">Драйвер</typeparam>
     public abstract class SystemController<T, TD> : Singleton<T>
         where T : SystemController<T, TD>, new()
         where TD : ISystemDriver

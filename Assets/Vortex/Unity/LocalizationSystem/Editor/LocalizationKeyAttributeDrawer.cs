@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector.Editor;
+﻿#if UNITY_EDITOR
+using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities;
 using UnityEditor;
 using UnityEngine;
@@ -31,3 +32,4 @@ namespace Vortex.Unity.LocalizationSystem.Editor
         }
     }
 }
+#endif

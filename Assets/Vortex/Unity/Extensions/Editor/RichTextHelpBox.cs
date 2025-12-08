@@ -5,6 +5,7 @@ namespace Vortex.Unity.Extensions.Editor
 {
     public static class RichTextHelpBox
     {
+#if UNITY_EDITOR
         /// <summary>
         /// Расширенный HelpBox с поддержкой Rich Text
         /// </summary>
@@ -45,5 +46,6 @@ namespace Vortex.Unity.Extensions.Editor
             var rect = EditorGUILayout.GetControlRect(false, height);
             Create(rect, richTextMessage, messageType);
         }
+#endif
     }
 }

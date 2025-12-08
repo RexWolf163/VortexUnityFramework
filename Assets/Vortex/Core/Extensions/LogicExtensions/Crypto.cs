@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Security.Cryptography;
 using System.Text;
-using Codice.Client.Common;
 
 namespace Vortex.Core.Extensions.LogicExtensions
 {
