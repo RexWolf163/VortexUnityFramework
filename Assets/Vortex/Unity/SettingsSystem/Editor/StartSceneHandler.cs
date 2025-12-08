@@ -10,7 +10,7 @@ namespace Vortex.Unity.SettingsSystem.Editor
         [RuntimeInitializeOnLoadMethod]
         private static void Run()
         {
-            SceneManager.LoadSceneAsync(Settings.Data().StartScene);
+            SceneManager.LoadScene(Settings.Data().StartScene);
         }
     }
 }

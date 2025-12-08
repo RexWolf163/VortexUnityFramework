@@ -22,14 +22,6 @@ namespace Vortex.Unity.AppSystem.System
         private bool _started;
 #endif
 
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
-        private static void Init()
-        {
-            var go = Instantiate(new GameObject());
-            go.AddComponent<AppStateHandler>();
-            go.name = "AppStateHandler";
-        }
-
         private void Awake()
         {
             _oldState = App.GetState();
