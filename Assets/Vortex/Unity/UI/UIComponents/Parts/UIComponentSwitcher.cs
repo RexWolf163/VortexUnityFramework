@@ -22,10 +22,6 @@ namespace Vortex.Unity.UI.UIComponents.Parts
             switcher.Set(enumValue);
         }
 
-        private void OnDestroy()
-        {
-        }
-
         public int GetValue() => switcher.State < 0 ? 0 : switcher.State;
     }
 }

@@ -9,6 +9,9 @@ using Vortex.Unity.UI.UIComponents.Parts;
 
 namespace Vortex.Unity.Components.Misc.LocalizationSystem
 {
+    /// <summary>
+    /// Компонент для выставления фиксированного текста на UIComponent с возможностью локализации
+    /// </summary>
     [RequireComponent(typeof(UIComponent))]
     public class SetTextComponent : MonoBehaviour
     {

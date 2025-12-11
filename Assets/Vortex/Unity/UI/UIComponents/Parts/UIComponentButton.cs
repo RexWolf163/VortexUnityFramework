@@ -24,6 +24,7 @@ namespace Vortex.Unity.UI.UIComponents.Parts
         {
             if (_currentAction != null)
                 btn.onClick.RemoveListener(_currentAction);
+            _currentAction = action;
             if (action != null)
                 btn.onClick.AddListener(action);
         }

@@ -1,24 +1,19 @@
 using UnityEngine;
-using UnityEngine.UI;
 using Vortex.Core.AudioSystem;
 using Vortex.Core.AudioSystem.Bus;
 using Vortex.Core.Extensions.DefaultEnums;
-using Vortex.Unity.UI.Attributes;
-using Vortex.Unity.UI.StateSwitcher;
+using Vortex.Unity.UI.UIComponents;
 
 namespace Vortex.Unity.AudioSystem.Handlers
 {
     public class AudioSwitcher : MonoBehaviour
     {
-        [SerializeField, StateSwitcher(typeof(SwitcherState))]
-        private UIStateSwitcher switcher;
-
-        [SerializeField] private Button button;
+        [SerializeField] private UIComponent uiComponent;
         [SerializeField] private SoundType controlType;
 
         private void OnEnable()
         {
-            button.onClick.AddListener(OnChange);
+            uiComponent.SetAction(OnChange);
             Refresh();
         }
 
@@ -33,7 +28,6 @@ namespace Vortex.Unity.AudioSystem.Handlers
 
         private void OnDisable()
         {
-            button.onClick.RemoveListener(OnChange);
         }
 
         private void Refresh()
@@ -41,7 +35,7 @@ namespace Vortex.Unity.AudioSystem.Handlers
             var state = controlType == SoundType.Sound
                 ? AudioProvider.Settings.SoundOn
                 : AudioProvider.Settings.MusicOn;
-            switcher.Set(state ? SwitcherState.On : SwitcherState.Off);
+            uiComponent.SetSwitcher(state ? SwitcherState.On : SwitcherState.Off);
         }
     }
 }

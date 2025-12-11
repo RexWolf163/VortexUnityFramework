@@ -19,4 +19,4 @@ MonoBehaviour:
   icon: {fileID: 0}
   audioClip: {fileID: 8300000, guid: 3b75dd48ebff4fc49b014098f3c44ef5, type: 3}
   pitchRange: {x: 0.7234043, y: 1.319149}
-  valueRange: {x: 0.66312057, y: 1}
+  valueRange: {x: 0.30851063, y: 0.4893617}

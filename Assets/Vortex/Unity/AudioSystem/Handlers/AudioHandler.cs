@@ -1,4 +1,5 @@
 ﻿using Sirenix.OdinInspector;
+using Sirenix.Utilities;
 using UnityEngine;
 using Vortex.Core.AudioSystem.Bus;
 using Vortex.Core.AudioSystem.Model;
@@ -66,7 +67,7 @@ namespace Vortex.Unity.AudioSystem.Handlers
 
         private void OnEnable()
         {
-            if (audioSource == null || audioSource.clip == null)
+            if (audioSource == null || (audioSource.clip == null && audioSample.IsNullOrWhitespace()))
                 return;
             AudioProvider.OnSettingsChanged += CheckSettings;
             CheckSettings();
@@ -76,7 +77,7 @@ namespace Vortex.Unity.AudioSystem.Handlers
 
         private void OnDisable()
         {
-            if (audioSource == null || audioSource.clip == null)
+            if (audioSource == null || (audioSource.clip == null && audioSample.IsNullOrWhitespace()))
                 return;
             AudioProvider.OnSettingsChanged -= CheckSettings;
             Stop();
