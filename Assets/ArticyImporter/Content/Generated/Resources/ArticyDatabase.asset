@@ -1,0 +1,440 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-1521539828183862108
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1174674681, guid: df2ec02f61e861546b9427c26ccacb8d, type: 3}
+  m_Name: LocalizationManager
+  m_EditorClassIdentifier: 
+  mLocalizeObjectDefinitions: 0
+  mLanguageId: 127
+  mLanguages:
+  - mArticyLanguageId: 127
+    mCultureName: ru-RU
+    mLanguageName: Russian (Russia)
+    mIsVoiceOver: 0
+  mThrowOnMissingText: 0
+  mClearOnLanguageSwitch: 1
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1676762633, guid: df2ec02f61e861546b9427c26ccacb8d, type: 3}
+  m_Name: ArticyDatabase
+  m_EditorClassIdentifier: 
+  mHierarchy: {fileID: 7531117786693039710}
+  mLocalization: {fileID: -1521539828183862108}
+  mRuleSetId: 270
+  mArticyAssetsUseResourcesFolder: 1
+  mInternalProject:
+    mName: SFNovel
+    mDetailName: 
+    mId: de4a4f69-ce1f-496b-9816-86f4009f33ab
+    mTechnicalName: Sf_Novel
+  mImportedAssets:
+  - "\u0420\u0435\u0441\u0443\u0440\u0441\u044B/\u0418\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F/bg.jpg"
+  - "\u0420\u0435\u0441\u0443\u0440\u0441\u044B/\u0418\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F/space_ship.jpg"
+  mDefaultGlobalVariables: {fileID: 191121823018719974}
+  mPackages:
+  - PackageId: 72057594037928209
+    PackageName: "\u0412\u0441\u0435 \u043E\u0431\u044A\u0435\u043A\u0442\u044B"
+    PackagePath: package_0x100000000000111
+    mIsDefaultPackage: 1
+--- !u!114 &191121823018719974
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7e5e4cb8913dbf4ab792615e8259aec, type: 3}
+  m_Name: DefaultGlobalVariables
+  m_EditorClassIdentifier: 
+  mBoolVariableCache: []
+  mIntVariableCache: []
+  mStringVariableCache: []
+  mLiveBoolVariableCache: []
+  mLiveIntVariableCache: []
+  mLiveStringVariableCache: []
+  mIsInitialized: 1
+--- !u!114 &7531117786693039710
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1655710724, guid: df2ec02f61e861546b9427c26ccacb8d, type: 3}
+  m_Name: HierarchyManager
+  m_EditorClassIdentifier: 
+  serializedNodes:
+  - id: 72057594037927937
+    parent: 0
+    technicalName: Sf_Novel
+    articyType: Project
+    childCount: 10
+  - id: 216172786292838683
+    parent: 72057594037927937
+    technicalName: ProjectSettings
+    articyType: ProjectSettingsFolder
+    childCount: 4
+  - id: 72057594037927947
+    parent: 216172786292838683
+    technicalName: 
+    articyType: ProjectSettingsLocation
+    childCount: 0
+  - id: 72057594037927943
+    parent: 216172786292838683
+    technicalName: 
+    articyType: ProjectSettingsGeneral
+    childCount: 0
+  - id: 72057594037927948
+    parent: 216172786292838683
+    technicalName: 
+    articyType: ProjectSettingsFlow
+    childCount: 0
+  - id: 72057594037927946
+    parent: 216172786292838683
+    technicalName: 
+    articyType: ProjectSettingsJourneys
+    childCount: 0
+  - id: 216172782840400980
+    parent: 72057594037927937
+    technicalName: GlobalVariables
+    articyType: GlobalVariables
+    childCount: 0
+  - id: 216172783251375095
+    parent: 72057594037927937
+    technicalName: Flow
+    articyType: Flow
+    childCount: 1
+  - id: 72057594037928672
+    parent: 216172783251375095
+    technicalName: Dlg_FB79ACAF
+    articyType: Dialogue
+    childCount: 10
+  - id: 72057594037928681
+    parent: 72057594037928672
+    technicalName: DFr_3E993976
+    articyType: DialogueFragment
+    childCount: 0
+  - id: 72057594037928694
+    parent: 72057594037928672
+    technicalName: DFr_3EB494C6
+    articyType: DialogueFragment
+    childCount: 0
+  - id: 72057594037928699
+    parent: 72057594037928672
+    technicalName: DFr_A15F1799
+    articyType: DialogueFragment
+    childCount: 0
+  - id: 72057594037928709
+    parent: 72057594037928672
+    technicalName: DFr_85F87F6B
+    articyType: DialogueFragment
+    childCount: 0
+  - id: 72057594037928728
+    parent: 72057594037928672
+    technicalName: Ins_71F2EBC5
+    articyType: Instruction
+    childCount: 0
+  - id: 72057594037928770
+    parent: 72057594037928672
+    technicalName: Ins_F0CE2A19
+    articyType: Instruction
+    childCount: 0
+  - id: 72057594037928777
+    parent: 72057594037928672
+    technicalName: Cnd_02DA6A9E
+    articyType: Condition
+    childCount: 0
+  - id: 72057594037928784
+    parent: 72057594037928672
+    technicalName: DFr_489C6D1B
+    articyType: DialogueFragment
+    childCount: 0
+  - id: 72057594037928791
+    parent: 72057594037928672
+    technicalName: DFr_4ECA12F0
+    articyType: DialogueFragment
+    childCount: 0
+  - id: 72057594037928800
+    parent: 72057594037928672
+    technicalName: DFr_9FB7B14B
+    articyType: DialogueFragment
+    childCount: 0
+  - id: 216172785005863603
+    parent: 72057594037927937
+    technicalName: Entities
+    articyType: Entities
+    childCount: 2
+  - id: 72057594037928666
+    parent: 216172785005863603
+    technicalName: Ntt_1A42E0AA
+    articyType: Entity
+    childCount: 0
+  - id: 72057594037928255
+    parent: 216172785005863603
+    technicalName: MainHero
+    articyType: Entity
+    childCount: 0
+  - id: 216172782940115884
+    parent: 72057594037927937
+    technicalName: Locations
+    articyType: Locations
+    childCount: 0
+  - id: 216172782386062064
+    parent: 72057594037927937
+    technicalName: Documents
+    articyType: Documents
+    childCount: 0
+  - id: 216172782708290162
+    parent: 72057594037927937
+    technicalName: Journeys
+    articyType: Journeys
+    childCount: 0
+  - id: 216172782815217020
+    parent: 72057594037927937
+    technicalName: TemplateDesign
+    articyType: TemplateDesign
+    childCount: 3
+  - id: 216172782852592046
+    parent: 216172782815217020
+    technicalName: PropertyTemplates
+    articyType: PropertyTemplates
+    childCount: 6
+  - id: 216172785252364728
+    parent: 216172782852592046
+    technicalName: 
+    articyType: TypedPropertyTemplates
+    childCount: 0
+  - id: 216172783051006960
+    parent: 216172782852592046
+    technicalName: 
+    articyType: TypedPropertyTemplates
+    childCount: 2
+  - id: 72057594037928335
+    parent: 216172783051006960
+    technicalName: MouseAction
+    articyType: EnumPropertyTemplate
+    childCount: 0
+  - id: 72057594037928474
+    parent: 216172783051006960
+    technicalName: Sex
+    articyType: EnumPropertyTemplate
+    childCount: 0
+  - id: 216172785725457481
+    parent: 216172782852592046
+    technicalName: 
+    articyType: TypedPropertyTemplates
+    childCount: 0
+  - id: 216172783022940736
+    parent: 216172782852592046
+    technicalName: 
+    articyType: TypedPropertyTemplates
+    childCount: 0
+  - id: 216172783984629646
+    parent: 216172782852592046
+    technicalName: 
+    articyType: TypedPropertyTemplates
+    childCount: 0
+  - id: 216172783962167179
+    parent: 216172782852592046
+    technicalName: 
+    articyType: TypedPropertyTemplates
+    childCount: 0
+  - id: 216172785641213376
+    parent: 216172782815217020
+    technicalName: Features
+    articyType: Features
+    childCount: 2
+  - id: 72057594037927951
+    parent: 216172785641213376
+    technicalName: DefaultCharacterFeature
+    articyType: Feature
+    childCount: 0
+  - id: 72057594037928017
+    parent: 216172785641213376
+    technicalName: DefaultExtendedCharacterFeature
+    articyType: Feature
+    childCount: 0
+  - id: 216172784713633229
+    parent: 216172782815217020
+    technicalName: Templates
+    articyType: Templates
+    childCount: 18
+  - id: 216172784138869361
+    parent: 216172784713633229
+    technicalName: 
+    articyType: TemplateTypeFolder
+    childCount: 3
+  - id: 72057594037928622
+    parent: 216172784138869361
+    technicalName: Object
+    articyType: Template
+    childCount: 0
+  - id: 72057594037928259
+    parent: 216172784138869361
+    technicalName: Persona
+    articyType: Template
+    childCount: 0
+  - id: 72057594037928620
+    parent: 216172784138869361
+    technicalName: Subject
+    articyType: Template
+    childCount: 0
+  - id: 216172784493379826
+    parent: 216172784713633229
+    technicalName: 
+    articyType: TemplateTypeFolder
+    childCount: 0
+  - id: 216172786085793667
+    parent: 216172784713633229
+    technicalName: 
+    articyType: TemplateTypeFolder
+    childCount: 0
+  - id: 216172784917004375
+    parent: 216172784713633229
+    technicalName: 
+    articyType: TemplateTypeFolder
+    childCount: 0
+  - id: 216172785542236144
+    parent: 216172784713633229
+    technicalName: 
+    articyType: TemplateTypeFolder
+    childCount: 0
+  - id: 216172785234488879
+    parent: 216172784713633229
+    technicalName: 
+    articyType: TemplateTypeFolder
+    childCount: 0
+  - id: 216172784576846222
+    parent: 216172784713633229
+    technicalName: 
+    articyType: TemplateTypeFolder
+    childCount: 0
+  - id: 216172783227679388
+    parent: 216172784713633229
+    technicalName: 
+    articyType: TemplateTypeFolder
+    childCount: 0
+  - id: 216172785027381783
+    parent: 216172784713633229
+    technicalName: 
+    articyType: TemplateTypeFolder
+    childCount: 0
+  - id: 216172783507662867
+    parent: 216172784713633229
+    technicalName: 
+    articyType: TemplateTypeFolder
+    childCount: 0
+  - id: 216172782925599000
+    parent: 216172784713633229
+    technicalName: 
+    articyType: TemplateTypeFolder
+    childCount: 0
+  - id: 216172786328477020
+    parent: 216172784713633229
+    technicalName: 
+    articyType: TemplateTypeFolder
+    childCount: 0
+  - id: 216172786225525660
+    parent: 216172784713633229
+    technicalName: 
+    articyType: TemplateTypeFolder
+    childCount: 0
+  - id: 216172784638832577
+    parent: 216172784713633229
+    technicalName: 
+    articyType: TemplateTypeFolder
+    childCount: 0
+  - id: 216172785817780125
+    parent: 216172784713633229
+    technicalName: 
+    articyType: TemplateTypeFolder
+    childCount: 0
+  - id: 216172782164859599
+    parent: 216172784713633229
+    technicalName: 
+    articyType: TemplateTypeFolder
+    childCount: 0
+  - id: 216172783944319605
+    parent: 216172784713633229
+    technicalName: 
+    articyType: TemplateTypeFolder
+    childCount: 0
+  - id: 216172782447180314
+    parent: 216172784713633229
+    technicalName: 
+    articyType: TemplateTypeFolder
+    childCount: 0
+  - id: 216172782503605138
+    parent: 72057594037927937
+    technicalName: 
+    articyType: RuleSets
+    childCount: 1
+  - id: 72057594037928206
+    parent: 216172782503605138
+    technicalName: 
+    articyType: RuleSet
+    childCount: 1
+  - id: 72057594037928209
+    parent: 72057594037928206
+    technicalName: 
+    articyType: RuleSetPackage
+    childCount: 0
+  - id: 216172783392894804
+    parent: 72057594037927937
+    technicalName: Assets
+    articyType: Assets
+    childCount: 5
+  - id: 72057594037928216
+    parent: 216172783392894804
+    technicalName: Ufo_776270C4
+    articyType: AssetsUserFolder
+    childCount: 0
+  - id: 72057594037928214
+    parent: 216172783392894804
+    technicalName: Ufo_842376A0
+    articyType: AssetsUserFolder
+    childCount: 0
+  - id: 72057594037928218
+    parent: 216172783392894804
+    technicalName: Ufo_F618F5DE
+    articyType: AssetsUserFolder
+    childCount: 0
+  - id: 72057594037928212
+    parent: 216172783392894804
+    technicalName: Ufo_4B64FB97
+    articyType: AssetsUserFolder
+    childCount: 2
+  - id: 72057594037928240
+    parent: 72057594037928212
+    technicalName: Ast_96B0ACB2
+    articyType: Asset
+    childCount: 0
+  - id: 72057594037928243
+    parent: 72057594037928212
+    technicalName: Ast_B4212EBB
+    articyType: Asset
+    childCount: 0
+  - id: 72057594037928220
+    parent: 216172783392894804
+    technicalName: Ufo_D6239807
+    articyType: AssetsUserFolder
+    childCount: 0
