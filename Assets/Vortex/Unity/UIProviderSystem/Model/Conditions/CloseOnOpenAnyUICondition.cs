@@ -21,7 +21,7 @@ namespace Vortex.Unity.UIProviderSystem.Model.Conditions
         public override ConditionAnswer Check()
         {
             var list = UIProvider.GetOpenedUIs();
-            if (list.Contains(Data) && list.Count == 1)
+            if (list.Count == 0 || list.Contains(Data) && list.Count == 1)
                 return ConditionAnswer.Idle;
             return ConditionAnswer.Close;
         }

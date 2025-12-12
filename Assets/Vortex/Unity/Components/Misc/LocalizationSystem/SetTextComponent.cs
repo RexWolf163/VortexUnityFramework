@@ -1,4 +1,5 @@
 using Sirenix.OdinInspector;
+using UnityEditor;
 using UnityEngine;
 using Vortex.Core.LocalizationSystem;
 using Vortex.Core.LocalizationSystem.Bus;
@@ -12,7 +13,7 @@ namespace Vortex.Unity.Components.Misc.LocalizationSystem
     /// <summary>
     /// Компонент для выставления фиксированного текста на UIComponent с возможностью локализации
     /// </summary>
-    [RequireComponent(typeof(UIComponent))]
+    [RequireComponent(typeof(UIComponent)), ExecuteInEditMode]
     public class SetTextComponent : MonoBehaviour
     {
         [SerializeField, LocalizationKey] private string key;

@@ -92,6 +92,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Button Text Only
       objectReference: {fileID: 0}
+    - target: {fileID: 9137159662382396002, guid: eb17112945cac22429015b0741c9d913, type: 3}
+      propertyPath: m_Color.a
+      value: 0.22745098
+      objectReference: {fileID: 0}
+    - target: {fileID: 9137159662382396002, guid: eb17112945cac22429015b0741c9d913, type: 3}
+      propertyPath: m_Color.b
+      value: 0.6886792
+      objectReference: {fileID: 0}
+    - target: {fileID: 9137159662382396002, guid: eb17112945cac22429015b0741c9d913, type: 3}
+      propertyPath: m_Color.g
+      value: 0.6886792
+      objectReference: {fileID: 0}
+    - target: {fileID: 9137159662382396002, guid: eb17112945cac22429015b0741c9d913, type: 3}
+      propertyPath: m_Color.r
+      value: 0.6886792
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 9137159661881360525, guid: eb17112945cac22429015b0741c9d913, type: 3}
     - {fileID: 9137159661881360526, guid: eb17112945cac22429015b0741c9d913, type: 3}

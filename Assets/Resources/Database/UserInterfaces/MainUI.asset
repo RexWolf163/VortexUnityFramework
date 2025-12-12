@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a586ca5f6724159a0298ef2b3e130f8, type: 3}
+  m_Name: MainUI
+  m_EditorClassIdentifier: 
+  type: 1
+  guid: 2c2935395576cc42c149027d24619616b2b0bacbff91ef45aa4b4db151958932
+  nameRecord: MainUI
+  description: "\u0411\u0430\u0437\u043E\u0432\u044B\u0439 \u0438\u043D\u0442\u0435\u0440\u0444\u0435\u0439\u0441
+    \u0437\u0430\u0433\u043B\u0430\u0432\u043D\u043E\u0433\u043E \u043C\u0435\u043D\u044E"
+  icon: {fileID: 21300000, guid: 6cead9894e4ca0546b8bc415d8acef39, type: 3}
+  uiType: 0
+  conditions:
+  - rid: 8163022186157441093
+  - rid: 1274201216226689093
+  references:
+    version: 2
+    RefIds:
+    - rid: 1274201216226689093
+      type: {class: AutoLoadCondition, ns: Vortex.Unity.UIProviderSystem.Model.Conditions, asm: ru.vortex.unity.uiprovider}
+      data: 
+    - rid: 8163022186157441093
+      type: {class: CloseOnOpenAnyUICondition, ns: Vortex.Unity.UIProviderSystem.Model.Conditions, asm: ru.vortex.unity.uiprovider}
+      data: 

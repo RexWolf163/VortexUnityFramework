@@ -71,6 +71,24 @@ MonoBehaviour:
       text: "\u0417\u0432\u0443\u043A\u0438"
     - language: English
       text: Sounds
+  - key: START_GAME
+    texts:
+    - language: Russian
+      text: "\u0418\u0433\u0440\u0430\u0442\u044C"
+    - language: English
+      text: Play
+  - key: EXIT_GAME
+    texts:
+    - language: Russian
+      text: "\u0412\u044B\u0445\u043E\u0434"
+    - language: English
+      text: Exit
+  - key: SAVE_GAME
+    texts:
+    - language: Russian
+      text: "\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C"
+    - language: English
+      text: Save
   - key: QUEST1_TITLE
     texts:
     - language: Russian
