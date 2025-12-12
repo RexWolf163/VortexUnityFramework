@@ -78,6 +78,11 @@ namespace Vortex.Core.UIProviderSystem.Model
                 condition.DeInit();
         }
 
+        /// <summary>
+        /// Проверка условия открытия окна.
+        /// Idle не изменяет состояния
+        /// Между Open и Close - приоритет на Close
+        /// </summary>
         private void CheckConditions()
         {
             var state = IsOpen ? ConditionAnswer.Open : ConditionAnswer.Close;
