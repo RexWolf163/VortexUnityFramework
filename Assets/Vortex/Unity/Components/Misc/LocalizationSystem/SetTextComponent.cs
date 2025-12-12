@@ -1,3 +1,4 @@
+using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Vortex.Core.LocalizationSystem;
@@ -12,7 +13,7 @@ namespace Vortex.Unity.Components.Misc.LocalizationSystem
     /// <summary>
     /// Компонент для выставления фиксированного текста на UIComponent с возможностью локализации
     /// </summary>
-    [RequireComponent(typeof(UIComponent))]
+    [RequireComponent(typeof(UIComponent)), ExecuteAlways]
     public class SetTextComponent : MonoBehaviour
     {
         [SerializeField, LocalizationKey] private string key;
@@ -44,14 +45,22 @@ namespace Vortex.Unity.Components.Misc.LocalizationSystem
         private void RefreshData() => uiComponent.SetText(useLocalization ? key.Translate() : key);
 
 #if UNITY_EDITOR
+        /*
         [OnInspectorInit]
         private void RefreshOnInspectorInit() => RefreshData();
 
+        */
         private void OnValidate()
         {
             if (uiComponent != null)
                 return;
             uiComponent = gameObject.GetComponent<UIComponent>();
+        }
+
+        private void Update()
+        {
+            if (isActiveAndEnabled)
+                RefreshData();
         }
 #endif
     }
