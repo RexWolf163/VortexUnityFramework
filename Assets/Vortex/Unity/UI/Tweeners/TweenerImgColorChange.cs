@@ -8,7 +8,7 @@ namespace Vortex.Unity.UI.Tweeners
     /// <summary>
     /// Твинер изменения цвета
     /// </summary>
-    public class TweenerColorChange : TweenerBase
+    public class TweenerImgColorChange : TweenerBase
     {
         /// <summary>
         /// Конечный цвет
