@@ -63,16 +63,19 @@ namespace Vortex.Unity.Components.LoaderSystem
             {
                 case AppStates.Starting:
                     StartCoroutine(View());
-                    switcher.Set(States.Loading);
+                    if (switcher != null)
+                        switcher.Set(States.Loading);
                     return;
                 case AppStates.Running:
                     StopAllCoroutines();
                     Refresh();
-                    switcher.Set(States.Completed);
+                    if (switcher != null)
+                        switcher.Set(States.Completed);
                     App.OnStateChanged -= OnStateChange;
                     return;
                 default:
-                    switcher.Set(States.Waiting);
+                    if (switcher != null)
+                        switcher.Set(States.Waiting);
                     break;
             }
         }

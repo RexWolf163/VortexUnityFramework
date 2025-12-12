@@ -44,6 +44,9 @@ namespace Vortex.Unity.Components.Misc.LocalizationSystem
         private void RefreshData() => uiComponent.SetText(useLocalization ? key.Translate() : key);
 
 #if UNITY_EDITOR
+        [OnInspectorInit]
+        private void RefreshOnInspectorInit() => RefreshData();
+
         private void OnValidate()
         {
             if (uiComponent != null)
