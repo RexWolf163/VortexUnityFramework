@@ -23,7 +23,7 @@ namespace Articy.Sf_Novel
     
     
     [Serializable()]
-    [Articy.Unity.ArticyCodeGenerationHashAttribute(639010611284833675)]
+    [Articy.Unity.ArticyCodeGenerationHashAttribute(639013898418780847)]
     public class InputPin : ArticyPrimitive, IInputPin
     {
         

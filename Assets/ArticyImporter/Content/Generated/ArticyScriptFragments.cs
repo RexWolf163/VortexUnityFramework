@@ -20,7 +20,7 @@ namespace Articy.Sf_Novel.GlobalVariables
 {
     
     
-    [Articy.Unity.ArticyCodeGenerationHashAttribute(639010611370545181)]
+    [Articy.Unity.ArticyCodeGenerationHashAttribute(639013898500181881)]
     public partial class ArticyScriptFragments : BaseScriptFragments, ISerializationCallbackReceiver
     {
         

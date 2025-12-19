@@ -24,11 +24,51 @@ namespace Articy.Sf_Novel.GlobalVariables
     public class ArticyGlobalVariables : BaseGlobalVariables
     {
         
+        [SerializeField()]
+        [HideInInspector()]
+        private PegasData mPegasData = new PegasData();
+        
+        [SerializeField()]
+        [HideInInspector()]
+        private HeroCodexData mHeroCodexData = new HeroCodexData();
+        
+        [SerializeField()]
+        [HideInInspector()]
+        private CurrentScene mCurrentScene = new CurrentScene();
+        
         #region Initialize static VariableName set
         static ArticyGlobalVariables()
         {
+            variableNames.Add("PegasData.HumanAIMod");
+            variableNames.Add("HeroCodexData.SS_Pegas_BaseInfo");
+            variableNames.Add("CurrentScene.location");
+            variableNames.Add("CurrentScene.state");
         }
         #endregion
+        
+        public PegasData PegasData
+        {
+            get
+            {
+                return mPegasData;
+            }
+        }
+        
+        public HeroCodexData HeroCodexData
+        {
+            get
+            {
+                return mHeroCodexData;
+            }
+        }
+        
+        public CurrentScene CurrentScene
+        {
+            get
+            {
+                return mCurrentScene;
+            }
+        }
         
         public static ArticyGlobalVariables Default
         {
@@ -40,6 +80,9 @@ namespace Articy.Sf_Novel.GlobalVariables
         
         public override void Init()
         {
+            PegasData.RegisterVariables(this);
+            HeroCodexData.RegisterVariables(this);
+            CurrentScene.RegisterVariables(this);
         }
         
         public static ArticyGlobalVariables CreateGlobalVariablesClone()

@@ -9,6 +9,7 @@
 //------------------------------------------------------------------------------
 
 using Articy.Sf_Novel;
+using Articy.Sf_Novel.Features;
 using Articy.Unity;
 using Articy.Unity.Interfaces;
 using System;
@@ -23,5 +24,15 @@ namespace Articy.Sf_Novel.Templates
     
     public class SubjectTemplateConstraint
     {
+        
+        private NarrativeFeatureConstraint mNarrative = new NarrativeFeatureConstraint();
+        
+        public NarrativeFeatureConstraint Narrative
+        {
+            get
+            {
+                return mNarrative;
+            }
+        }
     }
 }

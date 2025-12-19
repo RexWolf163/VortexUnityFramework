@@ -194,9 +194,23 @@ namespace Vortex.Unity.UI.StateSwitcher
         }
 
         /// <summary>
+        /// Возвращает результат поиска состояния с указанным названием в виде номера состояния
+        /// </summary>
+        /// <param name="state"></param>
+        /// <returns></returns>
+        public int GetState(string state)
+        {
+            for (var i = 0; i < _states.Length; i++)
+                if (_states[i].Name == state)
+                    return i;
+
+            return -1;
+        }
+
+        /// <summary>
         /// Выставление указанного состояния
         /// </summary>
-        /// <param name="state">состояниe в виде строкового названия, дананого в <see cref="StateData"/></param>
+        /// <param name="state">состояниe в виде строкового названия, указанного в <see cref="StateData"/></param>
         public void Set(string state)
         {
             for (var i = 0; i < _states.Length; i++)

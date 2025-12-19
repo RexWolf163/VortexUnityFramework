@@ -27,7 +27,7 @@ namespace Articy.Sf_Novel.Templates
     {
         
         [SerializeField()]
-        private ArticyValueDefaultCharacterFeatureFeature mDefaultCharacterFeature = new ArticyValueDefaultCharacterFeatureFeature();
+        private ArticyValueNarrativeFeature mNarrative = new ArticyValueNarrativeFeature();
         
         [SerializeField()]
         private UInt64 mOwnerId;
@@ -35,15 +35,15 @@ namespace Articy.Sf_Novel.Templates
         [SerializeField()]
         private UInt32 mOwnerInstanceId;
         
-        public Articy.Sf_Novel.Features.DefaultCharacterFeatureFeature DefaultCharacterFeature
+        public Articy.Sf_Novel.Features.NarrativeFeature Narrative
         {
             get
             {
-                return mDefaultCharacterFeature.GetValue();
+                return mNarrative.GetValue();
             }
             set
             {
-                mDefaultCharacterFeature.SetValue(value);
+                mNarrative.SetValue(value);
             }
         }
         
@@ -56,7 +56,7 @@ namespace Articy.Sf_Novel.Templates
             set
             {
                 mOwnerId = value;
-                DefaultCharacterFeature.OwnerId = value;
+                Narrative.OwnerId = value;
             }
         }
         
@@ -69,16 +69,16 @@ namespace Articy.Sf_Novel.Templates
             set
             {
                 mOwnerInstanceId = value;
-                DefaultCharacterFeature.OwnerInstanceId = value;
+                Narrative.OwnerInstanceId = value;
             }
         }
         
         private void CloneProperties(object aClone, Articy.Unity.ArticyObject aFirstClassParent)
         {
             Articy.Sf_Novel.Templates.PersonaTemplate newClone = ((Articy.Sf_Novel.Templates.PersonaTemplate)(aClone));
-            if ((DefaultCharacterFeature != null))
+            if ((Narrative != null))
             {
-                newClone.DefaultCharacterFeature = ((Articy.Sf_Novel.Features.DefaultCharacterFeatureFeature)(DefaultCharacterFeature.CloneObject(newClone, aFirstClassParent)));
+                newClone.Narrative = ((Articy.Sf_Novel.Features.NarrativeFeature)(Narrative.CloneObject(newClone, aFirstClassParent)));
             }
             newClone.OwnerId = OwnerId;
         }
@@ -98,9 +98,9 @@ namespace Articy.Sf_Novel.Templates
             {
                 string featurePath = aProperty.Substring(0, featureIndex);
                 string featureProperty = aProperty.Substring((featureIndex + 1));
-                if ((featurePath == "DefaultCharacterFeature"))
+                if ((featurePath == "Narrative"))
                 {
-                    DefaultCharacterFeature.setProp(featureProperty, aValue);
+                    Narrative.setProp(featureProperty, aValue);
                 }
             }
         }
@@ -112,9 +112,9 @@ namespace Articy.Sf_Novel.Templates
             {
                 string featurePath = aProperty.Substring(0, featureIndex);
                 string featureProperty = aProperty.Substring((featureIndex + 1));
-                if ((featurePath == "DefaultCharacterFeature"))
+                if ((featurePath == "Narrative"))
                 {
-                    return DefaultCharacterFeature.getProp(featureProperty);
+                    return Narrative.getProp(featureProperty);
                 }
             }
             return null;

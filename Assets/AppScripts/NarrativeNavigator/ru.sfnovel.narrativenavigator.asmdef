@@ -1,0 +1,23 @@
+{
+    "name": "ru.sfnovel.narrativenavigator",
+    "rootNamespace": "",
+    "references": [
+        "GUID:a00fea34cd87e874eb05688c1583b814",
+        "GUID:27ea219928481af49b58521e89020da5",
+        "GUID:575856dde8801184fa9686b36c638871",
+        "GUID:61328ee0671b5b5429f7ef2e1137c0b5",
+        "GUID:f1e680f843d477b4982469a7325c2f44",
+        "GUID:c7deb4416a845cb4d8145918aa7894a4",
+        "GUID:17b182482ffc1864eb8c19002d0dd90d",
+        "GUID:107a1ae24d335a64783f6777158a6259"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

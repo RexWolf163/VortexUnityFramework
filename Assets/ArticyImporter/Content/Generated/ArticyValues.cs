@@ -66,15 +66,6 @@ namespace Articy.Sf_Novel
     
     
     [Serializable()]
-    public class ArticyValueSex : ArticyValue<Sex>
-    {
-    }
-}
-namespace Articy.Sf_Novel
-{
-    
-    
-    [Serializable()]
     public class ArticyValueShapeType : ArticyValue<ShapeType>
     {
     }
@@ -192,6 +183,33 @@ namespace Articy.Sf_Novel
     
     
     [Serializable()]
+    public class ArticyValuePersonaTemplate : ArticyValue<Articy.Sf_Novel.Templates.PersonaTemplate>
+    {
+    }
+}
+namespace Articy.Sf_Novel
+{
+    
+    
+    [Serializable()]
+    public class ArticyValueNarrativeFeature : ArticyValue<Articy.Sf_Novel.Features.NarrativeFeature>
+    {
+    }
+}
+namespace Articy.Sf_Novel
+{
+    
+    
+    [Serializable()]
+    public class ArticyValuePersona : ArticyValue<Persona>
+    {
+    }
+}
+namespace Articy.Sf_Novel
+{
+    
+    
+    [Serializable()]
     public class ArticyValueSubjectTemplate : ArticyValue<Articy.Sf_Novel.Templates.SubjectTemplate>
     {
     }
@@ -202,33 +220,6 @@ namespace Articy.Sf_Novel
     
     [Serializable()]
     public class ArticyValueSubject : ArticyValue<Subject>
-    {
-    }
-}
-namespace Articy.Sf_Novel
-{
-    
-    
-    [Serializable()]
-    public class ArticyValuePersonaTemplate : ArticyValue<Articy.Sf_Novel.Templates.PersonaTemplate>
-    {
-    }
-}
-namespace Articy.Sf_Novel
-{
-    
-    
-    [Serializable()]
-    public class ArticyValueDefaultCharacterFeatureFeature : ArticyValue<Articy.Sf_Novel.Features.DefaultCharacterFeatureFeature>
-    {
-    }
-}
-namespace Articy.Sf_Novel
-{
-    
-    
-    [Serializable()]
-    public class ArticyValuePersona : ArticyValue<Persona>
     {
     }
 }
@@ -256,6 +247,24 @@ namespace Articy.Sf_Novel
     
     [Serializable()]
     public class ArticyValueLocation : ArticyValue<Location>
+    {
+    }
+}
+namespace Articy.Sf_Novel
+{
+    
+    
+    [Serializable()]
+    public class ArticyValueLocationDataTemplate : ArticyValue<Articy.Sf_Novel.Templates.LocationDataTemplate>
+    {
+    }
+}
+namespace Articy.Sf_Novel
+{
+    
+    
+    [Serializable()]
+    public class ArticyValueLocationData : ArticyValue<LocationData>
     {
     }
 }

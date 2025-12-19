@@ -25,39 +25,91 @@ namespace Articy.Sf_Novel.GlobalVariables
         
         #region Script fragments
         /// <summary>
-        /// ObjectID: 0x100000000000349
-        /// Articy Object ref: articy://localhost/view/de4a4f69-ce1f-496b-9816-86f4009f33ab/72057594037928777?pane=selected&amp;tab=current
+        /// ObjectID: 0x1000000000005A8
+        /// Articy Object ref: articy://localhost/view/de4a4f69-ce1f-496b-9816-86f4009f33ab/72057594037929384?pane=selected&amp;tab=current
         /// </summary>
-        public bool Script_720575940379282090x100000000000349Expression(ArticyGlobalVariables aGlobalVariablesState, Articy.Unity.IBaseScriptMethodProvider aMethodProvider)
+        public bool Script_720575940379282090x1000000000005A8Text(ArticyGlobalVariables aGlobalVariablesState, Articy.Unity.IBaseScriptMethodProvider aMethodProvider)
         {
-            return getProp(aGlobalVariablesState, aMethodProvider, getObj(aGlobalVariablesState, aMethodProvider, "MainHero"), "DefaultCharacterFeature.Sex") == "Female";
+            return aGlobalVariablesState.HeroCodexData.SS_Pegas_BaseInfo == true;
         }
         
         /// <summary>
-        /// ObjectID: 0x100000000000318
-        /// Articy Object ref: articy://localhost/view/de4a4f69-ce1f-496b-9816-86f4009f33ab/72057594037928728?pane=selected&amp;tab=current
+        /// ObjectID: 0x1000000000004CA
+        /// Articy Object ref: articy://localhost/view/de4a4f69-ce1f-496b-9816-86f4009f33ab/72057594037929162?pane=selected&amp;tab=current
         /// </summary>
-        public void Script_720575940379282090x100000000000318Expression(ArticyGlobalVariables aGlobalVariablesState, Articy.Unity.IBaseScriptMethodProvider aMethodProvider)
+        public bool Script_720575940379282090x1000000000004CAText(ArticyGlobalVariables aGlobalVariablesState, Articy.Unity.IBaseScriptMethodProvider aMethodProvider)
         {
-            setProp(aGlobalVariablesState, aMethodProvider, getObj(aGlobalVariablesState, aMethodProvider, "MainHero"), "DefaultCharacterFeature.Sex", "Male");
+            return aGlobalVariablesState.PegasData.HumanAIMod == false;
         }
         
         /// <summary>
-        /// ObjectID: 0x100000000000342
-        /// Articy Object ref: articy://localhost/view/de4a4f69-ce1f-496b-9816-86f4009f33ab/72057594037928770?pane=selected&amp;tab=current
+        /// ObjectID: 0x1000000000004B8
+        /// Articy Object ref: articy://localhost/view/de4a4f69-ce1f-496b-9816-86f4009f33ab/72057594037929144?pane=selected&amp;tab=current
         /// </summary>
-        public void Script_720575940379282090x100000000000342Expression(ArticyGlobalVariables aGlobalVariablesState, Articy.Unity.IBaseScriptMethodProvider aMethodProvider)
+        public bool Script_720575940379282090x1000000000004B8Text(ArticyGlobalVariables aGlobalVariablesState, Articy.Unity.IBaseScriptMethodProvider aMethodProvider)
         {
-            setProp(aGlobalVariablesState, aMethodProvider, getObj(aGlobalVariablesState, aMethodProvider, "MainHero"), "DefaultCharacterFeature.Sex", "Female");
+            return aGlobalVariablesState.PegasData.HumanAIMod == true;
+        }
+        
+        /// <summary>
+        /// ObjectID: 0x100000000000500
+        /// Articy Object ref: articy://localhost/view/de4a4f69-ce1f-496b-9816-86f4009f33ab/72057594037929216?pane=selected&amp;tab=current
+        /// </summary>
+        public bool Script_720575940379282090x100000000000500Text(ArticyGlobalVariables aGlobalVariablesState, Articy.Unity.IBaseScriptMethodProvider aMethodProvider)
+        {
+            return aGlobalVariablesState.PegasData.HumanAIMod == true
+;
+        }
+        
+        /// <summary>
+        /// ObjectID: 0x10000000000052B
+        /// Articy Object ref: articy://localhost/view/de4a4f69-ce1f-496b-9816-86f4009f33ab/72057594037929259?pane=selected&amp;tab=current
+        /// </summary>
+        public bool Script_720575940379282090x10000000000052BText(ArticyGlobalVariables aGlobalVariablesState, Articy.Unity.IBaseScriptMethodProvider aMethodProvider)
+        {
+            return aGlobalVariablesState.PegasData.HumanAIMod == false;
+        }
+        
+        /// <summary>
+        /// ObjectID: 0x100000000000561
+        /// Articy Object ref: articy://localhost/view/de4a4f69-ce1f-496b-9816-86f4009f33ab/72057594037929313?pane=selected&amp;tab=current
+        /// </summary>
+        public void Script_720575940379282090x100000000000561Expression(ArticyGlobalVariables aGlobalVariablesState, Articy.Unity.IBaseScriptMethodProvider aMethodProvider)
+        {
+            aGlobalVariablesState.CurrentScene.location = "Loc_EarthOrbite";
+aGlobalVariablesState.CurrentScene.state = "cockpite_1";;
+        }
+        
+        /// <summary>
+        /// ObjectID: 0x1000000000004E8
+        /// Articy Object ref: articy://localhost/view/de4a4f69-ce1f-496b-9816-86f4009f33ab/72057594037929192?pane=selected&amp;tab=current
+        /// </summary>
+        public void Script_720575940379282090x1000000000004E8Expression(ArticyGlobalVariables aGlobalVariablesState, Articy.Unity.IBaseScriptMethodProvider aMethodProvider)
+        {
+            aGlobalVariablesState.PegasData.HumanAIMod = true;
+        }
+        
+        /// <summary>
+        /// ObjectID: 0x100000000000549
+        /// Articy Object ref: articy://localhost/view/de4a4f69-ce1f-496b-9816-86f4009f33ab/72057594037929289?pane=selected&amp;tab=current
+        /// </summary>
+        public void Script_720575940379282090x100000000000549Expression(ArticyGlobalVariables aGlobalVariablesState, Articy.Unity.IBaseScriptMethodProvider aMethodProvider)
+        {
+            aGlobalVariablesState.HeroCodexData.SS_Pegas_BaseInfo = true;
         }
         #endregion
         
         #region Unity serialization
         public virtual void OnAfterDeserialize_0x100000000000111()
         {
-            Conditions.Add(3874635752u, this.Script_720575940379282090x100000000000349Expression);
-            Instructions.Add(2746758026u, this.Script_720575940379282090x100000000000318Expression);
-            Instructions.Add(2979122101u, this.Script_720575940379282090x100000000000342Expression);
+            Conditions.Add(1792288249u, this.Script_720575940379282090x1000000000005A8Text);
+            Conditions.Add(1882949038u, this.Script_720575940379282090x1000000000004CAText);
+            Conditions.Add(1531679712u, this.Script_720575940379282090x1000000000004B8Text);
+            Conditions.Add(3030227757u, this.Script_720575940379282090x100000000000500Text);
+            Conditions.Add(879233923u, this.Script_720575940379282090x10000000000052BText);
+            Instructions.Add(1452115964u, this.Script_720575940379282090x100000000000561Expression);
+            Instructions.Add(3428996991u, this.Script_720575940379282090x1000000000004E8Expression);
+            Instructions.Add(178676561u, this.Script_720575940379282090x100000000000549Expression);
         }
         #endregion
     }

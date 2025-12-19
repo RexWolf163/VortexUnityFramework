@@ -25,13 +25,13 @@ namespace Articy.Sf_Novel.Templates
     public class PersonaTemplateConstraint
     {
         
-        private DefaultCharacterFeatureFeatureConstraint mDefaultCharacterFeature = new DefaultCharacterFeatureFeatureConstraint();
+        private NarrativeFeatureConstraint mNarrative = new NarrativeFeatureConstraint();
         
-        public DefaultCharacterFeatureFeatureConstraint DefaultCharacterFeature
+        public NarrativeFeatureConstraint Narrative
         {
             get
             {
-                return mDefaultCharacterFeature;
+                return mNarrative;
             }
         }
     }

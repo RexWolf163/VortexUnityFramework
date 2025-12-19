@@ -1,5 +1,44 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-8674197828788548062
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7e5e4cb8913dbf4ab792615e8259aec, type: 3}
+  m_Name: DefaultGlobalVariables
+  m_EditorClassIdentifier: 
+  mBoolVariableCache:
+  - mFullQualifiedName: PegasData.HumanAIMod
+    mVar:
+      values: 00
+  - mFullQualifiedName: HeroCodexData.SS_Pegas_BaseInfo
+    mVar:
+      values: 00
+  mIntVariableCache: []
+  mStringVariableCache:
+  - mFullQualifiedName: CurrentScene.location
+    mVar:
+      values:
+      - 
+  - mFullQualifiedName: CurrentScene.state
+    mVar:
+      values:
+      - 
+  mLiveBoolVariableCache: []
+  mLiveIntVariableCache: []
+  mLiveStringVariableCache: []
+  mIsInitialized: 1
+  mPegasData:
+    _VariableStorage: {fileID: -8674197828788548062}
+  mHeroCodexData:
+    _VariableStorage: {fileID: -8674197828788548062}
+  mCurrentScene:
+    _VariableStorage: {fileID: -8674197828788548062}
 --- !u!114 &-1521539828183862108
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -42,34 +81,13 @@ MonoBehaviour:
     mDetailName: 
     mId: de4a4f69-ce1f-496b-9816-86f4009f33ab
     mTechnicalName: Sf_Novel
-  mImportedAssets:
-  - "\u0420\u0435\u0441\u0443\u0440\u0441\u044B/\u0418\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F/bg.jpg"
-  - "\u0420\u0435\u0441\u0443\u0440\u0441\u044B/\u0418\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F/space_ship.jpg"
-  mDefaultGlobalVariables: {fileID: 191121823018719974}
+  mImportedAssets: []
+  mDefaultGlobalVariables: {fileID: -8674197828788548062}
   mPackages:
   - PackageId: 72057594037928209
     PackageName: "\u0412\u0441\u0435 \u043E\u0431\u044A\u0435\u043A\u0442\u044B"
     PackagePath: package_0x100000000000111
     mIsDefaultPackage: 1
---- !u!114 &191121823018719974
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7e5e4cb8913dbf4ab792615e8259aec, type: 3}
-  m_Name: DefaultGlobalVariables
-  m_EditorClassIdentifier: 
-  mBoolVariableCache: []
-  mIntVariableCache: []
-  mStringVariableCache: []
-  mLiveBoolVariableCache: []
-  mLiveIntVariableCache: []
-  mLiveStringVariableCache: []
-  mIsInitialized: 1
 --- !u!114 &7531117786693039710
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -117,75 +135,165 @@ MonoBehaviour:
     parent: 72057594037927937
     technicalName: GlobalVariables
     articyType: GlobalVariables
+    childCount: 3
+  - id: 72057594037929308
+    parent: 216172782840400980
+    technicalName: 
+    articyType: VariableSet
+    childCount: 0
+  - id: 72057594037929294
+    parent: 216172782840400980
+    technicalName: 
+    articyType: VariableSet
+    childCount: 0
+  - id: 72057594037929200
+    parent: 216172782840400980
+    technicalName: 
+    articyType: VariableSet
     childCount: 0
   - id: 216172783251375095
     parent: 72057594037927937
     technicalName: Flow
     articyType: Flow
-    childCount: 1
+    childCount: 2
   - id: 72057594037928672
     parent: 216172783251375095
-    technicalName: Dlg_FB79ACAF
+    technicalName: Dlg_Intro
     articyType: Dialogue
-    childCount: 10
-  - id: 72057594037928681
+    childCount: 21
+  - id: 72057594037929313
     parent: 72057594037928672
-    technicalName: DFr_3E993976
-    articyType: DialogueFragment
-    childCount: 0
-  - id: 72057594037928694
-    parent: 72057594037928672
-    technicalName: DFr_3EB494C6
-    articyType: DialogueFragment
-    childCount: 0
-  - id: 72057594037928699
-    parent: 72057594037928672
-    technicalName: DFr_A15F1799
-    articyType: DialogueFragment
-    childCount: 0
-  - id: 72057594037928709
-    parent: 72057594037928672
-    technicalName: DFr_85F87F6B
-    articyType: DialogueFragment
-    childCount: 0
-  - id: 72057594037928728
-    parent: 72057594037928672
-    technicalName: Ins_71F2EBC5
+    technicalName: Ins_BF6BBBBE
     articyType: Instruction
     childCount: 0
-  - id: 72057594037928770
+  - id: 72057594037929127
     parent: 72057594037928672
-    technicalName: Ins_F0CE2A19
+    technicalName: DFr_7EF726AD
+    articyType: DialogueFragment
+    childCount: 0
+  - id: 72057594037929112
+    parent: 72057594037928672
+    technicalName: DFr_349C8037
+    articyType: DialogueFragment
+    childCount: 0
+  - id: 72057594037929120
+    parent: 72057594037928672
+    technicalName: DFr_B7504BF9
+    articyType: DialogueFragment
+    childCount: 0
+  - id: 72057594037929204
+    parent: 72057594037928672
+    technicalName: Hub_1306074C
+    articyType: Hub
+    childCount: 0
+  - id: 72057594037929282
+    parent: 72057594037928672
+    technicalName: DFr_A0D667DA
+    articyType: DialogueFragment
+    childCount: 0
+  - id: 72057594037929178
+    parent: 72057594037928672
+    technicalName: DFr_FFCD55DC
+    articyType: DialogueFragment
+    childCount: 0
+  - id: 72057594037929229
+    parent: 72057594037928672
+    technicalName: DFr_629B3ABE
+    articyType: DialogueFragment
+    childCount: 0
+  - id: 72057594037929141
+    parent: 72057594037928672
+    technicalName: DFr_4DF5E6F3
+    articyType: DialogueFragment
+    childCount: 0
+  - id: 72057594037929256
+    parent: 72057594037928672
+    technicalName: DFr_1A658BEA
+    articyType: DialogueFragment
+    childCount: 0
+  - id: 72057594037929159
+    parent: 72057594037928672
+    technicalName: DFr_C6DD3869
+    articyType: DialogueFragment
+    childCount: 0
+  - id: 72057594037929213
+    parent: 72057594037928672
+    technicalName: DFr_DDAE5D13
+    articyType: DialogueFragment
+    childCount: 0
+  - id: 72057594037929289
+    parent: 72057594037928672
+    technicalName: Ins_3DEC1E03
     articyType: Instruction
     childCount: 0
-  - id: 72057594037928777
+  - id: 72057594037929192
     parent: 72057594037928672
-    technicalName: Cnd_02DA6A9E
-    articyType: Condition
+    technicalName: Ins_D24B5090
+    articyType: Instruction
     childCount: 0
-  - id: 72057594037928784
+  - id: 72057594037929236
     parent: 72057594037928672
-    technicalName: DFr_489C6D1B
+    technicalName: DFr_559DC6D4
     articyType: DialogueFragment
     childCount: 0
-  - id: 72057594037928791
+  - id: 72057594037929171
     parent: 72057594037928672
-    technicalName: DFr_4ECA12F0
+    technicalName: DFr_BC6F56CF
     articyType: DialogueFragment
     childCount: 0
-  - id: 72057594037928800
+  - id: 72057594037929221
     parent: 72057594037928672
-    technicalName: DFr_9FB7B14B
+    technicalName: DFr_3AE101A5
     articyType: DialogueFragment
+    childCount: 0
+  - id: 72057594037929249
+    parent: 72057594037928672
+    technicalName: DFr_0DCB2831
+    articyType: DialogueFragment
+    childCount: 0
+  - id: 72057594037929299
+    parent: 72057594037928672
+    technicalName: DFr_69013D13
+    articyType: DialogueFragment
+    childCount: 0
+  - id: 72057594037929266
+    parent: 72057594037928672
+    technicalName: DFr_ED2B92EA
+    articyType: DialogueFragment
+    childCount: 0
+  - id: 72057594037929274
+    parent: 72057594037928672
+    technicalName: DFr_A9F5BEF1
+    articyType: DialogueFragment
+    childCount: 0
+  - id: 72057594037929084
+    parent: 216172783251375095
+    technicalName: Codex
+    articyType: FlowFragment
+    childCount: 2
+  - id: 72057594037929375
+    parent: 72057594037929084
+    technicalName: Hub_A3964348
+    articyType: Hub
+    childCount: 0
+  - id: 72057594037929381
+    parent: 72057594037929084
+    technicalName: Dlg_6184FBE1
+    articyType: Dialogue
+    childCount: 1
+  - id: 72057594037929396
+    parent: 72057594037929381
+    technicalName: FFr_8DDBDF63
+    articyType: FlowFragment
     childCount: 0
   - id: 216172785005863603
     parent: 72057594037927937
     technicalName: Entities
     articyType: Entities
-    childCount: 2
-  - id: 72057594037928666
+    childCount: 3
+  - id: 72057594037928992
     parent: 216172785005863603
-    technicalName: Ntt_1A42E0AA
+    technicalName: Pegas_AI_Assistent
     articyType: Entity
     childCount: 0
   - id: 72057594037928255
@@ -193,10 +301,20 @@ MonoBehaviour:
     technicalName: MainHero
     articyType: Entity
     childCount: 0
+  - id: 72057594037929072
+    parent: 216172785005863603
+    technicalName: Ntt_CBDBC29C
+    articyType: Entity
+    childCount: 0
   - id: 216172782940115884
     parent: 72057594037927937
     technicalName: Locations
     articyType: Locations
+    childCount: 1
+  - id: 72057594037928998
+    parent: 216172782940115884
+    technicalName: Loc_EarthOrbite
+    articyType: Location
     childCount: 0
   - id: 216172782386062064
     parent: 72057594037927937
@@ -265,12 +383,12 @@ MonoBehaviour:
     childCount: 2
   - id: 72057594037927951
     parent: 216172785641213376
-    technicalName: DefaultCharacterFeature
+    technicalName: Narrative
     articyType: Feature
     childCount: 0
-  - id: 72057594037928017
+  - id: 72057594037929416
     parent: 216172785641213376
-    technicalName: DefaultExtendedCharacterFeature
+    technicalName: System
     articyType: Feature
     childCount: 0
   - id: 216172784713633229
@@ -327,6 +445,11 @@ MonoBehaviour:
     parent: 216172784713633229
     technicalName: 
     articyType: TemplateTypeFolder
+    childCount: 1
+  - id: 72057594037928812
+    parent: 216172784576846222
+    technicalName: LocationData
+    articyType: Template
     childCount: 0
   - id: 216172783227679388
     parent: 216172784713633229
@@ -422,15 +545,30 @@ MonoBehaviour:
     parent: 216172783392894804
     technicalName: Ufo_4B64FB97
     articyType: AssetsUserFolder
-    childCount: 2
+    childCount: 5
+  - id: 72057594037929069
+    parent: 72057594037928212
+    technicalName: Ast_0D435C5C
+    articyType: Asset
+    childCount: 0
   - id: 72057594037928240
     parent: 72057594037928212
     technicalName: Ast_96B0ACB2
     articyType: Asset
     childCount: 0
+  - id: 72057594037929066
+    parent: 72057594037928212
+    technicalName: Ast_AB1AEB3E
+    articyType: Asset
+    childCount: 0
   - id: 72057594037928243
     parent: 72057594037928212
     technicalName: Ast_B4212EBB
+    articyType: Asset
+    childCount: 0
+  - id: 72057594037929076
+    parent: 72057594037928212
+    technicalName: Ast_7510C9BE
     articyType: Asset
     childCount: 0
   - id: 72057594037928220

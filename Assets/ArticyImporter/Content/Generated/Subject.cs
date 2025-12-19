@@ -8,6 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using Articy.Sf_Novel.Features;
 using Articy.Unity;
 using Articy.Unity.Interfaces;
 using System;
@@ -21,7 +22,7 @@ namespace Articy.Sf_Novel
 {
     
     
-    public class Subject : Entity, IEntity, IPropertyProvider
+    public class Subject : Entity, IEntity, IPropertyProvider, IObjectWithFeatureNarrative
     {
         
         [SerializeField()]
@@ -47,6 +48,11 @@ namespace Articy.Sf_Novel
             {
                 return mConstraints;
             }
+        }
+        
+        public NarrativeFeature GetFeatureNarrative()
+        {
+            return Template.Narrative;
         }
         
         protected override void CloneProperties(object aClone, Articy.Unity.ArticyObject aFirstClassParent)

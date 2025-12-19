@@ -22,7 +22,7 @@ namespace Articy.Sf_Novel
 {
     
     
-    public class Persona : Entity, IEntity, IPropertyProvider, IObjectWithFeatureDefaultCharacterFeature
+    public class Persona : Entity, IEntity, IPropertyProvider, IObjectWithFeatureNarrative
     {
         
         [SerializeField()]
@@ -50,9 +50,9 @@ namespace Articy.Sf_Novel
             }
         }
         
-        public DefaultCharacterFeatureFeature GetFeatureDefaultCharacterFeature()
+        public NarrativeFeature GetFeatureNarrative()
         {
-            return Template.DefaultCharacterFeature;
+            return Template.Narrative;
         }
         
         protected override void CloneProperties(object aClone, Articy.Unity.ArticyObject aFirstClassParent)

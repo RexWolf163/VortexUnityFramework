@@ -59,7 +59,7 @@ namespace Vortex.Unity.Components.Misc.LocalizationSystem
 
         private void Update()
         {
-            if (isActiveAndEnabled)
+            if (isActiveAndEnabled && !Application.isPlaying)
                 RefreshData();
         }
 #endif

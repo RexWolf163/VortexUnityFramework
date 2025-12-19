@@ -15,3 +15,128 @@ using System.Collections;
 using UnityEngine;
 
 
+namespace Articy.Sf_Novel.GlobalVariables
+{
+    
+    
+    [Serializable()]
+    public class PegasData : IArticyNamespace
+    {
+        
+        [SerializeField()]
+        private BaseGlobalVariables _VariableStorage;
+        
+        // герой настроил более человечный способ общения для ИИ ассистента
+        public bool HumanAIMod
+        {
+            get
+            {
+                return _VariableStorage.Internal_GetVariableValueBoolean(0);
+            }
+            set
+            {
+                _VariableStorage.Internal_SetVariableValueBoolean(0, value);
+            }
+        }
+        
+        public void RegisterVariables(BaseGlobalVariables aStorage)
+        {
+            _VariableStorage = aStorage;
+            aStorage.RegisterVariable("PegasData.HumanAIMod", false);
+        }
+    }
+}
+namespace Articy.Sf_Novel.GlobalVariables
+{
+    
+    
+    // Данные о знаниях ГГ об окружающем мире.
+    [Serializable()]
+    public class HeroCodexData : IArticyNamespace
+    {
+        
+        [SerializeField()]
+        private BaseGlobalVariables _VariableStorage;
+        
+        // Игрок просмотрел параметры корабля Пегас
+        public bool SS_Pegas_BaseInfo
+        {
+            get
+            {
+                return _VariableStorage.Internal_GetVariableValueBoolean(1);
+            }
+            set
+            {
+                _VariableStorage.Internal_SetVariableValueBoolean(1, value);
+            }
+        }
+        
+        public void RegisterVariables(BaseGlobalVariables aStorage)
+        {
+            _VariableStorage = aStorage;
+            aStorage.RegisterVariable("HeroCodexData.SS_Pegas_BaseInfo", false);
+        }
+    }
+}
+namespace Articy.Sf_Novel.GlobalVariables
+{
+    
+    
+    // Параметры текущей отображаемой сцены
+    [Serializable()]
+    public class CurrentScene : IArticyNamespace
+    {
+        
+        [SerializeField()]
+        private BaseGlobalVariables _VariableStorage;
+        
+        public string location
+        {
+            get
+            {
+                return _VariableStorage.Internal_GetVariableValueString(0, true);
+            }
+            set
+            {
+                _VariableStorage.Internal_SetVariableValueString(0, value);
+            }
+        }
+        
+        // 
+        public string Unresolved_location
+        {
+            get
+            {
+                return _VariableStorage.Internal_GetVariableValueString(0, false);
+            }
+        }
+        
+        public string state
+        {
+            get
+            {
+                return _VariableStorage.Internal_GetVariableValueString(1, true);
+            }
+            set
+            {
+                _VariableStorage.Internal_SetVariableValueString(1, value);
+            }
+        }
+        
+        // Тип состояния отображаемой локации
+        public string Unresolved_state
+        {
+            get
+            {
+                return _VariableStorage.Internal_GetVariableValueString(1, false);
+            }
+        }
+        
+        public void RegisterVariables(BaseGlobalVariables aStorage)
+        {
+            _VariableStorage = aStorage;
+            aStorage.RegisterVariable("CurrentScene.location", "");
+            aStorage.RegisterVariable("CurrentScene.state", "");
+        }
+    }
+}

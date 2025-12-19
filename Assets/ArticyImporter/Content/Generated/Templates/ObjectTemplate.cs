@@ -9,6 +9,7 @@
 //------------------------------------------------------------------------------
 
 using Articy.Sf_Novel;
+using Articy.Sf_Novel.Features;
 using Articy.Unity;
 using Articy.Unity.Interfaces;
 using System;
@@ -26,10 +27,25 @@ namespace Articy.Sf_Novel.Templates
     {
         
         [SerializeField()]
+        private ArticyValueNarrativeFeature mNarrative = new ArticyValueNarrativeFeature();
+        
+        [SerializeField()]
         private UInt64 mOwnerId;
         
         [SerializeField()]
         private UInt32 mOwnerInstanceId;
+        
+        public Articy.Sf_Novel.Features.NarrativeFeature Narrative
+        {
+            get
+            {
+                return mNarrative.GetValue();
+            }
+            set
+            {
+                mNarrative.SetValue(value);
+            }
+        }
         
         public UInt64 OwnerId
         {
@@ -40,6 +56,7 @@ namespace Articy.Sf_Novel.Templates
             set
             {
                 mOwnerId = value;
+                Narrative.OwnerId = value;
             }
         }
         
@@ -52,11 +69,18 @@ namespace Articy.Sf_Novel.Templates
             set
             {
                 mOwnerInstanceId = value;
+                Narrative.OwnerInstanceId = value;
             }
         }
         
         private void CloneProperties(object aClone, Articy.Unity.ArticyObject aFirstClassParent)
         {
+            Articy.Sf_Novel.Templates.ObjectTemplate newClone = ((Articy.Sf_Novel.Templates.ObjectTemplate)(aClone));
+            if ((Narrative != null))
+            {
+                newClone.Narrative = ((Articy.Sf_Novel.Features.NarrativeFeature)(Narrative.CloneObject(newClone, aFirstClassParent)));
+            }
+            newClone.OwnerId = OwnerId;
         }
         
         public object CloneObject(object aParent, Articy.Unity.ArticyObject aFirstClassParent)
@@ -69,10 +93,30 @@ namespace Articy.Sf_Novel.Templates
         #region property provider interface
         public void setProp(string aProperty, object aValue)
         {
+            int featureIndex = aProperty.IndexOf('.');
+            if ((featureIndex != -1))
+            {
+                string featurePath = aProperty.Substring(0, featureIndex);
+                string featureProperty = aProperty.Substring((featureIndex + 1));
+                if ((featurePath == "Narrative"))
+                {
+                    Narrative.setProp(featureProperty, aValue);
+                }
+            }
         }
         
         public Articy.Unity.Interfaces.ScriptDataProxy getProp(string aProperty)
         {
+            int featureIndex = aProperty.IndexOf('.');
+            if ((featureIndex != -1))
+            {
+                string featurePath = aProperty.Substring(0, featureIndex);
+                string featureProperty = aProperty.Substring((featureIndex + 1));
+                if ((featurePath == "Narrative"))
+                {
+                    return Narrative.getProp(featureProperty);
+                }
+            }
             return null;
         }
         #endregion
