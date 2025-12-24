@@ -8,11 +8,11 @@ namespace Vortex.Unity.UI.UIComponents.Parts
 {
     public class UIComponentText : UIComponentPart
     {
-        [InfoBox("Можно выбрать один из вариантов или все сразу")] [SerializeField]
-        private Text textField;
+        [InfoBox("Можно выбрать один из вариантов или все сразу")]
+        [SerializeField] protected Text textField;
 
-        [SerializeField] private TextMeshPro textMPField;
-        [SerializeField] private TextMeshProUGUI textMPUiField;
+        [SerializeField] protected TextMeshPro textMPField;
+        [SerializeField] protected TextMeshProUGUI textMPUiField;
 
 #if UNITY_EDITOR
         [OnInspectorInit]
@@ -23,17 +23,31 @@ namespace Vortex.Unity.UI.UIComponents.Parts
             textField = GetComponent<Text>();
         }
 #endif
-        public void PutData(string text)
+
+        public virtual void PutData(string text)
         {
-            if (textField != null)
-                textField.text = text;
-            if (textMPField != null)
-                textMPField.text = text;
-            if (textMPUiField != null)
-                textMPUiField.text = text;
+            SetText(text);
         }
 
-        private void OnDestroy() => PutData("");
+        protected void SetText(string value)
+        {
+            if (textField != null)
+                textField.text = value;
+            if (textMPField != null)
+                textMPField.text = value;
+            if (textMPUiField != null)
+                textMPUiField.text = value;
+        }
+
+        protected void AppendChar(char c)
+        {
+            if (textField != null)
+                textField.text += c;
+            if (textMPField != null)
+                textMPField.text += c;
+            if (textMPUiField != null)
+                textMPUiField.text += c;
+        }
 
         public string GetValue()
         {
@@ -44,6 +58,11 @@ namespace Vortex.Unity.UI.UIComponents.Parts
             if (textMPUiField != null)
                 return textMPUiField.text;
             return String.Empty;
+        }
+
+        protected virtual void OnDestroy()
+        {
+            SetText(String.Empty);
         }
     }
 }

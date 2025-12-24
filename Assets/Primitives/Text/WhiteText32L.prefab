@@ -21,6 +21,10 @@ PrefabInstance:
       value: 32
       objectReference: {fileID: 0}
     - target: {fileID: 7024594814849348618, guid: 89b1c75879c00e249acb15516e6da31b, type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 256
+      objectReference: {fileID: 0}
+    - target: {fileID: 7024594814849348618, guid: 89b1c75879c00e249acb15516e6da31b, type: 3}
       propertyPath: m_HorizontalAlignment
       value: 1
       objectReference: {fileID: 0}
