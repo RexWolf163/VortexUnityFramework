@@ -11,10 +11,22 @@ namespace Vortex.Unity.UI.UIComponents.Parts
     /// </summary>
     public class UIComponentTextTypewriter : UIComponentText
     {
-        [SerializeField] private float letterDelay = 0.03f;
-        [SerializeField] private float controlDelay = 0.3f;
+        /// <summary>
+        /// Задержка вывода следующей буквы
+        /// </summary>
+        [SerializeField, Range(0, 0.2f)] private float letterDelay = 0.03f;
+
+        /// <summary>
+        /// Задержка после знака препинания
+        /// </summary>
+        [SerializeField, Range(0, 1f)] private float controlDelay = 0.3f;
 
         private Coroutine typingCoroutine;
+
+        /// <summary>
+        /// Кеш целевого текста
+        /// </summary>
+        private string _fullText;
 
         public override void PutData(string text)
         {
@@ -27,49 +39,49 @@ namespace Vortex.Unity.UI.UIComponents.Parts
             typingCoroutine = StartCoroutine(TypeText(text));
         }
 
+        /// <summary>
+        /// Корутина вывода текста
+        ///
+        /// Логика вывода:
+        /// Если Печатается буква или символ \n, то перед следующей буквой выдерживается пауза letterDelay
+        /// Если печатается символ пунктуации - паузы нет
+        /// Если печатается буква или символ \n после знака пунктуации - выдерживается пауза controlDelay
+        /// </summary>
+        /// <param name="fullText"></param>
+        /// <returns></returns>
         private IEnumerator TypeText(string fullText)
         {
+            _fullText = fullText;
             SetText(string.Empty);
 
             bool isDelay = false;
-            foreach (char c in fullText)
+            foreach (char c in _fullText)
             {
-                if (isDelay && !IsInstantChar(c))
+                if (!IsPunctuationChar(c))
                 {
-                    isDelay = false;
-                    yield return new WaitForSeconds(controlDelay);
+                    if (isDelay)
+                    {
+                        isDelay = false;
+                        yield return new WaitForSeconds(controlDelay);
+                    }
+                    else
+                        yield return new WaitForSeconds(letterDelay);
                 }
 
-                if (IsControlChar(c))
-                {
-                    isDelay = true;
-                    continue;
-                }
-                
                 AppendChar(c);
 
-                if (!IsInstantChar(c))
-                {
-                    yield return new WaitForSeconds(letterDelay);
-                    continue;
-                }
-                isDelay = true;
+                if (IsPunctuationChar(c))
+                    isDelay = true;
             }
 
             typingCoroutine = null;
         }
-        
+
         /// <summary>
         /// Символы, которые печатаются мгновенно
         /// (знаки пунктуации, спецсимволы)
         /// </summary>
-        private bool IsInstantChar(char c) => char.IsPunctuation(c) || char.IsSymbol(c);
-        
-        /// <summary>
-        /// Управляющие символы (перенос строки, табуляция и т.д.),
-        /// кроме пробела
-        /// </summary>
-        private bool IsControlChar(char c) => char.IsControl(c) && c != ' ';
+        private bool IsPunctuationChar(char c) => char.IsPunctuation(c) || char.IsSymbol(c);
 
         protected override void OnDestroy()
         {
@@ -78,12 +90,12 @@ namespace Vortex.Unity.UI.UIComponents.Parts
 
             base.OnDestroy();
         }
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
+        /// <summary>
+        /// Перезапуск вывода текста для тестирования
+        /// </summary>
         [Button]
-        private void Retype()
-        {
-            PutData(GetValue());
-        }
-        #endif
+        private void Retype() => PutData(_fullText);
+#endif
     }
 }
