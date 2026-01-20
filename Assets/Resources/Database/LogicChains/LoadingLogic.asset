@@ -53,13 +53,12 @@ MonoBehaviour:
           \u0441\u0446\u0435\u043D\u044B"
         actions:
         - rid: 2547342655539904704
-        - rid: 3211524402322079804
         connectors:
         - rid: 2547342655539904705
     - rid: 2547342655539904704
       type: {class: LoadScene, ns: Vortex.Unity.LogicChainsSystem.Actions, asm: ru.vortex.unity.logicchains}
       data:
-        SceneName: ui
+        SceneName: menu
         _additiveMode: 1
         _async: 0
     - rid: 2547342655539904705
@@ -67,9 +66,3 @@ MonoBehaviour:
       data:
         targetStepGuid: -1
         conditions: []
-    - rid: 3211524402322079804
-      type: {class: LoadScene, ns: Vortex.Unity.LogicChainsSystem.Actions, asm: ru.vortex.unity.logicchains}
-      data:
-        SceneName: map
-        _additiveMode: 1
-        _async: 0

@@ -1,4 +1,5 @@
 using UnityEngine;
+using Vortex.Unity.AppSystem.System.TimeSystem;
 
 namespace Vortex.Unity.Extensions.Abstractions
 {
@@ -18,14 +19,26 @@ namespace Vortex.Unity.Extensions.Abstractions
 
         protected virtual void Awake()
         {
-            if (_instance != null)
-                Debug.LogError($"[{GetType().Name}: {name}] Singleton already created!");
-            _instance = (T)this;
+#if UNITY_EDITOR
+            TimeController.Call(SetInstance, 0, this);
+#else
+            SetInstance();
+#endif
         }
 
         protected virtual void OnDestroy()
         {
             _instance = null;
+            TimeController.RemoveCall(this);
+        }
+
+        private void SetInstance()
+        {
+            if (_instance == this)
+                return;
+            if (_instance != null)
+                Debug.LogError($"[{GetType().Name}: {name}] Singleton already created!");
+            _instance = (T)this;
         }
     }
 }

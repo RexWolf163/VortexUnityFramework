@@ -1,3 +1,4 @@
 {
-	"name": "ru.vortex.unity.extensions"
+	"name": "ru.vortex.unity.extensions",
+	"references":[ "GUID:107a1ae24d335a64783f6777158a6259" ]
 }

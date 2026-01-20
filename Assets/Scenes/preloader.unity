@@ -408,7 +408,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebda4d81a92ca6946aeddc18c8cc5951, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: ui
+  sceneName: menu
   tweeners:
   - {fileID: 1274564958}
   delay: 4
