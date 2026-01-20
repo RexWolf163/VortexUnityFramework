@@ -41,14 +41,21 @@ namespace Vortex.Unity.UI.PoolSystem
         /// Добавить элемент пула для данных
         /// </summary>
         /// <param name="data"></param>
-        public void AddItem(object data)
+        /// <param name="before">вставить в начало иерархии</param>
+        public void AddItem(object data, bool before = false)
         {
             if (_index.ContainsKey(data))
                 return;
             var item = CreateItem();
-            item.transform.SetAsLastSibling();
+            if (before)
+                item.transform.SetAsFirstSibling();
+            else
+                item.transform.SetAsLastSibling();
+
+            item.transform.localPosition = new Vector3(1000000f, 1000000f, 0);
+
             _index.AddNew(data, item);
-            item.MakeLink(data);
+            item.MakeLink(data, this);
         }
 
         /// <summary>
@@ -56,13 +63,14 @@ namespace Vortex.Unity.UI.PoolSystem
         /// Вернуть компонент указанного типа из контейнера
         /// </summary>
         /// <param name="data"></param>
+        /// <param name="before">вставить в начало иерархии</param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public T AddItem<T>(object data) where T : MonoBehaviour
+        public T AddItem<T>(object data, bool before = false) where T : MonoBehaviour
         {
             if (_index.ContainsKey(data))
                 return GetItem<T>(data);
-            AddItem(data);
+            AddItem(data, before);
             return GetItem<T>(data);
         }
 
@@ -72,8 +80,15 @@ namespace Vortex.Unity.UI.PoolSystem
         /// <param name="data"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public T GetItem<T>(object data) where T : MonoBehaviour =>
-            _index.TryGetValue(data, out var item) ? item.GetComponentInChildren<T>() : null;
+        public T GetItem<T>(object data) where T : MonoBehaviour
+        {
+            if (!_index.TryGetValue(data, out var item))
+                return null;
+            var res = item.GetComponent<T>();
+            if (res == null)
+                res = item.GetComponentInChildren<T>();
+            return res;
+        }
 
         /// <summary>
         /// Создать новый контейнер в пуле
@@ -81,7 +96,7 @@ namespace Vortex.Unity.UI.PoolSystem
         /// <returns></returns>
         private PoolItem CreateItem() => _freeItems.Count > 0
             ? _freeItems.Dequeue()
-            : Instantiate(preset, Vector3.zero, new Quaternion(0, 0, 0, 0), transform);
+            : Instantiate(preset, new Vector3(1000000f, 1000000f, 0), new Quaternion(0, 0, 0, 0), transform);
 
         /// <summary>
         /// Удалить контейнер

@@ -8,7 +8,7 @@ namespace Vortex.Unity.UI.Tweeners
     /// <summary>
     /// Твинер изменения цвета
     /// </summary>
-    public class TweenerColorChange : TweenerBase
+    public class TweenerImgColorChange : TweenerBase
     {
         /// <summary>
         /// Конечный цвет
@@ -37,15 +37,9 @@ namespace Vortex.Unity.UI.Tweeners
 
         private Tween tween;
 
-        private void Awake()
-        {
-            DOTween.Init(image);
-        }
+        private void Awake() => DOTween.Init(image);
 
-        private void OnDestroy()
-        {
-            tween.Kill();
-        }
+        private void OnDestroy() => tween.Kill();
 
         public override void Forward(bool skip = false)
         {
@@ -89,7 +83,6 @@ namespace Vortex.Unity.UI.Tweeners
 
         public override void Pulse()
         {
-            image.gameObject.SetActive(true);
             tween.Kill();
             tween = DOTween.To(() => image.color, color => image.color = color, endColor, duration)
                 .OnComplete(() => Back());

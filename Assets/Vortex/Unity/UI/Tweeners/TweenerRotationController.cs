@@ -9,18 +9,20 @@ namespace Vortex.Unity.UI.Tweeners
     /// </summary>
     public class TweenerRotationController : TweenerBase
     {
-        [SerializeField, SuffixLabel("@(mode?\"Fast\":\"Beyond360\")"),Tooltip("Режим проигрывания")]
-        private bool mode;
+        [SerializeField, Tooltip("Режим проигрывания")]
+        private RotateMode mode;
 
         /// <summary>
         /// Положение стартовое (скрыто)
         /// </summary>
-        [SerializeField,Tooltip("Положение при скрытие")] private Vector3 start;
+        [SerializeField, Tooltip("Положение при скрытие")]
+        private Vector3 start;
 
         /// <summary>
         /// Положение финальное (показано)
         /// </summary>
-        [SerializeField,Tooltip("Положение при показе")] private Vector3 end;
+        [SerializeField, Tooltip("Положение при показе")]
+        private Vector3 end;
 
         /// <summary>
         /// длительность перехода
@@ -28,6 +30,12 @@ namespace Vortex.Unity.UI.Tweeners
         [SerializeField, Range(0.1f, 2f)] private float duration = 0.3f;
 
         private RectTransform rect;
+        private Tween tween;
+
+        private void Awake() => DOTween.Init();
+
+        private void OnDestroy() => tween.Kill();
+
 
         private RectTransform Rect
         {
@@ -48,7 +56,8 @@ namespace Vortex.Unity.UI.Tweeners
                 return;
             }
 
-            transform.DOLocalRotate(end, duration, !mode ? RotateMode.Fast : RotateMode.FastBeyond360);
+            tween.Kill();
+            tween = transform.DOLocalRotate(end, duration, mode);
         }
 
         [Button]
@@ -60,9 +69,15 @@ namespace Vortex.Unity.UI.Tweeners
                 return;
             }
 
-            transform.DOLocalRotate(start, duration, !mode ? RotateMode.Fast : RotateMode.FastBeyond360);
+            tween.Kill();
+            tween = transform.DOLocalRotate(start, duration, mode);
         }
 
-        private void Awake() => DOTween.Init();
+        public override void Pulse()
+        {
+            tween.Kill();
+            tween = transform.DOLocalRotate(end, duration, mode)
+                .OnComplete(() => Back());
+        }
     }
 }

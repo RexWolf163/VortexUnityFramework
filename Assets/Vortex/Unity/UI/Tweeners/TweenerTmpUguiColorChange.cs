@@ -1,14 +1,14 @@
 using DG.Tweening;
 using Sirenix.OdinInspector;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Vortex.Unity.UI.Tweeners
 {
     /// <summary>
     /// Твинер изменения цвета
     /// </summary>
-    public class TweenerColorChange : TweenerBase
+    public class TweenerTmpUguiColorChange : TweenerBase
     {
         /// <summary>
         /// Конечный цвет
@@ -25,7 +25,7 @@ namespace Vortex.Unity.UI.Tweeners
         /// <summary>
         /// Целевое изображение
         /// </summary>
-        [SerializeField] private Image image;
+        [SerializeField] private TextMeshProUGUI text;
 
         /// <summary>
         /// длительность перехода
@@ -39,7 +39,7 @@ namespace Vortex.Unity.UI.Tweeners
 
         private void Awake()
         {
-            DOTween.Init(image);
+            DOTween.Init(text);
         }
 
         private void OnDestroy()
@@ -51,19 +51,19 @@ namespace Vortex.Unity.UI.Tweeners
         {
             if (skip)
             {
-                image.color = endColor;
+                text.color = endColor;
                 if (disableOnEnd)
-                    image.gameObject.SetActive(false);
+                    text.gameObject.SetActive(false);
                 return;
             }
 
-            image.gameObject.SetActive(true);
+            text.gameObject.SetActive(true);
             tween.Kill();
-            tween = DOTween.To(() => image.color, color => image.color = color, endColor, duration)
+            tween = DOTween.To(() => text.color, color => text.color = color, endColor, duration)
                 .OnComplete(() =>
                 {
                     if (disableOnEnd)
-                        image.gameObject.SetActive(false);
+                        text.gameObject.SetActive(false);
                 });
         }
 
@@ -71,42 +71,40 @@ namespace Vortex.Unity.UI.Tweeners
         {
             if (skip)
             {
-                image.color = startColor;
+                text.color = startColor;
                 if (disableOnStart)
-                    image.gameObject.SetActive(false);
+                    text.gameObject.SetActive(false);
                 return;
             }
 
-            image.gameObject.SetActive(true);
+            text.gameObject.SetActive(true);
             tween.Kill();
-            tween = DOTween.To(() => image.color, color => image.color = color, startColor, duration)
+            tween = DOTween.To(() => text.color, color => text.color = color, startColor, duration)
                 .OnComplete(() =>
                 {
                     if (disableOnStart)
-                        image.gameObject.SetActive(false);
+                        text.gameObject.SetActive(false);
                 });
         }
 
         public override void Pulse()
         {
-            image.gameObject.SetActive(true);
-            tween.Kill();
-            tween = DOTween.To(() => image.color, color => image.color = color, endColor, duration)
+            tween = DOTween.To(() => text.color, color => text.color = color, endColor, duration)
                 .OnComplete(() => Back());
         }
 
 #if UNITY_EDITOR
-        [ShowIf("@image != null")]
+        [ShowIf("@text != null")]
         [Button("Get from...")]
         [GUIColor("@Color.green")]
         [HorizontalGroup("h1")]
-        private void SetCurrentStart() => startColor = image.color;
+        private void SetCurrentStart() => startColor = text.color;
 
-        [ShowIf("@image != null")]
+        [ShowIf("@text != null")]
         [Button("Get from...")]
         [GUIColor("@Color.green")]
         [HorizontalGroup("h2")]
-        private void SetCurrentEnd() => endColor = image.color;
+        private void SetCurrentEnd() => endColor = text.color;
 
 #endif
     }

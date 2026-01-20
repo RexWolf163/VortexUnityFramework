@@ -175,6 +175,23 @@ namespace Vortex.Unity.UI.Tweeners
 
             Run(DataR, TimersR);
         }
+
+        public override void Pulse()
+        {
+            //TODO проверить
+
+            if (!gameObject.activeInHierarchy)
+                return;
+
+            tweenCore.Kill();
+            var ar = new Vector3[DataR.Length + Data.Length];
+            var t = new float[DataR.Length + Data.Length];
+            Data.CopyTo(ar, 0);
+            DataR.CopyTo(ar, Data.Length);
+            Timers.CopyTo(t, 0);
+            TimersR.CopyTo(t, Timers.Length);
+            Run(ar, t);
+        }
     }
 
     [Serializable]

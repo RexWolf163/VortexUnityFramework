@@ -86,6 +86,13 @@ namespace Vortex.Unity.UI.Tweeners
                 Rect.gameObject.SetActive(!_hideInStart));
         }
 
+        public override void Pulse()
+        {
+            _tween.Kill();
+            _tween = DOTween.To(() => Rect.pivot, pos => Rect.pivot = pos, endPos, duration)
+                .OnComplete(() => Back());
+        }
+
         private void Awake() => DOTween.Init();
     }
 }

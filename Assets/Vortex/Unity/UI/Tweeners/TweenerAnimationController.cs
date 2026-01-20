@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Events;
+using Vortex.Unity.AppSystem.System.TimeSystem;
 
 namespace Vortex.Unity.UI.Tweeners
 {
@@ -33,6 +34,17 @@ namespace Vortex.Unity.UI.Tweeners
             beforeTween?.Invoke();
             animator.SetBool(skipKey, skip);
             animator.SetBool(activeKey, false);
+        }
+
+        public override void Pulse()
+        {
+            Forward();
+            TimeController.Call(() => Back(), 0, this);
+        }
+
+        private void OnDestroy()
+        {
+            TimeController.RemoveCall(this);
         }
 
 #if UNITY_EDITOR

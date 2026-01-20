@@ -13,18 +13,29 @@ namespace Vortex.Unity.UI.PoolSystem
     {
         private object _data;
 
+        private Pool _owner;
+
         public T GetData<T>() where T : class => _data as T;
 
-        internal void MakeLink(object data)
+        internal void MakeLink(object data, Pool pool)
         {
             _data = data;
+            _owner = pool;
             gameObject.SetActive(_data != null);
         }
 
-        internal void Remove() => MakeLink(null);
+        internal void Remove() => MakeLink(null, _owner);
 
         private void OnEnable() => CheckState();
 
+        private void OnDisable()
+        {
+            if (_data != null && _owner != null)
+                SelfDestroy();
+        }
+
         private void CheckState() => gameObject.SetActive(_data != null);
+
+        private void SelfDestroy() => _owner.RemoveItem(_data);
     }
 }

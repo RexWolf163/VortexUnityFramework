@@ -13,6 +13,7 @@ namespace Vortex.Unity.UI.Tweeners
         /// Отображение
         /// </summary>
         private const float EndAlpha = 1f;
+
         /// <summary>
         /// Скрытие
         /// </summary>
@@ -25,6 +26,12 @@ namespace Vortex.Unity.UI.Tweeners
         /// </summary>
         [SerializeField, Range(0.1f, 2f)] private float duration = 0.3f;
 
+        private Tween tween;
+
+        private void Awake() => DOTween.Init();
+
+        private void OnDestroy() => tween.Kill();
+
         [Button]
         public override void Forward(bool skip = false)
         {
@@ -36,7 +43,8 @@ namespace Vortex.Unity.UI.Tweeners
                 return;
             }
 
-            DOTween.To(() => canvasGroup.alpha, pos => canvasGroup.alpha = pos, EndAlpha, duration);
+            tween.Kill();
+            tween = DOTween.To(() => canvasGroup.alpha, pos => canvasGroup.alpha = pos, EndAlpha, duration);
         }
 
         [Button]
@@ -50,9 +58,15 @@ namespace Vortex.Unity.UI.Tweeners
                 return;
             }
 
-            DOTween.To(() => canvasGroup.alpha, pos => canvasGroup.alpha = pos, StartAlpha, duration);
+            tween.Kill();
+            tween = DOTween.To(() => canvasGroup.alpha, pos => canvasGroup.alpha = pos, StartAlpha, duration);
         }
 
-        private void Awake() => DOTween.Init();
+        public override void Pulse()
+        {
+            tween.Kill();
+            tween = DOTween.To(() => canvasGroup.alpha, pos => canvasGroup.alpha = pos, StartAlpha, duration)
+                .OnComplete(() => Back());
+        }
     }
 }

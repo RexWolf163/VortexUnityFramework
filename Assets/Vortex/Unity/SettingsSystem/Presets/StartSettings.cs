@@ -5,7 +5,9 @@ namespace Vortex.Unity.SettingsSystem.Presets
 {
     public class StartSettings : SettingsPreset
     {
-        [ValueDropdown("@DropDawnHandler.GetScenes()")] [SerializeField]
+        [InfoBox("Стартовая сцена. Используется только в редакторе")]
+        [ValueDropdown("@DropDawnHandler.GetScenes()")]
+        [SerializeField]
         private string startScene;
 
         public string StartScene => startScene;
