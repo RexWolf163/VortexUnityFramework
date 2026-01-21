@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 using Vortex.Core.LoggerSystem.Bus;
 using Vortex.Core.LoggerSystem.Model;
 
@@ -57,7 +56,7 @@ namespace Vortex.Core.ComplexModelSystem
                 }
                 catch (Exception ex)
                 {
-                    Debug.LogException(ex);
+                    Log.Print(LogLevel.Warning, ex.Message, this);
                 }
             }
 
