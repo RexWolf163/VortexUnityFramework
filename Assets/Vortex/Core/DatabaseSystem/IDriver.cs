@@ -12,7 +12,7 @@ namespace Vortex.Core.DatabaseSystem
         /// <param name="singletonRecords">линк на индекс синглтон-моделей</param>
         /// <param name="uniqRecords">линк на список id по которым могут быть представлены
         /// модели заполненные из пресета</param>
-        public void SetIndex(SortedDictionary<string, Record> singletonRecords, HashSet<string> uniqRecords);
+        public void SetIndex(Dictionary<string, Record> singletonRecords, HashSet<string> uniqRecords);
 
         /// <summary>
         /// Создает из пресета и возвращает новый экземпляр Record 

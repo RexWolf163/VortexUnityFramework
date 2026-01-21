@@ -12,7 +12,7 @@ namespace Vortex.Core.LogicChainsSystem.Bus
     public static class LogicChains
     {
         public const string CompleteChainStep = "-1";
-        private static readonly SortedDictionary<string, LogicChain> Index = new();
+        private static readonly Dictionary<string, LogicChain> Index = new();
 
         /// <summary>
         /// Создать новую цепочку и добавить ее в реестр

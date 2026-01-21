@@ -1,0 +1,14 @@
+{
+    "name": "ru.vortex.unity.complexmodel",
+    "rootNamespace": "",
+    "references": ["GUID:de96291c7096b864ba049e71afc28783"],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

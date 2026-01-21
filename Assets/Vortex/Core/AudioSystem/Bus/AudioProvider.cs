@@ -11,9 +11,9 @@ namespace Vortex.Core.AudioSystem.Bus
     {
         #region Params
 
-        private static readonly SortedDictionary<string, IAudioSample> IndexSound = new();
+        private static readonly Dictionary<string, IAudioSample> IndexSound = new();
 
-        private static readonly SortedDictionary<string, IAudioSample> IndexMusic = new();
+        private static readonly Dictionary<string, IAudioSample> IndexMusic = new();
 
         public static AudioSettings Settings { get; } = new();
 

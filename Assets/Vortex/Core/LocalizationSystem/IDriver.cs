@@ -22,7 +22,7 @@ namespace Vortex.Core.LocalizationSystem
         /// Связь индекса с данными драйвера
         /// </summary>
         /// <param name="index"></param>
-        public void SetIndex(SortedDictionary<string, string> index);
+        public void SetIndex(Dictionary<string, string> index);
 
         /// <summary>
         /// Событие смены языка локали

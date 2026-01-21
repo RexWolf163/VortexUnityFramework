@@ -8,7 +8,7 @@ namespace Vortex.Core.LogicChainsSystem.Model
         /// <summary>
         /// Этапы цепочки
         /// </summary>
-        public SortedDictionary<string, ChainStep> ChainSteps { get; protected set; }
+        public Dictionary<string, ChainStep> ChainSteps { get; protected set; }
 
         /// <summary>
         /// GUID начального этапа

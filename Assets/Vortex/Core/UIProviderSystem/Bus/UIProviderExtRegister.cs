@@ -19,7 +19,7 @@ namespace Vortex.Core.UIProviderSystem.Bus
         /// <summary>
         /// Индекс зарегистрировавшихся UI по Id их пресета
         /// </summary>
-        private static readonly SortedDictionary<string, UserInterfaceData> Uis = new();
+        private static readonly Dictionary<string, UserInterfaceData> Uis = new();
 
         #endregion
 

@@ -24,7 +24,7 @@ namespace Vortex.Unity.DatabaseSystem
         /// <summary>
         /// Внутренний индекс пресетов
         /// </summary>
-        private static SortedDictionary<string, IRecordPreset> _resourcesIndex = new();
+        private static Dictionary<string, IRecordPreset> _resourcesIndex = new();
 
         private ProcessData _processData = new()
         {

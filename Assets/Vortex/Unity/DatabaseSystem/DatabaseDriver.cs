@@ -14,7 +14,7 @@ namespace Vortex.Unity.DatabaseSystem
 {
     public partial class DatabaseDriver : Singleton<DatabaseDriver>, IDriver
     {
-        private static SortedDictionary<string, Record> _recordsLink;
+        private static Dictionary<string, Record> _recordsLink;
         private static HashSet<string> _uniqRecordsLink;
 
         public event Action OnInit;
@@ -35,7 +35,7 @@ namespace Vortex.Unity.DatabaseSystem
         /// </summary>
         /// <param name="records"></param>
         /// <param name="uniqRecords"></param>
-        public void SetIndex(SortedDictionary<string, Record> records, HashSet<string> uniqRecords)
+        public void SetIndex(Dictionary<string, Record> records, HashSet<string> uniqRecords)
         {
             _recordsLink = records;
             _uniqRecordsLink = uniqRecords;

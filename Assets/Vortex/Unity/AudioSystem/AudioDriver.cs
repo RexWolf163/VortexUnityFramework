@@ -20,8 +20,8 @@ namespace Vortex.Unity.AudioSystem
         private const string SaveKey = "AudioSettings";
         public event Action OnInit;
 
-        private static SortedDictionary<string, IAudioSample> _indexSound;
-        private static SortedDictionary<string, IAudioSample> _indexMusic;
+        private static Dictionary<string, IAudioSample> _indexSound;
+        private static Dictionary<string, IAudioSample> _indexMusic;
         private static AudioSettings _settings;
 
         private static AudioHandler _audioHandler;
@@ -65,8 +65,8 @@ namespace Vortex.Unity.AudioSystem
             OnInit?.Invoke();
         }
 
-        public void SetLinks(SortedDictionary<string, IAudioSample> indexSound,
-            SortedDictionary<string, IAudioSample> indexMusic, AudioSettings settings)
+        public void SetLinks(Dictionary<string, IAudioSample> indexSound,
+            Dictionary<string, IAudioSample> indexMusic, AudioSettings settings)
         {
             _indexSound = indexSound;
             _indexMusic = indexMusic;

@@ -13,7 +13,7 @@ namespace Vortex.Unity.LocalizationSystem
         private const string Path = "Localization";
         private const string SaveSlot = "AppLanguage";
 
-        private static SortedDictionary<string, string> _localeData;
+        private static Dictionary<string, string> _localeData;
 
         private string[] _cashedLangs;
 
@@ -42,7 +42,7 @@ namespace Vortex.Unity.LocalizationSystem
         /// Связь индекса с данными драйвера
         /// </summary>
         /// <param name="index"></param>
-        public void SetIndex(SortedDictionary<string, string> index) => _localeData = index;
+        public void SetIndex(Dictionary<string, string> index) => _localeData = index;
 
         /// <summary>
         /// Получить дефолтный язык для приложения (при инициации)

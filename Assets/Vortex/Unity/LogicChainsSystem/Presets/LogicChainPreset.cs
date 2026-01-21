@@ -27,16 +27,16 @@ namespace Vortex.Unity.LogicChainsSystem.Presets
         /// <summary>
         /// Этапы цепочки
         /// </summary>
-        public SortedDictionary<string, ChainStep> ChainSteps => GetSteps();
+        public Dictionary<string, ChainStep> ChainSteps => GetSteps();
 
         /// <summary>
         /// GUID начального этапа
         /// </summary>
         public string StartStep => startStep;
 
-        private SortedDictionary<string, ChainStep> GetSteps()
+        private Dictionary<string, ChainStep> GetSteps()
         {
-            var temp = new SortedDictionary<string, ChainStep>();
+            var temp = new Dictionary<string, ChainStep>();
             foreach (var chainStep in chainSteps)
             {
                 var step = new ChainStep();

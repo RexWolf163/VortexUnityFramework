@@ -24,7 +24,7 @@ namespace Vortex.Core.LocalizationSystem.Bus
         /// <summary>
         /// Индекс локализованных фрагментов
         /// </summary>
-        private static SortedDictionary<string, string> index = new();
+        private static Dictionary<string, string> index = new();
 
         protected override void OnDriverConnect()
         {

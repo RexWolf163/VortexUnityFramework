@@ -13,7 +13,7 @@ namespace Vortex.Core.DatabaseSystem.Bus
         /// <summary>
         /// Реестр синглтон-записей в БД 
         /// </summary>
-        private SortedDictionary<string, Record> _singletonRecords = new();
+        private Dictionary<string, Record> _singletonRecords = new();
 
         /// <summary>
         /// Список ключей записей, выдаваемых в виде новых записей с заполнением из пресета 
