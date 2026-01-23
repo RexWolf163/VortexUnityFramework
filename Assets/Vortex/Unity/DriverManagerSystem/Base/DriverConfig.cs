@@ -42,6 +42,42 @@ namespace Vortex.Unity.DriverManagerSystem.Base
         }
 
 #if UNITY_EDITOR
+
+        private static bool _verified = false;
+
+        [InitializeOnLoadMethod]
+        private static void OnLoadRun()
+        {
+            if (_verified)
+                return;
+            _verified = true;
+            var res = Resources.LoadAll<DriverConfig>("");
+            if (res == null || res.Length == 0)
+                return;
+            var inst = res[0];
+            inst.ReloadList();
+
+            if (inst.drivers.Any(r => r.DriverType.IsNullOrWhitespace() || r.SystemType.IsNullOrWhitespace()))
+                return;
+
+            var text = inst.GetFileContent();
+            var assetsPath = Application.dataPath;
+            var allFiles = Directory.GetFiles(assetsPath, CfgFileName, SearchOption.AllDirectories);
+
+            if (allFiles.Length <= 0)
+            {
+                Debug.Log($"[DriverConfig] Не найден файл DriversGenericList.cs.");
+                return;
+            }
+
+            var targetPath = allFiles[0];
+            var file = File.ReadAllText(targetPath);
+            if (!file.Equals(text))
+                Debug.LogWarning(
+                    "[DriverConfig] \u26a0 Сохраненный файл конфигурации драйверов не соответствует таблице драйверов в ассете конфигурации");
+        }
+
+        [InfoBox("Сканирование системы и перезаполнение таблицы драйверов")]
         [Button("Reload")]
         private void ReloadList()
         {
@@ -74,14 +110,20 @@ namespace Vortex.Unity.DriverManagerSystem.Base
             }
 
             drivers = result.ToArray();
-
-            SaveConfig();
         }
 
         private const string CfgFileName = "DriversGenericList.cs";
 
+        [InfoBox("Сохраняет текущий конфиг в файл DriversGenericList.cs в режиме кодогенерации")]
+        [Button("Save Config")]
         private void SaveConfig()
         {
+            if (drivers.Any(r => r.DriverType.IsNullOrWhitespace() || r.SystemType.IsNullOrWhitespace()))
+            {
+                Debug.LogError("[DriverConfig] Нельзя сохранять недозаполненный конфиг");
+                return;
+            }
+
             var assetsPath = Application.dataPath;
             var allFiles = Directory.GetFiles(assetsPath, CfgFileName, SearchOption.AllDirectories);
 
@@ -110,6 +152,7 @@ namespace Vortex.Unity.DriverManagerSystem.Base
         private string GetFileContent()
         {
             var sb = new StringBuilder();
+            sb.AppendLine("//Автогенерированный конфиг файл. Не изменять в ручную!");
             sb.Append(
                 "using System.Collections.Generic;\n\nnamespace Vortex.Core.System\n{\n    public static class DriversGenericList\n    {\n        public static Dictionary<string, string> WhiteList { get; } = new()\n        {");
 
