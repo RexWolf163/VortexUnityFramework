@@ -132,7 +132,7 @@ namespace Vortex.Core.LoaderSystem.Bus
 
             try
             {
-                await Task.Run(() => Loading(Token));
+                await Loading(Token);
             }
             catch (Exception ex)
             {
@@ -167,7 +167,7 @@ namespace Vortex.Core.LoaderSystem.Bus
                 $"{controller.GetType().Name}: loading...",
                 "AppLoader"));
 
-            await Task.Run(() => controller.RunAsync(Token));
+            await controller.RunAsync(Token);
 
             Log.Print(new LogData(LogLevel.Common,
                 "Loading complete",
@@ -268,7 +268,7 @@ namespace Vortex.Core.LoaderSystem.Bus
                 Log.Print(new LogData(LogLevel.Common,
                     $"{controller.GetType().Name}: loading...",
                     "AppLoader"));
-                await Task.Run(() => controller.RunAsync(Token));
+                await controller.RunAsync(Token);
                 loaded.Add(controller.GetType());
                 Log.Print(new LogData(LogLevel.Common,
                     $"{controller.GetType().Name}: loaded",

@@ -110,6 +110,7 @@ Drawer автоматически формирует выпадающий спи
 
 Меню: **Vortex → Debug → Export Mapped Parameters into Graph**  
 Формат: **DOT (Graphviz)**  
+Онлайн визуализатор: https://dreampuf.github.io/GraphvizOnline
 Файл сохраняется с расширением `.dot` и содержит:
 
 - Узлы базовых параметров (выделены цветом `#b3e5fc`).

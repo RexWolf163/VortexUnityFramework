@@ -18,6 +18,11 @@ namespace Vortex.Unity.DatabaseSystem
 {
     public partial class DatabaseDriver
     {
+        /// <summary>
+        /// Кешированный список ресурсов. Очищается после заполнения индексов
+        /// </summary>
+        private static Object[] _resources;
+
         [InitializeOnLoadMethod]
         private static void EditorRegister()
         {
@@ -48,6 +53,7 @@ namespace Vortex.Unity.DatabaseSystem
                 var op = Addressables.LoadAssetsAsync<IRecordPreset>(label, null);
                 var temp = op.WaitForCompletion();
                 ar.AddRange(temp);
+                Addressables.Release(op);
             }
 
             _resources = new Object[ar.Count];
@@ -108,6 +114,7 @@ namespace Vortex.Unity.DatabaseSystem
                 result.Add(path, item.GuidPreset);
             }
 
+            _resources = null;
             return result;
         }
     }
