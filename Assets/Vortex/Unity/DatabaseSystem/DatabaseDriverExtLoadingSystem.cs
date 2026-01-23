@@ -32,7 +32,12 @@ namespace Vortex.Unity.DatabaseSystem
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSplashScreen)]
         private static void Register()
         {
-            Database.SetDriver(Instance);
+            if (!Database.SetDriver(Instance))
+            {
+                Dispose();
+                return;
+            }
+
             Loader.Register<DatabaseDriver>();
         }
 

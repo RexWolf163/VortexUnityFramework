@@ -23,7 +23,9 @@ namespace Vortex.Unity.LocalizationSystem
                 Debug.Log("Create new settings preset LocalizationData");
             }
 
-            Localization.SetDriver(Instance);
+            if (!Localization.SetDriver(Instance))
+                return;
+
             Instance.LoadData();
         }
 

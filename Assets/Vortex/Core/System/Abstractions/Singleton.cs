@@ -4,5 +4,7 @@
     {
         private static T _instance;
         public static T Instance => _instance ??= new T();
+
+        protected static void Dispose() => _instance = null;
     }
 }

@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c45bf81f3e4e6ce49ad92bb951ff0fe4, type: 3}
+  m_Name: DriverConfig
+  m_EditorClassIdentifier: 
+  drivers:
+  - rid: 3211524458409886017
+  - rid: 3211524458409886018
+  - rid: 3211524458409886019
+  - rid: 3211524458409886020
+  - rid: 3211524458409886021
+  - rid: 3211524458409886022
+  onlyInVortexSearch: 1
+  references:
+    version: 2
+    RefIds:
+    - rid: 3211524458409886017
+      type: {class: DriverRecord, ns: Vortex.Unity.DriverManagerSystem.Base, asm: ru.vortex.drivermanager}
+      data:
+        <SystemType>k__BackingField: Vortex.Core.AudioSystem.Bus.AudioProvider, ru.vortex.audio,
+          Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+        <DriverType>k__BackingField: Vortex.Unity.AudioSystem.AudioDriver, ru.vortex.unity.audio,
+          Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    - rid: 3211524458409886018
+      type: {class: DriverRecord, ns: Vortex.Unity.DriverManagerSystem.Base, asm: ru.vortex.drivermanager}
+      data:
+        <SystemType>k__BackingField: Vortex.Core.DatabaseSystem.Bus.Database, ru.vortex.database,
+          Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+        <DriverType>k__BackingField: Vortex.Unity.DatabaseSystem.DatabaseDriver,
+          ru.vortex.unity.database, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    - rid: 3211524458409886019
+      type: {class: DriverRecord, ns: Vortex.Unity.DriverManagerSystem.Base, asm: ru.vortex.drivermanager}
+      data:
+        <SystemType>k__BackingField: Vortex.Core.LocalizationSystem.Bus.Localization,
+          ru.vortex.localization, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+        <DriverType>k__BackingField: Vortex.Unity.LocalizationSystem.LocalizationDriver,
+          ru.vortex.unity.localization, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    - rid: 3211524458409886020
+      type: {class: DriverRecord, ns: Vortex.Unity.DriverManagerSystem.Base, asm: ru.vortex.drivermanager}
+      data:
+        <SystemType>k__BackingField: Vortex.Core.LoggerSystem.Bus.Log, ru.vortex.logger,
+          Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+        <DriverType>k__BackingField: Vortex.Unity.LoggerSystem.LogDriver, ru.vortex.unity.logger,
+          Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    - rid: 3211524458409886021
+      type: {class: DriverRecord, ns: Vortex.Unity.DriverManagerSystem.Base, asm: ru.vortex.drivermanager}
+      data:
+        <SystemType>k__BackingField: Vortex.Core.SaveSystem.Bus.SaveController, ru.vortex.save,
+          Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+        <DriverType>k__BackingField: Vortex.Unity.SaveSystem.SaveSystemDriver, ru.vortex.unity.save,
+          Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    - rid: 3211524458409886022
+      type: {class: DriverRecord, ns: Vortex.Unity.DriverManagerSystem.Base, asm: ru.vortex.drivermanager}
+      data:
+        <SystemType>k__BackingField: Vortex.Core.SettingsSystem.Bus.Settings, ru.vortex.settings,
+          Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+        <DriverType>k__BackingField: Vortex.Unity.SettingsSystem.SettingsDriver,
+          ru.vortex.unity.settings, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null

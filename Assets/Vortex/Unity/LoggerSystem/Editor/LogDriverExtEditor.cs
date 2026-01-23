@@ -10,7 +10,9 @@ namespace Vortex.Unity.LoggerSystem
     {
         static LogDriver()
         {
-            Log.SetDriver(new LogDriver());
+            if (!Log.SetDriver(new LogDriver()))
+                return;
+
             Log.Print(new LogData(LogLevel.Warning, "Log driver connected", "LogDriver"));
         }
     }

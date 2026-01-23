@@ -9,7 +9,7 @@ namespace Vortex.Core.System.Abstractions
     /// </summary>
     /// <typeparam name="T">Сам системный контроллер (рефлекс-линк)</typeparam>
     /// <typeparam name="TD">Драйвер</typeparam>
-    public abstract class SystemController<T, TD> : Singleton<T>
+    public abstract class SystemController<T, TD> : Singleton<T>, ISystemController
         where T : SystemController<T, TD>, new()
         where TD : ISystemDriver
     {
@@ -42,7 +42,12 @@ namespace Vortex.Core.System.Abstractions
         /// запускаются процессы отключения старого драйвера и инициализации нового</returns>
         public static bool SetDriver(TD driver)
         {
-            if (Driver != null && Driver.Equals(driver))
+            if (driver == null)
+                return false;
+
+            var systemTypeName = Instance.GetType().AssemblyQualifiedName ?? string.Empty;
+            if (!DriversGenericList.WhiteList.TryGetValue(systemTypeName, out var driverType)
+                || driverType != driver.GetType().AssemblyQualifiedName)
                 return false;
 
             if (Driver != null && !Driver.Equals(driver))
@@ -93,5 +98,11 @@ namespace Vortex.Core.System.Abstractions
 
             InitQueue?.Clear();
         }
+
+        /// <summary>
+        /// Возвращает интерфейс драйвера для текущей системы
+        /// </summary>
+        /// <returns></returns>
+        public static Type GetDriverType() => typeof(TD);
     }
 }

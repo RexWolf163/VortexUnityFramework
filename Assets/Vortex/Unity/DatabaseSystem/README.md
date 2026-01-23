@@ -130,19 +130,4 @@ var itemCopy = Database.GetNewRecord<ItemRecord>(guid);
 
 ---
 
-## 📁 Структура адаптера
-
-```
-Vortex.Unity.DatabaseSystem/
-├── Attributes/        – DbRecordAttribute
-├── DbSettings/        – DatabaseSettings
-├── Editor/            – редакторные расширения
-├── Enums/             – RecordTypes
-├── Model/             – частичные расширения Record
-├── Presets/           – IRecordPreset, RecordPreset<T>
-└── DatabaseDriver.cs  – основной адаптер + расширения
-```
-
----
-
 > 📝 **Примечание:** Адаптер разработан как часть фреймворка **Vortex** и требует соответствующих зависимостей. Документация по ядру предоставляется отдельно.

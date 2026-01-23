@@ -29,7 +29,9 @@ namespace Vortex.Unity.DatabaseSystem
             if (Application.isPlaying)
                 return;
             File.CreateFolders($"{Application.dataPath}/{Path}");
-            Database.SetDriver(Instance);
+            if (!Database.SetDriver(Instance))
+                return;
+
             Instance.LoadDb();
         }
 

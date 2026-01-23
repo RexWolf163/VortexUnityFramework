@@ -23,7 +23,12 @@ namespace Vortex.Unity.LocalizationSystem
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSplashScreen)]
         private static void Register()
         {
-            Localization.SetDriver(Instance);
+            if (!Localization.SetDriver(Instance))
+            {
+                Dispose();
+                return;
+            }
+
             var resources = Resources.LoadAll<LocalizationPreset>(Path);
             if (resources == null || resources.Length == 0)
             {

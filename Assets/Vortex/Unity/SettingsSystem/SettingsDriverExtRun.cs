@@ -19,6 +19,8 @@ namespace Vortex.Unity.SettingsSystem
                 else
                     Debug.LogWarning("[SettingsDriver] не удалось задать драйвер для сервиса Settings");
             }
+            else
+                Dispose();
         }
     }
 }
