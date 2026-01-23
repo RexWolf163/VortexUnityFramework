@@ -1,0 +1,16 @@
+{
+    "name": "ru.vortex.unity.mappedparameters",
+    "rootNamespace": "",
+    "references": [
+        "GUID:826a37b90dd7f8849a995e26104dd48e"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

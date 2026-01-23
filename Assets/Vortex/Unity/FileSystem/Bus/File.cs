@@ -21,7 +21,7 @@ namespace Vortex.Unity.FileSystem.Bus
             root[^1] = "_OutputFiles";
             _path = Path.Combine(root);
 #if UNITY_ANDROID && !UNITY_EDITOR
-            path = AndroidPathResolver.GetAndroidPath();
+            _path = AndroidPathResolver.GetAndroidPath();
 #endif
         }
 

@@ -537,7 +537,7 @@ MonoBehaviour:
   sceneName: menu
   tweeners:
   - {fileID: 1274564958}
-  delay: 4
+  delay: 3
 --- !u!1001 &1379343520
 PrefabInstance:
   m_ObjectHideFlags: 0

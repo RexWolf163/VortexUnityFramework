@@ -1,4 +1,17 @@
 {
-	"name": "ru.vortex.unity.extensions",
-	"references":[ "GUID:107a1ae24d335a64783f6777158a6259" ]
+    "name": "ru.vortex.unity.extensions",
+    "rootNamespace": "",
+    "references": [
+        "GUID:107a1ae24d335a64783f6777158a6259",
+        "GUID:84651a3751eca9349aac36a66bba901b"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
 }

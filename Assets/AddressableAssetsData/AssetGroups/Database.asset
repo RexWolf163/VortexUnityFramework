@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Database
+  m_EditorClassIdentifier: 
+  m_GroupName: Database
+  m_GUID: 0993ff94fdf89474eab09c855fc7f884
+  m_SerializeEntries:
+  - m_GUID: 11f984be4bea4cf4fae882d2022fb9c4
+    m_Address: Assets/Database/Sounds/Coin.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Database
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1b91d64314caa2943bc3603046ae5e8b
+    m_Address: Assets/Database/UserInterfaces/SaveLoad.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Database
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1d02362c107b3e946a2a6a01be3652c3
+    m_Address: Assets/Database/Sounds/ButtonTap.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Database
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6e52e05e327361c49b468bba770a698f
+    m_Address: Assets/Database/LogicChains/LoadingLogic.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Database
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7270c2f678ced1b4e9cfb72707e6acff
+    m_Address: Assets/Database/Music/Music.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Database
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 89bbb2afe2a69f64c8cf82a685ad142e
+    m_Address: Assets/Database/UserInterfaces/Settings.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Database
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a6cdc4eb695e7a146863273624abe2d9
+    m_Address: Assets/Database/UserInterfaces/MainUI.asset
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Database
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 5c549d6cf51e7a74a8d7d5d398a27b0d, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: f8837aef6c90ef142883d99bf21e194f, type: 2}
+    - {fileID: 11400000, guid: 8108290af8d081243a61c02b0aca6953, type: 2}

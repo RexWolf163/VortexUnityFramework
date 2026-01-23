@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2f6245547e0ad334c882453fc1713c0f, type: 3}
-  m_Name: StartSettings
+  m_Name: MainConfig
   m_EditorClassIdentifier: 
   startScene: init

@@ -1,14 +1,18 @@
 ﻿#if UNITY_EDITOR
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using Vortex.Core.DatabaseSystem.Bus;
 using Vortex.Core.Extensions.LogicExtensions;
+using Vortex.Core.SettingsSystem.Bus;
 using Vortex.Unity.DatabaseSystem.Enums;
 using Vortex.Unity.DatabaseSystem.Presets;
 using Vortex.Unity.FileSystem.Bus;
+using Object = UnityEngine.Object;
 
 namespace Vortex.Unity.DatabaseSystem
 {
@@ -17,7 +21,9 @@ namespace Vortex.Unity.DatabaseSystem
         [InitializeOnLoadMethod]
         private static void EditorRegister()
         {
-            File.CreateFolders($"{Application.dataPath}/Resources/{Path}");
+            if (Application.isPlaying)
+                return;
+            File.CreateFolders($"{Application.dataPath}/{Path}");
             Database.SetDriver(Instance);
             Instance.LoadDb();
         }
@@ -27,7 +33,25 @@ namespace Vortex.Unity.DatabaseSystem
             _recordsLink.Clear();
             _uniqRecordsLink.Clear();
             _resourcesIndex.Clear();
-            _resources = Resources.LoadAll(Path);
+
+            var labels = Settings.Data().DatabaseLabels;
+            if (labels == null || labels.Length == 0)
+            {
+                Debug.LogError(
+                    "[DatabaseDriver] Метки (лейблы) не заданы в DatabaseSettings. Ассеты базы данных должны быть типа Addressable и помечены соответствующей меткой. Эти метки необходимо указать в DatabaseSettings.");
+                return;
+            }
+
+            var ar = new List<IRecordPreset>();
+            foreach (var label in labels)
+            {
+                var op = Addressables.LoadAssetsAsync<IRecordPreset>(label, null);
+                var temp = op.WaitForCompletion();
+                ar.AddRange(temp);
+            }
+
+            _resources = new Object[ar.Count];
+            Array.Copy(ar.ToArray(), _resources, ar.Count);
             foreach (var resource in _resources)
             {
                 if (resource is not IRecordPreset data)
