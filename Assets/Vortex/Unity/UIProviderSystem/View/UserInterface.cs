@@ -1,5 +1,7 @@
 ﻿using System;
 using UnityEngine;
+using Vortex.Core.AppSystem.Bus;
+using Vortex.Core.System.Enums;
 using Vortex.Core.UIProviderSystem.Model;
 using Vortex.Unity.DatabaseSystem.Attributes;
 using Vortex.Unity.UI.Tweeners;
@@ -41,26 +43,30 @@ namespace Vortex.Unity.UIProviderSystem.View
             set => _data.Offset = ((int)value.x, (int)value.y);
         }
 
+        private bool _isRegistred = false;
+
         #endregion
 
         #region Private
 
         private void OnEnable()
         {
-            _isOpen = false;
             foreach (var tweener in tweeners)
                 tweener.Back(true);
-            _data = UIProvider.Register(preset);
-            _data.OnOpen += Check;
-            _data.OnClose += Check;
-            if (dragZone != null)
-                dragZone.OnDrag += CalcPosition;
-            _data.Init();
-            Check();
+            _isOpen = false;
+            _isRegistred = false;
+            if (App.GetState() >= AppStates.Running)
+                Registrate();
+            else
+                App.OnStart += Registrate;
         }
 
         private void OnDisable()
         {
+            App.OnStart -= Registrate;
+            if (!_isRegistred)
+                return;
+
             foreach (var condition in _data.Conditions)
                 condition.DeInit();
 
@@ -114,6 +120,20 @@ namespace Vortex.Unity.UIProviderSystem.View
             foreach (var tweener in tweeners)
                 tweener.Back();
             _isOpen = false;
+        }
+
+        private void Registrate()
+        {
+            _data = UIProvider.Register(preset);
+            if (_data == null)
+                return;
+            _data.OnOpen += Check;
+            _data.OnClose += Check;
+            if (dragZone != null)
+                dragZone.OnDrag += CalcPosition;
+            _data.Init();
+            _isRegistred = true;
+            Check();
         }
 
         #endregion

@@ -105,6 +105,8 @@ namespace Vortex.Unity.UI.Misc
         public void OnPointerUp(PointerEventData eventData)
         {
             pressed = false;
+            if (clickRegType == ClickRegType.OnUpAnywhere || inBorders && clickRegType == ClickRegType.OnUpInBorders)
+                Click();
             Set(inBorders ? ButtonState.Hover : ButtonState.Free);
 
             OnReleased?.Invoke();

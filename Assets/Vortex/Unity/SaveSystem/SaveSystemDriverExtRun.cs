@@ -6,7 +6,7 @@ namespace Vortex.Unity.SaveSystem
 {
     public partial class SaveSystemDriver : Singleton<SaveSystemDriver>
     {
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        [RuntimeInitializeOnLoadMethod]
         private static void Run()
         {
             if (!SaveController.SetDriver(Instance))

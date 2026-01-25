@@ -25,7 +25,7 @@ namespace Vortex.Unity.FileSystem.Bus
 #endif
         }
 
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        [RuntimeInitializeOnLoadMethod]
         private static void Init() => MakeAppPath();
 
         /// <summary>

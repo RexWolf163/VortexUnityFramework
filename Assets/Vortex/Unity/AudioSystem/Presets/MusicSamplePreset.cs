@@ -2,8 +2,8 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Vortex.Core.DatabaseSystem.Model.Enums;
 using Vortex.Unity.AudioSystem.Model;
-using Vortex.Unity.DatabaseSystem.Enums;
 using Vortex.Unity.DatabaseSystem.Presets;
 
 namespace Vortex.Unity.AudioSystem.Presets

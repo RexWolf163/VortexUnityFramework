@@ -1,15 +1,15 @@
 using System.Text;
-using Sirenix.Utilities;
 using UnityEngine;
-
-#if UNITY_EDITOR
+using Vortex.Core.System.Abstractions;
+using Vortex.Unity.CoreAssetsSystem;
+using Sirenix.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using Sirenix.OdinInspector;
-using Vortex.Core.System.Abstractions;
-using Vortex.Unity.CoreAssetsSystem;
+
+#if UNITY_EDITOR
 using UnityEditor;
 #endif
 

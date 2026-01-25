@@ -4,6 +4,7 @@ using UnityEngine;
 using Vortex.Core.AppSystem.Bus;
 using Vortex.Core.LoaderSystem.Bus;
 using Vortex.Core.LocalizationSystem;
+using Vortex.Core.LocalizationSystem.Bus;
 using Vortex.Core.System.Enums;
 using Vortex.Unity.LocalizationSystem;
 using Vortex.Unity.UI.Attributes;
@@ -90,9 +91,12 @@ namespace Vortex.Unity.Components.LoaderSystem
                 var progress = loadingData.Size == 0
                     ? 0
                     : Mathf.Floor(100f * loadingData.Progress / loadingData.Size);
-                uiComponent.SetText(String.Format(loadingTextPattern.Translate(), step, size,
-                    loadingData.Name.TryTranslate(),
-                    progress));
+                if (!Localization.IsInit)
+                    uiComponent.SetText("");
+                else
+                    uiComponent.SetText(String.Format(loadingTextPattern.Translate(), step, size,
+                        loadingData.Name.TryTranslate(),
+                        progress));
             }
         }
     }

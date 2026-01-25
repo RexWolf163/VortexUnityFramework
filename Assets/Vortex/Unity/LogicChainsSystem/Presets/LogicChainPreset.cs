@@ -2,9 +2,9 @@
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using UnityEngine;
+using Vortex.Core.DatabaseSystem.Model.Enums;
 using Vortex.Core.LogicChainsSystem.Model;
 using Vortex.Core.System.Abstractions.SystemControllers;
-using Vortex.Unity.DatabaseSystem.Enums;
 using Vortex.Unity.DatabaseSystem.Presets;
 
 namespace Vortex.Unity.LogicChainsSystem.Presets

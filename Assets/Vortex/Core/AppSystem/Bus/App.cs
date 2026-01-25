@@ -14,6 +14,8 @@ namespace Vortex.Core.AppSystem.Bus
         {
             get
             {
+                if (_data != null && _data._state == AppStates.WaitSettings)
+                    Init();
                 if (_data != null)
                     return _data;
 

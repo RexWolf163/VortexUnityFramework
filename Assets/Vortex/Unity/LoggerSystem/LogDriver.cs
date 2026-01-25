@@ -13,7 +13,7 @@ namespace Vortex.Unity.LoggerSystem
     {
         public event Action OnInit;
 
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        [RuntimeInitializeOnLoadMethod]
         private static void Run()
         {
             Log.SetDriver(new LogDriver());

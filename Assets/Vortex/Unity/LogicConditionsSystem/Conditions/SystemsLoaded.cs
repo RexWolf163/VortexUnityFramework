@@ -31,7 +31,6 @@ namespace Vortex.Unity.LogicConditionsSystem.Conditions
 
         public override bool Check() => App.GetState() == AppStates.Running;
 
-        [ShowInInspector, DisplayAsString, HideLabel]
         protected override string ConditionName => "Wait all systems loading";
     }
 }

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 using Vortex.Core.DatabaseSystem.Model;
-using Vortex.Unity.DatabaseSystem.Enums;
+using Vortex.Core.DatabaseSystem.Model.Enums;
 
 namespace Vortex.Unity.DatabaseSystem.Attributes
 {

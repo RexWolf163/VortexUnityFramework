@@ -1,10 +1,9 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using Vortex.Core.DatabaseSystem.Bus;
+using Vortex.Core.DatabaseSystem.Model.Enums;
 using Vortex.Core.LogicChainsSystem.Bus;
 using Vortex.Core.LogicChainsSystem.Model;
 using Vortex.Unity.DatabaseSystem.Attributes;
-using Vortex.Unity.DatabaseSystem.Enums;
 
 namespace Vortex.Unity.LogicChainsSystem.Handlers
 {

@@ -41,7 +41,7 @@ namespace Vortex.Unity.Extensions.Editor
             return DropdownSelector(rect, _label, _value, _dropItems, rightOffSet);
         }
 
-        private static T DropdownSelector<T>(Rect _rect, GUIContent _label, T _value, ValueDropdownList<T> _dropItems,
+        public static T DropdownSelector<T>(Rect _rect, GUIContent _label, T _value, ValueDropdownList<T> _dropItems,
             int rightOffSet = 0)
         {
             if (_label != null)

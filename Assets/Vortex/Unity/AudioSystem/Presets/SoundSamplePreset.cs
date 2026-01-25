@@ -1,8 +1,8 @@
 ﻿using System;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Vortex.Core.DatabaseSystem.Model.Enums;
 using Vortex.Unity.AudioSystem.Model;
-using Vortex.Unity.DatabaseSystem.Enums;
 using Vortex.Unity.DatabaseSystem.Presets;
 using Random = UnityEngine.Random;
 

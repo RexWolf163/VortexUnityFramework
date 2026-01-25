@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Vortex.Core.DatabaseSystem.Model;
 using Vortex.Core.LoggerSystem.Bus;
@@ -18,7 +19,7 @@ namespace Vortex.Core.DatabaseSystem.Bus
         /// <summary>
         /// Список ключей записей, выдаваемых в виде новых записей с заполнением из пресета 
         /// </summary>
-        private HashSet<string> _uniqRecords = new();
+        private HashSet<string> _multiInstanceRecords = new();
 
         /// <summary>
         /// Возвращает запись из БД по GUID приведенная к указанному типа
@@ -30,7 +31,7 @@ namespace Vortex.Core.DatabaseSystem.Bus
         {
             if (!Instance._singletonRecords.ContainsKey(guid))
             {
-                if (Instance._uniqRecords.Contains(guid))
+                if (Instance._multiInstanceRecords.Contains(guid))
                 {
                     Log.Print(
                         new LogData(LogLevel.Error,
@@ -70,19 +71,31 @@ namespace Vortex.Core.DatabaseSystem.Bus
         /// Возвращает все имеющиеся в реестре записи указанного типа
         /// </summary>
         /// <returns></returns>
-        public static List<T> GetRecords<T>() where T : Record
+        public static T[] GetRecords<T>() where T : Record
+        {
+            var list = GetRecords(typeof(T));
+            var result = new T[list.Length];
+            Array.Copy(list, result, result.Length);
+            return result;
+        }
+
+        /// <summary>
+        /// Возвращает все имеющиеся в реестре записи указанного типа
+        /// </summary>
+        /// <returns></returns>
+        public static Record[] GetRecords(Type recordClass)
         {
             var list = Instance._singletonRecords.Values;
-            var result = new List<T>();
+            var result = new List<Record>();
             foreach (var record in list)
             {
-                var tmp = record as T;
-                if (tmp == null)
+                var tmp = record;
+                if (!recordClass.IsAssignableFrom(tmp.GetType()))
                     continue;
                 result.Add(tmp);
             }
 
-            return result;
+            return result.ToArray();
         }
 
         /// <summary>
@@ -96,7 +109,7 @@ namespace Vortex.Core.DatabaseSystem.Bus
         /// </summary>
         protected override void OnDriverConnect()
         {
-            Driver.SetIndex(_singletonRecords, _uniqRecords);
+            Driver.SetIndex(_singletonRecords, _multiInstanceRecords);
             SaveController.Register(this);
         }
 
@@ -116,7 +129,7 @@ namespace Vortex.Core.DatabaseSystem.Bus
         /// <returns></returns>
         public static bool TestRecord(string guid)
         {
-            if (Instance._uniqRecords.Contains(guid))
+            if (Instance._multiInstanceRecords.Contains(guid))
                 return true;
 
             if (Instance._singletonRecords.ContainsKey(guid))
@@ -126,5 +139,11 @@ namespace Vortex.Core.DatabaseSystem.Bus
                 new LogData(LogLevel.Error, $"Record not found for GUID: {guid}", Instance));
             return false;
         }
+
+        /// <summary>
+        /// Возвращает перечень ключей для мультиинстанс-записей
+        /// </summary>
+        /// <returns></returns>
+        public static string[] GetMultiInstancePresets() => Instance._multiInstanceRecords.ToArray();
     }
 }

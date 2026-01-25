@@ -1,8 +1,9 @@
 using Sirenix.OdinInspector;
-using UnityEditor;
 using UnityEngine;
+using Vortex.Core.AppSystem.Bus;
 using Vortex.Core.LocalizationSystem;
 using Vortex.Core.LocalizationSystem.Bus;
+using Vortex.Core.System.Enums;
 using Vortex.Unity.LocalizationSystem;
 using Vortex.Unity.UI.UIComponents.Attributes;
 using Vortex.Unity.UI.UIComponents;
@@ -33,16 +34,29 @@ namespace Vortex.Unity.Components.Misc.LocalizationSystem
             }
 
             Localization.OnLocalizationChanged += RefreshData;
+            App.OnStart += RefreshData;
             RefreshData();
         }
 
         private void OnDisable()
         {
             Localization.OnLocalizationChanged -= RefreshData;
+            App.OnStart -= RefreshData;
         }
 
         [Button("Set Locale")]
-        private void RefreshData() => uiComponent.SetText(useLocalization ? key.Translate() : key);
+        private void RefreshData()
+        {
+            var state = App.GetState();
+#if UNITY_EDITOR
+            if (!Application.isPlaying)
+                state = AppStates.Running;
+#endif
+            if (state < AppStates.Running)
+                uiComponent.SetText("");
+            else
+                uiComponent.SetText(useLocalization ? key.Translate() : key);
+        }
 
 #if UNITY_EDITOR
         [OnInspectorInit]

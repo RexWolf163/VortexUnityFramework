@@ -20,7 +20,7 @@ namespace Vortex.Unity.LocalizationSystem
 
         public ProcessData GetProcessInfo() => _processData;
 
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSplashScreen)]
+        [RuntimeInitializeOnLoadMethod]
         private static void Register()
         {
             if (!Localization.SetDriver(Instance))
@@ -29,6 +29,7 @@ namespace Vortex.Unity.LocalizationSystem
                 return;
             }
 
+            //TODO - перенести в addressable ассеты
             var resources = Resources.LoadAll<LocalizationPreset>(Path);
             if (resources == null || resources.Length == 0)
             {
@@ -37,7 +38,7 @@ namespace Vortex.Unity.LocalizationSystem
             }
 
             _resource = resources[0];
-            Loader.Register<LocalizationDriver>();
+            Loader.Register(Instance);
         }
 
         public async Task RunAsync(CancellationToken cancellationToken)
@@ -69,7 +70,7 @@ namespace Vortex.Unity.LocalizationSystem
                     await Task.Yield();
             }
 
-            TimeController.Accumulate(CallOnInit, this);
+            TimeController.Call(CallOnInit, this);
             await Task.CompletedTask;
         }
 

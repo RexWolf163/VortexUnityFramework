@@ -83,15 +83,74 @@ namespace Vortex.Core.LoaderSystem.Bus
 
         /// <summary>
         /// Регистрация в очереди на загрузку
+        /// <param name="process"></param>
+        /// </summary>
+        public static void Register(IProcess process)
+        {
+            if (Settings.Data()?.DebugMode ?? false)
+                Log.Print(LogLevel.Common, $"Регистрация системы: {process.GetType().Name}", "Loader");
+
+            var processType = process.GetType();
+            if (Queue.ContainsKey(processType))
+            {
+                Log.Print(LogLevel.Warning, $"Попытка повторной регистрации системы: {process.GetType().Name}",
+                    "Loader");
+                return;
+            }
+
+            Queue.AddNew(process.GetType(), process);
+            _size = Queue.Count;
+        }
+
+        /// <summary>
+        /// Регистрация в очереди на загрузку
+        /// Внимание! Будет создан новый экземпляр класса!
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        public static void Register<T>() where T : IProcess, new()
+        public static object Register<T>() where T : IProcess, new()
         {
-            if (Settings.Data().DebugMode)
-                Log.Print(new LogData(LogLevel.Common, $"Register system: {typeof(T).Name}", "Loader"));
-            var type = typeof(T);
-            Queue.AddNew(type, new T());
-            _size = Queue.Count;
+            var processType = typeof(T);
+            if (Queue.ContainsKey(processType))
+            {
+                Log.Print(LogLevel.Warning, $"Попытка повторной регистрации системы: {processType.Name}",
+                    "Loader");
+                return null;
+            }
+
+            var newProcess = new T() as IProcess;
+            Register(newProcess);
+            return newProcess;
+        }
+
+        /// <summary>
+        /// Снятие системы с регистрации в очередь на загрузку
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        public static void UnRegister<T>() where T : IProcess, new()
+        {
+            var process = typeof(T);
+            UnRegister(process);
+        }
+
+        /// <summary>
+        /// Снятие системы с регистрации в очередь на загрузку
+        /// </summary>
+        /// <param name="processType"></param>
+        public static void UnRegister(Type processType)
+        {
+            if (Queue.ContainsKey(processType))
+                Queue.Remove(processType);
+        }
+
+        /// <summary>
+        /// Снятие системы с регистрации в очередь на загрузку
+        /// </summary>
+        /// <param name="process"></param>
+        public static void UnRegister(IProcess process)
+        {
+            var processType = process.GetType();
+            if (Queue.ContainsKey(processType) && Queue[processType] == process)
+                Queue.Remove(processType);
         }
 
         /// <summary>

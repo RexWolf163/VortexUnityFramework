@@ -13,7 +13,7 @@ namespace Vortex.Core.System.Abstractions
         where T : SystemController<T, TD>, new()
         where TD : ISystemDriver
     {
-        protected static bool IsInit;
+        public static bool IsInit { get; protected set; }
 
         /// <summary>
         /// очередь ожидающих инициализации системы

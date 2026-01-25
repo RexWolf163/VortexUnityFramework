@@ -41,19 +41,25 @@ namespace Vortex.Core.AppSystem.Bus
         /// <returns></returns>
         public static bool SetState(AppStates state)
         {
-            if (Data._state == state)
+            if (_data._state == state)
                 return false;
+
+            if (Settings.Data() == null)
+            {
+                _data._state = AppStates.WaitSettings;
+                return false;
+            }
 
             if (Settings.Data().AppStateDebugMode)
                 Log.Print(new LogData(LogLevel.Common, $"AppState: {state}", "App"));
 
-            var old = Data._state;
-            Data._state = state;
+            var old = _data._state;
+            _data._state = state;
             OnStateChanged?.Invoke(state);
-            if (old == AppStates.Starting && Data._state == AppStates.Running)
+            if (old == AppStates.Starting && _data._state == AppStates.Running)
                 OnStart?.Invoke();
 
-            switch (Data._state)
+            switch (_data._state)
             {
                 case AppStates.Starting:
                     OnStarting?.Invoke();

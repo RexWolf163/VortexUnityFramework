@@ -11,6 +11,8 @@ namespace Vortex.Unity.CoreAssetsSystem
 {
     public static class CoreAssetsController
     {
+        private const string Path = "Resources";
+
         [InitializeOnLoadMethod]
         private static void InitializeOnLoad()
         {
@@ -23,7 +25,7 @@ namespace Vortex.Unity.CoreAssetsSystem
         [MenuItem("Vortex/Debug/Check Core Assets")]
         private static void EditorRegister()
         {
-            File.CreateFolders($"{Application.dataPath}/Resources");
+            File.CreateFolders($"{Application.dataPath}/{Path}");
 
             //Создание ассетов настроек
             var assemblies = AppDomain.CurrentDomain.GetAssemblies();
@@ -47,8 +49,8 @@ namespace Vortex.Unity.CoreAssetsSystem
                 if (resources.Contains(type))
                     continue;
                 var so = ScriptableObject.CreateInstance(type);
-                AssetDatabase.CreateAsset(so, $"Assets/Resources/{type.Name}.asset");
-                Debug.Log($"Create new settings preset {type.Name}");
+                AssetDatabase.CreateAsset(so, $"Assets/{Path}/{type.Name}.asset");
+                Debug.Log($"Create new settings preset {Path}/{type.Name}");
             }
         }
     }

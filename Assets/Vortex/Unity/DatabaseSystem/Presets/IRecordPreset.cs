@@ -1,5 +1,5 @@
 ﻿using Vortex.Core.DatabaseSystem.Model;
-using Vortex.Unity.DatabaseSystem.Enums;
+using Vortex.Core.DatabaseSystem.Model.Enums;
 
 namespace Vortex.Unity.DatabaseSystem.Presets
 {
@@ -20,7 +20,6 @@ namespace Vortex.Unity.DatabaseSystem.Presets
         /// Наименование элемента БД
         /// </summary>
         string Name { get; }
-
 
         /// <summary>
         /// Возвращает модель данных заполненную из хранилища
