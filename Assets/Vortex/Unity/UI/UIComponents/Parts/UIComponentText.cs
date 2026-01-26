@@ -18,9 +18,12 @@ namespace Vortex.Unity.UI.UIComponents.Parts
         [OnInspectorInit]
         private void Search()
         {
-            if (textField != null)
-                return;
-            textField = GetComponent<Text>();
+            if (textField == null)
+                textField = GetComponent<Text>();
+            if (textMPField == null)
+                textMPField = GetComponent<TextMeshPro>();
+            if (textMPUiField == null)
+                textMPUiField = GetComponent<TextMeshProUGUI>();
         }
 #endif
         public void PutData(string text)
