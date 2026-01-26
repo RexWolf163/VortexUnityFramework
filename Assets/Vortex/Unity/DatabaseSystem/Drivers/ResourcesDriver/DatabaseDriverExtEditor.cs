@@ -33,13 +33,6 @@ namespace Vortex.Unity.DatabaseSystem.Drivers.ResourcesDriver
 
             if (Settings.Data() == null)
                 return;
-            var labels = Settings.Data().DatabaseLabels;
-            if (labels == null || labels.Length == 0)
-            {
-                Debug.LogError(
-                    "[DatabaseDriver] Метки (лейблы) не заданы в DatabaseSettings. Ассеты базы данных должны быть типа Addressable и помечены соответствующей меткой. Эти метки необходимо указать в DatabaseSettings.");
-                return;
-            }
 
             _resources = Resources.LoadAll(Path);
             foreach (var resource in _resources)

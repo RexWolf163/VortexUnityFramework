@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using UnityEditor;
 using UnityEngine;
-using ParametersMap = Vortex.Unity.MappedParametersSystem.Base.Preset.ParametersMap;
+using Vortex.Unity.MappedParametersSystem.Base.Preset;
 
 namespace Vortex.Unity.MappedParametersSystem.Editor
 {
@@ -12,7 +12,7 @@ namespace Vortex.Unity.MappedParametersSystem.Editor
         [MenuItem("Vortex/Debug/Export Mapped Parameters into Graph")]
         public static void ExportGraph()
         {
-            var maps = Resources.LoadAll<ParametersMap>("");
+            var maps = Resources.LoadAll<ParametersMapStorage>("");
             if (maps.Length == 0)
             {
                 Debug.LogWarning("No ParametersMap found in Resources.");
@@ -38,7 +38,7 @@ namespace Vortex.Unity.MappedParametersSystem.Editor
             }
         }
 
-        private static string BuildGraph(ParametersMap map)
+        private static string BuildGraph(ParametersMapStorage map)
         {
             var sb = new StringBuilder();
             sb.AppendLine("digraph Parameters {");

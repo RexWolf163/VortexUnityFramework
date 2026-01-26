@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Vortex.Unity.MappedParametersSystem.Base.Preset
 {
-    public partial class ParametersMap
+    public partial class ParametersMapStorage
     {
 #if UNITY_EDITOR
 
@@ -94,9 +94,10 @@ namespace Vortex.Unity.MappedParametersSystem.Base.Preset
                     continue;
 
                 var ar = mappedParam.Parents.Where(s => !list.Contains(s.Parent)).ToArray();
-                foreach (var parameterLink in ar)
+                foreach (var parameterLink in mappedParam.Parents)
                 {
-                    parameterLink.parent = "";
+                    if (parameterLink is MappedParameterLink p)
+                        p.parent = "";
                     Debug.LogError($"\u2757 Несуществующий родитель у параметра {mappedParam.Name}");
                 }
             }
@@ -130,7 +131,8 @@ namespace Vortex.Unity.MappedParametersSystem.Base.Preset
             {
                 if (road.Contains(parent.Parent))
                 {
-                    parent.parent = "";
+                    if (parent is MappedParameterLink p)
+                        p.parent = "";
                     Debug.LogError($"\u2757 Обнаружен цикличный указатель родителей для параметра «{preset.Name}»");
                     continue;
                 }

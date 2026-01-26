@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Vortex.Core.MappedParametersSystem.Base;
 using Vortex.Core.System.Abstractions;
 
 namespace Vortex.Core.MappedParametersSystem
@@ -10,6 +11,6 @@ namespace Vortex.Core.MappedParametersSystem
         /// Ключом является AssemblyQualifiedName
         /// </summary>
         /// <param name="indexMaps"></param>
-        void SetIndex(Dictionary<string, IMappedParametersGroup> indexMaps);
+        void SetIndex(Dictionary<string, ParametersMap> indexMaps);
     }
 }

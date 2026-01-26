@@ -4,10 +4,11 @@ using System.Linq;
 using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
+using Vortex.Core.MappedParametersSystem.Base;
 
 namespace Vortex.Unity.MappedParametersSystem.Base.Preset
 {
-    public partial class ParametersMap
+    public partial class ParametersMapStorage
     {
         #region DTO
 
@@ -23,7 +24,7 @@ namespace Vortex.Unity.MappedParametersSystem.Base.Preset
         {
             public string name;
             public MappedParameterLinkDTO[] parents;
-            public MappedParameterParentCostLogic costLogic;
+            public ParameterLinkCostLogic costLogic;
         }
 
         [Serializable]

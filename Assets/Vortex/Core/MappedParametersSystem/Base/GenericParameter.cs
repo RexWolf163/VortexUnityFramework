@@ -1,4 +1,5 @@
 using System;
+using Vortex.Core.Extensions.LogicExtensions.Actions;
 
 namespace Vortex.Core.MappedParametersSystem.Base
 {
@@ -11,6 +12,8 @@ namespace Vortex.Core.MappedParametersSystem.Base
     [Serializable]
     public class GenericParameter
     {
+        public event Action OnUpdate;
+
         /// <summary>
         /// Название параметра
         /// </summary>
@@ -27,6 +30,12 @@ namespace Vortex.Core.MappedParametersSystem.Base
         /// Установить новое значение
         /// </summary>
         /// <param name="value"></param>
-        public void SetValue(int value) => Value = value;
+        public void SetValue(int value)
+        {
+            if (Value == value)
+                return;
+            Value = value;
+            OnUpdate.Fire();
+        }
     }
 }

@@ -41,6 +41,14 @@ namespace Vortex.Unity.Extensions.Editor
             return DropdownSelector(rect, _label, _value, _dropItems, rightOffSet);
         }
 
+        public static T DropdownSelector<T>(Rect _rect, GUIContent _label, T _value, IEnumerable<T> _items,
+            int rightOffSet = 0)
+        {
+            var dropItems = new ValueDropdownList<T>();
+            dropItems.AddRange(_items.Select(item => new ValueDropdownItem<T>(GetLabelDefault(item), item)));
+            return DropdownSelector(_rect, _label, _value, dropItems, rightOffSet);
+        }
+
         public static T DropdownSelector<T>(Rect _rect, GUIContent _label, T _value, ValueDropdownList<T> _dropItems,
             int rightOffSet = 0)
         {

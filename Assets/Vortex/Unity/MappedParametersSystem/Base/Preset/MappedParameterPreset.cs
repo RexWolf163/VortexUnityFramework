@@ -4,12 +4,13 @@ using System.Linq;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 using UnityEngine;
+using Vortex.Core.MappedParametersSystem.Base;
 using Vortex.Unity.Extensions.Attributes;
 
 namespace Vortex.Unity.MappedParametersSystem.Base.Preset
 {
     [HideReferenceObjectPicker, Serializable, FoldoutClass("$GetFoldoutName")]
-    public class MappedParameterPreset
+    public class MappedParameterPreset : IParameterMap
     {
         [SerializeField] internal string name;
 
@@ -24,24 +25,35 @@ namespace Vortex.Unity.MappedParametersSystem.Base.Preset
         /// <summary>
         /// Родители для параметра
         /// </summary>
-        public MappedParameterLink[] Parents => parents;
+        public IParameterLink[] Parents => parents.Select(p => p as IParameterLink).ToArray();
 
         /// <summary>
         /// Логика проверки стоимости (справочный параметр)
         /// </summary>
         [SerializeField, HideIf("@parents.Length <= 1")]
-        internal MappedParameterParentCostLogic costLogic;
+        internal ParameterLinkCostLogic costLogic;
 
-        public MappedParameterParentCostLogic CostLogic => costLogic;
+        public ParameterLinkCostLogic CostLogic => costLogic;
+
+        public int Cost { get; }
+
+        public MappedParameterPreset()
+        {
+        }
+
+        public MappedParameterPreset(string name)
+        {
+            this.name = name;
+        }
 
 #if UNITY_EDITOR
         /// <summary>
         /// Карта-владелец параметра
         /// В редакторе должна передаваться внутрь этого класса через EditorInit
         /// </summary>
-        private Base.Preset.ParametersMap map;
+        private ParametersMapStorage map;
 
-        internal void EditorInit(Base.Preset.ParametersMap map)
+        internal void EditorInit(ParametersMapStorage map)
         {
             this.map = map;
             foreach (var parent in parents)
@@ -63,7 +75,7 @@ namespace Vortex.Unity.MappedParametersSystem.Base.Preset
         }
 
         private List<string> GetParentVariants() => map.GetParamsNames();
-
+        
         private void OnListChanged() => EditorInit(map);
 #endif
     }

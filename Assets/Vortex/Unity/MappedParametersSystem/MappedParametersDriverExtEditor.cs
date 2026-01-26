@@ -1,5 +1,6 @@
 ﻿using UnityEditor;
 using UnityEngine;
+using Vortex.Core.Extensions.LogicExtensions;
 using Vortex.Core.MappedParametersSystem.Bus;
 using Vortex.Unity.FileSystem.Bus;
 using Vortex.Unity.MappedParametersSystem.Base;
@@ -24,7 +25,7 @@ namespace Vortex.Unity.MappedParametersSystem
 
         private void LoadData()
         {
-            var resources = Resources.LoadAll<ParametersMap>("");
+            var resources = Resources.LoadAll<ParametersMapStorage>("");
             if (resources == null || resources.Length == 0)
             {
                 Debug.LogError("Localization Data asset not found");
@@ -33,11 +34,7 @@ namespace Vortex.Unity.MappedParametersSystem
 
             _indexMaps.Clear();
             foreach (var map in resources)
-            {
-                var name = map.GetType().AssemblyQualifiedName;
-                if (name != null)
-                    _indexMaps.Add(name, new MappedParametersGroup(map));
-            }
+                _indexMaps.AddNew(map.guid, GetMap(map));
         }
     }
 }

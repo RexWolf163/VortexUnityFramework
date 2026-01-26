@@ -10,7 +10,7 @@ namespace Vortex.Core.MappedParametersSystem.Bus
     /// </summary>
     public class MappedParameters : SystemController<MappedParameters, IDriverMappedParameters>
     {
-        private static Dictionary<string, IMappedParametersGroup> _parametersMaps = new();
+        private static Dictionary<string, ParametersMap> _parametersMaps = new();
 
         protected override void OnDriverConnect()
         {
@@ -22,32 +22,60 @@ namespace Vortex.Core.MappedParametersSystem.Bus
         }
 
         /// <summary>
-        /// Получить перечень параметров для карты указанного типа
+        /// Получить перечень параметров для карты c указанным Guid
+        /// В качестве guid используется FullName
+        /// ВНИМАНИЕ! Соблюдайте осторожность! Нельзя допускать совпадающих идентификаторов
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
-        public static string[] GetParameters<T>() => GetParameters(typeof(T));
+        /// <returns>NULL если преданный тип не приводится к IMappedModel</returns>
+        public static GenericParameter[] GetParameters<T>() where T : IMappedModel => GetParameters(typeof(T));
 
         /// <summary>
-        /// Получить перечень параметров для карты указанного типа
+        /// Получить перечень параметров для карты c указанным Guid
+        /// В качестве guid используется FullName
+        /// ВНИМАНИЕ! Соблюдайте осторожность! Нельзя допускать совпадающих идентификаторов
         /// </summary>
         /// <param name="type"></param>
-        /// <returns></returns>
-        public static string[] GetParameters(Type type)
+        /// <returns>NULL если преданный тип не приводится к IMappedModel</returns>
+        public static GenericParameter[] GetParameters(Type type)
         {
-            return type.AssemblyQualifiedName == null
-                ? Array.Empty<string>()
-                : GetParameters(type.AssemblyQualifiedName);
+            if (!typeof(IMappedModel).IsAssignableFrom(type))
+                return null;
+            var name = type.FullName;
+
+            return name != null && _parametersMaps.TryGetValue(name, out var result)
+                ? result.GetParameters()
+                : Array.Empty<GenericParameter>();
         }
 
         /// <summary>
-        /// Получить перечень параметров для карты указанного типа (AssemblyQualifiedName)
+        /// Возвращает модель данных построенную по карте с guid совпадающим с FullName указанного типа
         /// </summary>
-        /// <param name="name"></param>
+        /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public static string[] GetParameters(string name) =>
-            _parametersMaps.TryGetValue(name, out var result)
-                ? result.GetParametersList()
-                : Array.Empty<string>();
+        public static IMappedModel GetModel<T>() => GetModel(typeof(T));
+
+        /// <summary>
+        /// Возвращает модель данных построенную по карте с guid совпадающим с FullName указанного типа
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static IMappedModel GetModel(Type type)
+        {
+            if (!typeof(IMappedModel).IsAssignableFrom(type))
+                return null;
+            var name = type.FullName;
+
+            if (name == null)
+                return null;
+            _parametersMaps.TryGetValue(name, out var map);
+            if (map == null)
+                return null;
+
+            if (Activator.CreateInstance(type) is not IMappedModel result)
+                return null;
+            result.Init(map);
+            return result;
+        }
     }
 }

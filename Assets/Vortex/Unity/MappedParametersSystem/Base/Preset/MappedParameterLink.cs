@@ -2,11 +2,12 @@ using System;
 using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Vortex.Core.MappedParametersSystem.Base;
 
 namespace Vortex.Unity.MappedParametersSystem.Base.Preset
 {
     [HideReferenceObjectPicker, Serializable]
-    public class MappedParameterLink
+    public class MappedParameterLink : IParameterLink
     {
         [SerializeField, ValueDropdown("GetParentVariants"), HideLabel] [HorizontalGroup("Parent")]
         internal string parent;
@@ -35,14 +36,14 @@ namespace Vortex.Unity.MappedParametersSystem.Base.Preset
         /// Карта-владелец параметра
         /// В редакторе должна передаваться внутрь этого класса через EditorInit
         /// </summary>
-        private Base.Preset.ParametersMap map;
+        private ParametersMapStorage map;
 
         /// <summary>
         /// Параметр-владелец линка
         /// </summary>
         private MappedParameterPreset owner;
 
-        public void EditorInit(Base.Preset.ParametersMap map, MappedParameterPreset owner)
+        public void EditorInit(ParametersMapStorage map, MappedParameterPreset owner)
         {
             this.map = map;
             this.owner = owner;

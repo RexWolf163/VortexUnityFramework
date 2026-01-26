@@ -1,29 +1,19 @@
-﻿#if UNITY_EDITOR
-using System;
-using System.Linq;
+﻿using System.Linq;
 using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities;
 using UnityEditor;
 using UnityEngine;
-using Vortex.Core.MappedParametersSystem.Base;
 using Vortex.Core.MappedParametersSystem.Bus;
 using Vortex.Unity.Extensions.Editor;
 using Vortex.Unity.MappedParametersSystem.Base.Preset;
 
 namespace Vortex.Unity.MappedParametersSystem.Attributes
 {
-    public class MappedParameterAttributeDrawer : OdinAttributeDrawer<MappedParameterAttribute, string>
+    public class MappedModelAttributeDrawer : OdinAttributeDrawer<MappedModelAttribute, string>
     {
         protected override void DrawPropertyLayout(GUIContent label)
         {
-            var type = Attribute.PresetType;
-            var error = ValueEntry.SmartValue.IsNullOrWhitespace()
-                        || type == null
-                        || !typeof(IMappedModel).IsAssignableFrom(type);
-
-            var model = type != null ? MappedParameters.GetParameters(type) : null;
-            if (model == null)
-                error = true;
+            var error = ValueEntry.SmartValue.IsNullOrWhitespace();
 
             var btnWidth = error || ValueEntry.SmartValue.IsNullOrWhitespace() ? 0f : 40f;
             var controlRect =
@@ -47,7 +37,12 @@ namespace Vortex.Unity.MappedParametersSystem.Attributes
                 controlRect.height
             );
 
-            var list = model?.Select(p => p.Name) ?? Array.Empty<string>();
+            var resource = Resources.LoadAll<ParametersMapStorage>("");
+            if (resource == null || resource.Length == 0)
+                return;
+
+            //TODO переделать под сменный драйвер
+            var list = resource.Select(p => p.guid);
             ValueEntry.SmartValue = OdinDropdownTool.DropdownSelector(dropdownRect, label, ValueEntry.SmartValue, list);
             if (EditorGUI.EndChangeCheck())
                 GUI.color = color;
@@ -79,9 +74,8 @@ namespace Vortex.Unity.MappedParametersSystem.Attributes
             var resource = Resources.LoadAll<ParametersMapStorage>("");
             if (resource == null || resource.Length == 0)
                 return;
-            var res = resource.FirstOrDefault(p => p.guid == Attribute.PresetType.FullName);
+            var res = resource.FirstOrDefault(p => p.guid == ValueEntry.SmartValue);
             Selection.activeObject = res;
         }
     }
 }
-#endif
