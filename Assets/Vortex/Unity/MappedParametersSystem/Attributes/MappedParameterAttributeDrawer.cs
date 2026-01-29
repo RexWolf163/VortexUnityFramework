@@ -21,7 +21,7 @@ namespace Vortex.Unity.MappedParametersSystem.Attributes
                         || type == null
                         || !typeof(IMappedModel).IsAssignableFrom(type);
 
-            var model = type != null ? MappedParameters.GetParameters(type) : null;
+            var model = type != null ? ParameterMaps.GetParameters(type) : null;
             if (model == null)
                 error = true;
 

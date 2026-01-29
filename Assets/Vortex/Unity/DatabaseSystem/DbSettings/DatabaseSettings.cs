@@ -13,6 +13,7 @@ namespace Vortex.Unity.DatabaseSystem.DbSettings
     [Serializable]
     public class DatabaseSettings : SettingsPreset
     {
+        [BoxGroup("Addressable Database Driver")]
         [InfoBox("Для выбора доступны только те лейблы, которые назначены ассетам!")]
         [SerializeField, ValueDropdown("GetLabels")]
         private string[] databaseLabels;

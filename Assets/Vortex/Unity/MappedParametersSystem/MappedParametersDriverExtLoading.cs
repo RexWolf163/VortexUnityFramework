@@ -21,7 +21,7 @@ namespace Vortex.Unity.MappedParametersSystem
         [RuntimeInitializeOnLoadMethod]
         private static void Register()
         {
-            if (!MappedParameters.SetDriver(Instance))
+            if (!ParameterMaps.SetDriver(Instance))
             {
                 Dispose();
                 return;

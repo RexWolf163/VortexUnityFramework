@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Sirenix.Utilities;
 using Vortex.Core.MappedParametersSystem.Base;
 using Vortex.Core.System.Abstractions;
 
@@ -8,7 +9,7 @@ namespace Vortex.Core.MappedParametersSystem.Bus
     /// <summary>
     /// Система доступа к схемам связанных параметров
     /// </summary>
-    public class MappedParameters : SystemController<MappedParameters, IDriverMappedParameters>
+    public class ParameterMaps : SystemController<ParameterMaps, IDriverMappedParameters>
     {
         private static Dictionary<string, ParametersMap> _parametersMaps = new();
 
@@ -42,8 +43,19 @@ namespace Vortex.Core.MappedParametersSystem.Bus
             if (!typeof(IMappedModel).IsAssignableFrom(type))
                 return null;
             var name = type.FullName;
+            return GetParameters(name);
+        }
 
-            return name != null && _parametersMaps.TryGetValue(name, out var result)
+        /// <summary>
+        /// Получить перечень параметров для карты c указанным Guid
+        /// В качестве guid используется FullName
+        /// ВНИМАНИЕ! Соблюдайте осторожность! Нельзя допускать совпадающих идентификаторов
+        /// </summary>
+        /// <param name="typeFullName"></param>
+        /// <returns>NULL если преданный тип не приводится к IMappedModel</returns>
+        public static GenericParameter[] GetParameters(string typeFullName)
+        {
+            return !typeFullName.IsNullOrWhitespace() && _parametersMaps.TryGetValue(typeFullName, out var result)
                 ? result.GetParameters()
                 : Array.Empty<GenericParameter>();
         }
