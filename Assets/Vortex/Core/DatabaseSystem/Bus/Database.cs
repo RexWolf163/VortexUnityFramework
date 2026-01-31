@@ -68,6 +68,13 @@ namespace Vortex.Core.DatabaseSystem.Bus
         }
 
         /// <summary>
+        /// Возвращает перечень ключей для мультиинстанс-записей
+        /// с фильтром по типу модели
+        /// </summary>
+        /// <returns></returns>
+        public static T[] GetNewRecords<T>() where T : Record, new() => Driver.GetNewRecords<T>();
+
+        /// <summary>
         /// Возвращает все имеющиеся в реестре записи указанного типа
         /// </summary>
         /// <returns></returns>

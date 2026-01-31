@@ -13,11 +13,11 @@ namespace Vortex.Core.System
             },
             {
                 "Vortex.Core.MappedParametersSystem.Bus.ParameterMaps, ru.vortex.core.mappedparameters, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
-                "Vortex.Unity.MappedParametersSystem.MappedParametersDriver, ru.vortex.unity.mappedparameters, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"
+                ""
             },
             {
                 "Vortex.Core.DatabaseSystem.Bus.Database, ru.vortex.database, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",
-                "Vortex.Unity.DatabaseSystem.Drivers.ResourcesDriver.DatabaseDriver, ru.vortex.unity.database, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"
+                "Vortex.Unity.DatabaseSystem.Drivers.AddressablesDriver.DatabaseDriver, ru.vortex.unity.database, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null"
             },
             {
                 "Vortex.Core.LocalizationSystem.Bus.Localization, ru.vortex.localization, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null",

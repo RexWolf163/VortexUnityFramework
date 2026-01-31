@@ -119,10 +119,7 @@ namespace Vortex.Unity.DriverManagerSystem.Base
         private void SaveConfig()
         {
             if (drivers.Any(r => r.DriverType.IsNullOrWhitespace() || r.SystemType.IsNullOrWhitespace()))
-            {
-                Debug.LogError("[DriverConfig] Нельзя сохранять недозаполненный конфиг");
-                return;
-            }
+                Debug.LogWarning("[DriverConfig] Был сохранен конфиг с отключенными драйверами!");
 
             var assetsPath = Application.dataPath;
             var allFiles = Directory.GetFiles(assetsPath, CfgFileName, SearchOption.AllDirectories);

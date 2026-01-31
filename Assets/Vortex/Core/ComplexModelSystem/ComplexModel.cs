@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Vortex.Core.Extensions.LogicExtensions.SerializationSystem;
 using Vortex.Core.LoggerSystem.Bus;
 using Vortex.Core.LoggerSystem.Model;
 
@@ -19,7 +20,7 @@ namespace Vortex.Core.ComplexModelSystem
         /// </summary>
         private static readonly Dictionary<Type, Type[]> Cache = new();
 
-        public Dictionary<Type, T> Index { get; protected set; } = new();
+        protected Dictionary<Type, T> Index { get; set; } = new();
 
         /// <summary>
         /// Инициализация новой модели структурой
@@ -76,8 +77,37 @@ namespace Vortex.Core.ComplexModelSystem
             return null;
         }
 
-        public abstract string Serialize();
+        /// <summary>
+        /// Сериализует модель в Json строку Vortex
+        /// </summary>
+        /// <returns></returns>
+        public virtual string Serialize()
+        {
+            BeforeSerialization();
+            var json = Index.SerializeProperties();
+            AfterSerialization();
+            return json;
+        }
 
-        public abstract void Deserialize(string data);
+        /// <summary>
+        /// Десериализует модель из json строки Vortex
+        /// </summary>
+        public virtual void Deserialize(string data)
+        {
+            BeforeDeserialization();
+            if (string.IsNullOrEmpty(data))
+            {
+                Log.Print(LogLevel.Error, $"Attempt to deserialize from null or empty data.", this);
+                return;
+            }
+
+            Index = data.DeserializeProperties<Dictionary<Type, T>>();
+            AfterDeserialization();
+        }
+
+        protected abstract void BeforeSerialization();
+        protected abstract void BeforeDeserialization();
+        protected abstract void AfterSerialization();
+        protected abstract void AfterDeserialization();
     }
 }

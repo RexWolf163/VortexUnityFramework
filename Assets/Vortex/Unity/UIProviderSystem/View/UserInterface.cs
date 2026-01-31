@@ -3,6 +3,7 @@ using UnityEngine;
 using Vortex.Core.AppSystem.Bus;
 using Vortex.Core.System.Enums;
 using Vortex.Core.UIProviderSystem.Model;
+using Vortex.Unity.AppSystem.System.TimeSystem;
 using Vortex.Unity.DatabaseSystem.Attributes;
 using Vortex.Unity.UI.Tweeners;
 using UIProvider = Vortex.Core.UIProviderSystem.Bus.UIProvider;
@@ -51,18 +52,21 @@ namespace Vortex.Unity.UIProviderSystem.View
 
         private void OnEnable()
         {
+            /*
             foreach (var tweener in tweeners)
                 tweener.Back(true);
+            */
             _isOpen = false;
             _isRegistred = false;
             if (App.GetState() >= AppStates.Running)
-                Registrate();
+                TimeController.Call(Registrate, this);
             else
                 App.OnStart += Registrate;
         }
 
         private void OnDisable()
         {
+            TimeController.RemoveCall(this);
             App.OnStart -= Registrate;
             if (!_isRegistred)
                 return;

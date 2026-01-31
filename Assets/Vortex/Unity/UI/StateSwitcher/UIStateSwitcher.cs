@@ -314,7 +314,7 @@ namespace Vortex.Unity.UI.StateSwitcher
         private void OnEnable()
         {
             if (_setOnEnableState)
-                Set(_stateOnEnable);
+                Reset();
         }
 
 #if UNITY_EDITOR

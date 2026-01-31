@@ -1,9 +1,9 @@
-﻿using System.Linq;
+﻿#if UNITY_EDITOR
+using System.Linq;
 using Sirenix.OdinInspector.Editor;
 using Sirenix.Utilities;
 using UnityEditor;
 using UnityEngine;
-using Vortex.Core.MappedParametersSystem.Bus;
 using Vortex.Unity.Extensions.Editor;
 using Vortex.Unity.MappedParametersSystem.Base.Preset;
 
@@ -79,3 +79,5 @@ namespace Vortex.Unity.MappedParametersSystem.Attributes
         }
     }
 }
+
+#endif

@@ -25,7 +25,7 @@ namespace Vortex.Unity.DriverManagerSystem.Base
         private string GetSystemLabel()
         {
             var systemType = Type.GetType(SystemType);
-            return systemType != null ? systemType.Name : "ERROR!!!";
+            return systemType != null ? systemType.Name : "[Switched Off]";
         }
 
         public DriverRecord(string systemType)
@@ -37,7 +37,7 @@ namespace Vortex.Unity.DriverManagerSystem.Base
 
         private ValueDropdownList<string> GetDrivers()
         {
-            var res = new ValueDropdownList<string> { { "ERROR!!!", "" } };
+            var res = new ValueDropdownList<string> { { "[Switched Off]", "" } };
             var systemType = Type.GetType(SystemType);
             if (systemType == null)
                 return res;

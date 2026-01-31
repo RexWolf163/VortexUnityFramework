@@ -1,4 +1,5 @@
-﻿using Vortex.Core.DatabaseSystem.Model;
+﻿using System;
+using Vortex.Core.DatabaseSystem.Model;
 using Vortex.Core.DatabaseSystem.Model.Enums;
 
 namespace Vortex.Unity.DatabaseSystem.Presets
@@ -26,5 +27,19 @@ namespace Vortex.Unity.DatabaseSystem.Presets
         /// </summary>
         /// <returns></returns>
         public Record GetData();
+
+        /// <summary>
+        /// Проверка на соответствие типа контейнера данных и пресета
+        /// </summary>
+        /// <typeparam name="TU"></typeparam>
+        /// <returns></returns>
+        public bool CheckRecordType<TU>() where TU : Record;
+
+        /// <summary>
+        /// Проверка на соответствие типа контейнера данных и пресета
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public bool CheckRecordType(Type type);
     }
 }

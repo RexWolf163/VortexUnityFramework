@@ -20,5 +20,13 @@ namespace Vortex.Core.DatabaseSystem
         /// <param name="guid"></param>
         /// <returns></returns>
         public T GetNewRecord<T>(string guid) where T : Record, new();
+
+        /// <summary>
+        /// Возвращает новые экземпляры для всех multyinstance пресетов в БД
+        /// чьи модели отвечают указанному типу
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public T[] GetNewRecords<T>() where T : Record, new();
     }
 }

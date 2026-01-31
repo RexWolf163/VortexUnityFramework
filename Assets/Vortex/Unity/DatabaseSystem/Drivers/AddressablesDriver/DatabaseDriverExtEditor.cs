@@ -3,7 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+#if ENABLE_ADDRESSABLES
 using UnityEngine.AddressableAssets;
+#endif
 using Vortex.Core.DatabaseSystem;
 using Vortex.Core.DatabaseSystem.Bus;
 using Vortex.Core.SettingsSystem.Bus;
@@ -34,7 +36,7 @@ namespace Vortex.Unity.DatabaseSystem.Drivers.AddressablesDriver
             if (Application.isPlaying)
                 return;
             DatabaseDriverBase.Clean();
-
+#if ENABLE_ADDRESSABLES
             var labels = Settings.Data().DatabaseLabels;
             if (labels == null || labels.Length == 0)
             {
@@ -60,6 +62,7 @@ namespace Vortex.Unity.DatabaseSystem.Drivers.AddressablesDriver
                     continue;
                 DatabaseDriverBase.PutData(data);
             }
+#endif
         }
 
         /// <summary>

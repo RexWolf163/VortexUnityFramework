@@ -40,6 +40,14 @@ namespace Vortex.Unity.DatabaseSystem.Drivers.AddressablesDriver
         /// <returns></returns>
         public T GetNewRecord<T>(string guid) where T : Record, new() => DatabaseDriverBase.GetNewRecord<T>(guid);
 
+        /// <summary>
+        /// Возвращает новые экземпляры для всех multyinstance пресетов в БД
+        /// чьи модели отвечают указанному типу
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public T[] GetNewRecords<T>() where T : Record, new() => DatabaseDriverBase.GetNewRecords<T>();
+
         public void Destroy()
         {
             if (Settings.Data().DebugMode)

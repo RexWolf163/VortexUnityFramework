@@ -20,14 +20,15 @@ namespace Vortex.Core.SaveSystem.Bus
         private static readonly HashSet<ISaveable> Saveables = new();
 
         /// <summary>
-        /// токен-ресурс прерывания
+        /// Токен-ресурс прерывания
+        /// Добавлен на будущее. На данный момент не используется
         /// </summary>
-        private static readonly CancellationTokenSource CancelTokenSource = new();
+        private static CancellationTokenSource _сancelTokenSource = new();
 
         /// <summary>
         /// Токен прерывания
         /// </summary>
-        private static CancellationToken Token => CancelTokenSource.Token;
+        private static CancellationToken Token => _сancelTokenSource.Token;
 
         /// <summary>
         /// Событие начала сохранения
@@ -82,6 +83,9 @@ namespace Vortex.Core.SaveSystem.Bus
         /// <param name="guid"></param>
         public static async void Save(string name, string guid = null)
         {
+            //Замок от перезапуска
+            if (State == SaveControllerStates.Saving)
+                return;
             State = SaveControllerStates.Saving;
             OnSaveStart?.Invoke();
             try

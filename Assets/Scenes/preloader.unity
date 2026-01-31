@@ -921,7 +921,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   switcher: {fileID: 0}
   uiComponent: {fileID: 1595806079}
-  loadingTextPattern: LOADING_PROGRESS
+  loadingTextPattern: "{0} ({1}) \u2192 {2}: {3}%"
 --- !u!222 &1805793853
 CanvasRenderer:
   m_ObjectHideFlags: 0

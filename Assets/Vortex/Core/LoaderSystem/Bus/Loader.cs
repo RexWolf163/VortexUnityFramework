@@ -103,26 +103,6 @@ namespace Vortex.Core.LoaderSystem.Bus
         }
 
         /// <summary>
-        /// Регистрация в очереди на загрузку
-        /// Внимание! Будет создан новый экземпляр класса!
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        public static object Register<T>() where T : IProcess, new()
-        {
-            var processType = typeof(T);
-            if (Queue.ContainsKey(processType))
-            {
-                Log.Print(LogLevel.Warning, $"Попытка повторной регистрации системы: {processType.Name}",
-                    "Loader");
-                return null;
-            }
-
-            var newProcess = new T() as IProcess;
-            Register(newProcess);
-            return newProcess;
-        }
-
-        /// <summary>
         /// Снятие системы с регистрации в очередь на загрузку
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -265,9 +245,10 @@ namespace Vortex.Core.LoaderSystem.Bus
 
                 IProcess controller = null;
                 var count = queue.Count;
+                var check = true;
                 for (var i = 0; i < count; i++)
                 {
-                    var check = true;
+                    check = true;
                     controller = queue[i];
                     var waitFor = controller.WaitingFor() ?? Array.Empty<Type>();
                     foreach (var type in waitFor)
@@ -292,6 +273,14 @@ namespace Vortex.Core.LoaderSystem.Bus
                         queue.RemoveAt(i);
                         break;
                     }
+                }
+
+                if (!check)
+                {
+                    Log.Print(LogLevel.Error, "Cyclic dependency detected! Unable to resolve loading order",
+                        "AppLoader");
+                    App.Exit();
+                    return;
                 }
 
                 switch (controller)

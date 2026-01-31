@@ -35,13 +35,14 @@ namespace Vortex.Unity.Components.Misc.LocalizationSystem
 
             Localization.OnLocalizationChanged += RefreshData;
             App.OnStart += RefreshData;
-            RefreshData();
+            Localization.OnInit += RefreshData;
         }
 
         private void OnDisable()
         {
             Localization.OnLocalizationChanged -= RefreshData;
             App.OnStart -= RefreshData;
+            Localization.OnInit -= RefreshData;
         }
 
         [Button("Set Locale")]

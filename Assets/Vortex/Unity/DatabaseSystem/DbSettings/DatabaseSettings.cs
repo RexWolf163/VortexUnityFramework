@@ -1,11 +1,11 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Vortex.Unity.SettingsSystem.Presets;
-#if UNITY_EDITOR
+#if UNITY_EDITOR && ENABLE_ADDRESSABLES
 using UnityEditor.AddressableAssets;
+using System.Collections.Generic;
+using System.Linq;
 #endif
 
 namespace Vortex.Unity.DatabaseSystem.DbSettings
@@ -20,7 +20,7 @@ namespace Vortex.Unity.DatabaseSystem.DbSettings
 
         public string[] DatabaseLabels => databaseLabels;
 
-#if UNITY_EDITOR
+#if UNITY_EDITOR && ENABLE_ADDRESSABLES
         private string[] GetLabels()
         {
             var settings = AddressableAssetSettingsDefaultObject.Settings;

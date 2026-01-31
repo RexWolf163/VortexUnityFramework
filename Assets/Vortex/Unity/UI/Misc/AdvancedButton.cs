@@ -131,5 +131,9 @@ namespace Vortex.Unity.UI.Misc
         /// Внешнее управление нажатием
         /// </summary>
         public void Release() => OnPointerUp(null);
+
+        public void AddOnClick(UnityAction currentAction) => OnClick += currentAction.Invoke;
+
+        public void RemoveOnClick(UnityAction currentAction) => OnClick -= currentAction.Invoke;
     }
 }

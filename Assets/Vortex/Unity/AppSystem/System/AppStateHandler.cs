@@ -49,6 +49,12 @@ namespace Vortex.Unity.AppSystem.System
         {
             if (newState == AppStates.Unfocused)
                 return;
+            if (newState == AppStates.Stopping)
+            {
+                Application.Quit();
+                return;
+            }
+
             _oldState = newState;
         }
 
@@ -63,8 +69,8 @@ namespace Vortex.Unity.AppSystem.System
                 return;
             StopAllCoroutines();
 #endif
-            App.Exit();
             App.OnStateChanged -= OnStateChanged;
+            App.Exit();
         }
 
 #if UNITY_EDITOR

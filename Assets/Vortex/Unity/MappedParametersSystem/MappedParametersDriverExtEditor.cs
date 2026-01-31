@@ -27,7 +27,7 @@ namespace Vortex.Unity.MappedParametersSystem
             var resources = Resources.LoadAll<ParametersMapStorage>("");
             if (resources == null || resources.Length == 0)
             {
-                Debug.LogError("Localization Data asset not found");
+                Debug.LogWarning("MappedParameters assets not found. Switch off this Driver if not use this system.");
                 return;
             }
 

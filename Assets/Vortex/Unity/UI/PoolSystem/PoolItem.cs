@@ -15,6 +15,7 @@ namespace Vortex.Unity.UI.PoolSystem
 
         private Pool _owner;
 
+        public event Action OnUpdateLink;
         public T GetData<T>() where T : class => _data as T;
 
         internal void MakeLink(object data, Pool pool)
@@ -23,6 +24,12 @@ namespace Vortex.Unity.UI.PoolSystem
             _owner = pool;
             gameObject.SetActive(_data != null);
         }
+
+        /// <summary>
+        /// Костыль-заглушка
+        /// TODO определить применимость и пофиксить
+        /// </summary>
+        public void CallOnUpdateLink() => OnUpdateLink?.Invoke();
 
         internal void Remove() => MakeLink(null, _owner);
 

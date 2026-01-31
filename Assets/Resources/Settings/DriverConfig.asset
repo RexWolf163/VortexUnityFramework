@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   drivers:
   - rid: 3211524458409886017
-  - rid: 3211524514293743680
+  - rid: 3211524650902487109
   - rid: 3211524458409886018
   - rid: 3211524458409886019
   - rid: 3211524458409886020
@@ -66,10 +66,9 @@ MonoBehaviour:
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
         <DriverType>k__BackingField: Vortex.Unity.SettingsSystem.SettingsDriver,
           ru.vortex.unity.settings, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-    - rid: 3211524514293743680
+    - rid: 3211524650902487109
       type: {class: DriverRecord, ns: Vortex.Unity.DriverManagerSystem.Base, asm: ru.vortex.drivermanager}
       data:
-        <SystemType>k__BackingField: Vortex.Core.MappedParametersSystem.Bus.MappedParameters,
+        <SystemType>k__BackingField: Vortex.Core.MappedParametersSystem.Bus.ParameterMaps,
           ru.vortex.core.mappedparameters, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-        <DriverType>k__BackingField: Vortex.Unity.MappedParametersSystem.MappedParametersDriver,
-          ru.vortex.unity.mappedparameters, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+        <DriverType>k__BackingField: 

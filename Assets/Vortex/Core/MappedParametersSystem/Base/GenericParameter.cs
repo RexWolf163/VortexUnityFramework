@@ -24,6 +24,8 @@ namespace Vortex.Core.MappedParametersSystem.Base
         /// </summary>
         public int Value { get; internal set; }
 
+        public GenericParameter() => Name = "";
+
         public GenericParameter(string name) => Name = name;
 
         /// <summary>

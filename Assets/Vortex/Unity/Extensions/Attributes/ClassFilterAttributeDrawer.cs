@@ -1,7 +1,8 @@
-﻿using System;
-using UnityEditor;
+﻿#if UNITY_EDITOR
+using System;
 using UnityEngine;
 using Object = UnityEngine.Object;
+using UnityEditor;
 
 namespace Vortex.Unity.Extensions.Attributes
 {
@@ -48,3 +49,4 @@ namespace Vortex.Unity.Extensions.Attributes
         }
     }
 }
+#endif

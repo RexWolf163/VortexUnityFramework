@@ -34,7 +34,7 @@ namespace Vortex.Unity.DatabaseSystem.Drivers.ResourcesDriver
                 return;
             }
 
-            Loader.Register<DatabaseDriver>();
+            Loader.Register(Instance);
         }
 
         public ProcessData GetProcessInfo() => _processData;
@@ -63,7 +63,9 @@ namespace Vortex.Unity.DatabaseSystem.Drivers.ResourcesDriver
             }
 
             CallOnInit();
+#if !UNITY_EDITOR
             _resources = null;
+#endif
             await Task.CompletedTask;
         }
 

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Vortex.Core.MappedParametersSystem.Base;
 using Vortex.Core.System.Abstractions;
 
@@ -11,6 +12,8 @@ namespace Vortex.Unity.MappedParametersSystem.Handlers
     public abstract class MappedModelStorage : MonoBehaviour, IDataStorage
     {
         protected IMappedModel _data;
+
+        public abstract event Action OnUpdateLink;
 
         public T GetData<T>() where T : class
         {

@@ -54,7 +54,7 @@ namespace Vortex.Unity.MappedParametersSystem
                 }
 
                 _processData.Progress++;
-                _indexMaps.AddNew(map.GetType().AssemblyQualifiedName, GetMap(map));
+                _indexMaps.AddNew(map.guid, GetMap(map));
 
                 if (++c < 100)
                     continue;

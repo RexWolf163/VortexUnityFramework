@@ -1,4 +1,5 @@
-﻿using Sirenix.OdinInspector;
+﻿using System;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using Vortex.Core.DatabaseSystem.Model;
 using Vortex.Core.DatabaseSystem.Model.Enums;
@@ -57,6 +58,10 @@ namespace Vortex.Unity.DatabaseSystem.Presets
             record.CopyFrom(this);
             return record;
         }
+
+        public bool CheckRecordType<TU>() where TU : Record => CheckRecordType(typeof(TU));
+
+        public bool CheckRecordType(Type t) => t == typeof(T) || t.IsAssignableFrom(typeof(T));
 
 #if UNITY_EDITOR
         [Button]

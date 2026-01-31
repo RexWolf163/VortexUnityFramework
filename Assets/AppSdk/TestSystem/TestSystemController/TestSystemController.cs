@@ -21,7 +21,7 @@ namespace AppSdk.TestSystem.TestSystemController
         private static void Run()
         {
             _instance = new TestSystemController();
-            Loader.Register<TestSystemController>();
+            Loader.Register(_instance);
             SaveController.Register(_instance);
         }
 

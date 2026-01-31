@@ -9,6 +9,17 @@ using Vortex.Core.LoggerSystem.Model;
 
 namespace Vortex.Core.Extensions.LogicExtensions.SerializationSystem
 {
+    /// <summary>
+    /// Контроллер сериализации и десериализации
+    /// Обрабатывает публичные свойства с 'public' геттером и любым сеттером ('public', 'protected' или 'private').
+    /// Поля игнорируются.
+    /// Результат выводит в виде JSON строки, содержащей маркеры типов классов.
+    /// Обрабатывает словари с ключами в виде простых объектов (string, int, Type и т.п.)
+    ///
+    /// Если в нескольких полях содержится указатель на одну сущность, при сериализации выдаст исключение (защита от зацикливания)
+    ///
+    /// Примечание: Решение спорное и находится в тестировании! Применять на свой страх и риск
+    /// </summary>
     public static class SerializeController
     {
         #region Parameters
@@ -30,6 +41,8 @@ namespace Vortex.Core.Extensions.LogicExtensions.SerializationSystem
         /// Сериализует модель в строку JSON стандарта
         /// Сериализуются только публичные свойства с 'public' геттером и любым сеттером ('public', 'protected' или 'private').
         /// Поля игнорируются.
+        ///
+        /// Примечание: Решение спорное (свойства, а не поля) и находится в тестировании! Применять на свой страх и риск
         /// </summary>
         public static string SerializeProperties(this object model)
         {
@@ -181,7 +194,11 @@ namespace Vortex.Core.Extensions.LogicExtensions.SerializationSystem
         #region Deserialization
 
         /// <summary>
-        /// Десериализатор данных из строки.
+        /// Десериализатор данных из строки JSON выполненной сериализацией этого же контроллера.
+        /// Десериализуются только публичные свойства с 'public' геттером и любым сеттером ('public', 'protected' или 'private').
+        /// Есть проверка на соответствие десериализуемого типа свойству в которое должны поместиться данные
+        ///
+        /// Примечание: Решение спорное (свойства, а не поля) и находится в тестировании! Применять на свой страх и риск
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
@@ -221,6 +238,8 @@ namespace Vortex.Core.Extensions.LogicExtensions.SerializationSystem
 
 
             data = TrimData(data);
+            if (string.IsNullOrEmpty(data))
+                return null;
             var ar = SeparateText(data);
             var classId = TakeQuotesText(ar[0], out var typeName);
             typeName = typeName.Trim('"');
@@ -298,7 +317,13 @@ namespace Vortex.Core.Extensions.LogicExtensions.SerializationSystem
             data = TrimData(data, true);
             var ar = SeparateText(data);
             foreach (var s in ar)
-                list.Add(DeserializeClass(elementType, s));
+            {
+                var element = DeserializeClass(elementType, s);
+                if (element == null)
+                    continue;
+                list.Add(element);
+            }
+
             return list;
         }
 
@@ -487,6 +512,8 @@ namespace Vortex.Core.Extensions.LogicExtensions.SerializationSystem
             var closeChar = isArray ? ']' : '}';
 
             data = data.Trim(' ', '\n', '\r', '\t');
+            if (data.Length == 0)
+                return "";
             var first = -1;
             var c = data.Length;
             for (int i = 0; i < c; i++)
@@ -584,6 +611,11 @@ namespace Vortex.Core.Extensions.LogicExtensions.SerializationSystem
 
         #region Common
 
+        /// <summary>
+        /// Проверка на принадлежность к "простым" типам данных
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         private static bool IsSimpleType(Type type)
         {
             if (type == null) return true;
@@ -602,6 +634,11 @@ namespace Vortex.Core.Extensions.LogicExtensions.SerializationSystem
             return false;
         }
 
+        /// <summary>
+        /// Возвращает список свойств подлежащих сериализации
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
         private static PropertyInfo[] GetReadablePropertiesList(Type type)
         {
             if (!CacheFields.ContainsKey(type))

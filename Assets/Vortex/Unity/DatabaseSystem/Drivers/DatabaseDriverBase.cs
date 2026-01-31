@@ -3,7 +3,6 @@ using UnityEngine;
 using Vortex.Core.DatabaseSystem.Model;
 using Vortex.Core.DatabaseSystem.Model.Enums;
 using Vortex.Core.Extensions.LogicExtensions;
-using Vortex.Core.System.Abstractions.SystemControllers;
 using Vortex.Unity.DatabaseSystem.Presets;
 
 namespace Vortex.Unity.DatabaseSystem.Drivers
@@ -48,10 +47,31 @@ namespace Vortex.Unity.DatabaseSystem.Drivers
                 return null;
             }
 
-            var result = new T();
             var source = _resourcesIndex[guid];
-            result.CopyFrom(source);
+            if (!source.CheckRecordType<T>())
+                return null;
+            var result = source.GetData() as T;
             return result;
+        }
+
+        /// <summary>
+        /// Возвращает новые экземпляры для всех multyinstance пресетов в БД
+        /// чьи модели отвечают указанному типу
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        internal static T[] GetNewRecords<T>() where T : Record
+        {
+            var result = new List<T>();
+            foreach (var link in _multiInstanceRecordsLink)
+            {
+                var source = _resourcesIndex[link];
+                if (!source.CheckRecordType<T>())
+                    continue;
+                result.Add(source.GetData() as T);
+            }
+
+            return result.ToArray();
         }
 
         internal static void Clean()

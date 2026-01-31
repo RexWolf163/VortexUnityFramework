@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
+#if ENABLE_ADDRESSABLES
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
+#endif
 using Vortex.Core.DatabaseSystem.Bus;
 using Vortex.Core.LoaderSystem.Bus;
 using Vortex.Core.SettingsSystem.Bus;
@@ -39,7 +41,7 @@ namespace Vortex.Unity.DatabaseSystem.Drivers.AddressablesDriver
                 return;
             }
 
-            Loader.Register<DatabaseDriver>();
+            Loader.Register(Instance);
         }
 
         public ProcessData GetProcessInfo() => _processData;
@@ -47,7 +49,7 @@ namespace Vortex.Unity.DatabaseSystem.Drivers.AddressablesDriver
         public async Task RunAsync(CancellationToken cancellationToken)
         {
             DatabaseDriverBase.Clean();
-
+#if ENABLE_ADDRESSABLES
             var labels = Settings.Data().DatabaseLabels;
             if (labels == null || labels.Length == 0)
             {
@@ -97,6 +99,7 @@ namespace Vortex.Unity.DatabaseSystem.Drivers.AddressablesDriver
                 foreach (var handle in handles)
                     Addressables.Release(handle);
             }
+#endif
         }
 
         public Type[] WaitingFor() => Type.EmptyTypes;

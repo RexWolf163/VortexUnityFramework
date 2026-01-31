@@ -89,5 +89,18 @@ namespace Vortex.Core.MappedParametersSystem.Bus
             result.Init(map);
             return result;
         }
+
+        public static void InitMap(IMappedModel model)
+        {
+            var type = model.GetType();
+            var name = type.FullName;
+
+            if (name == null)
+                return;
+            _parametersMaps.TryGetValue(name, out var map);
+            if (map == null)
+                return;
+            model.Init(map);
+        }
     }
 }

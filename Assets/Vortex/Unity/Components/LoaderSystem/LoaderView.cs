@@ -32,7 +32,7 @@ namespace Vortex.Unity.Components.LoaderSystem
 
         [SerializeField] private UIComponent uiComponent;
 
-        [SerializeField, LocalizationKey] private string loadingTextPattern;
+        [SerializeField] private string loadingTextPattern = "{0} ({1}) → {2}: {3}%";
 
         private AppStates _state;
 
@@ -91,12 +91,9 @@ namespace Vortex.Unity.Components.LoaderSystem
                 var progress = loadingData.Size == 0
                     ? 0
                     : Mathf.Floor(100f * loadingData.Progress / loadingData.Size);
-                if (!Localization.IsInit)
-                    uiComponent.SetText("");
-                else
-                    uiComponent.SetText(String.Format(loadingTextPattern.Translate(), step, size,
-                        loadingData.Name.TryTranslate(),
-                        progress));
+                uiComponent.SetText(String.Format(loadingTextPattern, step, size,
+                    loadingData.Name.TryTranslate(),
+                    progress));
             }
         }
     }
