@@ -44,6 +44,6 @@ namespace Vortex.Core.System.Abstractions.SystemControllers
         private static PropertyInfo[] GetReadablePropertiesList(this Object source) =>
             source.GetType()
                 .GetProperties(BindingFlags.GetProperty | BindingFlags.Public | BindingFlags.Instance)
-                .Where(x => !x.CanWrite).ToArray();
+                .ToArray();
     }
 }

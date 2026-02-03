@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
-using System.Threading.Tasks;
-using Sirenix.Utilities;
 using Vortex.Core.Extensions.LogicExtensions;
 using Vortex.Core.LoggerSystem.Bus;
 using Vortex.Core.LoggerSystem.Model;
@@ -23,12 +21,12 @@ namespace Vortex.Core.SaveSystem.Bus
         /// Токен-ресурс прерывания
         /// Добавлен на будущее. На данный момент не используется
         /// </summary>
-        private static CancellationTokenSource _сancelTokenSource = new();
+        private static CancellationTokenSource _cancelTokenSource = new();
 
         /// <summary>
         /// Токен прерывания
         /// </summary>
-        private static CancellationToken Token => _сancelTokenSource.Token;
+        private static CancellationToken Token => _cancelTokenSource.Token;
 
         /// <summary>
         /// Событие начала сохранения
@@ -70,7 +68,7 @@ namespace Vortex.Core.SaveSystem.Bus
             Driver.SetIndexLink(SaveDataIndex);
         }
 
-        protected override void OnDriverDisonnect()
+        protected override void OnDriverDisconnect()
         {
             //Ignore
         }

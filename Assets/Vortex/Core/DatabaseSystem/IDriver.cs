@@ -28,5 +28,21 @@ namespace Vortex.Core.DatabaseSystem
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         public T[] GetNewRecords<T>() where T : Record, new();
+
+        /// <summary>
+        /// Проверяет соответствие пресета указанному типу
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        bool CheckPresetType<T>(string guid) where T : Record;
+
+        /*
+        /// <summary>
+        /// Возвращает тип системы к которой относится
+        /// </summary>
+        /// <returns></returns>
+        Type GetOwnerSystem();
+    */
     }
 }

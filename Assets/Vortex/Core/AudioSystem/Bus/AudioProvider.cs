@@ -33,7 +33,7 @@ namespace Vortex.Core.AudioSystem.Bus
             Driver.SetLinks(IndexSound, IndexMusic, Settings);
         }
 
-        protected override void OnDriverDisonnect()
+        protected override void OnDriverDisconnect()
         {
         }
 

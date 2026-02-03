@@ -27,12 +27,9 @@ namespace Vortex.Unity.UI.PoolSystem
         private void Awake()
         {
             _index.Clear();
-            /*
-             //TODO решить: нужно ли трогать образец?
             var list = GetComponentsInChildren<PoolItem>();
             foreach (var item in list)
                 _freeItems.Enqueue(item);
-            */
         }
 
         private void OnDestroy() => Clear();

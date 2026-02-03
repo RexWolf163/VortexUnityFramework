@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ using Vortex.Core.System.ProcessInfo;
 using Vortex.Core.LoggerSystem.Bus;
 using Vortex.Core.LoggerSystem.Model;
 using Vortex.Core.SettingsSystem.Bus;
+using Vortex.Core.System.Abstractions;
 using Vortex.Core.System.Enums;
 
 namespace Vortex.Core.LoaderSystem.Bus
@@ -71,6 +73,11 @@ namespace Vortex.Core.LoaderSystem.Bus
         /// Очередь загрузки
         /// </summary>
         private static readonly Dictionary<Type, IProcess> Queue = new();
+
+        /// <summary>
+        /// Индекс системных контроллеров
+        /// </summary>
+        private static readonly Dictionary<Type, PropertyInfo> SysControllers = new();
 
         /// <summary>
         /// Защита от мультивызова
@@ -156,33 +163,52 @@ namespace Vortex.Core.LoaderSystem.Bus
         {
             if (_isRunning)
                 return;
-            OnLoad?.Invoke();
-            _isRunning = true;
-            App.OnExit += Destroy;
-            if (Settings.Data().DebugMode)
-            {
-                var sb = new StringBuilder();
-                foreach (var entry in Queue)
-                    sb.Append(entry.Key.Name + "\n");
-                Log.Print(new LogData(LogLevel.Common,
-                    $"Loader running for {Queue.Count} systems\n<b>{sb}</b>",
-                    "Loader"));
-            }
+
+            SysControllers.Clear();
 
             try
             {
-                await Loading(Token);
-            }
-            catch (Exception ex)
-            {
-                Log.Print(new LogData(LogLevel.Error,
-                    ex.Message + "\n" + ex.StackTrace,
-                    "AppLoader"));
-            }
+                var assemblies = AppDomain.CurrentDomain.GetAssemblies();
+                foreach (var assembly in assemblies)
+                {
+                    var types = assembly.GetTypes()
+                        .Where(t => !t.IsAbstract && !t.IsInterface && typeof(ISystemController).IsAssignableFrom(t));
+                    foreach (var type in types)
+                        SysControllers.Add(type, null);
+                }
 
-            OnComplete?.Invoke();
-            App.OnExit -= Destroy;
-            App.SetState(AppStates.Running);
+                OnLoad?.Invoke();
+                _isRunning = true;
+                App.OnExit += Destroy;
+                if (Settings.Data().DebugMode)
+                {
+                    var sb = new StringBuilder();
+                    foreach (var entry in Queue)
+                        sb.Append(entry.Key.Name + "\n");
+                    Log.Print(new LogData(LogLevel.Common,
+                        $"Loader running for {Queue.Count} systems\n<b>{sb}</b>",
+                        "Loader"));
+                }
+
+                try
+                {
+                    await Loading(Token);
+                }
+                catch (Exception ex)
+                {
+                    Log.Print(new LogData(LogLevel.Error,
+                        ex.Message + "\n" + ex.StackTrace,
+                        "AppLoader"));
+                }
+
+                OnComplete?.Invoke();
+                App.OnExit -= Destroy;
+                App.SetState(AppStates.Running);
+            }
+            finally
+            {
+                SysControllers.Clear();
+            }
         }
 
         /// <summary>
@@ -253,31 +279,33 @@ namespace Vortex.Core.LoaderSystem.Bus
                     var waitFor = controller.WaitingFor() ?? Array.Empty<Type>();
                     foreach (var type in waitFor)
                     {
-                        if (!Queue.ContainsKey(type))
+                        if (!Queue.ContainsKey(type)
+                            && !typeof(ISystemController).IsAssignableFrom(type))
                         {
                             Log.Print(new LogData(LogLevel.Error,
-                                $"The expected сontroller {type} not found",
+                                $"The expected controller {type} not found",
                                 "AppLoader"));
+                            check = false;
                             continue;
                         }
 
-                        if (!loaded.Contains(type))
-                        {
-                            check = false;
-                            break;
-                        }
-                    }
+                        if (loaded.Contains(type) || CheckControllerState(type))
+                            continue;
 
-                    if (check)
-                    {
-                        queue.RemoveAt(i);
+                        check = false;
                         break;
                     }
+
+                    if (!check) continue;
+
+                    queue.RemoveAt(i);
+                    break;
                 }
 
                 if (!check)
                 {
-                    Log.Print(LogLevel.Error, "Cyclic dependency detected! Unable to resolve loading order",
+                    Log.Print(LogLevel.Error,
+                        "Cyclic or incorrect dependency detected! Unable to resolve loading order",
                         "AppLoader");
                     App.Exit();
                     return;
@@ -326,6 +354,22 @@ namespace Vortex.Core.LoaderSystem.Bus
             Log.Print(new LogData(LogLevel.Common,
                 "Loading complete",
                 "AppLoader"));
+        }
+
+        private static bool CheckControllerState(Type type)
+        {
+            if (!SysControllers.TryGetValue(type, out var property))
+                return false;
+            if (property == null)
+            {
+                property = type.GetProperty("IsInit",
+                    BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy);
+                SysControllers[type] = property;
+            }
+
+            if (property == null)
+                return false;
+            return (bool)property.GetValue(null, null);
         }
 
         #endregion

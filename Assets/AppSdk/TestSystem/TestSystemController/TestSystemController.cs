@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
+using Vortex.Core.DatabaseSystem.Bus;
 using Vortex.Core.LoaderSystem.Bus;
 using Vortex.Core.SaveSystem;
 using Vortex.Core.SaveSystem.Bus;
@@ -100,6 +101,6 @@ namespace AppSdk.TestSystem.TestSystemController
             await Task.CompletedTask;
         }
 
-        public Type[] WaitingFor() => null;
+        public Type[] WaitingFor() => Type.EmptyTypes;
     }
 }

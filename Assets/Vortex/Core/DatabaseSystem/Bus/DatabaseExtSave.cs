@@ -59,10 +59,10 @@ namespace Vortex.Core.DatabaseSystem.Bus
                 }
 
                 //Если образца нет в БД, значит игнорируем его
-                if (!_singletonRecords.ContainsKey(key))
+                if (!_singletonRecords.TryGetValue(key, out var record))
                     continue;
 
-                _singletonRecords[key].LoadFromSaveData(data[key]);
+                record.LoadFromSaveData(data[key]);
                 if (++counter != 1)
                     continue;
                 counter = 0;

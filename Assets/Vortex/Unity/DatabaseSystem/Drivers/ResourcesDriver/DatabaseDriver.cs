@@ -48,6 +48,14 @@ namespace Vortex.Unity.DatabaseSystem.Drivers.ResourcesDriver
         /// <returns></returns>
         public T[] GetNewRecords<T>() where T : Record, new() => DatabaseDriverBase.GetNewRecords<T>();
 
+        /// <summary>
+        /// Проверяет соответствие пресета указанному типу
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public bool CheckPresetType<T>(string guid) where T : Record => DatabaseDriverBase.CheckPresetType<T>(guid);
+
         public void Destroy()
         {
             if (Settings.Data().DebugMode)

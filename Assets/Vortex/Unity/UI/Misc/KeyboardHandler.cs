@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 namespace Vortex.Unity.UI.Misc
@@ -9,6 +10,8 @@ namespace Vortex.Unity.UI.Misc
     public class KeyboardHandler : MonoBehaviour
     {
         [SerializeField] private AdvancedButton button;
+        [SerializeField] private UnityEvent onPressed;
+        [SerializeField] private UnityEvent onReleased;
 
         [SerializeField] private Key[] buttonCode;
 
@@ -39,8 +42,16 @@ namespace Vortex.Unity.UI.Misc
 
         private void OnDisable() => _inputAction.Disable();
 
-        private void OnPressed(InputAction.CallbackContext context) => button?.Press();
+        private void OnPressed(InputAction.CallbackContext context)
+        {
+            button?.Press();
+            onPressed?.Invoke();
+        }
 
-        private void OnCanceled(InputAction.CallbackContext context) => button?.Release();
+        private void OnCanceled(InputAction.CallbackContext context)
+        {
+            button?.Release();
+            onReleased?.Invoke();
+        }
     }
 }

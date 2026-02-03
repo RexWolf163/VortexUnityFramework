@@ -1,4 +1,5 @@
-﻿using Vortex.Core.UIProviderSystem.Model;
+﻿using System.Linq;
+using Vortex.Core.UIProviderSystem.Model;
 using UIProvider = Vortex.Core.UIProviderSystem.Bus.UIProvider;
 
 namespace Vortex.Unity.UIProviderSystem.Model.Conditions
@@ -11,6 +12,7 @@ namespace Vortex.Unity.UIProviderSystem.Model.Conditions
         protected override void Run()
         {
             UIProvider.OnOpen += RunCallback;
+            RunCallback();
         }
 
         public override void DeInit()
@@ -21,7 +23,7 @@ namespace Vortex.Unity.UIProviderSystem.Model.Conditions
         public override ConditionAnswer Check()
         {
             var list = UIProvider.GetOpenedUIs();
-            if (list.Count == 0 || list.Contains(Data) && list.Count == 1)
+            if (list.Length == 0 || list.Contains(Data) && list.Length == 1)
                 return ConditionAnswer.Idle;
             return ConditionAnswer.Close;
         }

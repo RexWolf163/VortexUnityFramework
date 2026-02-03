@@ -41,13 +41,12 @@ namespace Vortex.Unity.DatabaseSystem.Drivers
         /// <returns></returns>
         internal static T GetNewRecord<T>(string guid) where T : Record, new()
         {
-            if (!_resourcesIndex.ContainsKey(guid))
+            if (!_resourcesIndex.TryGetValue(guid, out var source))
             {
                 Debug.LogError($"Record with GUID \"{guid}\" does not exist.");
                 return null;
             }
 
-            var source = _resourcesIndex[guid];
             if (!source.CheckRecordType<T>())
                 return null;
             var result = source.GetData() as T;
@@ -55,7 +54,7 @@ namespace Vortex.Unity.DatabaseSystem.Drivers
         }
 
         /// <summary>
-        /// Возвращает новые экземпляры для всех multyinstance пресетов в БД
+        /// Возвращает новые экземпляры для всех multiinstance пресетов в БД
         /// чьи модели отвечают указанному типу
         /// </summary>
         /// <typeparam name="T"></typeparam>
@@ -116,5 +115,14 @@ namespace Vortex.Unity.DatabaseSystem.Drivers
             _resourcesIndex[data.GuidPreset] = data;
             AddRecord(data.GetData(), data);
         }
+
+        /// <summary>
+        /// Проверяет соответствие пресета указанному типу
+        /// </summary>
+        /// <param name="guid"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        public static bool CheckPresetType<T>(string guid) where T : Record =>
+            _resourcesIndex.TryGetValue(guid, out var source) && source.CheckRecordType<T>();
     }
 }

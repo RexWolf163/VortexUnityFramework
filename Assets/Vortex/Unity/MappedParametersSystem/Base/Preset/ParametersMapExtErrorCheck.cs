@@ -94,7 +94,7 @@ namespace Vortex.Unity.MappedParametersSystem.Base.Preset
                     continue;
 
                 var ar = mappedParam.Parents.Where(s => !list.Contains(s.Parent)).ToArray();
-                foreach (var parameterLink in mappedParam.Parents)
+                foreach (var parameterLink in ar)
                 {
                     if (parameterLink is MappedParameterLink p)
                         p.parent = "";

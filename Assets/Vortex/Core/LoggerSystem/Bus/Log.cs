@@ -21,7 +21,7 @@ namespace Vortex.Core.LoggerSystem.Bus
             //Ignore
         }
 
-        protected override void OnDriverDisonnect()
+        protected override void OnDriverDisconnect()
         {
             //Ignore
         }

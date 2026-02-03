@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using Vortex.Core.LoggerSystem.Bus;
 using Vortex.Core.LoggerSystem.Model;
 using Vortex.Core.UIProviderSystem.Enums;
@@ -70,19 +70,10 @@ namespace Vortex.Core.UIProviderSystem.Bus
         /// Возвращает открытые Common интерфейсы
         /// </summary>
         /// <returns></returns>
-        public static List<UserInterfaceData> GetOpenedUIs()
+        public static UserInterfaceData[] GetOpenedUIs()
         {
             var list = Uis.Values;
-            var result = new List<UserInterfaceData>();
-            foreach (var ui in list)
-            {
-                if (ui.UIType != UserInterfaceTypes.Common)
-                    continue;
-                if (ui.IsOpen)
-                    result.Add(ui);
-            }
-
-            return result;
+            return list.Where(ui => ui.UIType == UserInterfaceTypes.Common).Where(ui => ui.IsOpen).ToArray();
         }
 
         #endregion

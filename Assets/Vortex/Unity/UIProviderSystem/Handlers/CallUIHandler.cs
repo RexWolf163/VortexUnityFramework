@@ -1,10 +1,9 @@
 ﻿using System;
+using System.Linq;
 using UnityEngine;
 using Vortex.Core.UIProviderSystem.Model;
 using Vortex.Unity.DatabaseSystem.Attributes;
 using Vortex.Unity.UI.UIComponents;
-using Vortex.Unity.UIProviderSystem.Model;
-using Vortex.Unity.UIProviderSystem.Model.Conditions;
 using UIProvider = Vortex.Core.UIProviderSystem.Bus.UIProvider;
 
 namespace Vortex.Unity.UIProviderSystem.Handlers
@@ -32,6 +31,14 @@ namespace Vortex.Unity.UIProviderSystem.Handlers
         public virtual void CallUI()
         {
             if (closeUI)
+                CloseUI();
+            else
+                OpenUI();
+        }
+
+        public virtual void ToggleUI()
+        {
+            if (UIProvider.GetOpenedUIs().Any(u => u.GuidPreset == uiId))
                 CloseUI();
             else
                 OpenUI();

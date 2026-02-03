@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using Vortex.Unity.Extensions.Editor;
 
 namespace Vortex.Unity.DatabaseSystem.Drivers.AddressablesDriver.Editor
@@ -12,3 +13,4 @@ namespace Vortex.Unity.DatabaseSystem.Drivers.AddressablesDriver.Editor
         public string GetDefineString() => "ENABLE_ADDRESSABLES";
     }
 }
+#endif

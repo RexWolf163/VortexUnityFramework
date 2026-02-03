@@ -53,7 +53,7 @@ namespace Vortex.Core.System.Abstractions
             if (Driver != null && !Driver.Equals(driver))
             {
                 Driver.OnInit -= CallOnInit;
-                Instance.OnDriverDisonnect();
+                Instance.OnDriverDisconnect();
                 Driver.Destroy();
                 Driver = driver;
                 Instance.OnDriverConnect();
@@ -83,7 +83,7 @@ namespace Vortex.Core.System.Abstractions
         /// <summary>
         /// Обработка отключения нового драйвера
         /// </summary>
-        protected abstract void OnDriverDisonnect();
+        protected abstract void OnDriverDisconnect();
 
         /// <summary>
         /// Вызов всех "ожиданцев" после инициализации драйвера

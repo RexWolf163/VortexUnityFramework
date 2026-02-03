@@ -91,6 +91,7 @@ namespace Vortex.Core.LogicChainsSystem.Bus
                         catch (Exception ex)
                         {
                             Log.Print(new LogData(LogLevel.Error, ex.Message, chain));
+                            condition.DeInit();
                         }
                     });
             }

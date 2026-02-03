@@ -29,7 +29,7 @@ namespace Vortex.Core.DatabaseSystem.Bus
         /// <returns></returns>
         public static T GetRecord<T>(string guid) where T : Record, new()
         {
-            if (!Instance._singletonRecords.ContainsKey(guid))
+            if (!Instance._singletonRecords.TryGetValue(guid, out var singletonRec))
             {
                 if (Instance._multiInstanceRecords.Contains(guid))
                 {
@@ -44,7 +44,8 @@ namespace Vortex.Core.DatabaseSystem.Bus
                 return null;
             }
 
-            var record = Instance._singletonRecords[guid] as T;
+            //var record = Instance._singletonRecords[guid] as T;
+            var record = singletonRec as T;
             if (record == null)
                 Log.Print(
                     new LogData(LogLevel.Error, $"Record «{typeof(T).Name}» not found for GUID: {guid}", Instance));
@@ -123,7 +124,7 @@ namespace Vortex.Core.DatabaseSystem.Bus
         /// <summary>
         /// Обработка отключения нового драйвера
         /// </summary>
-        protected override void OnDriverDisonnect()
+        protected override void OnDriverDisconnect()
         {
             SaveController.UnRegister(this);
         }
@@ -152,5 +153,12 @@ namespace Vortex.Core.DatabaseSystem.Bus
         /// </summary>
         /// <returns></returns>
         public static string[] GetMultiInstancePresets() => Instance._multiInstanceRecords.ToArray();
+
+        /// <summary>
+        /// Возвращает перечень ключей для мультиинстанс-записей указанного типа
+        /// </summary>
+        /// <returns></returns>
+        public static string[] GetMultiInstancePresets<T>() where T : Record => Instance._multiInstanceRecords
+            .Where(guid => Driver.CheckPresetType<T>(guid)).ToArray();
     }
 }

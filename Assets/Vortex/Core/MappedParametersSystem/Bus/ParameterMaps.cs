@@ -18,7 +18,7 @@ namespace Vortex.Core.MappedParametersSystem.Bus
             Driver.SetIndex(_parametersMaps);
         }
 
-        protected override void OnDriverDisonnect()
+        protected override void OnDriverDisconnect()
         {
         }
 
@@ -57,7 +57,7 @@ namespace Vortex.Core.MappedParametersSystem.Bus
         {
             return !typeFullName.IsNullOrWhitespace() && _parametersMaps.TryGetValue(typeFullName, out var result)
                 ? result.GetParameters()
-                : Array.Empty<GenericParameter>();
+                : null;
         }
 
         /// <summary>

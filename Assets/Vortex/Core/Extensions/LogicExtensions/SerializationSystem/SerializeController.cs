@@ -537,7 +537,7 @@ namespace Vortex.Core.Extensions.LogicExtensions.SerializationSystem
 
 
             if (first >= 0)
-                return data.Substring(first, last - first - 1);
+                return data.Substring(first, last - first);
             Log.Print(LogLevel.Error, $"Char {openChar} not found", "SerializeController");
             return null;
         }

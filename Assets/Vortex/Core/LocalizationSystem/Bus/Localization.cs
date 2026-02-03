@@ -19,7 +19,7 @@ namespace Vortex.Core.LocalizationSystem.Bus
         /// <summary>
         /// Значение текущей локали
         /// </summary>
-        private static string СurrentLanguage => _currentLanguage;
+        private static string CurrentLanguage => _currentLanguage;
 
         /// <summary>
         /// Индекс локализованных фрагментов
@@ -33,7 +33,7 @@ namespace Vortex.Core.LocalizationSystem.Bus
             Driver.OnLocalizationChanged += CallOnLocalization;
         }
 
-        protected override void OnDriverDisonnect()
+        protected override void OnDriverDisconnect()
         {
             Driver.OnLocalizationChanged -= CallOnLocalization;
         }
@@ -42,7 +42,7 @@ namespace Vortex.Core.LocalizationSystem.Bus
         /// Узнать текущую локаль приложения 
         /// </summary>
         /// <returns></returns>
-        public static string GetCurrentLanguage() => СurrentLanguage;
+        public static string GetCurrentLanguage() => CurrentLanguage;
 
         /// <summary>
         /// Установить язык для приложения

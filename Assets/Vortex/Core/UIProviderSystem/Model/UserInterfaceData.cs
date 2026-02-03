@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 using Vortex.Core.DatabaseSystem.Model;
 using Vortex.Core.UIProviderSystem.Bus;
 using Vortex.Core.UIProviderSystem.Enums;
@@ -88,13 +89,21 @@ namespace Vortex.Core.UIProviderSystem.Model
             var state = IsOpen ? ConditionAnswer.Open : ConditionAnswer.Close;
             foreach (var condition in Conditions)
             {
-                var answer = condition.Check();
-                if (answer == ConditionAnswer.Idle)
-                    continue;
-                if (answer == ConditionAnswer.Open)
+                try
                 {
-                    state = ConditionAnswer.Open;
-                    continue;
+                    var answer = condition.Check();
+                    switch (answer)
+                    {
+                        case ConditionAnswer.Idle:
+                            continue;
+                        case ConditionAnswer.Open:
+                            state = ConditionAnswer.Open;
+                            continue;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogException(ex);
                 }
 
                 Close();
